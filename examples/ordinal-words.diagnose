@@ -1,0 +1,359 @@
+***********
+* Summary *
+***********
+
+181 undefined knowledge(s).
+1 autoreference(s) are introduced twice.
+1 autoreference(s) are used but not introduced.
+
+44 autoreference(s) are properly used.
+1 autoreference(s) are defined but not used.
+
+
+********
+* Help *
+********
+
+\knowledgeconfigure{diagnose bar=false} deactivate `|'-notation in diagnose file.
+\knowledgeconfigure{diagnose help=false} deactivate long help in the diagnose file.
+\knowledgeconfigure{diagnose line=true} add line numbers to diagnose file.
+
+************************
+* Undefined knowledges *
+************************
+
+\knowledge{ignore}
+% introduction.tex:5
+ | \FO -separability
+ | \FO -formula
+ | countable ordinal words
+% introduction.tex:6
+ | separation problem
+% introduction.tex:7
+ | regular languages of countable ordinal words
+% introduction.tex:9
+ | yes
+ | \FO -separator
+% introduction.tex:10
+ | separates
+% introduction.tex:11
+ | ie
+% introduction.tex:12
+ | no
+ | witness function
+% introduction.tex:13
+ | \FO -sentence
+% introduction.tex:23
+ | Countable ordinal words
+% introduction.tex:24
+ | regular languages@COW
+% introduction.tex:31
+ | countable ordinals
+ | ordinal monoids
+% introduction.tex:35
+ | \FO -pointlike sets
+ | ordinal monoid
+% introduction.tex:36
+ | \FO -definable@lang
+ | saturation
+ | \FO -approximant
+% introduction.tex:41
+ | aperiodic
+ | syntactic monoid
+ | \(\Jeq \)-trivial
+% introduction.tex:42
+ | aperiodic pointlike sets
+ | covering problem
+% introduction.tex:46
+ | covering problems
+% introduction.tex:49
+ | scattered@linord
+% introduction.tex:53
+ | \FO -separation
+% introduction.tex:57
+ | first-order logic
+ | first-order definable maps
+% introduction.tex:58
+ | algorithm
+% introduction.tex:60
+ | pointlikes
+% preliminaries.tex:10
+ | linear ordering
+% preliminaries.tex:11
+ | countable@linord
+ | finite@linord
+% preliminaries.tex:12
+ | linear orderings
+% preliminaries.tex:13
+ | morphism@linord
+% preliminaries.tex:15
+ | isomorphism@linord
+% preliminaries.tex:16
+ | morphism@linord
+% preliminaries.tex:18
+ | sum@linord
+ | product@linord
+% preliminaries.tex:42
+ | well-founded
+% preliminaries.tex:44
+ | ordinal
+% preliminaries.tex:45
+ | isomorphism@linord
+% preliminaries.tex:48
+ | ordinals
+% preliminaries.tex:50
+ | embedding@linord
+% preliminaries.tex:53
+ | successor ordinal
+% preliminaries.tex:54
+ | limit ordinal
+% preliminaries.tex:94
+ | word
+% preliminaries.tex:95
+ | domain
+% preliminaries.tex:97
+ | countable@word
+ | finite@word
+ | scattered@word
+ | $\omega $-word
+% preliminaries.tex:98
+ | countable@linord
+ | finite@linord
+ | scattered@linord
+% preliminaries.tex:99
+ | countable ordinal word
+ | countable@linord
+ | ordinal@linord
+% preliminaries.tex:102
+ | finite words
+% preliminaries.tex:112
+ | omega iteration
+% preliminaries.tex:132
+ | semigroup
+% preliminaries.tex:133
+ | monoid
+% preliminaries.tex:137
+ | idempotent
+% preliminaries.tex:139
+ | idempotent power
+% preliminaries.tex:147
+ | group-trivial
+% preliminaries.tex:150
+ | countable ordinal
+% preliminaries.tex:152
+ | words
+% preliminaries.tex:168
+ | generalised product
+% preliminaries.tex:177
+ | generalised associativity
+% preliminaries.tex:186
+ | ordinal monoid morphism
+% preliminaries.tex:192
+ | ordered ordinal monoid
+% preliminaries.tex:196
+ | alphabet
+ | recognised@OM
+% preliminaries.tex:200
+ | recognisable@OM
+% preliminaries.tex:201
+ | recognisable@OM
+% preliminaries.tex:202
+ | regular@cow
+% preliminaries.tex:236
+ | presentation@OM
+% preliminaries.tex:244
+ | power ordinal monoid
+% preliminaries.tex:299
+ | Free variables
+% preliminaries.tex:300
+ | free variables
+% preliminaries.tex:303
+ | valuation
+% preliminaries.tex:304
+ | word@ord
+% preliminaries.tex:310
+ | word@ord
+% preliminaries.tex:315
+ | satisfies
+ | accepts
+% preliminaries.tex:319
+ | \FO -definable@lang
+% preliminaries.tex:321
+ | words@ord
+% preliminaries.tex:339
+ | Bedon's theorem
+% preliminaries.tex:341
+ | \FO -definable@lang
+% preliminaries.tex:342
+ | recognised@OM
+% preliminaries.tex:348
+ | \FO -definable@map
+% preliminaries.tex:350
+ | \FO -definable language
+% preliminaries.tex:352
+ | \FO -definable@map
+% preliminaries.tex:375
+ | \FO -definable@map
+% preliminaries.tex:378
+ | \FO -definable@map
+% preliminaries.tex:397
+ | condensation
+% preliminaries.tex:407
+ | condensation formula
+% preliminaries.tex:425
+ | finite condensation
+% preliminaries.tex:432
+ | word@ord
+% preliminaries.tex:437
+ | \FO -definable functions
+% preliminaries.tex:438
+ | \FO -definable function
+% preliminaries.tex:444
+ | condensation \FO -formula
+% preliminaries.tex:452
+ | \FO -definable@map
+% algorithm.tex:84
+ | recognised@OM
+% algorithm.tex:122
+ | \(\omega \)-iteration
+% algorithm.tex:160
+ | words@ord
+ | words@ord
+ | words@ord
+ | words@ord
+ | words@ord
+ | words@ord
+ | words@ord
+ | words@ord
+ | words@ord
+ | words@ord
+ | words@ord
+ | words@ord
+ | words@ord
+ | words@ord
+ | words@ord
+ | words@ord
+ | words@ord
+ | words@ord
+ | words@ord
+ | words@ord
+ | words@ord
+ | words@ord
+ | words@ord
+ | words@ord
+% algorithm.tex:182
+ | \FO -definable@lang
+ | recognising@OM
+% algorithm.tex:186
+ | presentation@OM
+% algorithm.tex:193
+ | \FO -separable
+% algorithm.tex:206
+ | \FO -separator sentence
+% algorithm.tex:207
+ | pointlike sets
+% answer-no.tex:10
+ | quantifier depth
+% answer-no.tex:12
+ | \FOk -equivalent
+% answer-no.tex:61
+ | \FO -separated
+% answer-no.tex:164
+ | \FO -inseparability
+% answer-yes.tex:8
+ | ordinal monoids with merge
+% answer-yes.tex:9
+ | \FO -approximants
+ | \FO -definable@map
+% answer-yes.tex:10
+ | ordinal monoid with merge
+% answer-yes.tex:11
+ | $\omega $-words
+% answer-yes.tex:13
+ | Merge operators
+ | {\FO }-approximants
+% answer-yes.tex:19
+ | presentation@OM
+% answer-yes.tex:20
+ | merge operator
+% answer-yes.tex:33
+ | \FO -definable@map
+% answer-yes.tex:35
+ | \FO -definable map
+% answer-yes.tex:67
+ | \FO -definable@map
+ | \FO -definable@lang
+% answer-yes.tex:89
+ | regular language@cow
+ | recognised@OM
+% answer-yes.tex:91
+ | aperiodicity
+% answer-yes.tex:106
+ | words@ord
+% answer-yes.tex:219
+ | \FO -definable@lang
+% answer-yes.tex:261
+ | Green's relations
+% answer-yes.tex:347
+ | \FO -definable@lang
+% answer-yes.tex:348
+ | \FO -definable@map
+% related.tex:10
+ | \FO -covering problem
+% related.tex:11
+ | regular languages@cow
+ | \FO -definable languages
+% related.tex:12
+ | separation problems
+% related.tex:13
+ | separable
+% related.tex:20
+ | \FOk -closure
+% related.tex:38
+ | semigroups
+% related.tex:53
+ | \FO -covering
+% related.tex:55
+ | aperiodic pointlikes
+% related.tex:60
+ | finite words 
+% conclusion.tex:5
+ | words of countable ordinal length
+ | words of length~$\omega $
+% conclusion.tex:8
+ | \(\omega \)-words
+% conclusion.tex:12
+ | \(\omega \)-iterations
+% conclusion.tex:15
+ | finite word
+% conclusion.tex:18
+ | scattered@word
+ | countable words
+ | scattered@word
+
+
+****************************
+* autoref-introduced-twice *
+****************************
+
+% answer-yes.tex:66
+answer-yes.tex:66: {\singordmap }{default}{base}
+answer-yes.tex:66: {\singordmap }{default}{base}
+
+
+******************************
+* Autoref used without intro *
+******************************
+
+% macros.tex:303
+\nointro{default}{base}{\Jeq }
+
+
+***********************************
+* Autoref introduced but not used *
+***********************************
+
+% macros.tex:157
+macros.tex:157: {\lessord }{default}{base}
+
+
