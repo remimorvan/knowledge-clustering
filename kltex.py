@@ -129,7 +129,7 @@ def writeDocument(f,document,updated_knowledges,new_knowledges):
         for k in new_knowledges:
             if len(k)>0:
                 f.write("%\n")
-                f.write("%\\knowledge(notion)\n")
+                f.write("%\\knowledge{notion}\n")
                 for s in k:
                     f.write("%  | "+s+"\n")
 
