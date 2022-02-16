@@ -9,7 +9,7 @@ def parse(filename):
         f.close()
 
         document = []
-        knowledgeList = []
+        knowledges = []
 
         readingMode = "tex"
         currentBlock = []
@@ -22,19 +22,21 @@ def parse(filename):
             nonlocal currentBlock
             nonlocal currentKnowledgeCommand
             nonlocal currentKnowledgeStrings
-            nonlocal knowledgeList
+            nonlocal knowledges
             nonlocal currentKnowledgeStrings
             if readingMode == "tex":
                 document.append({"type":"tex","lines":currentBlock})
                 currentBlock = []
             elif readingMode == "knowledge":
-                document.append({"type":"knowledge","lines":currentBlock,"command": currentKnowledgeCommand,"number":len(knowledgeList)})
+                document.append({"type":"knowledge","lines":currentBlock,"command": currentKnowledgeCommand,"number":len(knowledges)})
                 currentBlock = []
                 currentKnowledgeCommand = ""
-                knowledgeList.append(currentKnowledgeStrings)
+                knowledges.append(currentKnowledgeStrings)
                 currentKnowledgeStrings = []
 
         for line in lines:
+            if line[-1]=="\n":
+                line = line[:-1]
             if readingMode == "tex": #tex-mode
                 if lineIsKnowledge(line):
                     pushBlock()
@@ -55,7 +57,7 @@ def parse(filename):
                     currentBlock=[line]
         if len(currentBlock)>0:
             pushBlock()
-        return document
+        return (document,knowledges)
 
 def lineIsKnowledge(line):
     return line.startswith("\\knowledge{");
@@ -74,5 +76,15 @@ def lineIsCommentBarKnowledgeFromLine(line):
     else:
         return False
 
+def printKnowledges(knowledges):
+    for k in knowledges:
+        print(k);
 
-print(parse("tmp.tex"))
+def printDocument(document):
+    for b in document:
+        for l in b["lines"]:
+            print(l)
+
+document,knowledges = parse("tmp.tex")
+printKnowledges(knowledges)
+printDocument(document)
