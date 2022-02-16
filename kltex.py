@@ -2,11 +2,18 @@
 
 
 
-def parse(filename):
+def parse(f):
     # reads a tex file. Identifies the knowledge commands.
-    with open(filename) as f:
+    # outputs a pair (document,knowledges) of:
+    # - document is a list of records, either of the form:
+    #      {"type"="tex",
+    #       "lines"= list of strings (the lines)}
+    #    or {"type"="knowledge"
+    #       "lines"= list of strings (the lines)
+    #       "command" = string representing the line introducing the knowledge
+    #       "number" = the number of the knowledge}
+    # - knowledges is a list of list of stringe. Each list of strings contains strings corresponding to the same knowledge. The position in the string corresponds to the "number" field in the above document description.
         lines = f.readlines()
-        f.close()
 
         document = []
         knowledges = []
@@ -37,24 +44,26 @@ def parse(filename):
         for line in lines:
             if line[-1]=="\n":
                 line = line[:-1]
-            if readingMode == "tex": #tex-mode
-                if lineIsKnowledge(line):
-                    pushBlock()
-                    readingMode = "knowledge"
-                    currentKnowledgeCommand = line
-                    currentBlock = [line]
-                    currentKnowledgeStrings = []
-                else:
-                    currentBlock.append(line)
+            if lineIsKnowledge(line):
+                pushBlock()
+                readingMode = "knowledge"
+                currentKnowledgeCommand = line
+                currentBlock = [line]
+                currentKnowledgeStrings = []
+            elif readingMode == "tex": #tex-mode
+                currentBlock.append(line)
             elif readingMode == "knowledge":
                 kl = barKnowledgeFromLine(line)
                 if kl != None:
                     currentBlock.append(line)
                     currentKnowledgeStrings.append(kl)
-                elif not lineIsCommentBarKnowledgeFromLine(line):
+                elif lineIsCommentBarKnowledgeFromLine(line):
+                    pass
+                else:
                     pushBlock()
                     readingMode = "tex"
                     currentBlock=[line]
+
         if len(currentBlock)>0:
             pushBlock()
         return (document,knowledges)
@@ -72,7 +81,7 @@ def barKnowledgeFromLine(line):
 def lineIsCommentBarKnowledgeFromLine(line):
     line = line.strip()
     if line.startswith("%"):
-        return (line[1:].strip()).startwith("|")
+        return (line[1:].strip()).startswith("|")
     else:
         return False
 
@@ -85,6 +94,20 @@ def printDocument(document):
         for l in b["lines"]:
             print(l)
 
-document,knowledges = parse("tmp.tex")
-printKnowledges(knowledges)
-printDocument(document)
+def writeDocument(f,document,updated_knowledges,new_knowledges):
+    for b in document:
+        if b["type"]=="tex":
+            for l in b["lines"]:
+                f.write(l+"\n")
+        elif b["type"]=="knowledge":
+            f.write(b["command"]+"\n")
+            if b["number"]<len(updated_knowledges):
+                for k in updated_knowledges[b["number"]]:
+                    f.write("  | "+k+"\n")
+
+with open("tmp.tex") as f:
+    document,knowledges = parse(f)
+    f.close()
+    
+with open("tmp.tex","w") as f:
+    writeDocument(f,document,knowledges,[])
