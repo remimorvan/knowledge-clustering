@@ -4,25 +4,58 @@
 
 def parse(filename):
     # reads a tex file. Identifies the knowledge commands.
-    with open(filenme) as f:
-        context = []
+    with open(filename) as f:
         lines = f.readlines()
-        knowledges = []
+        f.close()
+
+        document = []
+        knowledgeList = []
+
+        readingMode = "tex"
         currentBlock = []
-        readingMode = 0
+        currentKnowledgeCommand = ""
+        currentKnowledgeStrings = []
+
+        def pushBlock():
+            nonlocal readingMode
+            nonlocal document
+            nonlocal currentBlock
+            nonlocal currentKnowledgeCommand
+            nonlocal currentKnowledgeStrings
+            nonlocal knowledgeList
+            nonlocal currentKnowledgeStrings
+            if readingMode == "tex":
+                document.append({"type":"tex","lines":currentBlock})
+                currentBlock = []
+            elif readingMode == "knowledge":
+                document.append({"type":"knowledge","lines":currentBlock,"command": currentKnowledgeCommand,"number":len(knowledgeList)})
+                currentBlock = []
+                currentKnowledgeCommand = ""
+                knowledgeList.append(currentKnowledgeStrings)
+                currentKnowledgeStrings = []
+
         for line in lines:
-            if readingMode == 0:
-                if lineIfKnowledge(line):
-                    content.append(currentBlock)
-                    currentBlock = []
+            if readingMode == "tex": #tex-mode
+                if lineIsKnowledge(line):
+                    pushBlock()
+                    readingMode = "knowledge"
+                    currentKnowledgeCommand = line
+                    currentBlock = [line]
+                    currentKnowledgeStrings = []
                 else:
-
-            elif readingMode ==1:
-
-            else
-
-            context.append(line)
-        return context
+                    currentBlock.append(line)
+            elif readingMode == "knowledge":
+                kl = barKnowledgeFromLine(line)
+                if kl != None:
+                    currentBlock.append(line)
+                    currentKnowledgeStrings.append(kl)
+                elif not lineIsCommentBarKnowledgeFromLine(line):
+                    pushBlock()
+                    readingMode = "tex"
+                    currentBlock=[line]
+        if len(currentBlock)>0:
+            pushBlock()
+        return document
 
 def lineIsKnowledge(line):
     return line.startswith("\\knowledge{");
@@ -31,12 +64,15 @@ def barKnowledgeFromLine(line):
     line = line.strip()
     if line.startswith("|"):
         return line[1:].strip()
-    else
+    else:
         return
 
 def lineIsCommentBarKnowledgeFromLine(line):
     line = line.strip()
     if line.startswith("%"):
         return (line[1:].strip()).startwith("|")
-    else
-        return false
+    else:
+        return False
+
+
+print(parse("tmp.tex"))
