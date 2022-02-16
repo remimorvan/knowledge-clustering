@@ -1,4 +1,5 @@
-from calendar import c
+#!/usr/local/bin/python3
+
 def commonFactor(s1, s2):
     # Computes the length of the biggest common factor to s1 and s2
     m = len(s1)
