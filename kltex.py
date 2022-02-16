@@ -111,6 +111,9 @@ def writeDocument(f,document,updated_knowledges,new_knowledges):
     # - a document as in "parse"
     # - updated_knowledges is a list of list of strings representinf knowledges.
     #     The effect is that list the string in item i get to be appended to the corresonding knowledge.
+    # - a list of list of strings describing new knowledges to be suggested.
+    # these will appended at the end of the document as comments ifmain
+    # a block starting with discard_line and folowed by commented lines
     for b in document:
         if b["type"]=="tex":
             for l in b["lines"]:
@@ -120,7 +123,7 @@ def writeDocument(f,document,updated_knowledges,new_knowledges):
                 f.write(l+"\n")
             if b["number"]<len(updated_knowledges):
                 for k in updated_knowledges[b["number"]]:
-                    f.write("  | "+k+"\n")
+                    f.write("%  | "+k+"\n")
     if len(new_knowledges)>0:
         f.write(discard_line+"\n")
         for k in new_knowledges:
@@ -135,5 +138,6 @@ with open("tmp.tex") as f:
     document,knowledges = parse(f)
     f.close()
 
-#with open("tmp.tex","w") as f:
-writeDocument(sys.stdout,document,[["reconnaissable"]],[["Rémi","rémi","Rémi Morvan"],["giga","Giga","giga cool"]])
+with open("tmp.tex","w") as f: # otherwise, use sys.stdout as f
+    writeDocument(f,document,[["reconnaissable"]],[["Rémi","rémi","Rémi Morvan"],["giga","Giga","giga cool"]])
+    f.close()
