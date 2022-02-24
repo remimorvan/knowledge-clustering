@@ -105,7 +105,7 @@ def printDocument(document):
         for l in b["lines"]:
             print(l)
 
-def writeDocument(f,document,updated_knowledges,new_knowledges):
+def writeDocument(f, document, updated_knowledges, new_knowledges):
     # Takes
     # - a file descriptor f
     # - a document as in "parse"
@@ -132,12 +132,3 @@ def writeDocument(f,document,updated_knowledges,new_knowledges):
                 f.write("%\\knowledge{notion}\n")
                 for s in k:
                     f.write("%  | "+s+"\n")
-
-
-with open("tmp.tex") as f:
-    document,knowledges = parse(f)
-    f.close()
-
-with open("tmp.tex","w") as f: # otherwise, use sys.stdout as f
-    writeDocument(f,document,[["reconnaissable"]],[["Rémi","rémi","Rémi Morvan"],["giga","Giga","giga cool"]])
-    f.close()

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-import distance as dist
 import diagnose as diag
 import clustering as clust
+import kltex as kl
 
 import sys, getopt
 
@@ -20,15 +20,14 @@ def main(argv):
             notion_file = arg
         elif opt in ("-d", "--diagnose"):
             diagnose_file = arg
-    dictNotion = diag.dictFromDiagnoseFile(diagnose_file)
-    for scope in dictNotion:
-        ag = clust.clusterNotions(dictNotion[scope])
-        for l in ag:
-            print("\knowledge{notion}")
-            for no in l:
-                scope_str = "" if scope == "" else "@"+scope
-                print("\t| "+no+scope_str)
-            print("")
+    with open(notion_file) as nf:
+        document, known_knowledges = kl.parse(nf)
+        nf.close()
+    undefined_knowledges = diag.parse(diagnose_file)
+    with open(notion_file, "w") as nf: # otherwise, use sys.stdout as nf
+        output = [[k] for k in undefined_knowledges]
+        kl.writeDocument(nf, document, [], output)
+        nf.close()
 
 if __name__ == "__main__":
    main(sys.argv[1:])
