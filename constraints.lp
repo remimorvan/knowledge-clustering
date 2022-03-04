@@ -11,4 +11,3 @@ numberNonemptyBags(K) :- K = #count {bag(B) : knowledge(X), belongsTo(X, B)}.
 #minimize {K@1 : numberNonemptyBags(K)}.
 
 #show belongsTo/2.
-#show numberNonemptyBags/1.
