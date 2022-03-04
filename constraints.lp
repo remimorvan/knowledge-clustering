@@ -10,4 +10,6 @@ knowledge(X) :- unknown(X).
 numberNonemptyBags(K) :- K = #count {bag(B) : knowledge(X), belongsTo(X, B)}.
 #minimize {K@1 : numberNonemptyBags(K)}.
 
-#show belongsTo/2.
+belongsToUnkown(X, B) :- belongsTo(X,B), unknown(X).
+
+#show belongsToUnkown/2.
