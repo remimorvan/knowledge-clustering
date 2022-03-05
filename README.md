@@ -55,7 +55,7 @@ following notions are already defined
     \knowledge{notion}
     | monoid
     
-Moreover, from the file `examples/small.diagnose` indicates that three unknown knowledges where found when compiling some
+Moreover, from the file `examples/small.diagnose` indicates that four unknown knowledges where found when compiling some
 LaTeX document: "monoids", "semigroup", "words" and "semigroups".
 After running `./anakin.py -n examples/small.tex -d examples/small.diagnose`, the file `examples/small.tex` now
 contains:
@@ -77,10 +77,14 @@ contains:
     %  | semigroups
     %  | semigroup
     
-which means that Anakin suggest to put "words" together with the (already known) knwoledge "word@ord",
+which means that Anakin suggest to put "words" together with the (already known) knowledge "word@ord",
 to put "monoids" with "monoid", and to define a new notion containing "semigroup" and "semigroups".
 
 You can also run anakin on an empty notion file and a (possibly) huge diagnose file.
 An example is provided in `examples/big.tex` (which is empty) and `examples/big.diagnose`
 (which contains 181 undefined knowledges). Anakin will probably reach the time limit (15s by default):
 you can try to obtain a better solution by using the option `-t`.
+
+## Acknowledgments
+
+This project greatly benefited from discussions with Aliaume Lopez and Théo Matricon.
