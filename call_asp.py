@@ -67,7 +67,8 @@ def writeProximityPredicates(f, known_knowledges, unknown_knowledges, alpha, bet
 
 def writeAddEmptyBags(f, k, n):
     # Add n (empty) bags that are numbered k, ..., k+n-1
-    f.write("bag(%i..%i).\n\n" % (k, k+n-1))
+    if n > 0:
+        f.write("bag(%i..%i).\n\n" % (k, k+n-1))
 
 def writeProblem(f, known_knowledges, unknown_knowledges, alpha, beta):
     # Encodes the knowledges (known and unknown) and their proximity as contraints in ASP

@@ -60,18 +60,18 @@ def writeFromASPOutput(solution, f_kl, document, n):
     kltex.writeDocument(f_kl, document, updated_knowledges, new_knowledges)
 
 
-with open("output.lp", "w") as f:
-    known_knowledges = [["word@ord"], ["regular language", "recognisable language"], ["monoid"]]
-    unknown_knowledges = ["monoids", "semigroup", "words@ord"]
-    alpha = 0.2
-    beta = 0.7
-    call_asp.writeProblem(f, known_knowledges, unknown_knowledges, alpha, beta)
-    f.close()
-with open("output.lp", "r") as g:
-    kl_encoding = g.read()
-    g.close()
-with open("constraints.lp", "r") as h:
-    constraints_encoding = h.read()
-    h.close()
-solution = call_asp.solveProblem(kl_encoding, constraints_encoding)
-print(getParsedPredicates(solution))
+# with open("output.lp", "w") as f:
+#     known_knowledges = [["word@ord"], ["regular language", "recognisable language"], ["monoid"]]
+#     unknown_knowledges = ["monoids", "semigroup", "words@ord"]
+#     alpha = 0.2
+#     beta = 0.7
+#     call_asp.writeProblem(f, known_knowledges, unknown_knowledges, alpha, beta)
+#     f.close()
+# with open("output.lp", "r") as g:
+#     kl_encoding = g.read()
+#     g.close()
+# with open("constraints.lp", "r") as h:
+#     constraints_encoding = h.read()
+#     h.close()
+# solution = call_asp.solveProblem(kl_encoding, constraints_encoding)
+# print(getParsedPredicates(solution))

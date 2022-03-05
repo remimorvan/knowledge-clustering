@@ -2,8 +2,14 @@
 
 import diagnose as diag
 import kltex
+import call_asp
+import parse_asp
 
 import sys, getopt
+
+FILE_ASP_CONSTRAINT = "constraints.lp"
+ALPHA = 0.2
+BETA = 0.6
 
 def main(argv):
     try:
@@ -19,14 +25,29 @@ def main(argv):
             notion_file = arg
         elif opt in ("-d", "--diagnose"):
             diagnose_file = arg
-    with open(notion_file) as nf:
-        document, known_knowledges = kltex.parse(nf)
-        nf.close()
-    undefined_knowledges = diag.parse(diagnose_file)
-    with open(notion_file, "w") as nf: # otherwise, use sys.stdout as nf
-        output = [[k] for k in undefined_knowledges]
-        kltex.writeDocument(nf, document, [], output)
-        nf.close()
+    # Get known and unknown knowledges from input files
+    with open(notion_file, "r") as f_kl:
+        document, known_knowledges = kltex.parse(f_kl)
+        f_kl.close()
+    unknown_knowledges = diag.parse(diagnose_file)
+    if len(unknown_knowledges) > 0:
+        # Writes the knowledges in ASP
+        with open(".knowledges.lp", "w") as f_asp:
+            call_asp.writeProblem(f_asp, known_knowledges, unknown_knowledges, ALPHA, BETA)
+            f_asp.close()
+        # Reads the two ASP files (knowledges and constraints)
+        with open(".knowledges.lp", "r") as f_asp:
+            kl_encoding = f_asp.read()
+            f_asp.close()
+        with open(FILE_ASP_CONSTRAINT, "r") as f_asp:
+            constraints_encoding = f_asp.read()
+            f_asp.close()
+        # Solves the ASP optimisation problem
+        solution = call_asp.solveProblem(kl_encoding, constraints_encoding)
+        # Reopens the knowledge file and writes the new knowledges in it
+        n = len(known_knowledges)
+        with open(notion_file, "w") as f_kl:
+            parse_asp.writeFromASPOutput(solution, f_kl, document, n)
 
 if __name__ == "__main__":
    main(sys.argv[1:])

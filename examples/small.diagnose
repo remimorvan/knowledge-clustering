@@ -1,0 +1,8 @@
+************************
+* Undefined knowledges *
+************************
+
+\knowledge{ignore}
+    | monoids
+    | semigroup
+    | words@ord
