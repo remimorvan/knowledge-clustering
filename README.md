@@ -41,7 +41,7 @@ You can run anakin on the examples provided. The file `examples/small.tex` says 
 following notions are already defined
 
     \knowledge{notion}
-    | word@ord
+    | word
 
     \knowledge{notion}
     | regular language
@@ -51,13 +51,13 @@ following notions are already defined
     | monoid
     
 Moreover, from the file `examples/small.diagnose` indicates that three unknown knowledges where found when compiling some
-LaTeX document: "monoids", "semigroup" and "words@ord".
+LaTeX document: "monoids", "semigroup", "words" and "semigroups".
 After running `./anakin.py -n examples/small.tex -d examples/small.diagnose`, the file `examples/small.tex` now
 contains:
 
     \knowledge{notion}
-    | word@ord
-    %  | words@ord
+    | word
+    %  | words
 
     \knowledge{notion}
     | regular language
@@ -69,7 +69,8 @@ contains:
     %%%%% NEW KNOWLEDGES 
     %
     %\knowledge{notion}
+    %  | semigroups
     %  | semigroup
     
-which means that Anakin suggest to put "words@ord" together with the (already known) knwoledge "word@ord",
-to put "monoids" with "monoid", and to define a new notion only containing "semigroup".
+which means that Anakin suggest to put "words" together with the (already known) knwoledge "word@ord",
+to put "monoids" with "monoid", and to define a new notion containing "semigroup" and "semigroups".

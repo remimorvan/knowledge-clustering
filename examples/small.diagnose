@@ -5,4 +5,5 @@
 \knowledge{ignore}
     | monoids
     | semigroup
-    | words@ord
+    | words
+    | semigroups

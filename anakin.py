@@ -9,7 +9,7 @@ import sys, getopt
 
 FILE_ASP_CONSTRAINT = "constraints.lp"
 ALPHA = 0.2
-BETA = 0.6
+BETA = 0.55
 
 def main(argv):
     try:
