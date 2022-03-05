@@ -1,4 +1,5 @@
 import distance as dist
+import clingo
 
 def writeKnownKnowledges(f, known_knowledges):
     # Takes a list of lists of known_knowledges, and
@@ -68,17 +69,22 @@ def writeAddEmptyBags(f, k, n):
     # Add n (empty) bags that are numbered k, ..., k+n-1
     f.write("bag(%i..%i).\n\n" % (k, k+n-1))
 
-def writeInput(f, known_knowledges, unknown_knowledges, alpha, beta):
+def writeProblem(f, known_knowledges, unknown_knowledges, alpha, beta):
     # Encodes the knowledges (known and unknown) and their proximity as contraints in ASP
     writeKnownKnowledges(f, known_knowledges)
     writeUnknownKnowledges(f, unknown_knowledges)
     writeAddEmptyBags(f, len(known_knowledges), len(unknown_knowledges))
     writeProximityPredicates(f, known_knowledges, unknown_knowledges, alpha, beta)
 
-
-with open("output.lp", "w") as f:
-    known_knowledges = [["word@ord"], ["regular language", "recognisable language"], ["monoid"]]
-    unknown_knowledges = ["monoids", "semigroup", "words@ord"]
-    alpha = 0.2
-    beta = 0.7
-    writeInput(f, known_knowledges, unknown_knowledges, alpha, beta)
+def solveProblem(kl_encoding, constraints_encoding):
+    # Takes two file descriptors encoding the ASP problem and returns clingo's solution as a string
+    ctl = clingo.Control()
+    ctl.add("kl", [], kl_encoding)
+    ctl.add("constraints", [], constraints_encoding)
+    ctl.ground([("kl", []), ("constraints", [])])
+    # Solve the problem
+    def on_model(x):
+        global solution
+        solution = ("%s" % x)
+    ctl.solve(on_model=on_model)
+    return solution

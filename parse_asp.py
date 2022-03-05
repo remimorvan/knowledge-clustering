@@ -1,5 +1,6 @@
-import re
+import call_asp
 import kltex
+import clingo
 
 class UnknownPredicate(Exception):
     def __init__(self, name):
@@ -22,32 +23,30 @@ def getFirstPredicate(solution):
 
 def parsePredicate(str):
     # Takes a predicate as returned by clingo (e.g. 'belongsToUnkown("word@ord",0)')
-    # and returns the knowledge ("word@ord"), and the id of the bag it belongs to (here, it is 0).
+    # and returns the knowledge ('word@ord'), and the id of the bag it belongs to (here, it is 0).
     lst = str.split('(')
     predicate = lst[0]
     if predicate == "belongsToUnkown":
         lst = lst[1].split(')')
         lst = lst[0].split(',')
-        return (lst[0], lst[1])
+        return (lst[0][1:-1], lst[1])
     else:
         raise UnknownPredicate(str[0])
 
-def getParsedPredicates(f):
-    lines = f.read().splitlines()
-    solution = lines[0]
+def getParsedPredicates(solution):
     parsed_predicates = []
     while solution != "":
         pred, solution = getFirstPredicate(solution)
         kl, bag_str = parsePredicate(pred)
         bag_id = int(bag_str)
-        parsed_predicates.append(kl, bag_id)
+        parsed_predicates.append((kl, bag_id))
     return parsed_predicates
 
-def writeFromASPOutput(f_asp, f_kl, document, n):
+def writeFromASPOutput(solution, f_kl, document, n):
     # Takes a file descriptor f_asp (answer of ASP solver), a file descriptor f_kl (of knowledges),
     # a document (parsed from f_kl), and the number n of bags that are already defined in said document.
     # Parse the new knowledges from f_asp and writes them in f.
-    parsed_predicates = getParsedPredicates(f_asp)
+    parsed_predicates = getParsedPredicates(solution)
     max_bag_id = max([bag_id for (_, bag_id) in parsed_predicates])
     updated_knowledges = [[] for i in range(n)]
     new_knowledges = [[] for i in range(max_bag_id-n+1)]
@@ -60,3 +59,19 @@ def writeFromASPOutput(f_asp, f_kl, document, n):
         new_knowledges.remove([])
     kltex.writeDocument(f_kl, document, updated_knowledges, new_knowledges)
 
+
+with open("output.lp", "w") as f:
+    known_knowledges = [["word@ord"], ["regular language", "recognisable language"], ["monoid"]]
+    unknown_knowledges = ["monoids", "semigroup", "words@ord"]
+    alpha = 0.2
+    beta = 0.7
+    call_asp.writeProblem(f, known_knowledges, unknown_knowledges, alpha, beta)
+    f.close()
+with open("output.lp", "r") as g:
+    kl_encoding = g.read()
+    g.close()
+with open("constraints.lp", "r") as h:
+    constraints_encoding = h.read()
+    h.close()
+solution = call_asp.solveProblem(kl_encoding, constraints_encoding)
+print(getParsedPredicates(solution))
