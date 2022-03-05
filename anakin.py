@@ -15,11 +15,11 @@ def main(argv):
     try:
         opts, args = getopt.getopt(argv,"hn:d:",["notion=","diagnose"])
     except getopt.GetoptError:
-        print("main_klcl.py -n <file_notion> -d <file_diagnose>")
+        print("anakin.py -n <file_notion> -d <file_diagnose>")
         sys.exit(2)
     for opt, arg in opts:
         if opt == '-h':
-            print("main_klcl.py -n <file_notion> -d <file_diagnose>")
+            print("anakin.py -n <file_notion> -d <file_diagnose>")
             sys.exit()
         elif opt in ("-n", "--notion"):
             notion_file = arg
