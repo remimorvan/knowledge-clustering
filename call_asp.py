@@ -80,7 +80,7 @@ def writeProblem(f, known_knowledges, unknown_knowledges, alpha, beta):
     writeAddEmptyBags(f, len(known_knowledges), len(unknown_knowledges))
     writeProximityPredicates(f, known_knowledges, unknown_knowledges, alpha, beta)
 
-def solveProblem(kl_encoding, constraints_encoding):
+def solveProblem(kl_encoding, constraints_encoding, compute_optimal):
     # Takes two file descriptors encoding the ASP problem and returns clingo's solution as a string
     ctl = clingo.Control()
     ctl.add("kl", [], kl_encoding)
@@ -90,7 +90,10 @@ def solveProblem(kl_encoding, constraints_encoding):
     def on_model(x):
         global solution
         solution = ("%s" % x)
-    ctl.configuration.solve.models = 1
+    if compute_optimal:
+        ctl.configuration.solve.models = 0
+    else:
+        ctl.configuration.solve.models = 1
     ctl.configuration.solve.opt_mode = 'opt'
     ctl.solve(on_model=on_model)
     return solution

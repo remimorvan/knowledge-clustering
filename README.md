@@ -27,8 +27,12 @@ the knowledge package (files with `diagnose` extension).
 
 ### Syntax
 
-The syntax is the following: `./anakin.py -n <file_notion> -d <file_diagnose>`.
+The syntax is the following: `./anakin.py -n <file_notion> -d <file_diagnose> [options]`. You can write
+`--notion` and `--diagnose` instead of `-n` and `-d`, respectively.
 At any time, you can display the help using `./anakin.py --help`. 
+At this time, the only possible option is `-o` (or `--optimal`) which forces the program to return the best
+solution. You **should** use this option if you have few knowledges, but **should not** use it if you
+have big files.
 
 ### Output
 
