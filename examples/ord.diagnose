@@ -60,7 +60,7 @@
 % introduction.tex:41
  | aperiodic
  | syntactic monoid
- | \(\Jeq \)-trivial
+ | $\Jeq $-trivial
 % introduction.tex:42
  | aperiodic pointlike sets
  | covering problem
@@ -215,7 +215,7 @@
 % algorithm.tex:84
  | recognised@OM
 % algorithm.tex:122
- | \(\omega \)-iteration
+ | $\omega $-iteration
 % algorithm.tex:160
  | words@ord
  | words@ord
@@ -321,9 +321,9 @@
  | words of countable ordinal length
  | words of length~$\omega $
 % conclusion.tex:8
- | \(\omega \)-words
+ | $\omega $-words
 % conclusion.tex:12
- | \(\omega \)-iterations
+ | $\omega $-iterations
 % conclusion.tex:15
  | finite word
 % conclusion.tex:18

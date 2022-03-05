@@ -1,6 +1,9 @@
 import distance as dist
 import clingo
 
+def escapeBackslash(str):
+    return str.replace("\\", "\\\\")
+
 def writeKnownKnowledges(f, known_knowledges):
     # Takes a list of lists of known_knowledges, and
     # defines each knowledge kl as a known knowledge by declaring the predicate known(kl)).
@@ -10,15 +13,15 @@ def writeKnownKnowledges(f, known_knowledges):
     for bag_id, bag in enumerate(known_knowledges):
         f.write("bag(%i).\n" % bag_id)
         for kl in bag:
-            f.write("known(\"%s\").\n" % kl)
-            f.write("belongsTo(\"%s\", %i).\n" % (kl, bag_id))
+            f.write("known(\"%s\").\n" % escapeBackslash(kl))
+            f.write("belongsTo(\"%s\", %i).\n" % (escapeBackslash(kl), bag_id))
         f.write("\n")
 
 def writeUnknownKnowledges(f, unknown_knowledges):
     # Takes a list unknown_knowledges, and
     # defines each knowledge kl as an unknown knowledge by declaring the predicate unknown(kl)).
     for kl in unknown_knowledges:
-        f.write("unknown(\"%s\").\n" % kl)
+        f.write("unknown(\"%s\").\n" % escapeBackslash(kl))
     f.write("\n")
 
 def writeProximityPredicatesForDistance(f, kl1, kl2, alpha, beta):
@@ -27,9 +30,9 @@ def writeProximityPredicatesForDistance(f, kl1, kl2, alpha, beta):
     # - if they are at distance at least beta, declare that they are near.
     if kl1 != kl2:
         if dist.distance(kl1, kl2) <= alpha:
-            f.write("near(\"%s\", \"%s\").\n" % (kl1, kl2))
+            f.write("near(\"%s\", \"%s\").\n" % (escapeBackslash(kl1), escapeBackslash(kl2)))
         elif dist.distance(kl1, kl2) >= beta:
-            f.write("far(\"%s\", \"%s\").\n" % (kl1, kl2))
+            f.write("far(\"%s\", \"%s\").\n" % (escapeBackslash(kl1), escapeBackslash(kl2)))
 
 def writeProximityPredicates(f, known_knowledges, unknown_knowledges, alpha, beta):
     # Takes a file f, known_knowledges and unknown_knowledges 
@@ -45,14 +48,14 @@ def writeProximityPredicates(f, known_knowledges, unknown_knowledges, alpha, bet
         for kl1 in bag:
             for kl2 in bag:
                 if kl1 != kl2:
-                    f.write("near(\"%s\", \"%s\").\n" % (kl1, kl2))
+                    f.write("near(\"%s\", \"%s\").\n" % (escapeBackslash(kl1), escapeBackslash(kl2)))
     f.write("\n")
     for bag1_id, bag1 in enumerate(known_knowledges): # Condition b
         for bag2_id, bag2 in enumerate(known_knowledges):
             if bag1_id != bag2_id:
                 for kl1 in bag1:
                     for kl2 in bag2:
-                        f.write("far(\"%s\", \"%s\").\n" % (kl1, kl2))
+                        f.write("far(\"%s\", \"%s\").\n" % (escapeBackslash(kl1), escapeBackslash(kl2)))
     f.write("\n")
     # Condition c and d
     for kl1 in unknown_knowledges:
@@ -87,5 +90,7 @@ def solveProblem(kl_encoding, constraints_encoding):
     def on_model(x):
         global solution
         solution = ("%s" % x)
+    ctl.configuration.solve.models = 1
+    ctl.configuration.solve.opt_mode = 'opt'
     ctl.solve(on_model=on_model)
     return solution

@@ -2,6 +2,9 @@ import call_asp
 import kltex
 import clingo
 
+def deescapeBackslash(str):
+    return str.replace("\\\\", "\\")
+
 class UnknownPredicate(Exception):
     def __init__(self, name):
         self.name = name
@@ -29,7 +32,7 @@ def parsePredicate(str):
     if predicate == "belongsToUnkown":
         lst = lst[1].split(')')
         lst = lst[0].split(',')
-        return (lst[0][1:-1], lst[1])
+        return (deescapeBackslash(lst[0][1:-1]), lst[1])
     else:
         raise UnknownPredicate(str[0])
 
