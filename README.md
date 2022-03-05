@@ -15,6 +15,7 @@ The goal of **Anakin** is, when using the [knowledge package](https://ctan.org/p
 Anakin requires **python3** and the Python library **clingo**.
 Assuming that you have **python3** and **pip** installed, you can install **clingo** by running
 the following command line:
+
     python3 -m pip install clingo
 
 ## Using Anakin
@@ -39,6 +40,7 @@ she can simply uncomment the line. Otherwise, she must remove the line and defin
 
 You can run anakin on the examples provided. The file `examples/small.tex` says to Anakin that the
 following notions are already defined
+
     \knowledge{notion}
     | word@ord
 
@@ -48,10 +50,12 @@ following notions are already defined
 
     \knowledge{notion}
     | monoid
+    
 Moreover, from the file `examples/small.diagnose` indicates that three unknown knowledges where found when compiling some
 LaTeX document: "monoids", "semigroup" and "words@ord".
 After running `./anakin.py -n examples/small.tex -d examples/small.diagnose`, the file `examples/small.tex` now
 contains:
+
     \knowledge{notion}
     | word@ord
     %  | words@ord
@@ -67,5 +71,6 @@ contains:
     %
     %\knowledge{notion}
     %  | semigroup
+    
 which means that Anakin suggest to put "words@ord" together with the (already known) knwoledge "word@ord",
 to put "monoids" with "monoid", and to define a new notion only containing "semigroup".
