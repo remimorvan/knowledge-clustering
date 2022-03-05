@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import nbformat
 import diagnose as diag
 import kltex
 import call_asp
@@ -8,31 +9,34 @@ import parse_asp
 import sys, getopt
 
 FILE_ASP_CONSTRAINT = "constraints.lp"
-ALPHA = 0.2
-BETA = 0.55
+ALPHA = 0.25
+BETA = 0.6
 
 def main(argv):
-    compute_optimal = False
+    notion_file = ""
+    diagnose_file = ""
+    time_limit = 15
     try:
-        opts, args = getopt.getopt(argv,"h:n:d:o:",["help", "notion", "diagnose","optimal"])
-        opts_name = [a for (a, b) in opts]
-        if "-n" not in opts_name and "--notion" not in opts_name and "-h" not in opts_name and "--help" not in opts_name:
-            raise getopt.GetoptError("")
-        if "-d" not in opts_name and "--diagnose" not in opts_name and "-h" not in opts_name and "--help" not in opts_name:
-            raise getopt.GetoptError("")
+        opts, args = getopt.getopt(argv,"hn:d:t:",["help"])
     except getopt.GetoptError:
-        print("Invalid syntax:\nDisplay help using 'anakin.py --help'.")
+        print("Invalid syntax: display help using 'anakin.py --help'.")
         sys.exit(2)
     for opt, arg in opts:
         if opt in ('-h', "--help"):
-            print("Syntax: 'anakin.py [mandatory arguments] [options]' where the mandatory arguments are\n * '-n <file_notion>' or '--notion <file_notion>\n * '-d <file_diagnose>' or '--diagnose <file_diagnose>'\nand the options are\n * '-o' or '--optimal': asks for the optimal solution.")
+            print("Syntax: 'anakin.py [mandatory arguments] [options]' where the mandatory arguments are\n * '-n <file_notion>'\n * '-d <file_diagnose>' '\nand the options are\n * '-t': time limit, in seconds (default value is 15).")
             sys.exit()
-        elif opt in ("-n", "--notion"):
+        elif opt in ("-n"):
             notion_file = arg
-        elif opt in ("-d", "--diagnose"):
+        elif opt in ("-d"):
             diagnose_file = arg
-        elif opt in ("-o", "--optimal"):
-            compute_optimal = True
+        elif opt in ("-t"):
+            time_limit = int(arg)
+    if notion_file == "":
+        print("Error: missing notion file.")
+        sys.exit(2)
+    if diagnose_file == "":
+        print("Error: missing diagnose file.")
+        sys.exit(2)
     # Get known and unknown knowledges from input files
     with open(notion_file, "r") as f_kl:
         document, known_knowledges = kltex.parse(f_kl)
@@ -51,11 +55,11 @@ def main(argv):
             constraints_encoding = f_asp.read()
             f_asp.close()
         # Solves the ASP optimisation problem
-        solution = call_asp.solveProblem(kl_encoding, constraints_encoding, compute_optimal)
+        nb_bags_defined = len(known_knowledges)
+        solution = call_asp.solveProblem(kl_encoding, constraints_encoding, time_limit, nb_bags_defined)
         # Reopens the knowledge file and writes the new knowledges in it
-        n = len(known_knowledges)
         with open(notion_file, "w") as f_kl:
-            parse_asp.writeFromASPOutput(solution, f_kl, document, n)
+            parse_asp.writeFromASPOutput(solution, f_kl, document, nb_bags_defined)
 
 if __name__ == "__main__":
    main(sys.argv[1:])

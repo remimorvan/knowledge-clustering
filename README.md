@@ -27,12 +27,13 @@ the knowledge package (files with `diagnose` extension).
 
 ### Syntax
 
-The syntax is the following: `./anakin.py -n <file_notion> -d <file_diagnose> [options]`. You can write
-`--notion` and `--diagnose` instead of `-n` and `-d`, respectively.
+The syntax is the following: `./anakin.py -n <file_notion> -d <file_diagnose> [options]`.
 At any time, you can display the help using `./anakin.py --help`. 
-At this time, the only possible option is `-o` (or `--optimal`) which forces the program to return the best
-solution. You **should** use this option if you have few knowledges, but **should not** use it if you
-have big files.
+There also an option `-t` which requires to be followed by an integer: it defines the time limit (in seconds) according to 
+the solver to find an optimal solution. The default value is 15. Note that on big files, there is a first step 
+("grounding") which takes a few seconds and is not impacted by this time limit.
+The solver can take significantly less time than the allowed time if it finds a solution and can prove that it is optimal.
+
 
 ### Output
 
@@ -78,3 +79,8 @@ contains:
     
 which means that Anakin suggest to put "words" together with the (already known) knwoledge "word@ord",
 to put "monoids" with "monoid", and to define a new notion containing "semigroup" and "semigroups".
+
+You can also run anakin on an empty notion file and a (possibly) huge diagnose file.
+An example is provided in `examples/big.tex` (which is empty) and `examples/big.diagnose`
+(which contains 181 undefined knowledges). Anakin will probably reach the time limit (15s by default):
+you can try to obtain a better solution by using the option `-t`.

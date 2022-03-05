@@ -80,8 +80,9 @@ def writeProblem(f, known_knowledges, unknown_knowledges, alpha, beta):
     writeAddEmptyBags(f, len(known_knowledges), len(unknown_knowledges))
     writeProximityPredicates(f, known_knowledges, unknown_knowledges, alpha, beta)
 
-def solveProblem(kl_encoding, constraints_encoding, compute_optimal):
+def solveProblem(kl_encoding, constraints_encoding, time_limit, nb_bags_defined):
     # Takes two file descriptors encoding the ASP problem and returns clingo's solution as a string
+    # computing in time at most time_limit (in seconds).
     ctl = clingo.Control()
     ctl.add("kl", [], kl_encoding)
     ctl.add("constraints", [], constraints_encoding)
@@ -89,11 +90,24 @@ def solveProblem(kl_encoding, constraints_encoding, compute_optimal):
     # Solve the problem
     def on_model(x):
         global solution
+        global nb_bags
         solution = ("%s" % x)
-    if compute_optimal:
-        ctl.configuration.solve.models = 0
-    else:
-        ctl.configuration.solve.models = 1
+        nb_bags = x.cost[0]
+    # Tries to find the optimal solution in time ≤ time_limit
     ctl.configuration.solve.opt_mode = 'opt'
-    ctl.solve(on_model=on_model)
+    ctl.configuration.solve.models = 0
+    with ctl.solve(on_model=on_model, async_=True) as handle:
+        handle.wait(time_limit)
+        handle.cancel()
+    printMessageSolutionFound(nb_bags-nb_bags_defined)
     return solution
+
+def printMessageSolutionFound(nb_new_bags):
+    message = "Found a solution requiring to add "
+    if nb_new_bags == 0:
+        message = message + "no new notion."
+    elif nb_new_bags == 1:
+        message = message + "1 new notion."
+    else:
+        message = message + ("%i new notions." % nb_new_bags)
+    print(message)
