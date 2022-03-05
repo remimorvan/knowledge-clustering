@@ -1,5 +1,5 @@
 # Anakin
-Clustering notions of the [knowledge LaTeX package](https://ctan.org/pkg/knowledge). **Anakin** stands for "Automated Notion Agregation for Knowledge: It's Np-hard". It is written in Python and uses [Answer Set Programming](https://potassco.org/).
+Clustering notions for the [knowledge LaTeX package](https://ctan.org/pkg/knowledge). **Anakin** stands for "Automated Notion Agregation for Knowledge: It's Np-hard". It is written in Python and uses [Answer Set Programming](https://potassco.org/).
 
 Maintainers:
  - Rémi Morvan
