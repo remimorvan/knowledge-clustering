@@ -29,7 +29,7 @@ the knowledge package (files with `diagnose` extension).
 
 The syntax is the following: `./anakin.py -n <file_notion> -d <file_diagnose> [options]`.
 At any time, you can display the help using `./anakin.py --help`. 
-There also an option `-t` which requires to be followed by an integer: it defines the time limit (in seconds) according to 
+There also an option `-t` which requires to be followed by an integer: it defines the time limit (in seconds) accorded to 
 the solver to find an optimal solution. The default value is 15. Note that on big files, there is a first step 
 ("grounding") which takes a few seconds and is not impacted by this time limit.
 The solver can take significantly less time than the allowed time if it finds a solution and can prove that it is optimal.
