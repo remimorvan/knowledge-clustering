@@ -6,7 +6,7 @@ import kltex
 import clustering as clust
 import sys, getopt
 
-ALPHA = 0.3
+ALPHA = 3
 
 def main(argv):
     notion_file = ""

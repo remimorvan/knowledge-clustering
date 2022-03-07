@@ -1,5 +1,3 @@
-
-
 def commonFactor(s1, s2):
     # Computes the length of the biggest common factor to s1 and s2
     m = len(s1)
@@ -54,15 +52,15 @@ def distance(notion1, notion2):
     notion_norm2 = normaliseNotion(notion2)
     knowledge2, scope2 = extractScope(notion_norm2)
     if scope1 == scope2:
-        n = (len(knowledge1)+len(knowledge2))/2
-        return 1 - commonFactor(knowledge1, knowledge2)/n
+        n = max(len(knowledge1), len(knowledge2))
+        return n - commonFactor(knowledge1, knowledge2)
     if scope1 != "" and scope2 != "" and scope1 != scope2:
-        return 1
+        return max(len(notion_norm1), len(notion_norm2))
     else: 
         if scope2 != "":
             knowledge1, scope1, knowledge2, scope2 = knowledge2, scope2, knowledge1, scope1
         # Now scope2 is empty
-        n = (len(knowledge1+scope1)+len(knowledge2))/2
+        n = max(len(knowledge1+scope1), len(knowledge2))
         cf1 = commonFactor(scope1+knowledge1, knowledge2)
         cf2 = commonFactor(knowledge1+scope1, knowledge2)
-        return 1 - max(cf1, cf2)/n
+        return n - max(cf1, cf2)
