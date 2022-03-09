@@ -5,8 +5,10 @@ import diagnose as diag
 import kltex
 import clustering as clust
 import sys, getopt
+import os
 
 ALPHA = 3
+TEMP_FILE = ".temp_knowledges.tex"
 
 def main(argv):
     notion_file = ""
@@ -45,7 +47,9 @@ def main(argv):
             new_knowledges = known_knowledges[len_known_knowledges:]
             updated_knowledges = [known_knowledges[bag_id][len_bags[bag_id]:] for bag_id in range(len_known_knowledges)]
             print("Found a solution by adding %i new bag(s)." % len(new_knowledges))
-            with open(notion_file, "w") as f:
+            with open(TEMP_FILE, "w") as f:
                 kltex.writeDocument(f, document, updated_knowledges, new_knowledges)
+                f.close()
+                os.replace(TEMP_FILE, notion_file)
 if __name__ == "__main__":
    main(sys.argv[1:])
