@@ -1,3 +1,40 @@
+import nltk.stem.snowball as nss
+stemmer = nss.SnowballStemmer("english")
+
+# parsing the config file
+
+def parsePrefixes(filename):
+    listPrefixes = []
+    readingMode = "discard"
+    with open(filename, "r") as f:
+        for line in f.readlines():
+            if line.startswith(":PREFIXES_SIMILAR"):
+                readingMode = "prefix"
+            if not line.startswith(":"):
+                line = line.split("%", 1)[0] # Remove everything after a `percent` symbol (comments)
+                if readingMode == "prefix":
+                    p = line.replace("\t", "").replace("\n", "").replace(" ", "")
+                listPrefixes.append(p)
+        f.close()
+    return listPrefixes
+
+def similarStems(s1, s2, prefixes):
+    # Given two stems s1 and s2 and a list of prefix,
+    # checks if you can go from s1 to s2 by removing or adding a prefix.
+    for p in prefixes:
+        if p + s1 == s2 or p + s2 == s1:
+            return True
+    return False
+
+lp = parsePrefixes("config/english.config")
+
+def similarWords(w1, w2, prefixes):
+    # Checks if two words w1 and w2 are similar, up to taking their stem (removing a suffix)
+    # and removing a prefix in the list `prefixes`.
+    s1 = stemmer.stem(w1)
+    s2 = stemmer.stem(w2)
+    return similarStems(s1, s2, prefixes)
+
 def commonFactor(s1, s2):
     # Computes the length of the biggest common factor to s1 and s2
     m = len(s1)
