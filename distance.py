@@ -1,76 +1,15 @@
+import copy
+import nltk
 import nltk.stem.snowball as nss
 stemmer = nss.SnowballStemmer("english")
 
-# parsing the config file
+IMPORTANT_POS = ["CD", "JJ", "JJR", "JJS", "NN", "NNP", "NNS", "PDT", "RB", "RBR", "RBS", "VB",
+    "VBD", "VBG", "VBN", "VBP", "VBZ"]
+INFINITY = 1000
 
-def parsePrefixes(filename):
-    listPrefixes = []
-    readingMode = "discard"
-    with open(filename, "r") as f:
-        for line in f.readlines():
-            if line.startswith(":PREFIXES_SIMILAR"):
-                readingMode = "prefix"
-            if not line.startswith(":"):
-                line = line.split("%", 1)[0] # Remove everything after a `percent` symbol (comments)
-                if readingMode == "prefix":
-                    p = line.replace("\t", "").replace("\n", "").replace(" ", "")
-                listPrefixes.append(p)
-        f.close()
-    return listPrefixes
-
-def similarStems(s1, s2, prefixes):
-    # Given two stems s1 and s2 and a list of prefix,
-    # checks if you can go from s1 to s2 by removing or adding a prefix.
-    for p in prefixes:
-        if p + s1 == s2 or p + s2 == s1:
-            return True
-    return False
-
-lp = parsePrefixes("config/english.config")
-
-def similarWords(w1, w2, prefixes):
-    # Checks if two words w1 and w2 are similar, up to taking their stem (removing a suffix)
-    # and removing a prefix in the list `prefixes`.
-    s1 = stemmer.stem(w1)
-    s2 = stemmer.stem(w2)
-    return similarStems(s1, s2, prefixes)
-
-def commonFactor(s1, s2):
-    # Computes the length of the biggest common factor to s1 and s2
-    m = len(s1)
-    n = len(s2)
-    if m > n:
-        m, n = n, m
-        s1, s2 = s2, s1
-    maxCommonFactor = 0
-    for i in range(m):
-        for j in range(i+1,m+1):
-            if j-i > maxCommonFactor and s1[i:j] in s2:
-                maxCommonFactor = j-i
-    return maxCommonFactor
-
-def normaliseNotion(notion):
-    # Returns the substring of a notion that should be considered when computing the distance between two notions
-    # Obtained by removing math, commands, spaces, dashes, and by writing the notion in lowercase.
-    notion_norm = notion
-    while '$' in notion_norm:
-        sp = notion_norm.split("$",2)
-        if len(sp) <= 1:
-            break
-        notion_norm = sp[0] + sp[2]
-    while '\\' in notion_norm and ' ' in notion_norm:
-        sp = notion_norm.split("\\", 1)
-        sp2 = (sp[1]).split(" ", 1)
-        if len(sp2) == 0:
-            break
-        notion_norm = sp[0] + sp2[1]
-    while notion_norm[0] in [' ', '-']:
-        notion_norm = notion_norm[1:]
-    while notion_norm[-1] in [' ', '-']:
-        notion_norm = notion_norm[:-1]
-    notion_norm = notion_norm.replace(" ", "")
-    notion_norm = notion_norm.replace("-", "")
-    return notion_norm.lower()
+# ---
+# Functions to extract content from strings
+# ---
 
 def extractScope(notion):
     # Given a notion of the form "knowledge@scope" or "knowledge",
@@ -81,23 +20,106 @@ def extractScope(notion):
     else:
         return notion, ""
 
+def normaliseNotion(notion):
+    # Returns the substring of a notion obtained by removing math and commands.
+    notion_norm = notion
+    while '$' in notion_norm:
+        sp = notion_norm.split("$",2)
+        if len(sp) <= 1:
+            break
+        notion_norm = sp[0] + sp[2]
+    while '\\' in notion_norm:
+        # If the notion contains a backslash, remove every letter following the backslash
+        # see https://tex.stackexchange.com/a/34381/206008 for naming conventions of TeX commands
+        sp = notion_norm.split("\\", 1)
+        pref, suff = sp[0], sp[1]
+        i = 0
+        while i < len(suff) and suff[i].isalpha():
+            i += 1
+        notion_norm = pref + suff[i:]
+    return notion_norm
 
-def distance(notion1, notion2):
-    # measures the distance between two strings
-    notion_norm1 = normaliseNotion(notion1)
-    knowledge1, scope1 = extractScope(notion_norm1)
-    notion_norm2 = normaliseNotion(notion2)
-    knowledge2, scope2 = extractScope(notion_norm2)
-    if scope1 == scope2:
-        n = max(len(knowledge1), len(knowledge2))
-        return n - commonFactor(knowledge1, knowledge2)
-    if scope1 != "" and scope2 != "" and scope1 != scope2:
-        return max(len(notion_norm1), len(notion_norm2))
+def breakupNotion(notion):
+    # Given a notion, returns the list of important words in kl, and the (possibly empty scope).
+    # Important words are obtained by only keeping cardinals, preposition or conjunction, subordinating,
+    # adjectives, nouns, pre-determiners, adverbs, verbs
+    kl, scope = extractScope(normaliseNotion(notion))
+    words_with_POStag = nltk.pos_tag(nltk.word_tokenize(kl))
+    important_words = set([w for (w, pos) in words_with_POStag if pos in IMPORTANT_POS])
+    return (important_words, scope)
+
+
+# ---
+# Computing the distance between two notions
+# ---
+
+def similarWords(w1, w2, list_prefixes):
+    # Checks if two words w1 and w2 are similar up to taking their stem (removing a suffix)
+    # and removing a prefix in the list `list_prefixes`.
+    if w1 == w2:
+        return True
+    else:
+        s1 = stemmer.stem(w1)
+        s2 = stemmer.stem(w2)
+        for p in list_prefixes:
+            if p + s1 == s2 or p + s2 == s1:
+                return True
+        return False
+
+def distance_sets_of_words(set_words1, set_words2, list_prefixes):
+    # Given two sets of words (considered up to permutation), computes the distance between them.
+    for w1 in set_words1:
+        similar_to_w1 = [w2 for w2 in set_words2 if similarWords(w1, w2, list_prefixes)]
+        # If you find a pair of similar words, remove them.
+        if len(similar_to_w1) > 0:
+            w2 = similar_to_w1[0]
+            set_words1.remove(w1)
+            set_words2.remove(w2)
+            return distance_sets_of_words(set_words1, set_words2, list_prefixes)
+    return(len(set_words1) + len(set_words2))
+
+def distance(notion1, notion2, list_prefixes, scopes_meaning):
+    # Measures the distance between two notions, given a list of prefixes to ignore and
+    # a list of possible meaning for each scope
+    kl1_words, sc1 = breakupNotion(notion1)
+    kl2_words, sc2 = breakupNotion(notion2)
+    if sc1 != "" and sc2 != "" and sc1 != sc2:
+        return INFINITY
+    elif len(kl1_words) == 0 or len(kl2_words) == 0:
+        # Can happen in the notion is a command
+        return INFINITY
+    elif sc1 == sc2:
+        return distance_sets_of_words(kl1_words, kl2_words, list_prefixes)
     else: 
-        if scope2 != "":
-            knowledge1, scope1, knowledge2, scope2 = knowledge2, scope2, knowledge1, scope1
-        # Now scope2 is empty
-        n = max(len(knowledge1+scope1), len(knowledge2))
-        cf1 = commonFactor(scope1+knowledge1, knowledge2)
-        cf2 = commonFactor(knowledge1+scope1, knowledge2)
-        return n - max(cf1, cf2)
+        if sc1 == "":
+            kl1_words, sc1, kl2_words, sc2 = kl2_words, sc2, kl1_words, sc1
+        # sc2 is empty and sc1 isn't
+        # return the minimal distance obtained by replacing sc1 by one of its possible meanings 
+        dist = INFINITY
+        if sc1 in scopes_meaning:
+            sc1_meaning = scopes_meaning[sc1]
+        else:
+            sc1_meaning = [sc1]
+        for meaning in sc1_meaning:
+            kl1_with_meaning = list(copy.copy(kl1_words))
+            kl1_with_meaning = set(kl1_with_meaning + meaning)
+            dist = min(dist, distance_sets_of_words(kl1_with_meaning, kl2_words, list_prefixes))
+        return dist
+
+# --- 
+# Misc 
+# ---
+
+# def commonFactor(s1, s2):
+#     # Computes the length of the biggest common factor to s1 and s2
+#     m = len(s1)
+#     n = len(s2)
+#     if m > n:
+#         m, n = n, m
+#         s1, s2 = s2, s1
+#     maxCommonFactor = 0
+#     for i in range(m):
+#         for j in range(i+1,m+1):
+#             if j-i > maxCommonFactor and s1[i:j] in s2:
+#                 maxCommonFactor = j-i
+#     return maxCommonFactor

@@ -4,16 +4,18 @@ import nbformat
 import diagnose as diag
 import kltex
 import clustering as clust
+import config 
+import scope_meaning as sm
 import sys, getopt
 import os
 
-ALPHA = 3
+ALPHA = 0
 TEMP_FILE = ".temp_knowledges.tex"
+CONFIG_FILE = "config/english.config"
 
 def main(argv):
     notion_file = ""
     diagnose_file = ""
-    time_limit = 15
     try:
         opts, args = getopt.getopt(argv,"hn:d:",["help"])
     except getopt.GetoptError:
@@ -37,12 +39,14 @@ def main(argv):
     with open(notion_file, "r") as f:
         document, known_knowledges = kltex.parse(f)
         f.close()
+        list_prefixes = config.parse(CONFIG_FILE)
+        scopes_meaning = sm.inferAllScopes(known_knowledges)
         unknown_knowledges = diag.parse(diagnose_file)
         if len(unknown_knowledges) > 0:
             len_known_knowledges = len(known_knowledges)
             len_bags = [len(bag) for bag in known_knowledges]
             # Add every unknown knowledge to a (possibly new) bag in known_knowledges
-            clust.clustering(known_knowledges, unknown_knowledges, ALPHA)
+            clust.clustering(known_knowledges, unknown_knowledges, ALPHA, list_prefixes, scopes_meaning)
             # Compute updated_knowledges and new_knowledges
             new_knowledges = known_knowledges[len_known_knowledges:]
             updated_knowledges = [known_knowledges[bag_id][len_bags[bag_id]:] for bag_id in range(len_known_knowledges)]

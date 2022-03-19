@@ -8,7 +8,7 @@ def bagId(known_knowledges, kl):
         i += 1
     return i
 
-def clustering(known_knowledges, unknown_knowledges, alpha):
+def clustering(known_knowledges, unknown_knowledges, alpha, list_prefixes, scopes_meaning):
     # Takes a list of lists of known knowledges, a list of unknown knowledges, a threshold alpha (positive float)
     # and modifies known_knowledges and unknown_knowledges so that at the end every notion of unknown_knowledges
     # is moved to some bag of known_knowledges. The bags of known_knowledges satisfy the following invariant:
@@ -32,7 +32,7 @@ def clustering(known_knowledges, unknown_knowledges, alpha):
             kl2_min = None
             # Finds the processed notion that is at a minimal distance from kl
             for kl2 in knowledges_processed_new:
-                d = dist.distance(kl, kl2)
+                d = dist.distance(kl, kl2, list_prefixes, scopes_meaning)
                 if dist_min == None or d < dist_min:
                     dist_min = d
                     kl2_min = kl2
