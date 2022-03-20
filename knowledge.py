@@ -6,42 +6,29 @@ import kltex
 import clustering as clust
 import config 
 import scope_meaning as sm
-import sys, getopt
+import sys
+import argparse
 import os
 
 ALPHA = 0
 TEMP_FILE = ".temp_knowledges.tex"
 CONFIG_FILE = "config/english.config"
 
+def parseArguments():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-n", "--notion", help="File containing the knowledges/notions defined by the user.", type=str, dest="notion_file", required=True)
+    parser.add_argument("-d", "--diagnose", help="File containing the diagnose file produced by TeX.", type=str, dest="diagnose_file", required=True)
+    parser.add_argument("-l", "--lang", help="Language of your TeX document.", type=str, choices={"en"}, default="en", dest="lang")
+    return parser.parse_args()
+
 def main(argv):
-    notion_file = ""
-    diagnose_file = ""
-    try:
-        opts, args = getopt.getopt(argv,"hn:d:",["help"])
-    except getopt.GetoptError:
-        print("Invalid syntax: display help using 'anakin.py --help'.")
-        sys.exit(2)
-    for opt, arg in opts:
-        if opt in ('-h', "--help"):
-            print("Syntax: 'anakin.py -n <file_notion> -d <file_diagnose>'.")
-            sys.exit()
-        elif opt in ("-n"):
-            notion_file = arg
-        elif opt in ("-d"):
-            diagnose_file = arg
-    if notion_file == "":
-        print("Error: missing notion file.")
-        sys.exit(2)
-    if diagnose_file == "":
-        print("Error: missing diagnose file.")
-        sys.exit(2)
-    # Get known and unknown knowledges from input files
-    with open(notion_file, "r") as f:
+    args = parseArguments()
+    with open(args.notion_file, "r") as f:
         document, known_knowledges = kltex.parse(f)
         f.close()
         list_prefixes = config.parse(CONFIG_FILE)
         scopes_meaning = sm.inferAllScopes(known_knowledges)
-        unknown_knowledges = diag.parse(diagnose_file)
+        unknown_knowledges = diag.parse(args.diagnose_file)
         if len(unknown_knowledges) > 0:
             len_known_knowledges = len(known_knowledges)
             len_bags = [len(bag) for bag in known_knowledges]
@@ -54,6 +41,6 @@ def main(argv):
             with open(TEMP_FILE, "w") as f:
                 kltex.writeDocument(f, document, updated_knowledges, new_knowledges)
                 f.close()
-                os.replace(TEMP_FILE, notion_file)
+                os.replace(TEMP_FILE, args.notion_file)
 if __name__ == "__main__":
    main(sys.argv[1:])
