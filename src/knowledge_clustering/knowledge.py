@@ -7,6 +7,7 @@ import knowledge_clustering.config as config
 import knowledge_clustering.scope_meaning as sm
 import argparse
 import os
+import nltk
 
 ALPHA = 0
 DIRNAME = os.path.dirname(__file__)
@@ -44,3 +45,7 @@ def main():
                 kltex.writeDocument(f, document, updated_knowledges, new_knowledges)
                 f.close()
                 os.replace(TEMP_FILE, args.notion_file)
+
+def main_download_nltk_data():
+    nltk.download('punkt')
+    nltk.download('averaged_perceptron_tagger')
