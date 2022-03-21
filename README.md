@@ -18,3 +18,12 @@ To install or upgrade **Knowledge-Clustering**, run
 ## Syntax
 
 Write in a terminal `knowledge -h` or `knowledge-clustering -h` to display the help.
+If the autocomplete for `knowledge` or `knowledge-clustering` does not work, add
+
+    eval "`pip completion --zsh`"
+
+to your `.zshrc` if you are using `zsh`, or add 
+
+    eval "`pip completion --bash`"
+
+to your `.bashrc` if you are using `bash`!
