@@ -19,6 +19,7 @@ def parseArguments():
     parser.add_argument("-n", "--notion", help="File containing the knowledges/notions defined by the user.", type=str, dest="notion_file", required=True)
     parser.add_argument("-d", "--diagnose", help="File containing the diagnose file produced by TeX.", type=str, dest="diagnose_file", required=True)
     parser.add_argument("-l", "--lang", help="Language of your TeX document.", type=str, choices={"en"}, default="en", dest="lang")
+    parser.add_argument("-s", "--scope", help="Print the scopes defined in the notion file and print the possible meaning of those scope infered by Knowledge-Clustering.", action="store_true", dest="print_scope")
     return parser.parse_args()
 
 def main(argv):
@@ -28,6 +29,8 @@ def main(argv):
         f.close()
         list_prefixes = config.parse(CONFIG_FILE)
         scopes_meaning = sm.inferAllScopes(known_knowledges)
+        if args.print_scope:
+            sm.printScopes(scopes_meaning, print_meaning=True)
         unknown_knowledges = diag.parse(args.diagnose_file)
         if len(unknown_knowledges) > 0:
             len_known_knowledges = len(known_knowledges)
@@ -42,5 +45,6 @@ def main(argv):
                 kltex.writeDocument(f, document, updated_knowledges, new_knowledges)
                 f.close()
                 os.replace(TEMP_FILE, args.notion_file)
+
 if __name__ == "__main__":
    main(sys.argv[1:])

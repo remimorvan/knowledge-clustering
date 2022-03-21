@@ -44,9 +44,9 @@ def inferAllScopes(known_knowledges):
     return scopes_meaning
 
 def printScopes(scopes_meaning, print_meaning=False):
+    print("Defined scopes:")
     if not print_meaning:
-        print(list(scopes_meaning.keys()))
+        print("\t", list(scopes_meaning.keys()))
     else:
         for sc in scopes_meaning:
-            print(sc, ":")
-            print("\t", scopes_meaning[sc])
+            print("\t", sc, ":", scopes_meaning[sc])
