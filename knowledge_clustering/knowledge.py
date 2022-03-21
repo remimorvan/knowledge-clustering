@@ -1,18 +1,16 @@
 #!/usr/bin/env python3
 
-import nbformat
 import diagnose as diag
 import kltex
 import clustering as clust
 import config 
 import scope_meaning as sm
-import sys
 import argparse
 import os
 
 ALPHA = 0
 TEMP_FILE = ".temp_knowledges.tex"
-CONFIG_FILE = "config/english.config"
+CONFIG_FILE = "config/english.txt"
 
 def parseArguments():
     parser = argparse.ArgumentParser()
