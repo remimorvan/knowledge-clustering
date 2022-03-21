@@ -1,2 +1,5 @@
 *.DS_Store
 *.pyc
+*.egg-info*
+*.whl
+*.tar.gz
