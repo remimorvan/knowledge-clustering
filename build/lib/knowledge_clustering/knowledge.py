@@ -9,9 +9,8 @@ import argparse
 import os
 
 ALPHA = 0
-DIRNAME = os.path.dirname(__file__)
-TEMP_FILE = os.path.join(DIRNAME, ".temp_knowledges.tex")
-CONFIG_FILE = os.path.join(DIRNAME, "config/english.txt")
+TEMP_FILE = "./.temp_knowledges.tex"
+CONFIG_FILE = "./config/english.txt"
 
 def parseArguments():
     parser = argparse.ArgumentParser()
