@@ -1,4 +1,6 @@
 # Knowledge-Clustering
+[![PyPI](https://img.shields.io/pypi/v/knowledge-clustering.svg)](https://pypi.python.org/pypi/knowledge-clustering)
+
 Clustering notions for the [knowledge LaTeX package](https://ctan.org/pkg/knowledge).
 
 ## Principle
