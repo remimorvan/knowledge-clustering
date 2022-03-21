@@ -49,4 +49,4 @@ def printScopes(scopes_meaning, print_meaning=False):
         print("\t", list(scopes_meaning.keys()))
     else:
         for sc in scopes_meaning:
-            print("\t", sc, ":", scopes_meaning[sc])
+            print("\t@%s" % sc, ":", scopes_meaning[sc])

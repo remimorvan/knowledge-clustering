@@ -99,7 +99,7 @@ def distance(notion1, notion2, list_prefixes, scopes_meaning):
         if sc1 in scopes_meaning:
             sc1_meaning = scopes_meaning[sc1]
         else:
-            sc1_meaning = [sc1]
+            sc1_meaning = [[sc1]]
         for meaning in sc1_meaning:
             kl1_with_meaning = list(copy.copy(kl1_words))
             kl1_with_meaning = set(kl1_with_meaning + meaning)

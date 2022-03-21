@@ -1,10 +1,6 @@
 # Knowledge-Clustering
 Clustering notions for the [knowledge LaTeX package](https://ctan.org/pkg/knowledge).
 
-Maintainers:
- - Rémi Morvan
- - Thomas Colcombet
-
 ## Principle
 
 The goal of **Knowledge-Clustering** is, when using the [knowledge package](https://ctan.org/pkg/knowledge) to automatically provide suggestions to the user of what notions should be grouped together.
@@ -17,13 +13,17 @@ To install or upgrade **Knowledge-Clustering**, run
 
 ## Syntax
 
-Write in a terminal `knowledge -h` or `knowledge-clustering -h` to display the help.
-If the autocomplete for `knowledge` or `knowledge-clustering` does not work, add
+Write in a terminal `knowledge -h` to display the help.
 
-    eval "`pip completion --zsh`"
+### Enabling autocomplete
 
-to your `.zshrc` if you are using `zsh`, or add 
+If the autocomplete for `knowledge` does not work, add
 
-    eval "`pip completion --bash`"
+    eval "`pip completion --<foo>`"
 
-to your `.bashrc` if you are using `bash`!
+to your `.<foo>rc`, where `<foo>` is either `zsh` or `bash` (or possibly another shell),
+and them run 
+
+    source ~/.<foo>rc
+
+in your terminal.
