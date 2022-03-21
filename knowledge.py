@@ -22,7 +22,7 @@ def parseArguments():
     parser.add_argument("-s", "--scope", help="Print the scopes defined in the notion file and print the possible meaning of those scope infered by Knowledge-Clustering.", action="store_true", dest="print_scope")
     return parser.parse_args()
 
-def main(argv):
+def main():
     args = parseArguments()
     with open(args.notion_file, "r") as f:
         document, known_knowledges = kltex.parse(f)
@@ -47,4 +47,4 @@ def main(argv):
                 os.replace(TEMP_FILE, args.notion_file)
 
 if __name__ == "__main__":
-   main(sys.argv[1:])
+   main()
