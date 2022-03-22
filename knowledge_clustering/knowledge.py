@@ -45,7 +45,3 @@ def main():
                 kltex.writeDocument(f, document, updated_knowledges, new_knowledges)
                 f.close()
                 os.replace(TEMP_FILE, args.notion_file)
-
-def main_download_nltk_data():
-    nltk.download('punkt')
-    nltk.download('averaged_perceptron_tagger')
