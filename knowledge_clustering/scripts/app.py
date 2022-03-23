@@ -153,7 +153,7 @@ def cluster(notion, diagnose, scope, lang, config_file):
     ]
     print(f"Found a solution by adding {len(new_knowledges)} new bag(s).")
 
-    with AtomicUpdate("test.txt") as f:
+    with AtomicUpdate(notion) as f:
         kltex.writeDocument(f, document, updated_knowledges, new_knowledges)
 
 
