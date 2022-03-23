@@ -2,21 +2,38 @@
 # - reading with "parse"
 
 
+def automata_line(state, line):
+    """
+    Automata parsing knowledges.
+    0: waiting for knowledge block
+    1: seen the heading of a knowledge block
+    2: we are in a knowledge block
+    """
+    if state == 0 and "Undefined knowledges" in line:
+        return 1, None
+    elif state == 1 and "************************" in line:
+        return 2, None
+    elif (state == 2 or state == 0) and "************************" in line:
+        return 0, None
+    elif state == 2 and "| " in line:
+        s = (line.split("| ", 1)[1]).split("\n", 1)[0]
+        return 2, s
+    else:
+        return state, None
+
+
+def unroll(automata, initial_state, generator):
+    state = initial_state
+    for y in generator:
+        state, z = automata(state, y)
+        yield z
+
+
 def parse(filename):
-    # Returns the dictionnary of notions (indexed by scopes) from a filename
-    listNotion = []
     with open(filename) as f:
-        lines = f.readlines()
-        reading_undefined_kl = 0
-        for l in lines:
-            if reading_undefined_kl == 0 and "Undefined knowledges" in l:
-                reading_undefined_kl = 1
-            if reading_undefined_kl == 2 and "************************" in l:
-                reading_undefined_kl = 0
-            if reading_undefined_kl == 1 and "************************" in l:
-                reading_undefined_kl = 2
-            if reading_undefined_kl == 2 and "| " in l:
-                str = (l.split("| ", 1)[1]).split("\n",1)[0]
-                listNotion.append(str)
-        f.close()
-    return list(set(listNotion))
+        setNotions = set(
+            notion
+            for notion in unroll(automata_line, 0, f.readlines())
+            if notion is not None
+        )
+    return list(setNotions)
