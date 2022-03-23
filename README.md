@@ -3,6 +3,7 @@
 [![PyPI](https://img.shields.io/pypi/v/knowledge-clustering.svg)](https://pypi.python.org/pypi/knowledge-clustering)
 
 Clustering notions for the [knowledge LaTeX package](https://ctan.org/pkg/knowledge).
+Maintained by Rémi Morvan, Thomas Colcombet and Aliaume Lopez.
 
 ## Principle
 
@@ -33,6 +34,37 @@ Optional arguments:
 | -d DIAGNOSE_FILE, --diagnose DIAGNOSE_FILE | File containing the diagnose file produced by TeX.                                                                         |
 | -l {en}, --lang {en}                       | Language of your TeX document.                                                                                             |
 | -s, --scope                                | Print the scopes defined in the notion file and print the possible meaning of those scope infered by Knowledge-Clustering. |
+
+## Example
+
+Example files can be found in the `examples/` folder.
+
+While writing some document, you have defined some knowledges in a file called `small.tex` (distinct
+from your main `LaTeX`).
+You continued writting your `LaTeX` document (not provided in the `examples/` folder)
+for some time, and used some knowledges that were undefined.
+When compiling, `LaTeX` and the [`knowledge package`](https://ctan.org/pkg/knowledge) gives you a warning
+and writes in a `.diagnose` file some information explaning what went wrong. This `.diagnose` file contains
+a section called "Undefined knowledges" containing all knowledges used in your main `LaTeX` file but not
+defined in `small.tex`. We reproduced this section
+in the `small.diagnose` file.
+
+![Screenshot of the `small.tex` and `small.diagnose` files before running Knowledge-Clustering. `small.tex` contains four knowledges, while `small.diagnose` contains five undefined knowledges.](img/small-before.png "Files `small.tex` and `small.diagnose` before running Knowledge-Clustering")
+
+Normally, you would add every undefined knowledge, one after the other, in your
+`small.tex`. This is quite burdensome and can
+largely be automated: you don't need a PhD to
+understand that "word" and "words" are similar words. This is precisely what **Knowledge-Clustering** does: after running
+
+    knowledge -n small.tex -d small.diagnose 
+
+your file `small.diagnose` is left unchanged
+but `small.tex` is updated with comments.
+
+![After running Knowledge-Clustering, the five undefined knowledges are included in the `small.tex` file as comments.](img/small-after.png "Files `small.tex` and `small.diagnose` after running Knowledge-Clustering`")
+
+Now you simply have to check that the recommandations of **Knowledge-Clustering** are
+correct, and uncomment those lines.
 
 ## Devel using virtualenv
 
