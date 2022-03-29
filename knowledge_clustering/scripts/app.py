@@ -3,12 +3,10 @@ import knowledge_clustering.kltex as kltex
 import knowledge_clustering.clustering as clust
 import knowledge_clustering.config as config
 import knowledge_clustering.scope_meaning as sm
+import knowledge_clustering.file_updater as fu
 
 
-import hashlib
-import tempfile
 import click
-import os
 import nltk
 import pkg_resources
 
@@ -16,56 +14,8 @@ ALPHA = 0
 APP_NAME = "knowledge-clustering"
 
 CONFIG_FILE = pkg_resources.resource_filename(
-    "knowledge_clustering", "data/english.txt"
+    "knowledge_clustering", "data/english.ini"
 )
-
-
-def hash_file(filepath):
-    with open(filepath, "rb") as f:
-        file_hash = hashlib.blake2b()
-        chunk = f.read(8192)
-        while chunk:
-            file_hash.update(chunk)
-            chunk = f.read(8192)
-        return file_hash
-
-
-class AtomicUpdate:
-    """
-    A small class using a temporary file to ensure that we have
-    properly replaced the content. Prompts the user if we detect
-    a change in the hash of the file given as input.
-    """
-
-    def __init__(self, filename):
-        self.filename = filename
-        self.hash = hash_file(filename)
-        self.ctx = tempfile.NamedTemporaryFile(mode="w", dir=os.getcwd(), delete=False)
-        self.tmp = None
-
-    def __enter__(self):
-        self.tmp = self.ctx.__enter__()
-        return self.tmp
-
-    def __exit__(self, type, value, traceback):
-        nh = hash_file(self.filename)
-        if nh.hexdigest() != self.hash.hexdigest():
-            print(f"{nh.hexdigest()} ≠ {self.hash.hexdigest()}")
-            b = click.confirm(
-                f"File {self.filename} has been modified\
-                during the run of \
-                the program, erase anyway?",
-                default=None,
-                abort=False,
-                prompt_suffix=": ",
-                show_default=True,
-                err=False,
-            )
-            if b is False:
-                print(f"Temporary file accessible at {self.tmp.name}")
-                return self.ctx.__exit__(type, value, traceback)
-        os.replace(self.tmp.name, self.filename)
-        return self.ctx.__exit__(type, value, traceback)
 
 
 @click.group()
@@ -153,7 +103,7 @@ def cluster(notion, diagnose, scope, lang, config_file):
     ]
     print(f"Found a solution by adding {len(new_knowledges)} new bag(s).")
 
-    with AtomicUpdate(notion) as f:
+    with fu.AtomicUpdate(notion) as f:
         kltex.writeDocument(f, document, updated_knowledges, new_knowledges)
 
 
