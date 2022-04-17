@@ -1,8 +1,0 @@
-:PREFIXES_SIMILAR
-    - % ignore dashes
-    a % (a)chromatic
-    il
-    im
-    in % (in)separable
-    ir 
-    un % (un)ambiguous

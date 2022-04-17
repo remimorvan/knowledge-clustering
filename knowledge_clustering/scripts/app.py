@@ -7,6 +7,7 @@ import knowledge_clustering.file_updater as fu
 
 
 import click
+from click_default_group import DefaultGroup
 import nltk
 import pkg_resources
 
@@ -18,7 +19,7 @@ CONFIG_FILE = pkg_resources.resource_filename(
 )
 
 
-@click.group()
+@click.group(cls=DefaultGroup, default='cluster', default_if_no_args=True)
 def cli():
     """Automated notion clustering for the knowledge LaTeX package"""
     pass
@@ -32,15 +33,21 @@ def init():
 
 
 @cli.command()
-@click.argument(
-    "notion",
+@click.option(
+    "--notion",
+    "-n",
     type=click.Path(
         exists=True, file_okay=True, dir_okay=False, writable=True, readable=True
     ),
+    help="File containing the notions that are already defined.",
+    required=True
 )
-@click.argument(
-    "diagnose",
+@click.option(
+    "--diagnose",
+    "-d",
     type=click.Path(exists=True, file_okay=True, dir_okay=False, readable=True),
+    help="Diagnose file produced by LaTeX.",
+    required=True
 )
 @click.option(
     "--lang",
@@ -54,7 +61,7 @@ def init():
     " /-S",
     default=False,
     help="Print the scopes defined in the notion file and print \
-    the possible meaning of those scope inferred by Knowledge Clustering.",
+the possible meaning of those scope inferred by Knowledge Clustering.",
 )
 @click.option(
     "--config-file",
@@ -66,10 +73,6 @@ def cluster(notion, diagnose, scope, lang, config_file):
     """
     Edit a NOTION file using the knowledges present
     in a DIAGNOSE file.
-
-    NOTION:   File containing the diagnose file produced by TeX.
-
-    DIAGNOSE: File containing the knowledges/notions defined by the user.
     """
     with open(notion, "r") as f:
         document, known_knowledges = kltex.parse(f)
