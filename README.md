@@ -13,7 +13,7 @@ The goal of **Knowledge-Clustering** is, when using the [knowledge package](http
 
 To install (or upgrade) **Knowledge-Clustering**, run
 
-    python3 -m pip install --upgrade knowledge-clustering
+    pip3 install --upgrade knowledge-clustering
 
 and then
 
