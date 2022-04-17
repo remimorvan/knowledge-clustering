@@ -62,12 +62,12 @@ Normally, you would add every undefined knowledge, one after the other, in your
 largely be automated: you don't need a PhD to
 understand that "word" and "words" are similar words. This is precisely what **Knowledge-Clustering** does: after running
 
-    knowledge cluster small.tex small.diagnose
+    knowledge cluster -n small.tex -d small.diagnose
 
 your file `small.diagnose` is left unchanged
 but `small.tex` is updated with comments.
 
-The `cluster` command is optional: you can also write `knowledge small.tex small.diagnose`.
+The `cluster` command is optional: you can also write `knowledge -n small.tex -d small.diagnose`.
 
 ![After running Knowledge-Clustering, the five undefined knowledges are included in the `small.tex` file as comments.](img/small-after.png "Files `small.tex` and `small.diagnose` after running Knowledge-Clustering`")
 
