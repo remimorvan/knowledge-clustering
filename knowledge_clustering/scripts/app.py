@@ -91,12 +91,13 @@ def cluster(notion, diagnose, scope, lang, config_file):
 
     len_known_knowledges = len(known_knowledges)
     len_bags = [len(bag) for bag in known_knowledges]
+    # update known_knowledges using the clustering algorithm
     clust.clustering(
         known_knowledges,
         unknown_knowledges,
         ALPHA,
         list_prefixes,
-        scopes_meaning,
+        scopes_meaning
     )
     # Compute updated_knowledges and new_knowledges
     new_knowledges = known_knowledges[len_known_knowledges:]

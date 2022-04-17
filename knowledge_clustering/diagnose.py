@@ -31,9 +31,8 @@ def unroll(automata, initial_state, generator):
 
 def parse(filename):
     with open(filename) as f:
-        setNotions = set(
-            notion
-            for notion in unroll(automata_line, 0, f.readlines())
-            if notion is not None
-        )
-    return list(setNotions)
+        list_notions = []
+        for notion in unroll(automata_line, 0, f.readlines()):
+            if notion is not None and notion not in list_notions:
+                list_notions.append(notion)
+    return list(list_notions)
