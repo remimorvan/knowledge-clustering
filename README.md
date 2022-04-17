@@ -22,22 +22,22 @@ and then
 ## Syntax
 
 ```
-Usage: knowledge cluster [OPTIONS] NOTION DIAGNOSE
+Usage: knowledge cluster [OPTIONS]
 
   Edit a NOTION file using the knowledges present in a DIAGNOSE file.
 
-  NOTION:   File containing the diagnose file produced by TeX.
-
-  DIAGNOSE: File containing the knowledges/notions defined by the user.
-
 Options:
+  -n, --notion FILE         File containing the notions that are already
+                            defined.  [required]
+  -d, --diagnose FILE       Diagnose file produced by LaTeX.  [required]
   -l, --lang [en]           Language of your TeX document.
   --scope / -S, --no-scope  Print the scopes defined in the notion file and
-                            print     the possible meaning of those scope
-                            inferred by Knowledge Clustering.
+                            print the possible meaning of those scope inferred
+                            by Knowledge Clustering.
   -c, --config-file TEXT    Specific configuration file. By default the
                             following files is read
-                            $APP_PATH/knowledge_clustering/data/english.txt
+                            /Users/rmorvan/GDrive/Code/knowledge-
+                            clustering/knowledge_clustering/data/english.ini
   --help                    Show this message and exit.
 ```
 
@@ -66,6 +66,8 @@ understand that "word" and "words" are similar words. This is precisely what **K
 
 your file `small.diagnose` is left unchanged
 but `small.tex` is updated with comments.
+
+The `cluster` command is optional: you can also write `knowledge small.tex small.diagnose`.
 
 ![After running Knowledge-Clustering, the five undefined knowledges are included in the `small.tex` file as comments.](img/small-after.png "Files `small.tex` and `small.diagnose` after running Knowledge-Clustering`")
 
