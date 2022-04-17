@@ -102,7 +102,7 @@ def distance(notion1, notion2, list_prefixes, scopes_meaning):
             sc1_meaning = [[sc1]]
         for meaning in sc1_meaning:
             kl1_with_meaning = list(copy.copy(kl1_words))
-            kl1_with_meaning = set(kl1_with_meaning + meaning)
+            kl1_with_meaning.extend([w for w in meaning if w not in kl1_with_meaning])
             dist = min(dist, distance_sets_of_words(kl1_with_meaning, kl2_words, list_prefixes))
         return dist
 
