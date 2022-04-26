@@ -4,6 +4,7 @@ import knowledge_clustering.clustering as clust
 import knowledge_clustering.config as config
 import knowledge_clustering.scope_meaning as sm
 import knowledge_clustering.file_updater as fu
+import knowledge_clustering.add_quotes as quotes
 
 
 import click
@@ -58,7 +59,7 @@ def init():
 )
 @click.option(
     "--scope/--no-scope",
-    " /-S",
+    "-S/ ",
     default=False,
     help="Print the scopes defined in the notion file and print \
 the possible meaning of those scope inferred by Knowledge Clustering.",
@@ -110,6 +111,45 @@ def cluster(notion, diagnose, scope, lang, config_file):
     with fu.AtomicUpdate(notion) as f:
         kltex.writeDocument(f, document, updated_knowledges, new_knowledges)
 
+
+@cli.command()
+@click.option(
+    "--tex",
+    "-t",
+    type=click.Path(
+        exists=True, file_okay=True, dir_okay=False, writable=True, readable=True
+    ),
+    help="Your TeX file.",
+    required=True
+)
+@click.option(
+    "--notion",
+    "-n",
+    type=click.Path(
+        exists=True, file_okay=True, dir_okay=False, writable=True, readable=True
+    ),
+    help="File containing the notions that are already defined.",
+    required=True
+)
+@click.option(
+    "--force",
+    "-F",
+    is_flag=True,
+    help="Don't ask the user and always add quotes if a match is found.",
+)
+def addquotes(tex, notion, force):
+    """
+    Finds knowledges defined in NOTION that appear in TEX without quote symbols.
+    Proposes to add (or add, if the force option is enabled) quotes around them.  
+    """
+    with open(tex, "r") as f:
+        tex_document = f.read()
+    with open(notion, "r") as f:
+        _, known_knowledges = kltex.parse(f)
+    known_knowledges = [kl for bag in known_knowledges for kl in bag]
+    tex_document_new = quotes.quote_maximal_substrings(tex_document, known_knowledges, not force, False, 4)
+    with fu.AtomicUpdate(tex) as f:
+        f.write(tex_document_new)
 
 if __name__ == "__main__":
     cli()
