@@ -7,7 +7,12 @@ Maintained by Rémi Morvan, Thomas Colcombet and Aliaume Lopez.
 
 ## Principle
 
-The goal of **Knowledge-Clustering** is, when using the [knowledge package](https://ctan.org/pkg/knowledge) to automatically provide suggestions to the user of what notions should be grouped together.
+The goal of **Knowledge-Clustering** is to help the user write a LaTeX document with
+the [knowledge package](https://ctan.org/pkg/knowledge).
+It has two features:
+
+  - **Clustering**: provide suggestions to the user of what notions should be grouped together.
+  - **Add quotes**: find where you might have missed some quotes in your document.
 
 ## Installation
 
@@ -19,7 +24,9 @@ and then
 
     knowledge init
 
-## Syntax
+## Clustering notions 
+
+### Syntax
 
 ```
 Usage: knowledge cluster [OPTIONS]
@@ -30,18 +37,19 @@ Options:
   -n, --notion FILE         File containing the notions that are already
                             defined.  [required]
   -d, --diagnose FILE       Diagnose file produced by LaTeX.  [required]
-  -l, --lang [en]           Language of your TeX document.
-  --scope / -S, --no-scope  Print the scopes defined in the notion file and
+  -l, --lang [en|fr]        Language of your TeX document.
+  -S, --scope / --no-scope  Print the scopes defined in the notion file and
                             print the possible meaning of those scope inferred
                             by Knowledge Clustering.
-  -c, --config-file TEXT    Specific configuration file. By default the
-                            following files is read
+  -c, --config-file TEXT    Specify the configuration file. By default the
+                            configuration file in the folder
                             /Users/rmorvan/GDrive/Code/knowledge-
-                            clustering/knowledge_clustering/data/english.ini
+                            clustering/knowledge_clustering/data corresponding
+                            to your language is used.
   --help                    Show this message and exit.
 ```
 
-## Example
+### Example
 
 Example files can be found in the `examples/` folder.
 
@@ -73,6 +81,23 @@ The `cluster` command is optional: you can also write `knowledge -n small.tex -d
 
 Now you simply have to check that the recommandations of **Knowledge-Clustering** are
 correct, and uncomment those lines.
+
+## Adding quotes
+
+```
+Usage: knowledge addquotes [OPTIONS]
+
+  Finds knowledges defined in NOTION that appear in TEX without quote symbols.
+  Proposes to add (or add, if the force option is enabled) quotes around them.
+
+Options:
+  -t, --tex FILE     Your TeX file.  [required]
+  -n, --notion FILE  File containing the notions that are already defined.
+                     [required]
+  -F, --force        Don't ask the user and always add quotes if a match is
+                     found.
+  --help             Show this message and exit.
+```
 
 ## Devel using virtualenv
 
