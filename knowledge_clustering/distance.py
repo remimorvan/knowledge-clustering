@@ -5,7 +5,49 @@ stemmer = nss.SnowballStemmer("english")
 
 IMPORTANT_POS = ["CD", "JJ", "JJR", "JJS", "NN", "NNP", "NNS", "PDT", "RB", "RBR", "RBS", "VB",
     "VBD", "VBG", "VBN", "VBP", "VBZ"]
-INFINITY = 1000
+INFINITY = 10000
+
+# ---
+# Edit distance
+# ---
+
+def levenshtein_distance(s, t):
+    """
+    Computes the Levenshtein (insertions, deletions or substitutions are allowed)
+    edit distance between two strings.
+    """
+    # Implementation of the Wagner–Fischer algorithm
+    # https://en.wikipedia.org/wiki/Wagner%E2%80%93Fischer_algorithm
+    m, n = len(s), len(t)
+    dist = [[0 for _ in range(n+1)] for _ in range(m+1)]
+    for i in range(1,m+1):
+        dist[i][0] = i
+    for j in range(1,n+1):
+        dist[0][j] = j
+    for j in range(1,n+1):
+        for i in range(1,m+1):
+            substitution_cost = 0 if s[i-1] == t[j-1] else 1
+            dist[i][j] = min(
+                dist[i-1][j] + 1,
+                dist[i][j-1] + 1,
+                dist[i-1][j-1] + substitution_cost
+            )
+    return dist[m][n]
+
+def minimise_levenshtein_distance(s, t_list):
+    """
+    Given a string s, and a non-empty list of strings, returns an element of t_list
+    minimising the edit distance with s.
+    """
+    t_min = t_list[0]
+    dist_min = levenshtein_distance(s, t_min)
+    for t in t_list[1:]:
+        dist = levenshtein_distance(s, t)
+        if dist < dist_min:
+            t_min = t
+            dist_min = dist
+    return t_min
+    
 
 # ---
 # Functions to extract content from strings

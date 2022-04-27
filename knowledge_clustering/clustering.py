@@ -29,15 +29,20 @@ def clustering(known_knowledges, unknown_knowledges, alpha, list_prefixes, scope
         unknown_knowledges_copy = copy.copy(unknown_knowledges)
         for kl in unknown_knowledges_copy:
             dist_min = None
-            kl2_min = None
+            kl2_min_list = []
             # Finds the processed notion that is at a minimal distance from kl
             for kl2 in knowledges_processed_new:
                 d = dist.distance(kl, kl2, list_prefixes, scopes_meaning)
                 if dist_min == None or d < dist_min:
                     dist_min = d
-                    kl2_min = kl2
+                    kl2_min_list = [kl2]
+                elif d == dist_min:
+                    kl2_min_list.append(kl2)
             # If this minimal distance is smaller than the threshold alpha, add kl to the bag
             if dist_min <= alpha:
+                # Choose kl2_min in kl2_min_list minimising the edit distance
+                kl2_min = dist.minimise_levenshtein_distance(kl, kl2_min_list)
+                # Add kl to the bag of kl2_min
                 i = bagId(known_knowledges, kl2_min)
                 known_knowledges[i].append(kl)
                 unknown_knowledges.remove(kl)
