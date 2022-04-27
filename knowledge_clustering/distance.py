@@ -39,13 +39,20 @@ def normaliseNotion(notion):
     return notion_norm
 
 def breakupNotion(notion, lang):
-    # Given a notion, returns the list of important words in kl, and the (possibly empty scope).
-    # Important words are obtained by only keeping cardinals, preposition or conjunction, subordinating,
-    # adjectives, nouns, pre-determiners, adverbs, verbs
+    """
+    Input: a notion, and a language.
+    Output: the set of words contained in the notion.
+    If the language is `english`, remove unimportant words.
+    Important words are: cardinals, preposition or conjunction, subordinating,
+    adjectives, nouns, pre-determiners, adverbs, verbs
+    """
     kl, scope = extractScope(normaliseNotion(notion))
-    words_with_POStag = nltk.pos_tag(nltk.word_tokenize(kl, language=lang))
-    important_words = set([w for (w, pos) in words_with_POStag if pos in IMPORTANT_POS])
-    return (important_words, scope)
+    if lang == 'english':
+        words_with_POStag = nltk.pos_tag(nltk.word_tokenize(kl, language='english'))
+        important_words = set([w for (w, pos) in words_with_POStag if pos in IMPORTANT_POS])
+        return (important_words, scope)
+    else:
+        return (set(nltk.word_tokenize(kl, language=lang)), scope)
 
 
 # ---
