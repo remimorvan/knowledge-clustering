@@ -11,13 +11,27 @@ import click
 from click_default_group import DefaultGroup
 import nltk
 import pkg_resources
+import os
 
 ALPHA = 0
 APP_NAME = "knowledge-clustering"
 
-CONFIG_FILE = pkg_resources.resource_filename(
-    "knowledge_clustering", "data/english.ini"
+CONFIG_FILENAME = {
+    "en": "english.ini",
+    "fr": "french.ini"
+}
+CONFIG_DIR = pkg_resources.resource_filename(
+    "knowledge_clustering", "data"
 )
+CONFIG_FILE = dict()
+for lang in CONFIG_FILENAME.keys():
+    CONFIG_FILE[lang] = pkg_resources.resource_filename(
+        "knowledge_clustering", f"data/{CONFIG_FILENAME[lang]}"
+    )
+NLTK_LANG = {
+    "en": "english",
+    "fr": "french"
+}
 
 
 @click.group(cls=DefaultGroup, default='cluster', default_if_no_args=True)
@@ -31,6 +45,8 @@ def init():
     """Downloads the required Nltk packages"""
     nltk.download("punkt")
     nltk.download("averaged_perceptron_tagger")
+    os.system("python3 -m spacy download en")
+    os.system("python3 -m spacy download fr")
 
 
 @cli.command()
@@ -54,7 +70,7 @@ def init():
     "--lang",
     "-l",
     default="en",
-    type=click.Choice(["en"]),
+    type=click.Choice(["en", "fr"]),
     help="Language of your TeX document.",
 )
 @click.option(
@@ -67,8 +83,9 @@ the possible meaning of those scope inferred by Knowledge Clustering.",
 @click.option(
     "--config-file",
     "-c",
-    default=CONFIG_FILE,
-    help=f"Specific configuration file. By default the following files is read {CONFIG_FILE}",
+    default=None,
+    help=f"Specify the configuration file. By default the configuration file in the folder {CONFIG_DIR} \
+corresponding to your language is used.",
 )
 def cluster(notion, diagnose, scope, lang, config_file):
     """
@@ -77,10 +94,13 @@ def cluster(notion, diagnose, scope, lang, config_file):
     """
     with open(notion, "r") as f:
         document, known_knowledges = kltex.parse(f)
+        
+    if config_file == None:
+        config_file = CONFIG_FILE[lang]
 
     list_prefixes = config.parse(config_file)
 
-    scopes_meaning = sm.inferAllScopes(known_knowledges)
+    scopes_meaning = sm.inferAllScopes(known_knowledges, NLTK_LANG[lang])
 
     if scope:
         sm.printScopes(scopes_meaning, print_meaning=True)
@@ -98,7 +118,8 @@ def cluster(notion, diagnose, scope, lang, config_file):
         unknown_knowledges,
         ALPHA,
         list_prefixes,
-        scopes_meaning
+        scopes_meaning,
+        NLTK_LANG[lang]
     )
     # Compute updated_knowledges and new_knowledges
     new_knowledges = known_knowledges[len_known_knowledges:]

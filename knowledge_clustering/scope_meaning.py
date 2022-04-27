@@ -13,7 +13,7 @@ def union_list_of_lists(l1, l2):
             s.append(sublist)
     return s
 
-def inferScope(list_kl, scope):
+def inferScope(list_kl, scope, lang):
     # Takes a list of knowledges that all belong to the same knowledge and a scope.
     # If the list contains a knowledge with this scope, we try to infer the meaning of the scope
     # by looking at similar knowledges.
@@ -21,7 +21,8 @@ def inferScope(list_kl, scope):
     # Running the algorithm on ["word@some-scope", "countable ordinal word", "ordinal word", "scattered language"]
     # for the scope `some-scope` will return the list [["countable", "ordinal"], ["ordinal"]].
     result = []
-    list_kl_broke = list(map(dist.breakupNotion, list_kl))
+    print(f"LANG: {lang}")
+    list_kl_broke = list(map(dist.breakupNotion, list_kl, lang))
     for (kl1_words, sc1) in list_kl_broke:
         if sc1 == scope:
             for (kl2_words, sc2) in list_kl_broke:
@@ -31,14 +32,14 @@ def inferScope(list_kl, scope):
                     result.append([w for w in kl2_words if w not in kl1_words])
     return result
 
-def inferAllScopes(known_knowledges):
+def inferAllScopes(known_knowledges, lang):
     list_scopes = set([sc for bag in known_knowledges for (_, sc) in map(dist.extractScope, bag)])
     if "" in list_scopes:
         list_scopes.remove("")
     scopes_meaning = {sc : [] for sc in list_scopes}
     for scope in list_scopes:
         for bag in known_knowledges:
-            scopes_meaning[scope] = union_list_of_lists(scopes_meaning[scope], inferScope(bag, scope))
+            scopes_meaning[scope] = union_list_of_lists(scopes_meaning[scope], inferScope(bag, scope, lang))
         if [scope] not in scopes_meaning[scope]:
             scopes_meaning[scope].append([scope])
     return scopes_meaning
