@@ -1,9 +1,10 @@
 # ---
-# Infer the scope from known knowledges 
+# Infer the scope from known knowledges
 # ---
 
 import knowledge_clustering.distance as dist
 import copy
+
 
 def union_list_of_lists(l1, l2):
     # Returns the union (without repetition) of two lists of lists
@@ -12,6 +13,7 @@ def union_list_of_lists(l1, l2):
         if sublist not in s:
             s.append(sublist)
     return s
+
 
 def inferScope(list_kl, scope, lang):
     # Takes a list of knowledges that all belong to the same knowledge and a scope.
@@ -32,17 +34,23 @@ def inferScope(list_kl, scope, lang):
                     result.append([w for w in kl2_words if w not in kl1_words])
     return result
 
+
 def inferAllScopes(known_knowledges, lang):
-    list_scopes = set([sc for bag in known_knowledges for (_, sc) in map(dist.extractScope, bag)])
+    list_scopes = set(
+        [sc for bag in known_knowledges for (_, sc) in map(dist.extractScope, bag)]
+    )
     if "" in list_scopes:
         list_scopes.remove("")
-    scopes_meaning = {sc : [] for sc in list_scopes}
+    scopes_meaning = {sc: [] for sc in list_scopes}
     for scope in list_scopes:
         for bag in known_knowledges:
-            scopes_meaning[scope] = union_list_of_lists(scopes_meaning[scope], inferScope(bag, scope, lang))
+            scopes_meaning[scope] = union_list_of_lists(
+                scopes_meaning[scope], inferScope(bag, scope, lang)
+            )
         if [scope] not in scopes_meaning[scope]:
             scopes_meaning[scope].append([scope])
     return scopes_meaning
+
 
 def printScopes(scopes_meaning, print_meaning=False):
     print("Defined scopes:")

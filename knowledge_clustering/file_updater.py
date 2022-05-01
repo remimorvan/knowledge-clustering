@@ -11,6 +11,7 @@ import tempfile
 import os
 import click
 
+
 def hash_file(filepath):
     """
     Compute a hash of the content of the

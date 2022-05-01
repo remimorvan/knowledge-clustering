@@ -16,25 +16,17 @@ import os
 ALPHA = 0
 APP_NAME = "knowledge-clustering"
 
-CONFIG_FILENAME = {
-    "en": "english.ini",
-    "fr": "french.ini"
-}
-CONFIG_DIR = pkg_resources.resource_filename(
-    "knowledge_clustering", "data"
-)
+CONFIG_FILENAME = {"en": "english.ini", "fr": "french.ini"}
+CONFIG_DIR = pkg_resources.resource_filename("knowledge_clustering", "data")
 CONFIG_FILE = dict()
 for lang in CONFIG_FILENAME.keys():
     CONFIG_FILE[lang] = pkg_resources.resource_filename(
         "knowledge_clustering", f"data/{CONFIG_FILENAME[lang]}"
     )
-NLTK_LANG = {
-    "en": "english",
-    "fr": "french"
-}
+NLTK_LANG = {"en": "english", "fr": "french"}
 
 
-@click.group(cls=DefaultGroup, default='cluster', default_if_no_args=True)
+@click.group(cls=DefaultGroup, default="cluster", default_if_no_args=True)
 def cli():
     """Automated notion clustering for the knowledge LaTeX package"""
     pass
@@ -57,14 +49,14 @@ def init():
         exists=True, file_okay=True, dir_okay=False, writable=True, readable=True
     ),
     help="File containing the notions that are already defined.",
-    required=True
+    required=True,
 )
 @click.option(
     "--diagnose",
     "-d",
     type=click.Path(exists=True, file_okay=True, dir_okay=False, readable=True),
     help="Diagnose file produced by LaTeX.",
-    required=True
+    required=True,
 )
 @click.option(
     "--lang",
@@ -94,7 +86,7 @@ def cluster(notion, diagnose, scope, lang, config_file):
     """
     with open(notion, "r") as f:
         document, known_knowledges = kltex.parse(f)
-        
+
     if config_file == None:
         config_file = CONFIG_FILE[lang]
 
@@ -119,7 +111,7 @@ def cluster(notion, diagnose, scope, lang, config_file):
         ALPHA,
         list_prefixes,
         scopes_meaning,
-        NLTK_LANG[lang]
+        NLTK_LANG[lang],
     )
     # Compute updated_knowledges and new_knowledges
     new_knowledges = known_knowledges[len_known_knowledges:]
@@ -141,7 +133,7 @@ def cluster(notion, diagnose, scope, lang, config_file):
         exists=True, file_okay=True, dir_okay=False, writable=True, readable=True
     ),
     help="Your TeX file.",
-    required=True
+    required=True,
 )
 @click.option(
     "--notion",
@@ -150,7 +142,7 @@ def cluster(notion, diagnose, scope, lang, config_file):
         exists=True, file_okay=True, dir_okay=False, writable=True, readable=True
     ),
     help="File containing the notions that are already defined.",
-    required=True
+    required=True,
 )
 @click.option(
     "--force",
@@ -161,16 +153,19 @@ def cluster(notion, diagnose, scope, lang, config_file):
 def addquotes(tex, notion, force):
     """
     Finds knowledges defined in NOTION that appear in TEX without quote symbols.
-    Proposes to add (or add, if the force option is enabled) quotes around them.  
+    Proposes to add (or add, if the force option is enabled) quotes around them.
     """
     with open(tex, "r") as f:
         tex_document = f.read()
     with open(notion, "r") as f:
         _, known_knowledges = kltex.parse(f)
     known_knowledges = [kl for bag in known_knowledges for kl in bag]
-    tex_document_new = quotes.quote_maximal_substrings(tex_document, known_knowledges, not force, False, 4)
+    tex_document_new = quotes.quote_maximal_substrings(
+        tex_document, known_knowledges, not force, False, 4
+    )
     with fu.AtomicUpdate(tex) as f:
         f.write(tex_document_new)
+
 
 if __name__ == "__main__":
     cli()

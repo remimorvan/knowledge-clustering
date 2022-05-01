@@ -147,4 +147,3 @@ def writeDocument(f, document, updated_knowledges, new_knowledges):
                 f.write("%\\knowledge{notion}\n")
                 for s in k:
                     f.write("%  | " + s + "\n")
-

@@ -7,3 +7,4 @@ dist/*
 build/*
 .vim/*
 kw-devel/*
+venv-black/*
