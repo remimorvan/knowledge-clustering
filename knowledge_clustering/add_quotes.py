@@ -142,12 +142,14 @@ def quote_maximal_substrings(
     ignore_position = [False] * len(text_cleaned)
     add_quote_location = []  # Triple (string, start, end)
     for s1 in list_strings_sorted:
-        for match in re.finditer(s1, text_cleaned):
+        for match in re.finditer(re.escape(s1), text_cleaned):
             start, end = match.start(), match.end() - 1
             if not ignore_position[start]:
                 # Ignore every infix of s1 that is also a substring of the list
                 for s2 in dependency[s1]:
-                    for submatch in re.finditer(s2, text_cleaned[start : end + 1]):
+                    for submatch in re.finditer(
+                        re.escape(s2), text_cleaned[start : end + 1]
+                    ):
                         ignore_position[start + submatch.start()] = True
                 # Check if s1 is precedeed by quoted, if not add them
                 if (

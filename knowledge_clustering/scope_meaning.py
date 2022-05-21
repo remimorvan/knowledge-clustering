@@ -23,8 +23,7 @@ def inferScope(list_kl, scope, lang):
     # Running the algorithm on ["word@some-scope", "countable ordinal word", "ordinal word", "scattered language"]
     # for the scope `some-scope` will return the list [["countable", "ordinal"], ["ordinal"]].
     result = []
-    print(f"LANG: {lang}")
-    list_kl_broke = list(map(dist.breakupNotion, list_kl, lang))
+    list_kl_broke = [dist.breakupNotion(kl, lang) for kl in list_kl]
     for (kl1_words, sc1) in list_kl_broke:
         if sc1 == scope:
             for (kl2_words, sc2) in list_kl_broke:

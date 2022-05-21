@@ -93,7 +93,6 @@ def cluster(notion, diagnose, scope, lang, config_file):
     list_prefixes = config.parse(config_file)
 
     scopes_meaning = sm.inferAllScopes(known_knowledges, NLTK_LANG[lang])
-
     if scope:
         sm.printScopes(scopes_meaning, print_meaning=True)
 
