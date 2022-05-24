@@ -43,8 +43,8 @@ Options:
                             by Knowledge Clustering.
   -c, --config-file TEXT    Specify the configuration file. By default the
                             configuration file in the folder
-                            /Users/rmorvan/GDrive/Code/knowledge-
-                            clustering/knowledge_clustering/data corresponding
+                            <knowledge-clustering-installation-
+                            folder>/knowledge_clustering/data/ corresponding
                             to your language is used.
   --help                    Show this message and exit.
 ```
@@ -135,5 +135,5 @@ pip3 install --editable .
 
   (where `<shellname>` is either `zsh` or `bash`)
   in your `.zshrc` (or `.bashrc`) file and then,
-  either lunch a new terminal or run `source ~/.zshrc`
+  either launch a new terminal or run `source ~/.zshrc`
   (or `source ~/.bashrc`).
