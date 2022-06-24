@@ -1,13 +1,14 @@
-# Knowledge-Clustering
+# knowledge-clustering
 
 [![PyPI](https://img.shields.io/pypi/v/knowledge-clustering.svg)](https://pypi.python.org/pypi/knowledge-clustering)
 
 Clustering notions for the [knowledge LaTeX package](https://ctan.org/pkg/knowledge).
 Maintained by Rémi Morvan, Thomas Colcombet and Aliaume Lopez.
+A tutorial on how to use `knowledge-clustering` can be found [here](https://github.com/remimorvan/knowledge-examples).
 
 ## Principle
 
-The goal of **Knowledge-Clustering** is to help the user write a LaTeX document with
+The goal of `knowledge-clustering` is to help the user write a LaTeX document with
 the [knowledge package](https://ctan.org/pkg/knowledge).
 It has two features:
 
@@ -16,7 +17,7 @@ It has two features:
 
 ## Installation
 
-To install (or upgrade) **Knowledge-Clustering**, run
+To install (or upgrade) `knowledge-clustering`, run
 
     pip3 install --upgrade knowledge-clustering
 
@@ -63,12 +64,12 @@ a section called "Undefined knowledges" containing all knowledges used in your m
 defined in `small.tex`. We reproduced this section
 in the `small.diagnose` file.
 
-![Screenshot of the `small.tex` and `small.diagnose` files before running Knowledge-Clustering. `small.tex` contains four knowledges, while `small.diagnose` contains five undefined knowledges.](img/small-before.png "Files `small.tex` and `small.diagnose` before running Knowledge-Clustering")
+![Screenshot of the `small.tex` and `small.diagnose` files before running knowledge-clustering. `small.tex` contains four knowledges, while `small.diagnose` contains five undefined knowledges.](img/small-before.png "Files `small.tex` and `small.diagnose` before running knowledge-clustering")
 
 Normally, you would add every undefined knowledge, one after the other, in your
 `small.tex`. This is quite burdensome and can
 largely be automated: you don't need a PhD to
-understand that "word" and "words" are similar words. This is precisely what **Knowledge-Clustering** does: after running
+understand that "word" and "words" are similar words. This is precisely what `knowledge-clustering` does: after running
 
     knowledge cluster -n small.tex -d small.diagnose
 
@@ -77,9 +78,9 @@ but `small.tex` is updated with comments.
 
 The `cluster` command is optional: you can also write `knowledge -n small.tex -d small.diagnose`.
 
-![After running Knowledge-Clustering, the five undefined knowledges are included in the `small.tex` file as comments.](img/small-after.png "Files `small.tex` and `small.diagnose` after running Knowledge-Clustering`")
+![After running knowledge-clustering, the five undefined knowledges are included in the `small.tex` file as comments.](img/small-after.png "Files `small.tex` and `small.diagnose` after running knowledge-clustering`")
 
-Now you simply have to check that the recommandations of **Knowledge-Clustering** are
+Now you simply have to check that the recommandations of `knowledge-clustering` are
 correct, and uncomment those lines.
 
 ## Adding quotes
