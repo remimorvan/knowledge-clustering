@@ -174,6 +174,12 @@ def quote_maximal_substrings(
                         and end < len(text_cleaned) - 1
                         and text_cleaned[end + 1] == "}"
                     )
+                    or (
+                        start >= 7
+                        and text_cleaned[start - 7 : start] == "\intro{"
+                        and end < len(text_cleaned) - 1
+                        and text_cleaned[end + 1] == "}"
+                    )
                 ):
                     add_quote_location.append((s1, start, end))
     # Using the pointer, describe where to add quotes in the original text
