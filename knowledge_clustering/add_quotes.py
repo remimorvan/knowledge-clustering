@@ -161,11 +161,19 @@ def quote_maximal_substrings(
                     ):
                         ignore_position[start + submatch.start()] = True
                 # Check if s1 is precedeed by quoted, if not add them
-                if (
-                    start > 0
-                    and text_cleaned[start - 1] != '"'
-                    and end < len(text_cleaned) - 1
-                    and text_cleaned[end + 1] != '"'
+                if not (
+                    (
+                        start > 0
+                        and (text_cleaned[start - 1] == '"')
+                        and end < len(text_cleaned) - 1
+                        and text_cleaned[end + 1] == '"'
+                    )
+                    or (
+                        start >= 4
+                        and text_cleaned[start - 4 : start] == "\kl{"
+                        and end < len(text_cleaned) - 1
+                        and text_cleaned[end + 1] == "}"
+                    )
                 ):
                     add_quote_location.append((s1, start, end))
     # Using the pointer, describe where to add quotes in the original text

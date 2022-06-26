@@ -148,12 +148,18 @@ def cluster(knowledge, diagnose, scope, lang, config_file):
     required=True,
 )
 @click.option(
+    "--column",
+    "-c",
+    is_flag=True,
+    help="When finding a match for a knowledge, precise between which columns (tabs count as 4 columns).",
+)
+@click.option(
     "--force",
     "-F",
     is_flag=True,
     help="Don't ask the user and always add quotes if a match is found.",
 )
-def addquotes(tex, knowledge, force):
+def addquotes(tex, knowledge, column, force):
     """
     Finds knowledges defined in NOTION that appear in TEX without quote symbols.
     Proposes to add (or add, if the force option is enabled) quotes around them.
@@ -164,7 +170,7 @@ def addquotes(tex, knowledge, force):
         _, known_knowledges = kltex.parse(f)
     known_knowledges = [kl for bag in known_knowledges for kl in bag]
     tex_document_new = quotes.quote_maximal_substrings(
-        tex_document, known_knowledges, not force, False, 4
+        tex_document, known_knowledges, not force, column, 4
     )
     with fu.AtomicUpdate(tex) as f:
         f.write(tex_document_new)
