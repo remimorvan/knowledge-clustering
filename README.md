@@ -91,12 +91,14 @@ Usage: knowledge addquotes [OPTIONS]
   Proposes to add (or add, if the force option is enabled) quotes around them.
 
 Options:
-  -t, --tex FILE     Your TeX file.  [required]
-  -k, --knowledge FILE  File containing the knowledges that are already defined.
-                     [required]
-  -F, --force        Don't ask the user and always add quotes if a match is
-                     found.
-  --help             Show this message and exit.
+  -t, --tex FILE        Your TeX file.  [required]
+  -k, --knowledge FILE  File containing the knowledges that are already
+                        defined.  [required]
+  -c, --column          When finding a match for a knowledge, precise between
+                        which columns (tabs count as 4 columns).
+  -F, --force           Don't ask the user and always add quotes if a match is
+                        found.
+  --help                Show this message and exit.
 ```
 
 ## Devel using virtualenv
