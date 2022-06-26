@@ -90,6 +90,10 @@ def normaliseNotion(notion):
         if len(sp) <= 1:
             break
         notion_norm = sp[0] + sp[2]
+    while "\\-" in notion_norm:
+        # If the notion contains hyphenations, remove them.
+        sp = notion_norm.split("\\-", 1)
+        notion_norm = sp[0] + sp[1]
     while "\\" in notion_norm:
         # If the notion contains a backslash, remove every letter following the backslash
         # see https://tex.stackexchange.com/a/34381/206008 for naming conventions of TeX commands
