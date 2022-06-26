@@ -119,7 +119,11 @@ def cluster(notion, diagnose, scope, lang, config_file):
         known_knowledges[bag_id][len_bags[bag_id] :]
         for bag_id in range(len_known_knowledges)
     ]
-    print(f"Found a solution by adding {len(new_knowledges)} new knowledge"+("(s)" if len(new_knowledges) >= 2 else "")+".")
+    print(
+        f"Found a solution by adding {len(new_knowledges)} new knowledge"
+        + ("(s)" if len(new_knowledges) >= 2 else "")
+        + "."
+    )
 
     with fu.AtomicUpdate(notion) as f:
         kltex.writeDocument(f, document, updated_knowledges, new_knowledges)

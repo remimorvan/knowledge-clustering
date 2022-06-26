@@ -21,6 +21,7 @@ IMPORTANT_POS = [
     "VBP",
     "VBZ",
 ]
+IGNORE_SUFFIXES = ["", "s"]
 INFINITY = 10000
 
 # ---
@@ -139,8 +140,14 @@ def similarWords(w1, w2, list_prefixes, stemmer):
         s1 = stemmer.stem(w1)
         s2 = stemmer.stem(w2)
         for p in list_prefixes:
-            if p + s1 == s2 or p + s2 == s1:
-                return True
+            for s in IGNORE_SUFFIXES:
+                if (
+                    p + s1 + s == s2
+                    or p + s1 == s2 + s
+                    or s1 + s == p + s2
+                    or s1 == p + s2 + s
+                ):
+                    return True
         return False
 
 
