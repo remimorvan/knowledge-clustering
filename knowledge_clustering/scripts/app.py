@@ -45,7 +45,6 @@ def init():
 @click.option(
     "--knowledge",
     "-k",
-    "-n",
     type=click.Path(
         exists=True, file_okay=True, dir_okay=False, writable=True, readable=True
     ),
@@ -140,12 +139,12 @@ def cluster(notion, diagnose, scope, lang, config_file):
     required=True,
 )
 @click.option(
-    "--notion",
-    "-n",
+    "--knowledge",
+    "-k",
     type=click.Path(
         exists=True, file_okay=True, dir_okay=False, writable=True, readable=True
     ),
-    help="File containing the notions that are already defined.",
+    help="File containing the knowledges that are already defined.",
     required=True,
 )
 @click.option(

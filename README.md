@@ -35,7 +35,7 @@ Usage: knowledge cluster [OPTIONS]
   Edit a NOTION file using the knowledges present in a DIAGNOSE file.
 
 Options:
-  -k, -n, --knowledge FILE  File containing the notions that are already
+  -k, --knowledge FILE      File containing the knowledges that are already
                             defined.  [required]
   -d, --diagnose FILE       Diagnose file produced by LaTeX.  [required]
   -l, --lang [en|fr]        Language of your TeX document.
@@ -92,7 +92,7 @@ Usage: knowledge addquotes [OPTIONS]
 
 Options:
   -t, --tex FILE     Your TeX file.  [required]
-  -n, --notion FILE  File containing the notions that are already defined.
+  -k, --knowledge FILE  File containing the knowledges that are already defined.
                      [required]
   -F, --force        Don't ask the user and always add quotes if a match is
                      found.
