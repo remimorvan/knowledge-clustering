@@ -80,18 +80,20 @@ and {at_what_line[end]}."
 def ignore_spaces(tex_code):
     """
     Input: a tex file, given as a single string
-    TeX converts spaces, tabulations and new lines into a single space, expect if there
-    is two consecutive new lines.
+    TeX converts spaces, tabulations and new lines into a single space, except
+    if there is two consecutive new lines.
+    Removes commented lines.
     Output: we output the converted tex file, named tex_code_cleaned, and pointer
     from tex_code_cleaned to tex_code, in the form of an array.
     """
-    # Essentially, the algorithm is a deterministic transducer with four states
+    # Essentially, the algorithm is a deterministic transducer with five states
     # 0: the last character is `normal` (not a space, a tab, nor a new line) ; initial state
     # 1: the last character is not normal, and no new line was read since the last normal character
     # 2: the last character is not normal, and exactly one new line was read since the last normal character
     # 3: the last character is not normal, and at least two new lines were read since the last normal character
+    # 4: the line is commented.
     def is_normal(letter):
-        return letter not in [" ", "\t", "\n"]
+        return letter not in [" ", "\t", "\n", "%"]
 
     def transition(state, letter, counter):
         """
@@ -99,8 +101,15 @@ def ignore_spaces(tex_code):
         Output: returns the new state, the output, and the pointer of the input letter.
         """
         if is_normal(letter):
-            return (0, letter, counter)
+            if state == 4:
+                return (4, "", None)
+            else:
+                return (0, letter, counter)
+        if letter == "%":
+            return (4, "", None)
         if letter == "\n":
+            if state == 4:
+                return (0, "", None)
             if state == 0:
                 return (2, " ", None)
             elif state == 1:

@@ -79,12 +79,12 @@ the possible meaning of those scope inferred by knowledge-clustering.",
     help=f"Specify the configuration file. By default the configuration file in the folder {CONFIG_DIR} \
 corresponding to your language is used.",
 )
-def cluster(notion, diagnose, scope, lang, config_file):
+def cluster(knowledge, diagnose, scope, lang, config_file):
     """
-    Edit a NOTION file using the knowledges present
+    Edit a KNOWLEDGE file using the knowledges present
     in a DIAGNOSE file.
     """
-    with open(notion, "r") as f:
+    with open(knowledge, "r") as f:
         document, known_knowledges = kltex.parse(f)
 
     if config_file == None:
@@ -124,7 +124,7 @@ def cluster(notion, diagnose, scope, lang, config_file):
         + "."
     )
 
-    with fu.AtomicUpdate(notion) as f:
+    with fu.AtomicUpdate(knowledge) as f:
         kltex.writeDocument(f, document, updated_knowledges, new_knowledges)
 
 
@@ -153,14 +153,14 @@ def cluster(notion, diagnose, scope, lang, config_file):
     is_flag=True,
     help="Don't ask the user and always add quotes if a match is found.",
 )
-def addquotes(tex, notion, force):
+def addquotes(tex, knowledge, force):
     """
     Finds knowledges defined in NOTION that appear in TEX without quote symbols.
     Proposes to add (or add, if the force option is enabled) quotes around them.
     """
     with open(tex, "r") as f:
         tex_document = f.read()
-    with open(notion, "r") as f:
+    with open(knowledge, "r") as f:
         _, known_knowledges = kltex.parse(f)
     known_knowledges = [kl for bag in known_knowledges for kl in bag]
     tex_document_new = quotes.quote_maximal_substrings(
