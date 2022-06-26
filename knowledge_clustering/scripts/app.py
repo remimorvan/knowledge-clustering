@@ -43,12 +43,13 @@ def init():
 
 @cli.command()
 @click.option(
-    "--notion",
+    "--knowledge",
+    "-k",
     "-n",
     type=click.Path(
         exists=True, file_okay=True, dir_okay=False, writable=True, readable=True
     ),
-    help="File containing the notions that are already defined.",
+    help="File containing the knowledges that are already defined.",
     required=True,
 )
 @click.option(
@@ -69,8 +70,8 @@ def init():
     "--scope/--no-scope",
     "-S/ ",
     default=False,
-    help="Print the scopes defined in the notion file and print \
-the possible meaning of those scope inferred by Knowledge Clustering.",
+    help="Print the scopes defined in the knowledge file and print \
+the possible meaning of those scope inferred by knowledge-clustering.",
 )
 @click.option(
     "--config-file",
@@ -118,7 +119,7 @@ def cluster(notion, diagnose, scope, lang, config_file):
         known_knowledges[bag_id][len_bags[bag_id] :]
         for bag_id in range(len_known_knowledges)
     ]
-    print(f"Found a solution by adding {len(new_knowledges)} new bag(s).")
+    print(f"Found a solution by adding {len(new_knowledges)} new knowledge"+("(s)" if len(new_knowledges) >= 2 else "")+".")
 
     with fu.AtomicUpdate(notion) as f:
         kltex.writeDocument(f, document, updated_knowledges, new_knowledges)

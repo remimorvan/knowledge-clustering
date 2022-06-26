@@ -35,13 +35,13 @@ Usage: knowledge cluster [OPTIONS]
   Edit a NOTION file using the knowledges present in a DIAGNOSE file.
 
 Options:
-  -n, --notion FILE         File containing the notions that are already
+  -k, -n, --knowledge FILE  File containing the notions that are already
                             defined.  [required]
   -d, --diagnose FILE       Diagnose file produced by LaTeX.  [required]
   -l, --lang [en|fr]        Language of your TeX document.
   -S, --scope / --no-scope  Print the scopes defined in the notion file and
                             print the possible meaning of those scope inferred
-                            by Knowledge Clustering.
+                            by knowledge-clustering.
   -c, --config-file TEXT    Specify the configuration file. By default the
                             configuration file in the folder
                             <knowledge-clustering-installation-
