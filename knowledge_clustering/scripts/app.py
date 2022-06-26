@@ -37,8 +37,8 @@ def init():
     """Downloads the required Nltk packages"""
     nltk.download("punkt")
     nltk.download("averaged_perceptron_tagger")
-    os.system("python3 -m spacy download en")
-    os.system("python3 -m spacy download fr")
+    os.system("python3 -m spacy download en_core_web_sm")
+    os.system("python3 -m spacy download fr_core_news_sm")
 
 
 @cli.command()
