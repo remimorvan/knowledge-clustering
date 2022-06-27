@@ -4,6 +4,7 @@ import re  # Regular expressions
 KL_DELIMITERS = [
     ('"', '"'),
     ("@", '"'),
+    ("@", '@'),
     ("\kl{", "}"),
     ("\intro{", "}"),
     ("\kl[", "]"),
