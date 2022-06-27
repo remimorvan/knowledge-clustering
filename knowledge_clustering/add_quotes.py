@@ -1,6 +1,15 @@
 import toposort  # Topological sort
 import re  # Regular expressions
 
+KL_DELIMITERS = [
+    ('"', '"'),
+    ("@", '"'),
+    ("\kl{", "}"),
+    ("\intro{", "}"),
+    ("\kl[", "]"),
+    ("\intro[", "]"),
+]
+
 
 def topological_sort_string(list_strings):
     """
@@ -161,26 +170,11 @@ def quote_maximal_substrings(
                     ):
                         ignore_position[start + submatch.start()] = True
                 # Check if s1 is precedeed by quoted, if not add them
-                if not (
-                    (
-                        start > 0
-                        and (text_cleaned[start - 1] == '"')
-                        and end < len(text_cleaned) - 1
-                        and text_cleaned[end + 1] == '"'
-                    )
-                    or (
-                        start >= 4
-                        and text_cleaned[start - 4 : start] == "\kl{"
-                        and end < len(text_cleaned) - 1
-                        and text_cleaned[end + 1] == "}"
-                    )
-                    or (
-                        start >= 7
-                        and text_cleaned[start - 7 : start] == "\intro{"
-                        and end < len(text_cleaned) - 1
-                        and text_cleaned[end + 1] == "}"
-                    )
-                ):
+                if not True in [
+                    text_cleaned.endswith(beg_kl, 0, start)
+                    and text_cleaned.startswith(end_kl, end + 1)
+                    for (beg_kl, end_kl) in KL_DELIMITERS
+                ]:
                     add_quote_location.append((s1, start, end))
     # Using the pointer, describe where to add quotes in the original text
     add_quote_location_origin = [
