@@ -139,3 +139,12 @@ pip3 install --editable .
   in your `.zshrc` (or `.bashrc`) file and then,
   either launch a new terminal or run `source ~/.zshrc`
   (or `source ~/.bashrc`).
+
+- I've updated `knowledge-clustering` but I still don't have the last version:
+
+  This can happen if you have multiple versions of `python` (and multiple versions
+  of `knowledge-clustering`).
+  **Solution**: Type `where python3`, and uninstall `knowledge-clustering`
+  from everywhere (using `<path>/python3 -m pip uninstall knowledge-clustering`)
+  except your main version of python. Try to then upgrade `knowledge-clustering`
+  by running `pip3 install --upgrade knowledge-clustering`.
