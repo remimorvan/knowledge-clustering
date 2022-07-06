@@ -5,6 +5,7 @@ import knowledge_clustering.config as config
 import knowledge_clustering.scope_meaning as sm
 import knowledge_clustering.file_updater as fu
 import knowledge_clustering.add_quotes as quotes
+import knowledge_clustering.add_AP as ap
 
 
 import click
@@ -161,8 +162,9 @@ def cluster(knowledge, diagnose, scope, lang, config_file):
 )
 def addquotes(tex, knowledge, column, force):
     """
-    Finds knowledges defined in NOTION that appear in TEX without quote symbols.
-    Proposes to add (or add, if the force option is enabled) quotes around them.
+    Finds knowledges defined in KNOWLEDGE that appear in TEX without quote 
+    symbols. Proposes to add (or add, if the force option is enabled) quotes 
+    around them.
     """
     with open(tex, "r") as f:
         tex_document = f.read()
@@ -175,6 +177,37 @@ def addquotes(tex, knowledge, column, force):
     with fu.AtomicUpdate(tex) as f:
         f.write(tex_document_new)
 
+@cli.command()
+@click.option(
+    "--tex",
+    "-t",
+    type=click.Path(
+        exists=True, file_okay=True, dir_okay=False, writable=True, readable=True
+    ),
+    help="Your TeX file.",
+    required=True,
+)
+@click.option(
+    "--space",
+    "-s",
+    type=int,
+    default=30,
+    help="Number of characters tolerated between an anchor point and the introduction of a knowledge. (Default value: 30)",
+)
+@click.option(
+    "--column",
+    "-c",
+    is_flag=True,
+    help="When finding a match for a knowledge, precise between which columns (tabs count as 4 columns).",
+)
+def anchor(tex, space, column):
+    """
+    Prints warning when a knowledge is introduced but
+    is not preceded by an anchor point.
+    """
+    with open(tex, "r") as f:
+        tex_document = f.read()
+    ap.missing_AP(tex_document, space, column, 4)
 
 if __name__ == "__main__":
     cli()
