@@ -121,7 +121,7 @@ def cluster(knowledge, diagnose, scope, lang, config_file):
     ]
     print(
         f"Found a solution by adding {len(new_knowledges)} new knowledge"
-        + ("(s)" if len(new_knowledges) >= 2 else "")
+        + ("s" if len(new_knowledges) >= 2 else "")
         + "."
     )
 
@@ -149,33 +149,36 @@ def cluster(knowledge, diagnose, scope, lang, config_file):
     required=True,
 )
 @click.option(
-    "--column",
-    "-c",
-    is_flag=True,
-    help="When finding a match for a knowledge, precise between which columns (tabs count as 4 columns).",
+    "--print",
+    "-p",
+    "print_line",
+    type=int,
+    default=1,
+    help="When finding a match, number of lines (preceding the match) that are printed in the prompt to the user.",
 )
-@click.option(
-    "--force",
-    "-F",
-    is_flag=True,
-    help="Don't ask the user and always add quotes if a match is found.",
-)
-def addquotes(tex, knowledge, column, force):
+def addquotes(tex, knowledge, print_line):
     """
-    Finds knowledges defined in KNOWLEDGE that appear in TEX without quote 
-    symbols. Proposes to add (or add, if the force option is enabled) quotes 
-    around them.
+    Finds knowledges defined in KNOWLEDGE that appear in TEX without quote
+    symbols. Proposes to add quotes around them.
     """
     with open(tex, "r") as f:
         tex_document = f.read()
     with open(knowledge, "r") as f:
-        _, known_knowledges = kltex.parse(f)
-    known_knowledges = [kl for bag in known_knowledges for kl in bag]
-    tex_document_new = quotes.quote_maximal_substrings(
-        tex_document, known_knowledges, not force, column, 4
+        kl_document, known_knowledges = kltex.parse(f)
+    known_knowledges_flat = [kl for bag in known_knowledges for kl in bag]
+    tex_document_new, new_knowledges = quotes.quote_maximal_substrings(
+        tex_document, known_knowledges_flat, print_line, 4
     )
     with fu.AtomicUpdate(tex) as f:
         f.write(tex_document_new)
+    updated_knowledges = [
+        [new_kl for (def_kl, new_kl) in new_knowledges if def_kl in bag]
+        for bag in known_knowledges
+    ]
+    if updated_knowledges != []:
+        with fu.AtomicUpdate(knowledge) as f:
+            kltex.writeDocument(f, kl_document, updated_knowledges, [], nocomment=True)
+
 
 @cli.command()
 @click.option(
@@ -191,8 +194,8 @@ def addquotes(tex, knowledge, column, force):
     "--space",
     "-s",
     type=int,
-    default=30,
-    help="Number of characters tolerated between an anchor point and the introduction of a knowledge. (Default value: 30)",
+    default=150,
+    help="Number of characters tolerated between an anchor point and the introduction of a knowledge. (Default value: 150)",
 )
 @click.option(
     "--column",
@@ -208,6 +211,7 @@ def anchor(tex, space, column):
     with open(tex, "r") as f:
         tex_document = f.read()
     ap.missing_AP(tex_document, space, column, 4)
+
 
 if __name__ == "__main__":
     cli()

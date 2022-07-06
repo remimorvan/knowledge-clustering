@@ -120,7 +120,7 @@ def printDocument(document):
             print(l)
 
 
-def writeDocument(f, document, updated_knowledges, new_knowledges):
+def writeDocument(f, document, updated_knowledges, new_knowledges, nocomment=False):
     # Takes
     # - a file descriptor f
     # - a document as in "parse"
@@ -138,7 +138,7 @@ def writeDocument(f, document, updated_knowledges, new_knowledges):
                 f.write(l + "\n")
             if b["number"] < len(updated_knowledges):
                 for k in updated_knowledges[b["number"]]:
-                    f.write("%  | " + k + "\n")
+                    f.write((f" | {k}\n" if nocomment else f"%  | {k}\n"))
     if len(new_knowledges) > 0:
         f.write(discard_line + "\n")
         for k in new_knowledges:
@@ -146,4 +146,4 @@ def writeDocument(f, document, updated_knowledges, new_knowledges):
                 f.write("%\n")
                 f.write("%\\knowledge{notion}\n")
                 for s in k:
-                    f.write("%  | " + s + "\n")
+                    f.write((f" | {s}\n" if nocomment else f"%  | {s}\n"))

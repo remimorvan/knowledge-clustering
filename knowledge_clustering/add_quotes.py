@@ -3,13 +3,20 @@ import re  # Regular expressions
 
 KL_DELIMITERS = [
     ('"', '"'),
-    ('@', '"'),
-    ('@', '@'),
-    ('\kl{', '}'),
-    ('\intro{', '}'),
-    ('\kl[', ']'),
-    ('\intro[', ']'),
+    ("@", '"'),
+    ("@", "@"),
+    ("\kl{", "}"),
+    ("\intro{", "}"),
+    ("\kl[", "]"),
+    ("\intro[", "]"),
 ]
+
+BEGIN_EMPH = "\033[1m\033[95m"
+END_EMPH = "\033[0m"
+
+
+def emph(str):
+    return BEGIN_EMPH + str + END_EMPH
 
 
 def topological_sort_string(list_strings):
@@ -28,6 +35,11 @@ def topological_sort_string(list_strings):
         )
     list_strings_sorted = list(toposort.toposort_flatten(dependency_reversed))
     return list_strings_sorted, dependency
+
+
+def ask_consent(message):
+    ans = input(message)
+    return ans.lower() in ["y", "yes"]
 
 
 def compute_line_col(text, size_tab):
@@ -49,32 +61,88 @@ def compute_line_col(text, size_tab):
     return at_what_line, at_what_col
 
 
-def add_quote(text, add_quote_position, interactive, print_col, size_tab):
+def print_lines(text_lines, l_start, c_start, l_end, c_end, n):
+    """Prints $n$ lines preceding the l_start-th line (included),
+    and lines from l_start to l_end. Emphasize the part between column c_start and c_end"""
+    for i in range(max(0, l_start - n), l_end):
+        if i + 1 == l_start and i + 1 == l_end:
+            print(
+                f"l{i+1}: \t{text_lines[i][:c_start-2]}"
+                + BEGIN_EMPH
+                + text_lines[i][c_start - 2 : c_end - 1]
+                + END_EMPH
+                + text_lines[i][c_end - 1 :]
+            )
+        else:
+            print(f"l{i+1}: \t{text_lines[i]}")
+
+
+def add_quote(text, add_quote_position, print_line, size_tab):
     """
-    Given a text, and a list of triples (_, start, end), add a quote before the start
-    and after the end. If the boolean interactive if true, asks the user if she wants to
-    add quotes.
+    Given a text, and a list of triples (_, start, end), add a quote before the
+    start and after the end. If the boolean interactive if true, asks the user
+    if she wants to add quotes: moreover, print the print_line lines preceding
+    the match before asking the user's input.
     """
     result = ""
-    if interactive:
-        at_what_line, at_what_col = compute_line_col(text, size_tab)
-        add_quote_position.sort(key=lambda x: x[1])
-        add_quote_position_new = []
-        for (kl, start, end) in add_quote_position:
-            if print_col:
-                message = f"Found a match for `{kl}` between line {at_what_line[start]}, \
-column {at_what_col[start]} and line {at_what_line[end]}, column {at_what_col[end]}."
-            else:
-                if at_what_line[start] == at_what_line[end]:
-                    message = f"Found a match for `{kl}` at line {at_what_line[start]}."
+    new_knowledges = []
+    ignore_synonym = []
+    ignore_subknowledge = []
+    at_what_line, at_what_col = compute_line_col(text, size_tab)
+    add_quote_position.sort(key=lambda x: x[1][1])
+    add_quote_position_new = []
+    text_lines = text.split("\n")
+    for type, info in add_quote_position:
+        if type == "newkl":
+            (small_kl, small_start, small_end, big_kl, big_start, big_end) = info
+            if big_kl not in ignore_synonym:
+                if big_kl not in [k for (_, k) in new_knowledges]:
+                    # Propose to the user to define a synonym
+                    print_lines(
+                        text_lines,
+                        at_what_line[big_start],
+                        at_what_col[big_start],
+                        at_what_line[big_end],
+                        at_what_col[big_end],
+                        print_line,
+                    )
+                    message = f"Do you want to add `{emph(big_kl)}` as a synonym of `{emph(small_kl)}` and add quotes? [y/n] "
+                    if ask_consent(message):
+                        new_knowledges.append((small_kl, big_kl))
+                        add_quote_position_new.append((big_kl, big_start, big_end))
+                    else:
+                        ignore_synonym.append(big_kl)
+                        if ask_consent(
+                            f"Add quotes around `{emph(small_kl)}` instead? [y/n] "
+                        ):
+                            add_quote_position_new.append(
+                                (small_kl, small_start, small_end)
+                            )
+                        else:
+                            ignore_subknowledge.append(big_kl)
+                    print("")
                 else:
-                    message = f"Found a match for `{kl}` between lines {at_what_line[start]} \
-and {at_what_line[end]}."
-            print(message)
-            add = input("Add quotes? [y/n] ")
-            if add.lower() in ["y", "yes"]:
+                    # If big_kl was already accepted as a synonym earlier, treat it
+                    # as a regular knowledge
+                    type, info = "addquote", (big_kl, big_start, big_end)
+            elif big_kl not in ignore_subknowledge:
+                # If the user doesn't want big_kl as a synonym but might want
+                # to add quotes around small_kl
+                type, info = "addquote", (small_kl, small_start, small_end)
+        if type == "addquote":
+            (kl, start, end) = info
+            print_lines(
+                text_lines,
+                at_what_line[start],
+                at_what_col[start],
+                at_what_line[end],
+                at_what_col[end],
+                print_line,
+            )
+            if ask_consent("Add quotes? [y/n] "):
                 add_quote_position_new.append((kl, start, end))
-        add_quote_position = add_quote_position_new
+            print("")
+    add_quote_position = add_quote_position_new
     add_quote_before = [i for (_, i, _) in add_quote_position]
     add_quote_after = [j for (_, _, j) in add_quote_position]
     for i in range(len(text)):
@@ -83,8 +151,13 @@ and {at_what_line[end]}."
         result += text[i]
         if i in add_quote_after:
             result += '"'
-    print(f"Added {len(add_quote_position)} pairs of quotes.")
-    return result
+    print(
+        f"Added {len(add_quote_position)} pair"
+        + ("s" if len(add_quote_position) > 1 else "")
+        + f" of quotes. Defined {len(new_knowledges)} synonym"
+        + ("s." if len(new_knowledges) > 1 else ".")
+    )
+    return result, new_knowledges
 
 
 def ignore_spaces(tex_code):
@@ -148,42 +221,82 @@ def ignore_spaces(tex_code):
     return tex_code_cleaned, pointer
 
 
-def quote_maximal_substrings(
-    text, list_strings, interactive=True, print_col=False, size_tab=4
-):
+def quote_maximal_substrings(text, list_strings, print_line, size_tab=4):
     """
-    Given a text (tex code), and a list of strings, returns the same text with quotes around maximal substrings.
-    Ex: for the text 'every ordered monoid is a monoid' with list_strings = ['monoid', 'ordered monoid'],
-    returns 'every "ordered monoid" is a "monoid"'.
+    Given a text (tex code), and a list of strings, returns the same text with quotes around maximal substrings. Arguments:
+    - text: tex code
+    - list_strings: defined knowledges
+    - interactive: boolean; ask the user before adding quotes
+    - suggest_kl: boolean; suggest to define new knowledges to the user
+    - size_tab: number of columns taken by a tab
+    Ex: on the text 'every ordered monoid is a monoid' with list_strings =
+    ['monoid', 'ordered monoid'], returns
+    'every "ordered monoid" is a "monoid"'.
     """
+
+    def stop_expanding(char):
+        return char in [" ", '"', "\n", "\t", "~"]
+
     text_cleaned, pointer = ignore_spaces(text)
     list_strings_sorted, dependency = topological_sort_string(list_strings)
     ignore_position = [False] * len(text_cleaned)
     add_quote_location = []  # Triple (string, start, end)
-    for s1 in list_strings_sorted:
-        for match in re.finditer(re.escape(s1), text_cleaned):
-            start, end = match.start(), match.end() - 1
-            if not ignore_position[start]:
-                # Ignore every infix of s1 that is also a substring of the list
-                for s2 in dependency[s1]:
-                    for submatch in re.finditer(
-                        re.escape(s2), text_cleaned[start : end + 1]
-                    ):
-                        ignore_position[start + submatch.start()] = True
-                # Check if s1 is precedeed by quoted, if not add them
-                if not True in [
-                    text_cleaned.endswith(beg_kl, 0, start)
-                    and text_cleaned.startswith(end_kl, end + 1)
-                    for (beg_kl, end_kl) in KL_DELIMITERS
-                ]:
-                    add_quote_location.append((s1, start, end))
-    # Using the pointer, describe where to add quotes in the original text
-    add_quote_location_origin = [
-        (s, pointer[i], pointer[j]) for (s, i, j) in add_quote_location
-    ]
-    if None in [i for (_, i, _) in add_quote_location_origin] + [
-        j for (_, _, j) in add_quote_location_origin
-    ]:
-        print("Something went wrong. Maybe a knowledge starting or ending by a space?")
-        exit(1)
-    return add_quote(text, add_quote_location_origin, interactive, print_col, size_tab)
+    for ignore_case in [False, True]:
+        # Start the algo by being case sensitive, then run it while being insensitive.
+        for s1 in list_strings_sorted:
+            match_list = (
+                re.finditer(re.escape(s1), text_cleaned, re.IGNORECASE)
+                if ignore_case
+                else re.finditer(re.escape(s1), text_cleaned)
+            )
+            for match in match_list:
+                start, end = match.start(), match.end() - 1
+                if not ignore_position[start]:
+                    # Ignore every infix of s1 that is also a substring of the list
+                    ignore_position[start] = True
+                    for s2 in dependency[s1]:
+                        for submatch in re.finditer(
+                            re.escape(s2), text_cleaned[start : end + 1]
+                        ):
+                            ignore_position[start + submatch.start()] = True
+                    # Check if s1 is precedeed by quotes, if not, either check
+                    # if we can define a new knowledge, or add the match to the
+                    # list of quotes to add.
+                    if not True in [
+                        text_cleaned.endswith(beg_kl, 0, start)
+                        and text_cleaned.startswith(end_kl, end + 1)
+                        for (beg_kl, end_kl) in KL_DELIMITERS
+                    ]:
+                        start2, end2 = start, end
+                        while start2 > 0 and not stop_expanding(
+                            text_cleaned[start2 - 1]
+                        ):
+                            start2 -= 1
+                        while end2 + 1 < len(text_cleaned) and not stop_expanding(
+                            text_cleaned[end2 + 1]
+                        ):
+                            end2 += 1
+                        # text_cleaned[start2: end2 + 1] is the maximal substring
+                        # containing text_cleaned[start, end + 1] = s1 as a factor,
+                        # and obtained by only addings letters (no space).
+                        new_kl = text_cleaned[start2 : end2 + 1]
+                        if s1 != new_kl:
+                            # Propose to add new_kl as a new knowledge
+                            add_quote_location.append(
+                                (
+                                    "newkl",
+                                    (
+                                        s1,
+                                        pointer[start],
+                                        pointer[end],
+                                        new_kl,
+                                        pointer[start2],
+                                        pointer[end2],
+                                    ),
+                                )
+                            )
+                        else:
+                            add_quote_location.append(
+                                ("addquote", (s1, pointer[start], pointer[end]))
+                            )
+    return add_quote(text, add_quote_location, print_line, size_tab)
