@@ -10,10 +10,14 @@ A tutorial on how to use `knowledge-clustering` can be found [here](https://gith
 
 The goal of `knowledge-clustering` is to help the user write a LaTeX document with
 the [knowledge package](https://ctan.org/pkg/knowledge).
-It has two features:
+It has three features:
 
   - **Clustering**: provide suggestions to the user of what notions should be grouped together.
   - **Add quotes**: find where you might have missed some quotes in your document.
+  - **Anchor points**: find where you might have missed anchor points in your document.
+
+The **clustering** algorithm is meant to be use while writing your document, while the last two tools
+should be used when your document is (nearly) ready to be published, to check if everything is right.
 
 ## Installation
 
@@ -87,19 +91,59 @@ correct, and uncomment those lines.
 ```
 Usage: knowledge addquotes [OPTIONS]
 
-  Finds knowledges defined in NOTION that appear in TEX without quote symbols.
-  Proposes to add (or add, if the force option is enabled) quotes around them.
+  Finds knowledges defined in KNOWLEDGE that appear in TEX without quote
+  symbols. Proposes to add quotes around them.
 
 Options:
   -t, --tex FILE        Your TeX file.  [required]
   -k, --knowledge FILE  File containing the knowledges that are already
                         defined.  [required]
-  -c, --column          When finding a match for a knowledge, precise between
-                        which columns (tabs count as 4 columns).
-  -F, --force           Don't ask the user and always add quotes if a match is
-                        found.
+  -p, --print INTEGER   When finding a match, number of lines (preceding the
+                        match) that are printed in the prompt to the user.
   --help                Show this message and exit.
 ```
+
+After running 
+
+    knowledge addquotes -t mydocument.tex -k knowledges.tex
+
+your prompt will propose to add quotes around defined knowledges,
+and to define synonyms of knowledges that occur in your TeX file. For instance, if
+"algorithm" is a defined knowledge and "algorithms" occurs in your TeX file, then
+it will propose to you to define "algorithms" as a synonym of the knowledge "algorithm",
+and to add a pair of quotes around the string "algorithms" that occurs in your TeX file.
+
+Whenever the algorithm finds a match for a knowledge, it will print the line of
+the document where it found the match, and emphasize the string corresponding to the knowledge.
+If you want to print more than one line, you can use the `-p` (or `--print`) option
+to print more than one line.
+
+## Finding missing anchor points
+
+```
+Usage: knowledge anchor [OPTIONS]
+
+  Prints warning when a knowledge is introduced but is not preceded by an
+  anchor point.
+
+Options:
+  -t, --tex FILE       Your TeX file.  [required]
+  -s, --space INTEGER  Number of characters tolerated between an anchor point
+                       and the introduction of a knowledge. (Default value:
+                       150)
+  --help               Show this message and exit.
+```
+
+When one runs
+
+    knowledge anchor -t mydocument.tex
+
+the tool will print the lines of the document containing the
+introduction of a knowledge that is not preceded by an anchor point.
+The tolerance on how far away the anchor point can be from the
+introduction of a knowledge can be changed with the `-s` (or `--space`)
+option. The default value is 150 characters (corresponding to 2-3 lines in a
+TeX document).
 
 ## Devel using virtualenv
 

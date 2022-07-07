@@ -12,11 +12,16 @@ KL_DELIMITERS = [
 ]
 
 BEGIN_EMPH = "\033[1m\033[95m"
+BEGIN_EMPH_NEW = "\033[1m\033[92m"
 END_EMPH = "\033[0m"
 
 
 def emph(str):
     return BEGIN_EMPH + str + END_EMPH
+
+
+def emph_new(str):
+    return BEGIN_EMPH_NEW + str + END_EMPH
 
 
 def topological_sort_string(list_strings):
@@ -73,6 +78,23 @@ def print_lines(text_lines, l_start, c_start, l_end, c_end, n):
                 + END_EMPH
                 + text_lines[i][c_end - 1 :]
             )
+        elif i + 1 == l_start:
+            print(
+                f"l{i+1}: \t{text_lines[i][:c_start-2]}"
+                + BEGIN_EMPH
+                + text_lines[i][c_start - 2 :]
+                + END_EMPH
+            )
+        elif i + 1 == l_end:
+            print(
+                f"l{i+1}: \t"
+                + BEGIN_EMPH
+                + text_lines[i][: c_end - 1]
+                + END_EMPH
+                + text_lines[i][c_end - 1 :]
+            )
+        elif l_start < i + 1 and i + 1 < l_end:
+            print(f"l{i+1}: \t" + BEGIN_EMPH + text_lines[i] + END_EMPH)
         else:
             print(f"l{i+1}: \t{text_lines[i]}")
 
@@ -106,7 +128,7 @@ def add_quote(text, add_quote_position, print_line, size_tab):
                         at_what_col[big_end],
                         print_line,
                     )
-                    message = f"Do you want to add `{emph(big_kl)}` as a synonym of `{emph(small_kl)}` and add quotes? [y/n] "
+                    message = f"Do you want to add `{emph_new(big_kl)}` as a synonym of `{emph_new(small_kl)}` and add quotes? [y/n] "
                     if ask_consent(message):
                         new_knowledges.append((small_kl, big_kl))
                         add_quote_position_new.append((big_kl, big_start, big_end))
@@ -235,7 +257,7 @@ def quote_maximal_substrings(text, list_strings, print_line, size_tab=4):
     """
 
     def stop_expanding(char):
-        return char in [" ", '"', "\n", "\t", "~"]
+        return not char.isalpha()
 
     text_cleaned, pointer = ignore_spaces(text)
     list_strings_sorted, dependency = topological_sort_string(list_strings)

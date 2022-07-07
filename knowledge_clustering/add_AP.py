@@ -5,7 +5,7 @@ INTRO_STRING = ["\intro", '""']
 AP_STRING = ["\AP", "\itemAP"]
 
 
-def missing_AP(text, space, print_col, size_tab):
+def missing_AP(text, space, size_tab=4):
     text_cleaned, pointer = quotes.ignore_spaces(text)
     at_what_line, at_what_col = quotes.compute_line_col(text, size_tab)
     for i_str in INTRO_STRING:
@@ -14,7 +14,6 @@ def missing_AP(text, space, print_col, size_tab):
             beg = max(0, start - space)
             if not True in [ap_str in text_cleaned[beg:start] for ap_str in AP_STRING]:
                 message = (
-                    f"Missing anchor point at line {at_what_line[pointer[start]]}"
-                    + (f", column {at_what_col[pointer[start]]}." if print_col else ".")
+                    f"Missing anchor point at line {at_what_line[pointer[start]]}."
                 )
                 print(message)

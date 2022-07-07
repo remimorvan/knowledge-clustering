@@ -167,7 +167,7 @@ def addquotes(tex, knowledge, print_line):
         kl_document, known_knowledges = kltex.parse(f)
     known_knowledges_flat = [kl for bag in known_knowledges for kl in bag]
     tex_document_new, new_knowledges = quotes.quote_maximal_substrings(
-        tex_document, known_knowledges_flat, print_line, 4
+        tex_document, known_knowledges_flat, print_line, size_tab=4
     )
     with fu.AtomicUpdate(tex) as f:
         f.write(tex_document_new)
@@ -197,20 +197,14 @@ def addquotes(tex, knowledge, print_line):
     default=150,
     help="Number of characters tolerated between an anchor point and the introduction of a knowledge. (Default value: 150)",
 )
-@click.option(
-    "--column",
-    "-c",
-    is_flag=True,
-    help="When finding a match for a knowledge, precise between which columns (tabs count as 4 columns).",
-)
-def anchor(tex, space, column):
+def anchor(tex, space):
     """
     Prints warning when a knowledge is introduced but
     is not preceded by an anchor point.
     """
     with open(tex, "r") as f:
         tex_document = f.read()
-    ap.missing_AP(tex_document, space, column, 4)
+    ap.missing_AP(tex_document, space, size_tab=4)
 
 
 if __name__ == "__main__":
