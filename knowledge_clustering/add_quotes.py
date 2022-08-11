@@ -136,14 +136,15 @@ def add_quote(text, add_quote_position, print_line, size_tab):
                         add_quote_position_new.append((big_kl, big_start, big_end))
                     else:
                         ignore_synonym.append(big_kl)
-                        if ask_consent(
-                            f"Add quotes around `{emph(small_kl)}` instead? [y/n] "
-                        ):
-                            add_quote_position_new.append(
-                                (small_kl, small_start, small_end)
-                            )
-                        else:
-                            ignore_subknowledge.append(big_kl)
+                        if small_kl == text[small_start : small_end + 1]:
+                            if ask_consent(
+                                f"Add quotes around `{emph(small_kl)}` instead? [y/n] "
+                            ):
+                                add_quote_position_new.append(
+                                    (small_kl, small_start, small_end)
+                                )
+                            else:
+                                ignore_subknowledge.append(big_kl)
                     print("")
                 else:
                     # If big_kl was already accepted as a synonym earlier, treat it
