@@ -7,8 +7,10 @@ KL_DELIMITERS = [
     ("@", "@"),
     ("\kl{", "}"),
     ("\intro{", "}"),
+    ("\\reintro{", "}"),
     ("\kl[", "]"),
     ("\intro[", "]"),
+    ("\\reintro[", "]"),
 ]
 
 BEGIN_EMPH = "\033[1m\033[95m"
@@ -63,7 +65,6 @@ def compute_line_col(text, size_tab):
             col += size_tab
         else:
             col += 1
-    print(at_what_col)
     return at_what_line, at_what_col
 
 
@@ -154,7 +155,6 @@ def add_quote(text, add_quote_position, print_line, size_tab):
                 type, info = "addquote", (small_kl, small_start, small_end)
         if type == "addquote":
             (kl, start, end) = info
-            print(start, at_what_line[start], at_what_col[start])
             print_lines(
                 text_lines,
                 at_what_line[start],
