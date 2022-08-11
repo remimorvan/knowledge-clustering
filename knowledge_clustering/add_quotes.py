@@ -58,11 +58,12 @@ def compute_line_col(text, size_tab):
         at_what_col[position] = col
         if letter == "\n":
             line += 1
-            col = 1
+            col = 0
         if letter == "\t":
             col += size_tab
         else:
             col += 1
+    print(at_what_col)
     return at_what_line, at_what_col
 
 
@@ -72,26 +73,26 @@ def print_lines(text_lines, l_start, c_start, l_end, c_end, n):
     for i in range(max(0, l_start - n), l_end):
         if i + 1 == l_start and i + 1 == l_end:
             print(
-                f"l{i+1}: \t{text_lines[i][:c_start-2]}"
+                f"l{i+1}: \t{text_lines[i][:c_start-1]}"
                 + BEGIN_EMPH
-                + text_lines[i][c_start - 2 : c_end - 1]
+                + text_lines[i][c_start - 1 : c_end]
                 + END_EMPH
-                + text_lines[i][c_end - 1 :]
+                + text_lines[i][c_end:]
             )
         elif i + 1 == l_start:
             print(
-                f"l{i+1}: \t{text_lines[i][:c_start-2]}"
+                f"l{i+1}: \t{text_lines[i][:c_start-1]}"
                 + BEGIN_EMPH
-                + text_lines[i][c_start - 2 :]
+                + text_lines[i][c_start - 1 :]
                 + END_EMPH
             )
         elif i + 1 == l_end:
             print(
                 f"l{i+1}: \t"
                 + BEGIN_EMPH
-                + text_lines[i][: c_end - 1]
+                + text_lines[i][:c_end]
                 + END_EMPH
-                + text_lines[i][c_end - 1 :]
+                + text_lines[i][c_end:]
             )
         elif l_start < i + 1 and i + 1 < l_end:
             print(f"l{i+1}: \t" + BEGIN_EMPH + text_lines[i] + END_EMPH)
@@ -153,6 +154,7 @@ def add_quote(text, add_quote_position, print_line, size_tab):
                 type, info = "addquote", (small_kl, small_start, small_end)
         if type == "addquote":
             (kl, start, end) = info
+            print(start, at_what_line[start], at_what_col[start])
             print_lines(
                 text_lines,
                 at_what_line[start],
