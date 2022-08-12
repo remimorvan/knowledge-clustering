@@ -33,11 +33,25 @@ class AtomicUpdate:
     a change in the hash of the file given as input.
     """
 
-    def __init__(self, filename):
+    def __init__(self, filename, original_hash=None):
         self.filename = filename
         self.hash = hash_file(filename)
         self.ctx = tempfile.NamedTemporaryFile(mode="w", dir=os.getcwd(), delete=False)
         self.tmp = None
+        if (
+            original_hash.hexdigest() != None
+            and original_hash.hexdigest() != self.hash.hexdigest()
+        ):
+            click.confirm(
+                f"File {self.filename} has been modified\
+                during the run of \
+                the program, erase anyway?",
+                default=None,
+                abort=True,
+                prompt_suffix=": ",
+                show_default=True,
+                err=False,
+            )
 
     def __enter__(self):
         self.tmp = self.ctx.__enter__()
