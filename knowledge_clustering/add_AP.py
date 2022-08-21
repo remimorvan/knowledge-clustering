@@ -12,7 +12,7 @@ def missing_AP(text, space, size_tab=4):
         for i_match in re.finditer(re.escape(i_str), text_cleaned):
             start = i_match.start()
             beg = max(0, start - space)
-            if not True in [ap_str in text_cleaned[beg:start] for ap_str in AP_STRING]:
+            if not any([ap_str in text_cleaned[beg:start] for ap_str in AP_STRING]):
                 message = (
                     f"Missing anchor point at line {at_what_line[pointer[start]]}."
                 )

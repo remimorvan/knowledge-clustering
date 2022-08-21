@@ -43,9 +43,7 @@ class AtomicUpdate:
             and original_hash.hexdigest() != self.hash.hexdigest()
         ):
             click.confirm(
-                f"File {self.filename} has been modified\
-                during the run of \
-                the program, erase anyway?",
+                f"File {self.filename} has been modified during the run of the program, erase anyway?",
                 default=None,
                 abort=True,
                 prompt_suffix=": ",

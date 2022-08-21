@@ -9,10 +9,11 @@ class TexCode:
         self.tex_code = tex_code
         self.lines = self.tex_code.split("\n")
         self.size_tab = size_tab
-        self.update_col_line()
-        self.clean_text()
+        self.__update_col_line()
+        self.__clean()
+        self.length = len(self.tex_cleaned)
 
-    def update_col_line(self):
+    def __update_col_line(self):
         """
         Compute two arrays, saying for each index i of self.text, at what column and
         what line of the text this index is located.
@@ -32,7 +33,7 @@ class TexCode:
             else:
                 col += 1
 
-    def clean_text(self):
+    def __clean(self):
         """
         Reads self.tex_code (the original tex file), given as a single string.
         Converts spaces, tabulations and new lines into a single space, except
@@ -92,11 +93,16 @@ class TexCode:
         self.tex_cleaned = tex_cleaned
         self.pointer = pointer
 
-    def print(self, l_start, c_start, l_end, c_end, n):
+    def print(self, start, end, n):
         """
-        Prints $n$ lines preceding the l_start-th line (included),
-        and lines from l_start to l_end. Emphasize the part between columns c_start and c_end.
+        Prints the lines between positions (in the clean tex) `start` and `end`
+        together with `n`-1 lines preceding `start`.
+        Emphasize the part between `start` and `end`.
         """
+        l_start = self.find_line[self.pointer[start]]
+        c_start = self.find_col[self.pointer[start]]
+        l_end = self.find_line[self.pointer[end]]
+        c_end = self.find_col[self.pointer[end]]
         for i in range(max(0, l_start - n), l_end):
             if i + 1 == l_start and i + 1 == l_end:
                 print(

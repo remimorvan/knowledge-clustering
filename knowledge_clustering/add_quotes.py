@@ -1,4 +1,5 @@
-import re  # Regular expressions
+import re
+from .knowledges import Knowledges  # Regular expressions
 import knowledge_clustering.tex_code as tex
 
 KL_DELIMITERS = [
@@ -27,11 +28,11 @@ def ask_consent(message):
     return ans.lower() in ["y", "yes"]
 
 
-def add_quote(tex_code, add_quote_position, print_line, size_tab):
+def add_quote(tex_code, add_quote_position, print_line):
     """
     Given a tex code, and a list of triples (_, start, end), add a quote before the
     start and after the end. If the boolean interactive if true, asks the user
-    if she wants to add quotes: moreover, print the print_line lines preceding
+    if they want to add quotes: moreover, print the print_line lines preceding
     the match before asking the user's input.
     """
     result = ""
@@ -47,16 +48,19 @@ def add_quote(tex_code, add_quote_position, print_line, size_tab):
                 if big_kl not in [k for (_, k) in new_knowledges]:
                     # Propose to the user to define a synonym
                     tex_code.print(
-                        tex_code.find_line[big_start],
-                        tex_code.find_col[big_start],
-                        tex_code.find_line[big_end],
-                        tex_code.find_col[big_end],
+                        big_start,
+                        big_end,
                         print_line,
                     )
                     message = f"Do you want to add `{emph_alt(big_kl)}` as a synonym of `{emph_alt(small_kl)}` and add quotes? [y/n] "
                     if ask_consent(message):
                         new_knowledges.append((small_kl, big_kl))
                         add_quote_position_new.append((big_kl, big_start, big_end))
+                        for type2, info2 in add_quote_position:
+                            if type2 == "addquote":
+                                _, s2, e2 = info2
+                                if big_start <= s2 and e2 <= big_end:
+                                    add_quote_position.remove((type2, info2))
                     else:
                         ignore_synonym.append(big_kl)
                         if small_kl == tex_code.tex_code[small_start : small_end + 1]:
@@ -80,18 +84,16 @@ def add_quote(tex_code, add_quote_position, print_line, size_tab):
         if type == "addquote":
             (kl, start, end) = info
             tex_code.print(
-                tex_code.find_line[start],
-                tex_code.find_col[start],
-                tex_code.find_line[end],
-                tex_code.find_col[end],
+                start,
+                end,
                 print_line,
             )
             if ask_consent("Add quotes? [y/n] "):
                 add_quote_position_new.append((kl, start, end))
             print("")
     add_quote_position = add_quote_position_new
-    add_quote_before = [i for (_, i, _) in add_quote_position]
-    add_quote_after = [j for (_, _, j) in add_quote_position]
+    add_quote_before = [tex_code.pointer[i] for (_, i, _) in add_quote_position]
+    add_quote_after = [tex_code.pointer[j] for (_, _, j) in add_quote_position]
     for i in range(len(tex_code.tex_code)):
         if i in add_quote_before:
             result += '"'
@@ -107,26 +109,19 @@ def add_quote(tex_code, add_quote_position, print_line, size_tab):
     return result, new_knowledges
 
 
-def quote_maximal_substrings(text, kl, print_line, size_tab=4):
+def quote_maximal_substrings(
+    tex_code: tex.TexCode, kl: Knowledges, print_line: int, size_tab: int = 4
+):
     """
-    Given a text (tex code), and a list of strings, returns the same text with quotes around maximal substrings. Arguments:
-    - text: tex code
-    - kl: structure containing (both known and new) knowledges
-    - interactive: boolean; ask the user before adding quotes
-    - suggest_kl: boolean; suggest to define new knowledges to the user
-    - size_tab: number of columns taken by a tab
-    Ex: on the text 'every ordered monoid is a monoid' with list_strings =
-    ['monoid', 'ordered monoid'], returns
-    'every "ordered monoid" is a "monoid"'.
+    Given a tex code and knowledges, returns the same text with quotes around maximal substrings
+    that corresponds to knowledges. The integer `print_line` corresponds to the number
+    of lines printed when asking the user if they want to add quotes.
     """
 
     def stop_expanding(char):
         return not char.isalpha()
 
-    tex_code = tex.TexCode(text)
-    tex_code.clean_text()
-
-    ignore_position = [False] * len(tex_code.tex_cleaned)
+    ignore_position = [False] * tex_code.length
     add_quote_location = []  # Triple (string, start, end)
     for ignore_case in [False, True]:
         # Start the algo by being case sensitive, then run it while being insensitive.
@@ -150,11 +145,13 @@ def quote_maximal_substrings(text, kl, print_line, size_tab=4):
                     # Check if s1 is precedeed by quotes, if not, either check
                     # if we can define a new knowledge, or add the match to the
                     # list of quotes to add.
-                    if not True in [
-                        tex_code.tex_cleaned.endswith(beg_kl, 0, start)
-                        and tex_code.tex_cleaned.startswith(end_kl, end + 1)
-                        for (beg_kl, end_kl) in KL_DELIMITERS
-                    ]:
+                    if not any(
+                        [
+                            tex_code.tex_cleaned.endswith(beg_kl, 0, start)
+                            and tex_code.tex_cleaned.startswith(end_kl, end + 1)
+                            for (beg_kl, end_kl) in KL_DELIMITERS
+                        ]
+                    ):
                         start2, end2 = start, end
                         while start2 > 0 and not stop_expanding(
                             tex_code.tex_cleaned[start2 - 1]
@@ -175,11 +172,11 @@ def quote_maximal_substrings(text, kl, print_line, size_tab=4):
                                     "newkl",
                                     (
                                         s1,
-                                        tex_code.pointer[start],
-                                        tex_code.pointer[end],
+                                        start,
+                                        end,
                                         new_kl,
-                                        tex_code.pointer[start2],
-                                        tex_code.pointer[end2],
+                                        start2,
+                                        end2,
                                     ),
                                 )
                             )
@@ -189,9 +186,9 @@ def quote_maximal_substrings(text, kl, print_line, size_tab=4):
                                     "addquote",
                                     (
                                         s1,
-                                        tex_code.pointer[start],
-                                        tex_code.pointer[end],
+                                        start,
+                                        end,
                                     ),
                                 )
                             )
-    return add_quote(tex_code, add_quote_location, print_line, size_tab)
+    return add_quote(tex_code, add_quote_location, print_line)

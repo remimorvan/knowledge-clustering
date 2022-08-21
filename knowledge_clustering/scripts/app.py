@@ -89,15 +89,14 @@ def cluster(kl_file, dg_file, scope, lang, config_file):
     Edit a KNOWLEDGE file using the knowledges present
     in a DIAGNOSE file.
     """
-    kl = kls.Knowledges()
-    kl.read_knowledges_from_file(kl_file)
+    kl = kls.Knowledges(kl_file)
 
     if config_file == None:
         config_file = CONFIG_FILE[lang]
 
     list_prefixes = config.parse(config_file)
 
-    scopes_meaning = sm.inferAllScopes(kl.known_knowledges, NLTK_LANG[lang])
+    scopes_meaning = sm.inferAllScopes(kl.get_all_bags(), NLTK_LANG[lang])
     if scope:
         sm.printScopes(scopes_meaning, print_meaning=True)
 
@@ -106,29 +105,18 @@ def cluster(kl_file, dg_file, scope, lang, config_file):
     if len(unknown_knowledges) == 0:
         return
 
-    known_knowledges = copy.copy(kl.known_knowledges)
-    len_known_knowledges = len(known_knowledges)
-    len_bags = [len(bag) for bag in known_knowledges]
-    # update known_knowledges using the clustering algorithm
+    # update `kl` using the clustering algorithm
     clust.clustering(
-        known_knowledges,
+        kl,
         unknown_knowledges,
         ALPHA,
         list_prefixes,
         scopes_meaning,
         NLTK_LANG[lang],
     )
-    # Compute updated_knowledges and new_knowledges
-    new_knowledges = known_knowledges[len_known_knowledges:]
-    updated_knowledges = [
-        known_knowledges[bag_id][len_bags[bag_id] :]
-        for bag_id in range(len_known_knowledges)
-    ]
-    kl.add_new_synonyms(updated_knowledges)
-    kl.add_new_knowledges(new_knowledges)
     print(
-        f"Found a solution by adding {len(new_knowledges)} new knowledge"
-        + ("s" if len(new_knowledges) >= 2 else "")
+        f"Found a solution by adding {len(kl.get_new_bags())} new bag"
+        + ("s" if len(kl.get_new_bags()) >= 2 else "")
         + "."
     )
     kl.write_knowledges_in_file()
@@ -138,6 +126,7 @@ def cluster(kl_file, dg_file, scope, lang, config_file):
 @click.option(
     "--tex",
     "-t",
+    "tex_file",
     type=click.Path(
         exists=True, file_okay=True, dir_okay=False, writable=True, readable=True
     ),
@@ -147,6 +136,7 @@ def cluster(kl_file, dg_file, scope, lang, config_file):
 @click.option(
     "--knowledge",
     "-k",
+    "kl_file",
     type=click.Path(
         exists=True, file_okay=True, dir_okay=False, writable=True, readable=True
     ),
@@ -161,28 +151,23 @@ def cluster(kl_file, dg_file, scope, lang, config_file):
     default=1,
     help="When finding a match, number of lines (preceding the match) that are printed in the prompt to the user.",
 )
-def addquotes(tex, knowledge, print_line):
+def addquotes(tex_file, kl_file, print_line):
     """
     Finds knowledges defined in KNOWLEDGE that appear in TEX without quote
     symbols. Proposes to add quotes around them.
     """
-    tex_hash = fu.hash_file(tex)
-    with open(tex, "r") as f:
-        tex_code = f.read()
-    kl = kls.Knowledges()
-    kl.read_knowledges_from_file(knowledge)
+    tex_hash = fu.hash_file(tex_file)
+    with open(tex_file, "r") as f:
+        tex_code = tex.TexCode(f.read())
+    kl = kls.Knowledges(kl_file)
     tex_document_new, new_knowledges = quotes.quote_maximal_substrings(
         tex_code, kl, print_line, size_tab=4
     )
-    with fu.AtomicUpdate(tex, original_hash=tex_hash) as f:
+    with fu.AtomicUpdate(tex_file, original_hash=tex_hash) as f:
         f.write(tex_document_new)
-    new_synonyms = [
-        [new_kl for (def_kl, new_kl) in new_knowledges if def_kl in bag]
-        for bag in kl.all_known_knowledges
-    ]
-    if new_synonyms != []:
-        kl.add_new_synonyms(new_synonyms)
-        kl.write_knowledges_in_file()
+    for known_kl, new_kl in new_knowledges:
+        kl.define_synonym_of(new_kl, known_kl)
+    kl.write_knowledges_in_file(nocomment=True)
 
 
 @cli.command()

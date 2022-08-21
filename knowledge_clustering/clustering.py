@@ -1,32 +1,35 @@
 import knowledge_clustering.distance as dist
+from .knowledges import Knowledges
+
 import copy
-
-
-def bagId(known_knowledges, kl):
-    i = 0
-    n = len(known_knowledges)
-    while i < n and kl not in known_knowledges[i]:
-        i += 1
-    return i
+from typing import List, Dict
 
 
 def clustering(
-    known_knowledges, unknown_knowledges, alpha, list_prefixes, scopes_meaning, lang
+    knowledges: Knowledges,
+    unknown_knowledges: List[str],
+    alpha: float,
+    list_prefixes: List[str],
+    scopes_meaning: Dict[str, List[List[str]]],
+    lang: str,
 ):
-    # Takes a list of lists of known knowledges, a list of unknown knowledges, a threshold alpha (positive float)
-    # and modifies known_knowledges and unknown_knowledges so that at the end every notion of unknown_knowledges
-    # is moved to some bag of known_knowledges. The bags of known_knowledges satisfy the following invariant:
+    """
+    Takes knowledges (object of type Knowledges), a list of unknown knowledges, a
+    positive float `alpha` (threshold value for the clustering algorithm), a list
+    of prefixes to ignore, a list of possible meanings for each scope, and a language id.
+    Modifies the object knowledges so that it satisfies the following invariant:
     # any two notions in the same bag are near, where near either means:
-    # - both in the same bag of known_knowledges at the beggining of the algorithm ;
+    # - both in the same bag of knowledges at the beggining of the algorithm ;
     # - at distance (from module "dist") at most alpha if at least one of the two notions initially belongs to unknown_knowledges.
+    """
     knowledges_processed_old = []
-    knowledges_processed_new = [kl for bag in known_knowledges for kl in bag]
+    knowledges_processed_new = knowledges.get_all_knowledges()
     while unknown_knowledges != []:
         # If there is no newly processed knowledge, pick an unknown knowledge and add it to a new bag.
         if knowledges_processed_new == []:
             kl = unknown_knowledges[0]
             unknown_knowledges = unknown_knowledges[1:]
-            known_knowledges.append([kl])
+            knowledges.add_new_bag(kl)
             knowledges_processed_new = [kl]
         size_knowledges_processed_new = len(knowledges_processed_new)
         # Tries to add every unknown knowledge to a bag
@@ -47,8 +50,7 @@ def clustering(
                 # Choose kl2_min in kl2_min_list minimising the edit distance
                 kl2_min = dist.minimise_levenshtein_distance(kl, kl2_min_list)
                 # Add kl to the bag of kl2_min
-                i = bagId(known_knowledges, kl2_min)
-                known_knowledges[i].append(kl)
+                knowledges.define_synonym_of(kl, kl2_min)
                 unknown_knowledges.remove(kl)
                 knowledges_processed_new.append(kl)
         # Every "new processed knowledge" that was known at the beginning of the while iteration
