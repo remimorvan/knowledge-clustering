@@ -1,32 +1,35 @@
-import knowledge_clustering.diagnose as diag
-import knowledge_clustering.clustering as clust
-import knowledge_clustering.config as config
-import knowledge_clustering.knowledges as kls
-import knowledge_clustering.tex_code as tex
-import knowledge_clustering.scope_meaning as sm
-import knowledge_clustering.file_updater as fu
-import knowledge_clustering.add_quotes as quotes
-import knowledge_clustering.add_AP as ap
+from __future__ import annotations
 
-
-import copy
+import os
 import click
 from click_default_group import DefaultGroup
 import nltk
 import pkg_resources
-import os
 
-ALPHA = 0
-APP_NAME = "knowledge-clustering"
+from knowledge_clustering import (
+    add_AP,
+    add_quotes,
+    diagnose,
+    clustering,
+    config,
+    file_updater,
+    scope_meaning,
+)
+from knowledge_clustering.knowledges import Knowledges
+from knowledge_clustering.tex_document import TexDocument
 
-CONFIG_FILENAME = {"en": "english.ini", "fr": "french.ini"}
-CONFIG_DIR = pkg_resources.resource_filename("knowledge_clustering", "data")
-CONFIG_FILE = dict()
-for lang in CONFIG_FILENAME.keys():
-    CONFIG_FILE[lang] = pkg_resources.resource_filename(
-        "knowledge_clustering", f"data/{CONFIG_FILENAME[lang]}"
+
+_ALPHA = 0
+# APP_NAME = "knowledge-clustering"
+
+_CONFIG_FILENAME = {"en": "english.ini", "fr": "french.ini"}
+_CONFIG_DIR = pkg_resources.resource_filename("knowledge_clustering", "data")
+_CONFIG_FILE = dict()
+for lang in _CONFIG_FILENAME:
+    _CONFIG_FILE[lang] = pkg_resources.resource_filename(
+        "knowledge_clustering", f"data/{_CONFIG_FILENAME[lang]}"
     )
-NLTK_LANG = {"en": "english", "fr": "french"}
+_NLTK_LANG = {"en": "english", "fr": "french"}
 
 
 @click.group(cls=DefaultGroup, default="cluster", default_if_no_args=True)
@@ -81,7 +84,7 @@ the possible meaning of those scope inferred by knowledge-clustering.",
     "--config-file",
     "-c",
     default=None,
-    help=f"Specify the configuration file. By default the configuration file in the folder {CONFIG_DIR} \
+    help=f"Specify the configuration file. By default the configuration file in the folder {_CONFIG_DIR} \
 corresponding to your language is used.",
 )
 def cluster(kl_file, dg_file, scope, lang, config_file):
@@ -89,30 +92,30 @@ def cluster(kl_file, dg_file, scope, lang, config_file):
     Edit a KNOWLEDGE file using the knowledges present
     in a DIAGNOSE file.
     """
-    kl = kls.Knowledges(kl_file)
+    kl = Knowledges(kl_file)
 
-    if config_file == None:
-        config_file = CONFIG_FILE[lang]
+    if config_file is None:
+        config_file = _CONFIG_FILE[lang]
 
     list_prefixes = config.parse(config_file)
 
-    scopes_meaning = sm.inferAllScopes(kl.get_all_bags(), NLTK_LANG[lang])
+    scopes_meaning = scope_meaning.inferAllScopes(kl.get_all_bags(), _NLTK_LANG[lang])
     if scope:
-        sm.printScopes(scopes_meaning, print_meaning=True)
+        scope_meaning.printScopes(scopes_meaning, print_meaning=True)
 
-    unknown_knowledges = diag.parse(dg_file)
+    unknown_knowledges = diagnose.parse(dg_file)
 
     if len(unknown_knowledges) == 0:
         return
 
     # update `kl` using the clustering algorithm
-    clust.clustering(
+    clustering.clustering(
         kl,
         unknown_knowledges,
-        ALPHA,
+        _ALPHA,
         list_prefixes,
         scopes_meaning,
-        NLTK_LANG[lang],
+        _NLTK_LANG[lang],
     )
     print(
         f"Found a solution by adding {len(kl.get_new_bags())} new bag"
@@ -156,14 +159,14 @@ def addquotes(tex_file, kl_file, print_line):
     Finds knowledges defined in KNOWLEDGE that appear in TEX without quote
     symbols. Proposes to add quotes around them.
     """
-    tex_hash = fu.hash_file(tex_file)
+    tex_hash = file_updater.hash_file(tex_file)
     with open(tex_file, "r") as f:
-        tex_code = tex.TexCode(f.read())
-    kl = kls.Knowledges(kl_file)
-    tex_document_new, new_knowledges = quotes.quote_maximal_substrings(
-        tex_code, kl, print_line, size_tab=4
+        tex_doc = TexDocument(f.read())
+    kl = Knowledges(kl_file)
+    tex_document_new, new_knowledges = add_quotes.quote_maximal_substrings(
+        tex_doc, kl, print_line, size_tab=4
     )
-    with fu.AtomicUpdate(tex_file, original_hash=tex_hash) as f:
+    with file_updater.AtomicUpdate(tex_file, original_hash=tex_hash) as f:
         f.write(tex_document_new)
     for known_kl, new_kl in new_knowledges:
         kl.define_synonym_of(new_kl, known_kl)
@@ -193,8 +196,8 @@ def anchor(tex, space):
     is not preceded by an anchor point.
     """
     with open(tex, "r") as f:
-        tex_document = f.read()
-    ap.missing_AP(tex_document, space, size_tab=4)
+        tex_doc = TexDocument(f.read())
+    add_AP.missing_AP(tex_doc, space)
 
 
 if __name__ == "__main__":

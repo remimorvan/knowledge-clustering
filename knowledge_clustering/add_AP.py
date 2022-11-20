@@ -1,19 +1,33 @@
-import knowledge_clustering.add_quotes as quotes
+from __future__ import annotations
+
+from knowledge_clustering.tex_document import TexDocument
 import re  # Regular expressions
 
-INTRO_STRING = ["\intro", '""']
-AP_STRING = ["\AP", "\itemAP"]
+
+_INTRO_STRING = ["\\intro", '""']
+_AP_STRING = ["\\AP", "\\itemAP"]
 
 
-def missing_AP(text, space, size_tab=4):
-    text_cleaned, pointer = quotes.ignore_spaces(text)
-    at_what_line, at_what_col = quotes.compute_line_col(text, size_tab)
-    for i_str in INTRO_STRING:
-        for i_match in re.finditer(re.escape(i_str), text_cleaned):
+def missing_AP(tex_doc: TexDocument, space: int) -> None:
+    """
+    Args:
+        text: a string containing the code of a TeX document
+        space: the maximal distance between the introduction of a
+            knowledge and the anchor point preceeding it.
+        size_tab:
+    """
+    for i_str in _INTRO_STRING:
+        for i_match in re.finditer(re.escape(i_str), tex_doc.tex_cleaned):
             start = i_match.start()
             beg = max(0, start - space)
-            if not any([ap_str in text_cleaned[beg:start] for ap_str in AP_STRING]):
-                message = (
-                    f"Missing anchor point at line {at_what_line[pointer[start]]}."
-                )
-                print(message)
+            if not any(
+                [ap_str in tex_doc.tex_cleaned[beg:start] for ap_str in _AP_STRING]
+            ):
+                start_pt: int | None = tex_doc.pointer[start]
+                if start_pt is not None:
+                    message: str = (
+                        f"Missing anchor point at line {tex_doc.find_line[start_pt]}."
+                    )
+                    print(message)
+                else:
+                    raise Exception("Undefined pointer", tex_doc.pointer, start)

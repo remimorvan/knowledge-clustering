@@ -2,6 +2,8 @@
 # Infer the scope from known knowledges
 # ---
 
+from __future__ import annotations
+
 import knowledge_clustering.distance as dist
 import copy
 

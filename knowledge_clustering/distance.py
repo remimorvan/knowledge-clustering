@@ -1,8 +1,10 @@
+from __future__ import annotations
+
 import copy
 import nltk
 import nltk.stem.snowball as nss
 
-IMPORTANT_POS = [
+_IMPORTANT_POS = [
     "CD",
     "JJ",
     "JJR",
@@ -21,8 +23,8 @@ IMPORTANT_POS = [
     "VBP",
     "VBZ",
 ]
-IGNORE_SUFFIXES = ["", "s"]
-INFINITY = 10000
+_IGNORE_SUFFIXES = ["", "s"]
+_INFINITY = 10000
 
 # ---
 # Edit distance
@@ -119,7 +121,7 @@ def breakupNotion(notion, lang):
     if lang == "english":
         words_with_POStag = nltk.pos_tag(nltk.word_tokenize(kl, language="english"))
         important_words = set(
-            [w for (w, pos) in words_with_POStag if pos in IMPORTANT_POS]
+            [w for (w, pos) in words_with_POStag if pos in _IMPORTANT_POS]
         )
         return (important_words, scope)
     else:
@@ -140,7 +142,7 @@ def similarWords(w1, w2, list_prefixes, stemmer):
         s1 = stemmer.stem(w1)
         s2 = stemmer.stem(w2)
         for p in list_prefixes:
-            for s in IGNORE_SUFFIXES:
+            for s in _IGNORE_SUFFIXES:
                 if (
                     p + s1 + s == s2
                     or p + s1 == s2 + s
@@ -173,10 +175,10 @@ def distance(notion1, notion2, list_prefixes, scopes_meaning, lang):
     kl2_words, sc2 = breakupNotion(notion2, lang)
     stemmer = nss.SnowballStemmer(lang)
     if sc1 != "" and sc2 != "" and sc1 != sc2:
-        return INFINITY
+        return _INFINITY
     elif len(kl1_words) == 0 or len(kl2_words) == 0:
         # Can happen in the notion is a command
-        return INFINITY
+        return _INFINITY
     elif sc1 == sc2:
         return distanceSetsOfWords(kl1_words, kl2_words, list_prefixes, stemmer)
     else:
@@ -184,7 +186,7 @@ def distance(notion1, notion2, list_prefixes, scopes_meaning, lang):
             kl1_words, sc1, kl2_words, sc2 = kl2_words, sc2, kl1_words, sc1
         # sc2 is empty and sc1 isn't
         # return the minimal distance obtained by replacing sc1 by one of its possible meanings
-        dist = INFINITY
+        dist = _INFINITY
         if sc1 in scopes_meaning:
             sc1_meaning = scopes_meaning[sc1]
         else:

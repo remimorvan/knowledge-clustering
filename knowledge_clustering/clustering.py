@@ -1,16 +1,17 @@
-import knowledge_clustering.distance as dist
-from .knowledges import Knowledges
+from __future__ import annotations
 
 import copy
-from typing import List, Dict
+
+from knowledge_clustering import distance
+from knowledge_clustering.knowledges import Knowledges
 
 
 def clustering(
     knowledges: Knowledges,
-    unknown_knowledges: List[str],
+    unknown_knowledges: list[str],
     alpha: float,
-    list_prefixes: List[str],
-    scopes_meaning: Dict[str, List[List[str]]],
+    list_prefixes: list[str],
+    scopes_meaning: dict[str, list[list[str]]],
     lang: str,
 ):
     """
@@ -24,9 +25,9 @@ def clustering(
     """
     knowledges_processed_old = []
     knowledges_processed_new = knowledges.get_all_knowledges()
-    while unknown_knowledges != []:
+    while unknown_knowledges:
         # If there is no newly processed knowledge, pick an unknown knowledge and add it to a new bag.
-        if knowledges_processed_new == []:
+        if not knowledges_processed_new:
             kl = unknown_knowledges[0]
             unknown_knowledges = unknown_knowledges[1:]
             knowledges.add_new_bag(kl)
@@ -39,16 +40,16 @@ def clustering(
             kl2_min_list = []
             # Finds the processed notion that is at a minimal distance from kl
             for kl2 in knowledges_processed_new:
-                d = dist.distance(kl, kl2, list_prefixes, scopes_meaning, lang)
-                if dist_min == None or d < dist_min:
+                d = distance.distance(kl, kl2, list_prefixes, scopes_meaning, lang)
+                if dist_min is None or d < dist_min:
                     dist_min = d
                     kl2_min_list = [kl2]
                 elif d == dist_min:
                     kl2_min_list.append(kl2)
             # If this minimal distance is smaller than the threshold alpha, add kl to the bag
-            if dist_min <= alpha:
+            if dist_min is not None and dist_min <= alpha:
                 # Choose kl2_min in kl2_min_list minimising the edit distance
-                kl2_min = dist.minimise_levenshtein_distance(kl, kl2_min_list)
+                kl2_min = distance.minimise_levenshtein_distance(kl, kl2_min_list)
                 # Add kl to the bag of kl2_min
                 knowledges.define_synonym_of(kl, kl2_min)
                 unknown_knowledges.remove(kl)

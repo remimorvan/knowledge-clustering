@@ -8,3 +8,5 @@ build/*
 .vim/*
 kw-devel/*
 venv-black/*
+*.venv
+.vscode

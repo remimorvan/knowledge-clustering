@@ -1,13 +1,15 @@
-from multiprocessing.sharedctypes import Value
-import toposort  # Topological sort
+from __future__ import annotations
+
+import toposort  # Topological sort pylint: disable=import-error
 import knowledge_clustering.file_updater as fu
 
 # import copy
 
-DISCARD_LINE = "%%%%% NEW KNOWLEDGES "
+_DISCARD_LINE = "%%%%% NEW KNOWLEDGES "
 
 
 def flat(list_of_list):
+    """Flattens a list of list into a single list."""
     return [x for y in list_of_list for x in y]
 
 
@@ -15,16 +17,27 @@ class Knowledges:
     def __init__(self, filename):
         """
         Reads a tex file from a file descriptor f.
-        It identifies the knowledge commands and computes:
-        - the hash of the document ;
-        - document is a list of records, either of the form:
-            {"type"="tex",
-            "lines"= list of strings (the lines)}
-        or {"type"="knowledge"
-            "lines"= list of strings (the lines)
-            "command" = string representing the line introducing the knowledge
-            "number" = the number of the knowledge}
-        - known_knowledges is a list of list of strings. Each list of strings contains strings corresponding to the same knowledge. The position in the string corresponds to the "number" field in the above document description.
+
+        Args:
+            filename: the name of a file containing knowledges.
+
+        Computes:
+            self.original_hash: the hash of the document ;
+            self.document: a list of records, either of the form:
+                {
+                    "type"="tex",
+                    "lines"= list of strings (the lines)
+                }
+                or {
+                    "type"="knowledge",
+                    "lines"= list of strings (the lines)
+                    "command" = string representing the line introducing the knowledge,
+                    "number" = the number of the knowledge
+                }
+            self.known_knowledges: a list of list of strings.
+                Each list of strings contains strings corresponding to the same knowledge.
+                The position in the string corresponds to the "number" field in the above
+                document description.
         """
         self.bags = []  # Lists of lists, containing knowledges.
         self.filename = filename
@@ -66,7 +79,7 @@ class Knowledges:
                     currentKnowledgeStrings = []
 
             def lineIsDiscard(line):
-                return line == DISCARD_LINE
+                return line == _DISCARD_LINE
 
             def lineIsComment(line):
                 return line.startswith("%")
@@ -123,19 +136,20 @@ class Knowledges:
             self.compute_dependency_graph()
 
     def get_all_bags(self):
-        """Returns all bags that were not added since the last checkpoint."""
+        """Returns all bags that were not added since the last checkpoint, as a list of lists of strings."""
         return self.bags
 
     def get_new_bags(self):
-        """Returns all bags that were not added since the last checkpoint."""
+        """Returns all bags that were not added since the last checkpoint, as a list of lists of strings."""
         return self.bags[self.nb_known_bags :]
 
     def get_all_knowledges(self):
+        """Returns all knowledges, as a list of strings."""
         return flat(self.bags)
 
     def get_known_knowledges_in_bag(self, id):
         """Returns the list of knowledges contained in the `id`-th bag
-        during the last checkpoint."""
+        during the last checkpoint, as a list of strings."""
         if id < self.nb_known_bags:
             return self.bags[id][: self.length_known_bags[id]]
         else:
@@ -143,77 +157,26 @@ class Knowledges:
 
     def get_new_knowledges_in_bag(self, id):
         """Returns the list of knowledges contained in the `id`-th bag
-        that were added since the last checkpoint."""
+        that were added since the last checkpoint, as a list of strings."""
         if id < self.nb_known_bags:
             return self.bags[id][self.length_known_bags[id] :]
         else:
             return self.bags[id]
 
     def add_new_bag(self, kl):
-        """Add a new bag that contains only `kl`."""
+        """Adds a new bag that contains only the string `kl`."""
         self.bags.append([kl])
 
     def define_synonym_of(self, kl1, kl2):
-        """Defines `kl1` as a new synonym of `kl2`."""
+        """
+        Defines a new knowledge (string) `kl1` as a new synonym of the already
+        existing knowledge (string) `kl2`.
+        """
         for id, bag in enumerate(self.bags):
             if kl2 in bag:
                 self.bags[id].append(kl1)
                 return
         print(f"Error: {kl2} is not a knowledge.")
-
-    # def __get_id(self, lst, kl):
-    #     """Given a list of lists of strings `lst` and a string `kl`, returns
-    #     a pair (boolean, natural number), describing if `kl` belongs to `lst`,
-    #     and if so, the id of the list containg `kl`."""
-    #     for i in range(len(lst)):
-    #         if kl in lst[i]:
-    #             return (True, i)
-    #     return (False, -1)
-
-    # def __fst_elements(self, lst):
-    #     return list(map(lambda x: x[0], lst))
-
-    # def is_known(self, kl):
-    #     """Finds if a string `kl` is a known knowledge. Returns a pair consisting of a boolean
-    #     and, if the knowledge was found, the id of the bag containing it."""
-    #     return self.__get_id(self.known_knowledges, kl)
-
-    # def is_new_knowledge(self, kl):
-    #     """Finds if a string `kl` is a new knowledge. Returns a pair consisting of a boolean
-    #     and, if the knowledge was found, the id of the bag containing it."""
-    #     return self.__get_id(self.new_knowledges, kl)
-
-    # def is_new_synonym(self, kl):
-    #     """Finds if a string `kl` is a new synonym. Returns a pair consisting of a boolean
-    #     and, if the knowledge was found, the id of the bag containing it."""
-    #     return self.__get_id(self.new_synonyms, kl)
-
-    # def is_knowledge(self, kl):
-    #     """Boolean describing whether the string `k` is a known knowledge, a new knowledge or
-    #     a new synonym."""
-    #     return (
-    #         True in self.__fst_elements(self.is_known(kl))
-    #         or True in self.__fst_elements(self.is_new_knowledge(kl))
-    #         or True in self.__fst_elements(self.is_new_synonym(kl))
-    #     )
-
-    # def add_new_knowledge(self, kl_list):
-    #     """Define the list of strings kl_list as a new knowledge bag."""
-    #     kl_list_copy = copy.copy(kl_list)
-    #     self.new_knowledges.append(kl_list_copy)
-    #     self.all_new_knowledges.append(kl_list_copy)
-
-    # def define_synonym(self, kl1, kl2):
-    #     (bl, id) = self.is_known(self, )
-
-    # def update_flatten(self):
-    #     flat = lambda l: [y for x in l for y in x]
-    #     self.all_known_knowledges = flat(self.known_knowledges)
-    #     self.all_new_knowledges = flat(self.new_knowledges)
-    #     self.all_new_synonyms = flat(self.new_synonyms)
-    #     self.all_knowledges = (
-    #         self.all_known_knowledges + self.all_new_knowledges + self.all_new_synonyms
-    #     )
 
     def compute_dependency_graph(self):
         dependency = dict()
@@ -229,19 +192,6 @@ class Knowledges:
         self.all_knowledges_sorted = list(
             toposort.toposort_flatten(dependency_reversed)
         )
-
-    # def add_new_synonyms(self, new_synonyms):
-    #     """Adds new synonyms."""
-    #     n = len(self.new_synonyms)
-    #     self.new_synonyms = [self.new_synonyms[i] + new_synonyms[i] for i in range(n)]
-    #     self.update_flatten()
-    #     self.compute_dependency_graph()
-
-    # def add_new_knowledges(self, new_knowledges):
-    #     """Adds new knowledges."""
-    #     self.new_knowledges = self.new_knowledges + new_knowledges
-    #     self.update_flatten()
-    #     self.compute_dependency_graph()
 
     def write_knowledges_in_file(self, nocomment=False):
         """
@@ -259,7 +209,7 @@ class Knowledges:
                         for kl in self.get_new_knowledges_in_bag(b["number"]):
                             file.write((f" | {kl}\n" if nocomment else f"%  | {kl}\n"))
             if len(self.get_new_bags()) > 0:
-                file.write(DISCARD_LINE + "\n")
+                file.write(_DISCARD_LINE + "\n")
                 for bag in self.get_new_bags():
                     if len(bag) > 0:
                         file.write("%\n")
