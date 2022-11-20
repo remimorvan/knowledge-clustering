@@ -59,8 +59,8 @@ def add_quote(
     if they want to add quotes: moreover, print the print_line lines preceding
     the match before asking the user's input.
     """
-    result = ""
-    new_knowledges = []
+    result: str = ""
+    new_knowledges: list[tuple[str, str]] = []
     ignore_synonym = []
     ignore_subknowledge = []
     operations.sort(key=lambda x: x.start)

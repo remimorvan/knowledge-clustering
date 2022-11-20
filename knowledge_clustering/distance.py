@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import copy
-import nltk
-import nltk.stem.snowball as nss
+import nltk  # type: ignore
+import nltk.stem.snowball as nss  # type: ignore
 
 _IMPORTANT_POS = [
     "CD",

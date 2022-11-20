@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import os
 import click
-from click_default_group import DefaultGroup
-import nltk
+from click_default_group import DefaultGroup  # type: ignore
+import nltk  # type: ignore
 import pkg_resources
 
 from knowledge_clustering import (
@@ -22,25 +22,24 @@ from knowledge_clustering.tex_document import TexDocument
 _ALPHA = 0
 # APP_NAME = "knowledge-clustering"
 
-_CONFIG_FILENAME = {"en": "english.ini", "fr": "french.ini"}
-_CONFIG_DIR = pkg_resources.resource_filename("knowledge_clustering", "data")
-_CONFIG_FILE = dict()
-for lang in _CONFIG_FILENAME:
-    _CONFIG_FILE[lang] = pkg_resources.resource_filename(
-        "knowledge_clustering", f"data/{_CONFIG_FILENAME[lang]}"
+_CONFIG_FILENAME: dict[str, str] = {"en": "english.ini", "fr": "french.ini"}
+_CONFIG_DIR: str = pkg_resources.resource_filename("knowledge_clustering", "data")
+_CONFIG_FILE: dict[str, str] = dict()
+for (lan, filename) in _CONFIG_FILENAME.items():
+    _CONFIG_FILE[lan] = pkg_resources.resource_filename(
+        "knowledge_clustering", f"data/{filename}"
     )
-_NLTK_LANG = {"en": "english", "fr": "french"}
+_NLTK_LANG: dict[str, str] = {"en": "english", "fr": "french"}
 
 
 @click.group(cls=DefaultGroup, default="cluster", default_if_no_args=True)
 def cli():
     """Automated notion clustering for the knowledge LaTeX package"""
-    pass
 
 
 @cli.command()
 def init():
-    """Downloads the required Nltk packages"""
+    """Downloads the required NLTK packages."""
     nltk.download("punkt")
     nltk.download("averaged_perceptron_tagger")
     os.system("python3 -m spacy download en_core_web_sm")
@@ -51,7 +50,7 @@ def init():
 @click.option(
     "--knowledge",
     "-k",
-    "kl_file",
+    "kl_filename",
     type=click.Path(
         exists=True, file_okay=True, dir_okay=False, writable=True, readable=True
     ),
@@ -61,7 +60,7 @@ def init():
 @click.option(
     "--diagnose",
     "-d",
-    "dg_file",
+    "dg_filename",
     type=click.Path(exists=True, file_okay=True, dir_okay=False, readable=True),
     help="Diagnose file produced by LaTeX.",
     required=True,
@@ -87,23 +86,35 @@ the possible meaning of those scope inferred by knowledge-clustering.",
     help=f"Specify the configuration file. By default the configuration file in the folder {_CONFIG_DIR} \
 corresponding to your language is used.",
 )
-def cluster(kl_file, dg_file, scope, lang, config_file):
+def cluster(
+    kl_filename: str,
+    dg_filename: str,
+    scope: bool,
+    lang: str,
+    config_filename: None | str,
+):
     """
-    Edit a KNOWLEDGE file using the knowledges present
-    in a DIAGNOSE file.
+    Defines, as a comment and in the knowledge file, all the knowledges occuring in the diagnose file.
+
+    Args:
+        kl_filename: the name of the knowledge file.
+        dg_filename: the name of the diagnose file.
+        scope: a boolean specifying whether the scopes meaning should be printed.
+        lang: the langage of the document.
+        config_filename: a configuration file, specifying prefixes to ignore.
     """
-    kl = Knowledges(kl_file)
+    kl = Knowledges(kl_filename)
 
-    if config_file is None:
-        config_file = _CONFIG_FILE[lang]
+    if config_filename is None:
+        config_filename = _CONFIG_FILE[lang]
 
-    list_prefixes = config.parse(config_file)
+    list_prefixes = config.parse(config_filename)
 
     scopes_meaning = scope_meaning.inferAllScopes(kl.get_all_bags(), _NLTK_LANG[lang])
     if scope:
         scope_meaning.printScopes(scopes_meaning, print_meaning=True)
 
-    unknown_knowledges = diagnose.parse(dg_file)
+    unknown_knowledges = diagnose.parse(dg_filename)
 
     if len(unknown_knowledges) == 0:
         return
@@ -129,7 +140,7 @@ def cluster(kl_file, dg_file, scope, lang, config_file):
 @click.option(
     "--tex",
     "-t",
-    "tex_file",
+    "tex_filename",
     type=click.Path(
         exists=True, file_okay=True, dir_okay=False, writable=True, readable=True
     ),
@@ -139,7 +150,7 @@ def cluster(kl_file, dg_file, scope, lang, config_file):
 @click.option(
     "--knowledge",
     "-k",
-    "kl_file",
+    "kl_filename",
     type=click.Path(
         exists=True, file_okay=True, dir_okay=False, writable=True, readable=True
     ),
@@ -154,19 +165,24 @@ def cluster(kl_file, dg_file, scope, lang, config_file):
     default=1,
     help="When finding a match, number of lines (preceding the match) that are printed in the prompt to the user.",
 )
-def addquotes(tex_file, kl_file, print_line):
+def addquotes(tex_filename: str, kl_filename: str, print_line: int):
     """
-    Finds knowledges defined in KNOWLEDGE that appear in TEX without quote
+    Finds knowledges defined in the knowledge file that appear in tex file without quote
     symbols. Proposes to add quotes around them.
+
+    Args:
+        tex_filename: the name of the tex file.
+        kl_filename: the name of the knowledge file.
+        print_line: an integer specifying how many lines of the tex file should be printed.
     """
-    tex_hash = file_updater.hash_file(tex_file)
-    with open(tex_file, "r") as f:
+    tex_hash = file_updater.hash_file(tex_filename)
+    with open(tex_filename, "r", encoding="utf-8") as f:
         tex_doc = TexDocument(f.read())
-    kl = Knowledges(kl_file)
+    kl = Knowledges(kl_filename)
     tex_document_new, new_knowledges = add_quotes.quote_maximal_substrings(
         tex_doc, kl, print_line, size_tab=4
     )
-    with file_updater.AtomicUpdate(tex_file, original_hash=tex_hash) as f:
+    with file_updater.AtomicUpdate(tex_filename, original_hash=tex_hash) as f:
         f.write(tex_document_new)
     for known_kl, new_kl in new_knowledges:
         kl.define_synonym_of(new_kl, known_kl)
@@ -188,14 +204,19 @@ def addquotes(tex_file, kl_file, print_line):
     "-s",
     type=int,
     default=150,
-    help="Number of characters tolerated between an anchor point and the introduction of a knowledge. (Default value: 150)",
+    help="Number of characters tolerated between an anchor point and the introduction \
+        of a knowledge. (Default value: 150)",
 )
-def anchor(tex, space):
+def anchor(tex_filename, space):
     """
-    Prints warning when a knowledge is introduced but
-    is not preceded by an anchor point.
+    Prints warning when a knowledge is introduced but is not preceded by an anchor point.
+
+    Args:
+        tex_filename: the name of the tex file.
+        space: an integer specifying the maximal number of characters allowed between the
+            introduction of a knowledge and an anchor point.
     """
-    with open(tex, "r") as f:
+    with open(tex_filename, "r", encoding="utf-8") as f:
         tex_doc = TexDocument(f.read())
     add_AP.missing_AP(tex_doc, space)
 
