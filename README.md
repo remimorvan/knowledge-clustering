@@ -147,23 +147,23 @@ TeX document).
 
 ## Devel using virtualenv
 
-Using virtualenv and the `--editable` option from `pip3` allows for an easy
+Using `venv and the `--editable` option from `pip3` allows for an easy
 setup of a development environment that will match a future user install without
 the hassle.
 
 For bash and Zsh users
 
 ```bash
-virtualenv -p python3 kw-devel
-source ./kw-devel/bin/activate
+python3 -m venv kl.venv
+source ./kl.venv/bin/activate
 pip3 install --editable .
 ```
 
 For fish users
 
 ```fish
-virtualenv -p python3 kw-devel
-source ./kw-devel/bin/activate.fish
+python3 -m venv kl.venv
+source ./kl.venv/bin/activate.fish
 pip3 install --editable .
 ```
 
