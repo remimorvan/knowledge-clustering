@@ -1,0 +1,12 @@
+\knowledge{notion}
+ | word
+
+\knowledge{notion}
+ | word@ord
+
+\knowledge{notion}
+ | regular language over countable ordinals
+ | regular languages@ord
+
+\knowledge{notion}
+ | separation

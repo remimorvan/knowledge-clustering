@@ -1,10 +1,14 @@
 VENV-BLACK=black.venv
 
-.PHONY: black typing lint check
+.PHONY: black check test
 
 black: 
 	source ./$(VENV-BLACK)/bin/activate && black .
 
 check: 
-	mypy knowledge_clustering/*.py # Check typing
-	pylint # Linter
+	mypy knowledge_clustering/*.py --check-untyped-defs # Check typing
+	pylint knowledge_clustering/*.py # Linter
+
+test:
+	# python -m pytest tests/test_clustering.py -v
+	python -m pytest tests/test_app.py -v

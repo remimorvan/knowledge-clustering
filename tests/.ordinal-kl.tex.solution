@@ -1,0 +1,20 @@
+\knowledge{notion}
+ | word
+%  | words
+
+\knowledge{notion}
+ | word@ord
+%  | countable ordinal word
+
+\knowledge{notion}
+ | regular language over countable ordinals
+ | regular languages@ord
+
+\knowledge{notion}
+ | separation
+%  | inseparability
+%%%%% NEW KNOWLEDGES 
+%
+%\knowledge{notion}
+%  | semigroup
+%  | semigroups
