@@ -10,5 +10,5 @@ check:
 	pylint knowledge_clustering/*.py # Linter
 
 test:
-	# python -m pytest tests/test_clustering.py -v
+	python -m pytest tests/test_clustering.py -v
 	python -m pytest tests/test_app.py -v

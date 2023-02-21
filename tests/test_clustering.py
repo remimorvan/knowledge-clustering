@@ -4,7 +4,7 @@ Tests for the modules of knowledge_clustering on which the cluster command is ba
 
 from typing import TypeVar
 
-from knowledge_clustering.distance import distance
+from knowledge_clustering.distance import distance, new_stemmer
 from knowledge_clustering.scope_meaning import infer_scope, infer_all_scopes
 from knowledge_clustering.clustering import clustering
 from knowledge_clustering.knowledges import Knowledges
@@ -27,6 +27,9 @@ def test_distance() -> None:
     assert distance("foo", "turbofoo", ["", "turbo"], {}, "english") == 0
     assert distance("foo", "turbofoo", [""], {}, "english") > 0
     assert distance("foo", "megafoo", ["", "turbo"], {}, "english") > 0
+    # Test with accent and math
+    assert distance("Büchi", 'B\\"uchi', [""], {}, "english") == 0
+    assert distance("Büchi", '\\textsf{$\\omega$-B\\"{u}chi}', ["", "-"], {}, "english") == 0
     # Tests with scope
     assert (
         distance("word@ord", "ordinal word", [""], {"ord": [["ordinal"]]}, "english")
@@ -58,6 +61,7 @@ def test_scope_meaning() -> None:
             ["regular language over countable ordinals", "regular languages@ord"],
             "ord",
             "english",
+            new_stemmer("english"),
         ),
         [["ordinals", "countable"]],
     )

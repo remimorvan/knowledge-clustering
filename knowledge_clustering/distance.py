@@ -5,6 +5,7 @@ from __future__ import annotations  # Support of `|` for type union in Python 3.
 import copy
 import nltk  # type: ignore
 import nltk.stem.snowball as nss  # type: ignore
+from unidecode import unidecode
 
 _IMPORTANT_POS = [
     "CD",
@@ -27,6 +28,8 @@ _IMPORTANT_POS = [
 ]
 _IGNORE_SUFFIXES = ["", "s"]
 _INFINITY = 10000
+_LATEX_ACCENTS = ["\\`", "\\'", "\\^", '\\"', "\\~", "\\=", "\\."] # LaTeX accents defined using non-alphanumerical commands
+_IGNORE_CHAR = ["\\-", "{", "}"]
 
 # ---
 # Edit distance
@@ -98,10 +101,11 @@ def normalise_notion(notion):
         if len(sp) <= 1:
             break
         notion_norm = sp[0] + sp[2]
-    while "\\-" in notion_norm:
-        # If the notion contains hyphenations, remove them.
-        sp = notion_norm.split("\\-", 1)
-        notion_norm = sp[0] + sp[1]
+    for remove_char in _LATEX_ACCENTS:
+        while remove_char in notion_norm:
+            # If the notion contains remove_char, remove it.
+            sp = notion_norm.split(remove_char, 1)
+            notion_norm = sp[0] + sp[1]
     while "\\" in notion_norm:
         # If the notion contains a backslash, remove every letter following the backslash
         # see https://tex.stackexchange.com/a/34381/206008 for naming conventions of TeX commands
@@ -111,7 +115,12 @@ def normalise_notion(notion):
         while i < len(suff) and suff[i].isalpha():
             i += 1
         notion_norm = pref + suff[i:]
-    return notion_norm
+    for remove_char in _IGNORE_CHAR:
+        while remove_char in notion_norm:
+            # If the notion contains remove_char, remove it.
+            sp = notion_norm.split(remove_char, 1)
+            notion_norm = sp[0] + sp[1]
+    return unidecode(notion_norm) # Ascii-fy (in particular, remove accents) the result
 
 
 def breakup_notion(notion, lang):
