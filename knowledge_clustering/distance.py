@@ -28,7 +28,15 @@ _IMPORTANT_POS = [
 ]
 _IGNORE_SUFFIXES = ["", "s"]
 _INFINITY = 10000
-_LATEX_ACCENTS = ["\\`", "\\'", "\\^", '\\"', "\\~", "\\=", "\\."] # LaTeX accents defined using non-alphanumerical commands
+_LATEX_ACCENTS = [
+    "\\`",
+    "\\'",
+    "\\^",
+    '\\"',
+    "\\~",
+    "\\=",
+    "\\.",
+]  # LaTeX accents defined using non-alphanumerical commands
 _IGNORE_CHAR = ["\\-", "{", "}"]
 
 # ---
@@ -120,7 +128,7 @@ def normalise_notion(notion):
             # If the notion contains remove_char, remove it.
             sp = notion_norm.split(remove_char, 1)
             notion_norm = sp[0] + sp[1]
-    return unidecode(notion_norm) # Ascii-fy (in particular, remove accents) the result
+    return unidecode(notion_norm)  # Ascii-fy (in particular, remove accents) the result
 
 
 def breakup_notion(notion, lang):

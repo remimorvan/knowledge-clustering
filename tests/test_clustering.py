@@ -29,7 +29,10 @@ def test_distance() -> None:
     assert distance("foo", "megafoo", ["", "turbo"], {}, "english") > 0
     # Test with accent and math
     assert distance("Büchi", 'B\\"uchi', [""], {}, "english") == 0
-    assert distance("Büchi", '\\textsf{$\\omega$-B\\"{u}chi}', ["", "-"], {}, "english") == 0
+    assert (
+        distance("Büchi", '\\textsf{$\\omega$-B\\"{u}chi}', ["", "-"], {}, "english")
+        == 0
+    )
     # Tests with scope
     assert (
         distance("word@ord", "ordinal word", [""], {"ord": [["ordinal"]]}, "english")
