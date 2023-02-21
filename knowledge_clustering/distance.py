@@ -216,14 +216,13 @@ def distance(
     """
     Measures the distance between two notions, given a list of prefixes to ignore and
     a list of possible meaning for each scope.
-    TODO
     Args:
-        notion1:
-        notion2:
-        list_prefixes:
+        notion1: first notion
+        notion2: second notion
+        list_prefixes: a list of prefixes that will be ignored
         scope_meaning: a dictionnary, assigning to every scope a list of
             its possible meanings, each possible meaning being a list of words
-        lang:
+        lang: the identifier of some language (e.g. "english")
 
     Returns:
         The distance between notion1 and notion2.
