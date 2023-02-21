@@ -58,30 +58,30 @@ Options:
 
 Example files can be found in the `examples/` folder.
 
-While writing some document, you have defined some knowledges in a file called `small.tex` (distinct
+While writing some document, you have defined some knowledges in a file called `ordinal-kl.tex` (distinct
 from your main `LaTeX`).
 You continued writing your `LaTeX` document (not provided in the `examples/` folder)
 for some time, and used some knowledges that were undefined.
 When compiling, `LaTeX` and the [`knowledge package`](https://ctan.org/pkg/knowledge) gives you a warning
 and writes in a `.diagnose` file some information explaining what went wrong. This `.diagnose` file contains
 a section called "Undefined knowledges" containing all knowledges used in your main `LaTeX` file but not
-defined in `small.tex`. We reproduced this section
-in the `small.diagnose` file.
+defined in `ordinal-kl.tex`. We reproduced this section
+in the `ordinal.diagnose` file.
 
 ![Screenshot of the `small.tex` and `small.diagnose` files before running knowledge-clustering. `small.tex` contains four knowledges, while `small.diagnose` contains five undefined knowledges.](img/small-before.png "Files `small.tex` and `small.diagnose` before running knowledge-clustering")
 
 Normally, you would add every undefined knowledge, one after the other, in your
-`small.tex`. This is quite burdensome and can
+`oridnal-kl.tex`. This is quite burdensome and can
 largely be automated. This is precisely what `knowledge-clustering` does: after running
 
     knowledge cluster -k small.tex -d small.diagnose
 
-your file `small.diagnose` is left unchanged
-but `small.tex` is updated with comments.
+your file `ordinal.diagnose` is left unchanged
+but `ordinal-kl.tex` is updated with comments.
 
-The `cluster` command is optional: you can also write `knowledge -k small.tex -d small.diagnose`.
+The `cluster` command is optional: you can also write `knowledge -k ordinal-kl.tex -d ordinal.diagnose`.
 
-![After running knowledge-clustering, the five undefined knowledges are included in the `small.tex` file as comments.](img/small-after.png "Files `small.tex` and `small.diagnose` after running knowledge-clustering`")
+![After running knowledge-clustering, the five undefined knowledges are included in the `small.tex` file as comments.](img/small-after.png "Files `ordinal-kl.tex` and `ordinal.diagnose` after running knowledge-clustering`")
 
 Now you simply have to check that the recommandations of `knowledge-clustering` are
 correct, and uncomment those lines.
