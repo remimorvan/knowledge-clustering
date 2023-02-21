@@ -1,4 +1,8 @@
-from __future__ import annotations
+"""
+Launching knowledge commands (init, cluster, addquotes, anchor).
+"""
+
+from __future__ import annotations  # Support of `|` for type union in Python 3.9
 
 import os
 import click
@@ -7,7 +11,7 @@ import nltk  # type: ignore
 import pkg_resources
 
 from knowledge_clustering import (
-    add_AP,
+    add_anchor,
     add_quotes,
     diagnose,
     clustering,
@@ -82,6 +86,7 @@ the possible meaning of those scope inferred by knowledge-clustering.",
 @click.option(
     "--config-file",
     "-c",
+    "config_filename",
     default=None,
     help=f"Specify the configuration file. By default the configuration file in the folder {_CONFIG_DIR} \
 corresponding to your language is used.",
@@ -110,9 +115,9 @@ def cluster(
 
     list_prefixes = config.parse(config_filename)
 
-    scopes_meaning = scope_meaning.inferAllScopes(kl.get_all_bags(), _NLTK_LANG[lang])
+    scopes_meaning = scope_meaning.infer_all_scopes(kl.get_all_bags(), _NLTK_LANG[lang])
     if scope:
-        scope_meaning.printScopes(scopes_meaning, print_meaning=True)
+        scope_meaning.print_scopes(scopes_meaning, print_meaning=True)
 
     unknown_knowledges = diagnose.parse(dg_filename)
 
@@ -180,7 +185,7 @@ def addquotes(tex_filename: str, kl_filename: str, print_line: int):
         tex_doc = TexDocument(f.read())
     kl = Knowledges(kl_filename)
     tex_document_new, new_knowledges = add_quotes.quote_maximal_substrings(
-        tex_doc, kl, print_line, size_tab=4
+        tex_doc, kl, print_line
     )
     with file_updater.AtomicUpdate(tex_filename, original_hash=tex_hash) as f:
         f.write(tex_document_new)
@@ -193,6 +198,7 @@ def addquotes(tex_filename: str, kl_filename: str, print_line: int):
 @click.option(
     "--tex",
     "-t",
+    "tex_filename",
     type=click.Path(
         exists=True, file_okay=True, dir_okay=False, writable=True, readable=True
     ),
@@ -218,7 +224,7 @@ def anchor(tex_filename, space):
     """
     with open(tex_filename, "r", encoding="utf-8") as f:
         tex_doc = TexDocument(f.read())
-    add_AP.missing_AP(tex_doc, space)
+    add_anchor.missing_anchor(tex_doc, space)
 
 
 if __name__ == "__main__":

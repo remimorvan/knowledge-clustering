@@ -1,13 +1,11 @@
-#
-# Allow to atomically update a
-# file by writing to a temporary
-# file and comparing hashes.
-# In case of conflicting uses,
-# the user has to manually merge
-# and a prompt is offered using click.
-#
+"""
+Allow to atomically update a file by writing to a temporary
+file and comparing hashes.
+In case of conflicting uses, the user has to manually merge
+and a prompt is offered using click.
+"""
 
-from __future__ import annotations
+from __future__ import annotations  # Support of `|` for type union in Python 3.9
 
 import hashlib
 import tempfile
@@ -17,8 +15,7 @@ import click
 
 def hash_file(filepath: str):
     """
-    Compute a hash of the content of the
-    given filepath
+    Compute a hash of the content of the given filepath
     """
     with open(filepath, "rb") as f:
         file_hash = hashlib.blake2b()
@@ -36,7 +33,7 @@ class AtomicUpdate:
     a change in the hash of the file given as input.
     """
 
-    def __init__(self, filename, original_hash=None):
+    def __init__(self, filename: str, original_hash=None):
         self.filename: str = filename
         self.hash = hash_file(filename)
         self.ctx = tempfile.NamedTemporaryFile(mode="w", dir=os.getcwd(), delete=False)
@@ -55,15 +52,15 @@ class AtomicUpdate:
             )
 
     def __enter__(self):
-        self.tmp = self.ctx.__enter__()
+        self.tmp = self.ctx.__enter__()  # type: ignore
         return self.tmp
 
-    def __exit__(self, type, value, traceback):
-        nh = hash_file(self.filename)
+    def __exit__(self, typ, value, traceback):
+        new_hash = hash_file(self.filename)
         if self.tmp is not None:
-            if nh.hexdigest() != self.hash.hexdigest():
-                print(f"{nh.hexdigest()} ≠ {self.hash.hexdigest()}")
-                b = click.confirm(
+            if new_hash.hexdigest() != self.hash.hexdigest():
+                print(f"{new_hash.hexdigest()} ≠ {self.hash.hexdigest()}")
+                confirm = click.confirm(
                     f"File {self.filename} has been modified\
                     during the run of \
                     the program, erase anyway?",
@@ -73,8 +70,8 @@ class AtomicUpdate:
                     show_default=True,
                     err=False,
                 )
-                if b is False:
+                if confirm is False:
                     print(f"Temporary file accessible at {self.tmp.name}")
-                    return self.ctx.__exit__(type, value, traceback)
+                    return self.ctx.__exit__(typ, value, traceback)
             os.replace(self.tmp.name, self.filename)
-        return self.ctx.__exit__(type, value, traceback)
+        return self.ctx.__exit__(typ, value, traceback)

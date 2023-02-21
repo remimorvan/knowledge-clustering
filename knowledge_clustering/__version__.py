@@ -1,1 +1,2 @@
-__version__ = "0.5.3"
+"""Version of knowledge-clustering."""
+__version__ = "0.6.0"

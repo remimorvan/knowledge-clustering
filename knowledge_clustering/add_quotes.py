@@ -1,4 +1,8 @@
-from __future__ import annotations
+"""
+Add missing quotes around knowledges occuring in a TeX document.
+"""
+
+from __future__ import annotations  # Support of `|` for type union in Python 3.9
 
 import re  # Regular expressions
 from typing import NamedTuple
@@ -21,6 +25,12 @@ _KL_DELIMITERS = [
 
 
 class NewKL(NamedTuple):
+    """
+    Object storing a new knowledge, together with its starting and ending point in some TeX
+    document, together with a smaller knowledge, that is already known, and is a substring of
+    the knowledge.
+    """
+
     kl_origin: str
     start_origin: int
     end_origin: int
@@ -30,6 +40,10 @@ class NewKL(NamedTuple):
 
 
 class AddQuote(NamedTuple):
+    """
+    Stores the starting and ending indexes of the occurence of some knowledge in a TeX document.
+    """
+
     kl: str
     start: int
     end: int
@@ -48,12 +62,17 @@ def add_quote(
     tex_doc: TexDocument,
     operations: list[NewKL | AddQuote],
     print_line: int,
-):
+) -> tuple[str, list[tuple[str, str]]]:
     """
+    In the TeX document, for every operation of type AddQuote, proposes to add quotes before
+    and after the match with the knowledge.
+    For every operation of type NewKL, proposes to define a new knowledge, and to add
+    quotes before and after the match.
+
     Args:
-        tex_doc: a tex document
-        add_quote_position:
-        print_line:
+        tex_doc: a TeX document.
+        operations: a list of operations, whose type is either NewKL or AddQuote.
+        print_line: an integer specifying how many lines of the tex file should be printed.
     Given a tex code, and a list of triples (_, start, end), add a quote before the
     start and after the end. If the boolean interactive if true, asks the user
     if they want to add quotes: moreover, print the print_line lines preceding
@@ -95,7 +114,8 @@ def add_quote(
                             op.kl_origin
                             == tex_doc.tex_code[op.start_origin : op.end_origin + 1]
                         ):
-                            # Propose to the user to add quotes around the original knowledge instead, if we have a precise match.
+                            # Propose to the user to add quotes around the original knowledge
+                            # instead, if we have a precise match.
                             if ask_consent(
                                 f"Add quotes around `{misc.emph(op.kl_origin)}` instead? [y/n] "
                             ):
@@ -126,10 +146,12 @@ def add_quote(
             print("")
     add_quote_before = [tex_doc.pointer[op.start] for op in operations_addquote]
     add_quote_after = [tex_doc.pointer[op.end] for op in operations_addquote]
-    for i in range(len(tex_doc.tex_code)):
+    # Simply add quotes before and after every positions corresponding to the beginning / end of
+    # a match with a knowledge.
+    for i, char in enumerate(tex_doc.tex_code):
         if i in add_quote_before:
             result += '"'
-        result += tex_doc.tex_code[i]
+        result += char
         if i in add_quote_after:
             result += '"'
     print(
@@ -142,12 +164,16 @@ def add_quote(
 
 
 def quote_maximal_substrings(
-    tex_doc: TexDocument, kl: Knowledges, print_line: int, size_tab: int = 4
-):
+    tex_doc: TexDocument, kl: Knowledges, print_line: int
+) -> tuple[str, list[tuple[str, str]]]:
     """
-    Given a tex code and knowledges, returns the same text with quotes around maximal substrings
-    that corresponds to knowledges. The integer `print_line` corresponds to the number
-    of lines printed when asking the user if they want to add quotes.
+    Finds knowledges defined in the knowledge file that appear in tex file without quote
+    symbols. Proposes to add quotes around them.
+
+    Args:
+        tex_doc: a TeX document.
+        kl: knowledges.
+        print_line: an integer specifying how many lines of the tex file should be printed.
     """
 
     def stop_expanding(char):
@@ -178,11 +204,9 @@ def quote_maximal_substrings(
                     # if we can define a new knowledge, or add the match to the
                     # list of quotes to add.
                     if not any(
-                        [
-                            tex_doc.tex_cleaned.endswith(beg_kl, 0, start)
-                            and tex_doc.tex_cleaned.startswith(end_kl, end + 1)
-                            for (beg_kl, end_kl) in _KL_DELIMITERS
-                        ]
+                        tex_doc.tex_cleaned.endswith(beg_kl, 0, start)
+                        and tex_doc.tex_cleaned.startswith(end_kl, end + 1)
+                        for (beg_kl, end_kl) in _KL_DELIMITERS
                     ):
                         start2, end2 = start, end
                         while start2 > 0 and not stop_expanding(

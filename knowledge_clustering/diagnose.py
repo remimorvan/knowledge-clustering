@@ -2,7 +2,7 @@
 Functions for handling the .diagnose files.
 """
 
-from __future__ import annotations
+from __future__ import annotations  # Support of `|` for type union in Python 3.9
 
 from typing import Callable, Generator
 
@@ -30,7 +30,7 @@ def automata_line(state: int, line: str) -> tuple[int, str | None]:
         return 1, None
     if state == 1 and _SEPARATION_HEADING_KL_BLOCK in line:
         return 2, None
-    if (state == 2 or state == 0) and _SEPARATION_HEADING_KL_BLOCK in line:
+    if (state in {0, 2}) and _SEPARATION_HEADING_KL_BLOCK in line:
         return 0, None
     if state == 2 and "| " in line:
         s = (line.split("| ", 1)[1]).split("\n", 1)[0]
@@ -61,7 +61,7 @@ def parse(filename: str) -> list[str]:
     Returns:
             a list of knowledges.
     """
-    with open(filename) as f:
+    with open(filename, encoding="utf-8") as f:
         list_notions = []
         for notion in unroll(automata_line, 0, f.readlines()):
             if notion is not None and notion not in list_notions:

@@ -1,11 +1,29 @@
-from __future__ import annotations
+"""Manipulating known knowledges."""
 
+from __future__ import annotations  # Support of `|` for type union in Python 3.9
+
+from typing import NamedTuple
 import toposort  # Topological sort pylint: disable=import-error
+
 import knowledge_clustering.file_updater as fu
 
 # import copy
 
 _DISCARD_LINE = "%%%%% NEW KNOWLEDGES "
+
+
+class DocInfoTex(NamedTuple):
+    """Lines of a TeX document."""
+
+    lines: list[str]
+
+
+class DocInfoKnowledge(NamedTuple):
+    """Lines of TeX document corresponding to the definition of a knowledge."""
+
+    lines: list[str]
+    command: str
+    number: int
 
 
 def flat(list_of_list):
@@ -39,174 +57,176 @@ class Knowledges:
                 The position in the string corresponds to the "number" field in the above
                 document description.
         """
-        self.bags = []  # Lists of lists, containing knowledges.
-        self.filename = filename
+        self.bags: list[list[str]] = []  # Lists of lists, containing knowledges.
+        self.filename: str = filename
         self.original_hash = fu.hash_file(filename)
-        with open(filename) as file:
-            lines = file.readlines()
+        with open(filename, encoding="utf-8") as file:
+            lines: list[str] = file.readlines()
 
-            document = []
-            knowledges = []
+            document: list[DocInfoTex | DocInfoKnowledge] = []
+            knowledges: list[list[str]] = []
 
-            readingMode = "tex"
-            currentBlock = []
-            currentKnowledgeCommand = ""
-            currentKnowledgeStrings = []
+            reading_mode: str = "tex"
+            current_block: list[str] = []
+            current_kl_cmd: str = ""
+            current_kl_strs: list[str] = []
 
-            def pushBlock():
-                nonlocal readingMode
+            def push_block():
+                nonlocal reading_mode
                 nonlocal document
-                nonlocal currentBlock
-                nonlocal currentKnowledgeCommand
-                nonlocal currentKnowledgeStrings
+                nonlocal current_block
+                nonlocal current_kl_cmd
+                nonlocal current_kl_strs
                 nonlocal knowledges
-                nonlocal currentKnowledgeStrings
-                if readingMode == "tex" and len(currentBlock) > 0:
-                    document.append({"type": "tex", "lines": currentBlock})
-                    currentBlock = []
-                elif readingMode == "knowledge":
+                nonlocal current_kl_strs
+                if reading_mode == "tex" and len(current_block) > 0:
+                    document.append(DocInfoTex(lines=current_block))
+                    current_block = []
+                elif reading_mode == "knowledge":
                     document.append(
-                        {
-                            "type": "knowledge",
-                            "lines": currentBlock,
-                            "command": currentKnowledgeCommand,
-                            "number": len(knowledges),
-                        }
+                        DocInfoKnowledge(
+                            lines=current_block,
+                            command=current_kl_cmd,
+                            number=len(knowledges),
+                        )
                     )
-                    currentBlock = []
-                    currentKnowledgeCommand = ""
-                    knowledges.append(currentKnowledgeStrings)
-                    currentKnowledgeStrings = []
+                    current_block = []
+                    current_kl_cmd = ""
+                    knowledges.append(current_kl_strs)
+                    current_kl_strs = []
 
-            def lineIsDiscard(line):
+            def line_is_discard(line):
                 return line == _DISCARD_LINE
 
-            def lineIsComment(line):
+            def line_is_comment(line):
                 return line.startswith("%")
 
-            def lineIsKnowledge(line):
+            def line_is_knowledge(line):
                 return line.startswith("\\knowledge{")
 
-            def barKnowledgeFromLine(line):
+            def bar_knowledge_from_line(line):
                 line = line.strip()
                 if line.startswith("|"):
                     return line[1:].strip()
-                else:
-                    return
+                return None
 
-            def lineIsCommentBarKnowledgeFromLine(line):
+            def line_is_comment_bar_knowledge_from_line(line):
                 line = line.strip()
                 if line.startswith("%"):
                     return (line[1:].strip()).startswith("|")
-                else:
-                    return False
+                return False
 
             for line in lines:
                 if line[-1] == "\n":
                     line = line[:-1]
-                if readingMode == "discard" and not lineIsComment(line):
-                    readingMode = "tex"
-                if lineIsDiscard(line):
-                    pushBlock()
-                    readingMode = "discard"
-                elif lineIsKnowledge(line):
-                    pushBlock()
-                    readingMode = "knowledge"
-                    currentKnowledgeCommand = line
-                    currentBlock = [line]
-                    currentKnowledgeStrings = []
-                elif readingMode == "knowledge":
-                    kl = barKnowledgeFromLine(line)
-                    if kl != None:
-                        currentBlock.append(line)
-                        currentKnowledgeStrings.append(kl)
-                    elif lineIsCommentBarKnowledgeFromLine(line):
+                if reading_mode == "discard" and not line_is_comment(line):
+                    reading_mode = "tex"
+                if line_is_discard(line):
+                    push_block()
+                    reading_mode = "discard"
+                elif line_is_knowledge(line):
+                    push_block()
+                    reading_mode = "knowledge"
+                    current_kl_cmd = line
+                    current_block = [line]
+                    current_kl_strs = []
+                elif reading_mode == "knowledge":
+                    kl = bar_knowledge_from_line(line)
+                    if kl is not None:
+                        current_block.append(line)
+                        current_kl_strs.append(kl)
+                    elif line_is_comment_bar_knowledge_from_line(line):
                         pass
                     else:
-                        pushBlock()
-                        readingMode = "tex"
-                        currentBlock = [line]
-                elif readingMode == "tex":
-                    currentBlock.append(line)
-            pushBlock()
+                        push_block()
+                        reading_mode = "tex"
+                        current_block = [line]
+                elif reading_mode == "tex":
+                    current_block.append(line)
+            push_block()
             self.document = document
             self.bags = knowledges
-            self.nb_known_bags = len(self.bags)
-            self.length_known_bags = [len(bag) for bag in self.bags]
+            self.nb_known_bags: int = len(self.bags)
+            self.length_known_bags: list[int] = [len(bag) for bag in self.bags]
             self.compute_dependency_graph()
 
-    def get_all_bags(self):
-        """Returns all bags that were not added since the last checkpoint, as a list of lists of strings."""
+    def get_all_bags(self) -> list[list[str]]:
+        """Returns all bags that were not added since the last checkpoint,
+        as a list of lists of strings."""
         return self.bags
 
-    def get_new_bags(self):
-        """Returns all bags that were not added since the last checkpoint, as a list of lists of strings."""
+    def get_new_bags(self) -> list[list[str]]:
+        """Returns all bags that were not added since the last checkpoint,
+        as a list of lists of strings."""
         return self.bags[self.nb_known_bags :]
 
-    def get_all_knowledges(self):
+    def get_all_knowledges(self) -> list[str]:
         """Returns all knowledges, as a list of strings."""
         return flat(self.bags)
 
-    def get_known_knowledges_in_bag(self, id):
-        """Returns the list of knowledges contained in the `id`-th bag
+    def get_known_knowledges_in_bag(self, b_id: int) -> list[str]:
+        """Returns the list of knowledges contained in the `b_id`-th bag
         during the last checkpoint, as a list of strings."""
-        if id < self.nb_known_bags:
-            return self.bags[id][: self.length_known_bags[id]]
-        else:
-            return []
+        if b_id < self.nb_known_bags:
+            return self.bags[b_id][: self.length_known_bags[b_id]]
+        return []
 
-    def get_new_knowledges_in_bag(self, id):
+    def get_new_knowledges_in_bag(self, b_id: int) -> list[str]:
         """Returns the list of knowledges contained in the `id`-th bag
         that were added since the last checkpoint, as a list of strings."""
-        if id < self.nb_known_bags:
-            return self.bags[id][self.length_known_bags[id] :]
-        else:
-            return self.bags[id]
+        if b_id < self.nb_known_bags:
+            return self.bags[b_id][self.length_known_bags[b_id] :]
+        return self.bags[b_id]
 
-    def add_new_bag(self, kl):
+    def add_new_bag(self, kl: str) -> None:
         """Adds a new bag that contains only the string `kl`."""
         self.bags.append([kl])
 
-    def define_synonym_of(self, kl1, kl2):
+    def define_synonym_of(self, kl1: str, kl2: str) -> None:
         """
         Defines a new knowledge (string) `kl1` as a new synonym of the already
         existing knowledge (string) `kl2`.
         """
-        for id, bag in enumerate(self.bags):
+        for b_id, bag in enumerate(self.bags):
             if kl2 in bag:
-                self.bags[id].append(kl1)
+                self.bags[b_id].append(kl1)
                 return
         print(f"Error: {kl2} is not a knowledge.")
 
-    def compute_dependency_graph(self):
-        dependency = dict()
-        dependency_reversed = dict()
+    def compute_dependency_graph(self) -> None:
+        """
+        Computes the dependency graph of all knowledges, for the substring relation.
+        Then, sort all knowledges using topological sorting.
+        Result are stored in self.dependency and self.all_knowledges_sorted.
+        """
+        dependency: dict[str, set[str]] = {}
+        dependency_reversed: dict[str, set[str]] = {}
         for s1 in self.get_all_knowledges():
-            dependency[s1] = set(
-                [s2 for s2 in self.get_all_knowledges() if s2 in s1 and s1 != s2]
-            )
-            dependency_reversed[s1] = set(
-                [s2 for s2 in self.get_all_knowledges() if s1 in s2 and s1 != s2]
-            )
-        self.dependency = dependency
-        self.all_knowledges_sorted = list(
+            dependency[s1] = {
+                s2 for s2 in self.get_all_knowledges() if s2 in s1 and s1 != s2
+            }
+            dependency_reversed[s1] = {
+                s2 for s2 in self.get_all_knowledges() if s1 in s2 and s1 != s2
+            }
+        self.dependency: dict[str, set[str]] = dependency
+        self.all_knowledges_sorted: list[str] = list(
             toposort.toposort_flatten(dependency_reversed)
         )
 
-    def write_knowledges_in_file(self, nocomment=False):
+    def write_knowledges_in_file(self, nocomment: bool = False) -> None:
         """
         Writes the new synonyms and new knowledges in the file containing the knowledges.
         """
         with fu.AtomicUpdate(self.filename, original_hash=self.original_hash) as file:
             for b in self.document:
-                if b["type"] == "tex":
-                    for l in b["lines"]:
+                if isinstance(b, DocInfoTex):
+                    for l in b.lines:
                         file.write(l + "\n")
-                elif b["type"] == "knowledge":
-                    for l in b["lines"]:
+                elif isinstance(b, DocInfoKnowledge):
+                    for l in b.lines:
                         file.write(l + "\n")
-                    if b["number"] < self.nb_known_bags:
-                        for kl in self.get_new_knowledges_in_bag(b["number"]):
+                    if b.number < self.nb_known_bags:
+                        for kl in self.get_new_knowledges_in_bag(b.number):
                             file.write((f" | {kl}\n" if nocomment else f"%  | {kl}\n"))
             if len(self.get_new_bags()) > 0:
                 file.write(_DISCARD_LINE + "\n")

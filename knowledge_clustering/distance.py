@@ -1,4 +1,6 @@
-from __future__ import annotations
+"""Compute the distance between two knowledges."""
+
+from __future__ import annotations  # Support of `|` for type union in Python 3.9
 
 import copy
 import nltk  # type: ignore
@@ -75,18 +77,21 @@ def minimise_levenshtein_distance(s, t_list):
 # ---
 
 
-def extractScope(notion):
-    # Given a notion of the form "knowledge@scope" or "knowledge",
-    # returns a pair consisting of the knowledge and the (possibly empty) scope.
+def extract_scope(notion):
+    """
+    Given a notion of the form "knowledge@scope" or "knowledge",
+    returns a pair consisting of the knowledge and the (possibly empty) scope.
+    """
     if "@" in notion:
         s = notion.split("@", 1)
         return s[0], s[1]
-    else:
-        return notion, ""
+    return notion, ""
 
 
-def normaliseNotion(notion):
-    # Returns the substring of a notion obtained by removing math and commands.
+def normalise_notion(notion):
+    """
+    Returns the substring of a notion obtained by removing math and commands.
+    """
     notion_norm = notion
     while "$" in notion_norm:
         sp = notion_norm.split("$", 2)
@@ -109,23 +114,24 @@ def normaliseNotion(notion):
     return notion_norm
 
 
-def breakupNotion(notion, lang):
+def breakup_notion(notion, lang):
     """
-    Input: a notion, and a language.
-    Output: the set of words contained in the notion.
+    Takes a notion, and a language, and returns
+    a set of words contained in the notion.
+
     If the language is `english`, remove unimportant words.
     Important words are: cardinals, preposition or conjunction, subordinating,
-    adjectives, nouns, pre-determiners, adverbs, verbs
+    adjectives, nouns, pre-determiners, adverbs, verbs (list defined in _IMPORTANT_POS).
+
     """
-    kl, scope = extractScope(normaliseNotion(notion))
+    kl, scope = extract_scope(normalise_notion(notion))
     if lang == "english":
-        words_with_POStag = nltk.pos_tag(nltk.word_tokenize(kl, language="english"))
-        important_words = set(
-            [w for (w, pos) in words_with_POStag if pos in _IMPORTANT_POS]
+        words_with_POStag = nltk.pos_tag(  # pylint: disable=invalid-name
+            nltk.word_tokenize(kl, language="english")
         )
+        important_words = {w for (w, pos) in words_with_POStag if pos in _IMPORTANT_POS}
         return (important_words, scope)
-    else:
-        return (set(nltk.word_tokenize(kl, language=lang)), scope)
+    return (set(nltk.word_tokenize(kl, language=lang)), scope)
 
 
 # ---
@@ -133,90 +139,119 @@ def breakupNotion(notion, lang):
 # ---
 
 
-def similarWords(w1, w2, list_prefixes, stemmer):
-    # Checks if two words w1 and w2 are similar up to taking their stem (removing a suffix)
-    # and removing a prefix in the list `list_prefixes`.
+def similar_words(w1, w2, list_prefixes, stemmer):
+    """
+    Checks if two words w1 and w2 are similar up to taking their stem (removing a suffix)
+    and removing a prefix in the list `list_prefixes`.
+    """
     if w1 == w2:
         return True
-    else:
-        s1 = stemmer.stem(w1)
-        s2 = stemmer.stem(w2)
-        for p in list_prefixes:
-            for s in _IGNORE_SUFFIXES:
-                if (
-                    p + s1 + s == s2
-                    or p + s1 == s2 + s
-                    or s1 + s == p + s2
-                    or s1 == p + s2 + s
-                ):
-                    return True
-        return False
+    s1 = stemmer.stem(w1)
+    s2 = stemmer.stem(w2)
+    for p in list_prefixes:
+        for s in _IGNORE_SUFFIXES:
+            if (
+                p + s1 + s == s2
+                or p + s1 == s2 + s
+                or s1 + s == p + s2
+                or s1 == p + s2 + s
+            ):
+                return True
+    return False
 
 
-def distanceSetsOfWords(set_words1, set_words2, list_prefixes, stemmer):
-    # Given two sets of words (considered up to permutation), computes the distance between them.
+def __semi_distance_sets_of_words(set_words1, set_words2, list_prefixes, stemmer):
+    """
+    Given two sets of words (considered up to permutation), computes the
+    numbers of words of w1 that aren't close to a word of w2 and reciprocally.
+    """
     for w1 in set_words1:
         similar_to_w1 = [
-            w2 for w2 in set_words2 if similarWords(w1, w2, list_prefixes, stemmer)
+            w2 for w2 in set_words2 if similar_words(w1, w2, list_prefixes, stemmer)
         ]
         # If you find a pair of similar words, remove them.
         if len(similar_to_w1) > 0:
             w2 = similar_to_w1[0]
             set_words1.remove(w1)
             set_words2.remove(w2)
-            return distanceSetsOfWords(set_words1, set_words2, list_prefixes, stemmer)
-    return len(set_words1) + len(set_words2)
+            return __semi_distance_sets_of_words(
+                set_words1, set_words2, list_prefixes, stemmer
+            )
+    return (len(set_words1), len(set_words2))
 
 
-def distance(notion1, notion2, list_prefixes, scopes_meaning, lang):
-    # Measures the distance between two notions, given a list of prefixes to ignore and
-    # a list of possible meaning for each scope
-    kl1_words, sc1 = breakupNotion(notion1, lang)
-    kl2_words, sc2 = breakupNotion(notion2, lang)
-    stemmer = nss.SnowballStemmer(lang)
+def inclusion_sets_of_words(set_words1, set_words2, list_prefixes, stemmer):
+    """
+    Given two sets of words (considered up to permutation), are
+    all words of the first set similar to words of the second set?
+    """
+    d1, d2 = __semi_distance_sets_of_words(
+        set_words1, set_words2, list_prefixes, stemmer
+    )
+    return d1 == 0
+
+
+def distance_sets_of_words(set_words1, set_words2, list_prefixes, stemmer):
+    """
+    Given two sets of words (considered up to permutation), computes the distance between them.
+    """
+    d1, d2 = __semi_distance_sets_of_words(
+        set_words1, set_words2, list_prefixes, stemmer
+    )
+    return d1 + d2
+
+
+def new_stemmer(lang: str):
+    """Returns a stemmer."""
+    return nss.SnowballStemmer(lang)
+
+
+def distance(
+    notion1: str,
+    notion2: str,
+    list_prefixes: list[str],
+    scopes_meaning: dict[str, list[list[str]]],
+    lang: str,
+) -> int:
+    """
+    Measures the distance between two notions, given a list of prefixes to ignore and
+    a list of possible meaning for each scope.
+    TODO
+    Args:
+        notion1:
+        notion2:
+        list_prefixes:
+        scope_meaning: a dictionnary, assigning to every scope a list of
+            its possible meanings, each possible meaning being a list of words
+        lang:
+
+    Returns:
+        The distance between notion1 and notion2.
+    """
+    kl1_words, sc1 = breakup_notion(notion1, lang)
+    kl2_words, sc2 = breakup_notion(notion2, lang)
+    stemmer = new_stemmer(lang)
     if sc1 != "" and sc2 != "" and sc1 != sc2:
         return _INFINITY
-    elif len(kl1_words) == 0 or len(kl2_words) == 0:
+    if len(kl1_words) == 0 or len(kl2_words) == 0:
         # Can happen in the notion is a command
         return _INFINITY
-    elif sc1 == sc2:
-        return distanceSetsOfWords(kl1_words, kl2_words, list_prefixes, stemmer)
+    if sc1 == sc2:
+        return distance_sets_of_words(kl1_words, kl2_words, list_prefixes, stemmer)
+    if sc1 == "":
+        kl1_words, sc1, kl2_words, sc2 = kl2_words, sc2, kl1_words, sc1
+    # sc2 is empty and sc1 isn't
+    # return the minimal distance obtained by replacing sc1 by one of its possible meanings
+    dist = _INFINITY
+    if sc1 in scopes_meaning:
+        sc1_meaning = scopes_meaning[sc1]
     else:
-        if sc1 == "":
-            kl1_words, sc1, kl2_words, sc2 = kl2_words, sc2, kl1_words, sc1
-        # sc2 is empty and sc1 isn't
-        # return the minimal distance obtained by replacing sc1 by one of its possible meanings
-        dist = _INFINITY
-        if sc1 in scopes_meaning:
-            sc1_meaning = scopes_meaning[sc1]
-        else:
-            sc1_meaning = [[sc1]]
-        for meaning in sc1_meaning:
-            kl1_with_meaning = list(copy.copy(kl1_words))
-            kl1_with_meaning.extend([w for w in meaning if w not in kl1_with_meaning])
-            dist = min(
-                dist,
-                distanceSetsOfWords(
-                    kl1_with_meaning, kl2_words, list_prefixes, stemmer
-                ),
-            )
-        return dist
-
-
-# ---
-# Misc
-# ---
-
-# def commonFactor(s1, s2):
-#     # Computes the length of the biggest common factor to s1 and s2
-#     m = len(s1)
-#     n = len(s2)
-#     if m > n:
-#         m, n = n, m
-#         s1, s2 = s2, s1
-#     maxCommonFactor = 0
-#     for i in range(m):
-#         for j in range(i+1,m+1):
-#             if j-i > maxCommonFactor and s1[i:j] in s2:
-#                 maxCommonFactor = j-i
-#     return maxCommonFactor
+        sc1_meaning = [[sc1]]
+    for meaning in sc1_meaning:
+        kl1_with_meaning = list(copy.copy(kl1_words))
+        kl1_with_meaning.extend([w for w in meaning if w not in kl1_with_meaning])
+        dist = min(
+            dist,
+            distance_sets_of_words(kl1_with_meaning, kl2_words, list_prefixes, stemmer),
+        )
+    return dist

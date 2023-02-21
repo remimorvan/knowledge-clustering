@@ -1,9 +1,13 @@
-from __future__ import annotations
+"""Handling a Tex document."""
+
+from __future__ import annotations  # Support of `|` for type union in Python 3.9
 
 from knowledge_clustering import misc
 
 
 class TexDocument:
+    """Class for handling a tex document."""
+
     def __init__(self, tex_code: str, size_tab: int = 4) -> None:
         self.tex_code: str = tex_code
         self.lines: list[str] = self.tex_code.split("\n")

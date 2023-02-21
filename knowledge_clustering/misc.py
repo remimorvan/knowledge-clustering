@@ -1,4 +1,6 @@
-from __future__ import annotations
+"""Misc functions, for emphasizing a string."""
+
+from __future__ import annotations  # Support of `|` for type union in Python 3.9
 
 _BEGIN_EMPH: str = "\033[1m\033[95m"
 _BEGIN_EMPH_ALT: str = "\033[1m\033[92m"
