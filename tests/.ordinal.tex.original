@@ -25,9 +25,15 @@
 "words"
 ""word@@ord""
 "countable ordinal word"
+
+blablablablablablablablablablablablablablablablablablablabla
+blablablablablablablablablablablablablablablablablablablabla
+blablablablablablablablablablablablablablablablablablablabla
+
 ""regular language over countable ordinals""
 \kl[ord]{regular languages}
 \intro{separation}
+
 "inseparability"
 ""semigroup""
 \kl{semigroups}

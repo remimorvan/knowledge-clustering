@@ -11,16 +11,18 @@ from knowledge_clustering.knowledges import Knowledges
 from knowledge_clustering.tex_document import TexDocument
 from knowledge_clustering import misc
 
-_KL_DELIMITERS = [
+_KL_DELIMITERS: list[tuple[str, str]] = [
     ('"', '"'),
     ("@", '"'),
     ("@", "@"),
     ("\\kl{", "}"),
     ("\\intro{", "}"),
     ("\\reintro{", "}"),
+    ("\\phantomintro{", "}"),
     ("\\kl[", "]"),
     ("\\intro[", "]"),
     ("\\reintro[", "]"),
+    ("\\phantomintro[", "]"),
 ]
 
 

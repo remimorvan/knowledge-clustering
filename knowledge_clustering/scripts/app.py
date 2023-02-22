@@ -100,14 +100,13 @@ def cluster(
 ):
     """
     Defines, as a comment and in the knowledge file, all the knowledges occuring in the diagnose file.
-
-    Args:
-        kl_filename: the name of the knowledge file.
-        dg_filename: the name of the diagnose file.
-        scope: a boolean specifying whether the scopes meaning should be printed.
-        lang: the langage of the document.
-        config_filename: a configuration file, specifying prefixes to ignore.
     """
+    # Args:
+    #     kl_filename: the name of the knowledge file.
+    #     dg_filename: the name of the diagnose file.
+    #     scope: a boolean specifying whether the scopes meaning should be printed.
+    #     lang: the langage of the document.
+    #     config_filename: a configuration file, specifying prefixes to ignore.
     kl = Knowledges(kl_filename)
 
     if config_filename is None:
@@ -174,12 +173,11 @@ def addquotes(tex_filename: str, kl_filename: str, print_line: int):
     """
     Finds knowledges defined in the knowledge file that appear in tex file without quote
     symbols. Proposes to add quotes around them.
-
-    Args:
-        tex_filename: the name of the tex file.
-        kl_filename: the name of the knowledge file.
-        print_line: an integer specifying how many lines of the tex file should be printed.
     """
+    # Args:
+    #     tex_filename: the name of the tex file.
+    #     kl_filename: the name of the knowledge file.
+    #     print_line: an integer specifying how many lines of the tex file should be printed.
     tex_hash = file_updater.hash_file(tex_filename)
     with open(tex_filename, "r", encoding="utf-8") as f:
         tex_doc = TexDocument(f.read())
@@ -209,19 +207,18 @@ def addquotes(tex_filename: str, kl_filename: str, print_line: int):
     "--space",
     "-s",
     type=int,
-    default=150,
+    default=200,
     help="Number of characters tolerated between an anchor point and the introduction \
-        of a knowledge. (Default value: 150)",
+of a knowledge. (Default value: 200)",
 )
 def anchor(tex_filename, space):
     """
     Prints warning when a knowledge is introduced but is not preceded by an anchor point.
-
-    Args:
-        tex_filename: the name of the tex file.
-        space: an integer specifying the maximal number of characters allowed between the
-            introduction of a knowledge and an anchor point.
     """
+    # Args:
+    #     tex_filename: the name of the tex file.
+    #     space: an integer specifying the maximal number of characters allowed between the
+    #         introduction of a knowledge and an anchor point.
     with open(tex_filename, "r", encoding="utf-8") as f:
         tex_doc = TexDocument(f.read())
     add_anchor.missing_anchor(tex_doc, space)
