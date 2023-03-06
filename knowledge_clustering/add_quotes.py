@@ -17,6 +17,7 @@ from knowledge_clustering import (
 
 _KL_DELIMITERS: list[tuple[str, str]] = [
     ('"', '"'),
+    ('"', '@'),
     ("@", '"'),
     ("@", "@"),
     ("\\kl{", "}"),
