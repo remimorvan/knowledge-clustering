@@ -5,11 +5,15 @@ Add missing quotes around knowledges occuring in a TeX document.
 from __future__ import annotations  # Support of `|` for type union in Python 3.9
 
 import re  # Regular expressions
-from typing import NamedTuple
+from typing import NamedTuple, TextIO
+import sys
 
 from knowledge_clustering.knowledges import Knowledges
 from knowledge_clustering.tex_document import TexDocument
-from knowledge_clustering import misc
+from knowledge_clustering import (
+    file_updater,
+    misc
+)
 
 _KL_DELIMITERS: list[tuple[str, str]] = [
     ('"', '"'),
@@ -24,7 +28,6 @@ _KL_DELIMITERS: list[tuple[str, str]] = [
     ("\\reintro[", "]"),
     ("\\phantomintro[", "]"),
 ]
-
 
 class NewKL(NamedTuple):
     """
@@ -51,19 +54,46 @@ class AddQuote(NamedTuple):
     end: int
 
 
-def ask_consent(message: str):
+def ask_consent(message: str, inp: TextIO, out: TextIO):
     """
     Asks whether the user wants to do an action, after printing the string `message`.
     Returns a boolean.
     """
-    ans = input(message)
+    print(message, file=out)
+    ans = inp.readline().rstrip("\n")
     return ans.lower() in ["y", "yes"]
 
+
+def app(tex_filename: str, kl_filename: str, print_line: int):
+    """
+    Finds knowledges defined in the knowledge file that appear in tex file without quote
+    symbols. Proposes to add quotes around them.
+    Args:
+        tex_filename: the name of the tex file.
+        kl_filename: the name of the knowledge file.
+        print_line: an integer specifying how many lines of the tex file should be printed.
+    """
+    tex_hash = file_updater.hash_file(tex_filename)
+    with open(tex_filename, "r", encoding="utf-8") as f:
+        tex_doc = TexDocument(f.read())
+    f.close()
+    kl = Knowledges(kl_filename)
+    tex_document_new, new_knowledges = quote_maximal_substrings(
+        tex_doc, kl, print_line
+    )
+    with file_updater.AtomicUpdate(tex_filename, original_hash=tex_hash) as f:
+        f.write(tex_document_new)
+    f.close()
+    for known_kl, new_kl in new_knowledges:
+        kl.define_synonym_of(new_kl, known_kl)
+    kl.write_knowledges_in_file(nocomment=True)
 
 def add_quote(
     tex_doc: TexDocument,
     operations: list[NewKL | AddQuote],
     print_line: int,
+    inp: TextIO,
+    out: TextIO,
 ) -> tuple[str, list[tuple[str, str]]]:
     """
     In the TeX document, for every operation of type AddQuote, proposes to add quotes before
@@ -75,6 +105,8 @@ def add_quote(
         tex_doc: a TeX document.
         operations: a list of operations, whose type is either NewKL or AddQuote.
         print_line: an integer specifying how many lines of the tex file should be printed.
+        inp: an input stream.
+        out: an output stram.
     Given a tex code, and a list of triples (_, start, end), add a quote before the
     start and after the end. If the boolean interactive if true, asks the user
     if they want to add quotes: moreover, print the print_line lines preceding
@@ -100,7 +132,7 @@ def add_quote(
                         f"Do you want to add `{misc.emph_alt(op.kl)}` as a synonym "
                         f"of `{misc.emph_alt(op.kl_origin)}` and add quotes? [y/n] "
                     )
-                    if ask_consent(message):
+                    if ask_consent(message, inp, out):
                         # Adds op.kl as a new knowledge, defined as a synonym of op.kl_origin
                         new_knowledges.append((op.kl_origin, op.kl))
                         operations_addquote.append(AddQuote(op.kl, op.start, op.end))
@@ -119,7 +151,9 @@ def add_quote(
                             # Propose to the user to add quotes around the original knowledge
                             # instead, if we have a precise match.
                             if ask_consent(
-                                f"Add quotes around `{misc.emph(op.kl_origin)}` instead? [y/n] "
+                                f"Add quotes around `{misc.emph(op.kl_origin)}` instead? [y/n] ",
+                                inp,
+                                out,
                             ):
                                 operations_addquote.append(
                                     AddQuote(
@@ -143,7 +177,7 @@ def add_quote(
                 op.end,
                 print_line,
             )
-            if ask_consent("Add quotes? [y/n] "):
+            if ask_consent("Add quotes? [y/n] ", inp, out):
                 operations_addquote.append(op)
             print("")
     add_quote_before = [tex_doc.pointer[op.start] for op in operations_addquote]
@@ -160,13 +194,18 @@ def add_quote(
         f"Added {len(operations_addquote)} pair"
         + ("s" if len(operations_addquote) > 1 else "")
         + f" of quotes. Defined {len(new_knowledges)} synonym"
-        + ("s." if len(new_knowledges) > 1 else ".")
+        + ("s." if len(new_knowledges) > 1 else "."),
+        file=out,
     )
     return result, new_knowledges
 
 
 def quote_maximal_substrings(
-    tex_doc: TexDocument, kl: Knowledges, print_line: int
+    tex_doc: TexDocument,
+    kl: Knowledges,
+    print_line: int,
+    inp: TextIO = sys.stdin,
+    out: TextIO = sys.stdout,
 ) -> tuple[str, list[tuple[str, str]]]:
     """
     Finds knowledges defined in the knowledge file that appear in tex file without quote
@@ -176,6 +215,8 @@ def quote_maximal_substrings(
         tex_doc: a TeX document.
         kl: knowledges.
         print_line: an integer specifying how many lines of the tex file should be printed.
+        inp: input stream.
+        out: output stream.
     """
 
     def stop_expanding(char):
@@ -230,4 +271,4 @@ def quote_maximal_substrings(
                             )
                         else:
                             add_quote_location.append(AddQuote(s1, start, end))
-    return add_quote(tex_doc, add_quote_location, print_line)
+    return add_quote(tex_doc, add_quote_location, print_line, inp, out)
