@@ -10,3 +10,4 @@ kw-devel/*
 venv-black/*
 *.venv
 .vscode
+.coverage
