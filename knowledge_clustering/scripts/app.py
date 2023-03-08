@@ -14,10 +14,8 @@ from knowledge_clustering import add_anchor, add_quotes, clustering, cst, _versi
 
 @click.group(cls=DefaultGroup, default="cluster", default_if_no_args=True)
 @click.version_option(_version.VERSION)
-@click.pass_context
 def cli():
     """Automated notion clustering for the knowledge LaTeX package"""
-
 
 @cli.command()
 def init():
