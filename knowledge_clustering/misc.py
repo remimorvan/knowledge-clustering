@@ -2,17 +2,13 @@
 
 from __future__ import annotations  # Support of `|` for type union in Python 3.9
 
-_BEGIN_EMPH: str = "\033[1m\033[95m"
-_BEGIN_EMPH_ALT: str = "\033[1m\033[92m"
-_BEGIN_EMPH_BOLD: str = "\033[1m"
-_END_EMPH: str = "\033[0m"
-
+from knowledge_clustering import cst
 
 def emph(string: str) -> str:
     """Emphasizes a string."""
-    return _BEGIN_EMPH + string + _END_EMPH
+    return cst.BEGIN_EMPH + string + cst.END_EMPH
 
 
 def emph_alt(string: str) -> str:
     """Alternative emphasis of a string."""
-    return _BEGIN_EMPH_ALT + string + _END_EMPH
+    return cst.BEGIN_EMPH_ALT + string + cst.END_EMPH

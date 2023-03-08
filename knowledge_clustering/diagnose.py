@@ -5,9 +5,7 @@ Functions for handling the .diagnose files.
 from __future__ import annotations  # Support of `|` for type union in Python 3.9
 
 from typing import Callable, Generator
-
-
-_SEPARATION_HEADING_KL_BLOCK = "************************"
+from knowledge_clustering import cst
 
 
 def automata_line(state: int, line: str) -> tuple[int, str | None]:
@@ -28,9 +26,9 @@ def automata_line(state: int, line: str) -> tuple[int, str | None]:
     """
     if state == 0 and "Undefined knowledges" in line:
         return 1, None
-    if state == 1 and _SEPARATION_HEADING_KL_BLOCK in line:
+    if state == 1 and cst.SEPARATION_HEADING_KL_BLOCK in line:
         return 2, None
-    if (state in {0, 2}) and _SEPARATION_HEADING_KL_BLOCK in line:
+    if (state in {0, 2}) and cst.SEPARATION_HEADING_KL_BLOCK in line:
         return 0, None
     if state == 2 and "| " in line:
         s = (line.split("| ", 1)[1]).split("\n", 1)[0]

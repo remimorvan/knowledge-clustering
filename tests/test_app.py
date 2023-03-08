@@ -4,12 +4,13 @@ Tests for the modules of knowledge_clustering on which the addquotes command is 
 
 import os
 import filecmp
+import shutil 
 
 
 def test_app_clustering() -> None:
     """Tests the cluster command."""
     for filename in ["ordinal-kl.tex", "ordinal.diagnose"]:
-        os.system(f"cp tests/.{filename}.original tests/{filename}")
+        shutil.copy(f"tests/.{filename}.original", f"tests/{filename}")
     os.system("knowledge cluster -k tests/ordinal-kl.tex -d tests/ordinal.diagnose")
     # Diagnose file should be left unchanged…
     assert filecmp.cmp(
@@ -20,12 +21,12 @@ def test_app_clustering() -> None:
         "tests/ordinal-kl.tex", "tests/.ordinal-kl.tex.solution", shallow=False
     )
     for filename in ["ordinal-kl.tex", "ordinal.diagnose"]:
-        os.system(f"rm tests/{filename}")
+        os.remove(f"tests/{filename}")
 
 
 def test_app_anchor() -> None:
     """Tests the anchor command."""
-    os.system(f"cp tests/.ordinal.tex.original tests/ordinal.tex")
+    shutil.copy("tests/.ordinal.tex.original", "tests/ordinal.tex")
     os.system("knowledge anchor -t tests/ordinal.tex > tests/output_anchor.txt -s 200")
     nb_line_output = sum(1 for line in open("tests/output_anchor.txt"))
     b1: bool = nb_line_output == 3
@@ -38,8 +39,8 @@ def test_app_anchor() -> None:
 
 def test_app_addquotes() -> None:
     """Tests the addquotes command."""
-    os.system(f"cp tests/.ordinal.tex.original tests/ordinal.tex")
-    os.system(f"cp tests/.ordinal-kl.tex.original tests/ordinal-kl.tex")
+    shutil.copy("tests/.ordinal.tex.original", "tests/ordinal.tex")
+    shutil.copy("tests/.ordinal-kl.tex.original", "tests/ordinal-kl.tex")
     # with open("tests/yes.txt", "w") as f:
     #     f.write("y\n"*100)
     # f.close()
@@ -48,5 +49,7 @@ def test_app_addquotes() -> None:
     )
     nb_line_output = sum(1 for line in open("tests/output_addquotes.txt"))
     b: bool = nb_line_output == 10
-    os.system("rm tests/ordinal.tex tests/ordinal-kl.tex tests/output_addquotes.txt")
+    os.remove("tests/ordinal.tex")
+    os.remove("tests/ordinal-kl.tex")
+    os.remove("tests/output_addquotes.tex")
     assert b

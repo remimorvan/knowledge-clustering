@@ -12,23 +12,11 @@ from knowledge_clustering.knowledges import Knowledges
 from knowledge_clustering.tex_document import TexDocument
 from knowledge_clustering import (
     file_updater,
-    misc
+    misc,
+    cst
 )
 
-_KL_DELIMITERS: list[tuple[str, str]] = [
-    ('"', '"'),
-    ('"', '@'),
-    ("@", '"'),
-    ("@", "@"),
-    ("\\kl{", "}"),
-    ("\\intro{", "}"),
-    ("\\reintro{", "}"),
-    ("\\phantomintro{", "}"),
-    ("\\kl[", "]"),
-    ("\\intro[", "]"),
-    ("\\reintro[", "]"),
-    ("\\phantomintro[", "]"),
-]
+
 
 class NewKL(NamedTuple):
     """
@@ -250,7 +238,7 @@ def quote_maximal_substrings(
                     if not any(
                         tex_doc.tex_cleaned.endswith(beg_kl, 0, start)
                         and tex_doc.tex_cleaned.startswith(end_kl, end + 1)
-                        for (beg_kl, end_kl) in _KL_DELIMITERS
+                        for (beg_kl, end_kl) in cst.KL_DELIMITERS
                     ):
                         start2, end2 = start, end
                         while start2 > 0 and not stop_expanding(

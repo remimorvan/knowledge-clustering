@@ -8,33 +8,12 @@ import os
 import click
 from click_default_group import DefaultGroup  # type: ignore
 import nltk  # type: ignore
-import pkg_resources
-import sys
 
 from knowledge_clustering import (
     add_anchor,
     add_quotes,
-    diagnose,
     clustering,
-    config,
-    file_updater,
-    scope_meaning,
 )
-from knowledge_clustering.knowledges import Knowledges
-from knowledge_clustering.tex_document import TexDocument
-
-
-_ALPHA = 0
-# APP_NAME = "knowledge-clustering"
-
-_CONFIG_FILENAME: dict[str, str] = {"en": "english.ini", "fr": "french.ini"}
-_CONFIG_DIR: str = pkg_resources.resource_filename("knowledge_clustering", "data")
-_CONFIG_FILE: dict[str, str] = dict()
-for (lan, filename) in _CONFIG_FILENAME.items():
-    _CONFIG_FILE[lan] = pkg_resources.resource_filename(
-        "knowledge_clustering", f"data/{filename}"
-    )
-_NLTK_LANG: dict[str, str] = {"en": "english", "fr": "french"}
 
 
 @click.group(cls=DefaultGroup, default="cluster", default_if_no_args=True)
@@ -89,7 +68,7 @@ the possible meaning of those scope inferred by knowledge-clustering.",
     "-c",
     "config_filename",
     default=None,
-    help=f"Specify the configuration file. By default the configuration file in the folder {_CONFIG_DIR} \
+    help=f"Specify the configuration file. By default the configuration file in the folder {_cst.CONFIG_DIR} \
 corresponding to your language is used.",
 )
 def cluster(
@@ -102,43 +81,7 @@ def cluster(
     """
     Defines, as a comment and in the knowledge file, all the knowledges occuring in the diagnose file.
     """
-    # Args:
-    #     kl_filename: the name of the knowledge file.
-    #     dg_filename: the name of the diagnose file.
-    #     scope: a boolean specifying whether the scopes meaning should be printed.
-    #     lang: the langage of the document.
-    #     config_filename: a configuration file, specifying prefixes to ignore.
-    kl = Knowledges(kl_filename)
-
-    if config_filename is None:
-        config_filename = _CONFIG_FILE[lang]
-
-    list_prefixes = config.parse(config_filename)
-
-    scopes_meaning = scope_meaning.infer_all_scopes(kl.get_all_bags(), _NLTK_LANG[lang])
-    if scope:
-        scope_meaning.print_scopes(scopes_meaning, print_meaning=True)
-
-    unknown_knowledges = diagnose.parse(dg_filename)
-
-    if len(unknown_knowledges) == 0:
-        return
-
-    # update `kl` using the clustering algorithm
-    clustering.clustering(
-        kl,
-        unknown_knowledges,
-        _ALPHA,
-        list_prefixes,
-        scopes_meaning,
-        _NLTK_LANG[lang],
-    )
-    print(
-        f"Found a solution by adding {len(kl.get_new_bags())} new bag"
-        + ("s" if len(kl.get_new_bags()) >= 2 else "")
-        + "."
-    )
-    kl.write_knowledges_in_file()
+    clustering.app(kl_filename, dg_filename, scope, lang, config_filename)
 
 
 @cli.command()

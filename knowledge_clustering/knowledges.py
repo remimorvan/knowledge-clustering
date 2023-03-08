@@ -6,10 +6,8 @@ from typing import NamedTuple
 import toposort  # Topological sort pylint: disable=import-error
 
 import knowledge_clustering.file_updater as fu
+from knowledge_clustering import cst
 
-# import copy
-
-_DISCARD_LINE = "%%%%% NEW KNOWLEDGES "
 
 
 class DocInfoTex(NamedTuple):
@@ -96,7 +94,7 @@ class Knowledges:
                     current_kl_strs = []
 
             def line_is_discard(line):
-                return line == _DISCARD_LINE
+                return line == cst.DISCARD_LINE
 
             def line_is_comment(line):
                 return line.startswith("%")
@@ -229,7 +227,7 @@ class Knowledges:
                         for kl in self.get_new_knowledges_in_bag(b.number):
                             file.write((f" | {kl}\n" if nocomment else f"%  | {kl}\n"))
             if len(self.get_new_bags()) > 0:
-                file.write(_DISCARD_LINE + "\n")
+                file.write(cst.DISCARD_LINE + "\n")
                 for bag in self.get_new_bags():
                     if len(bag) > 0:
                         file.write("%\n")

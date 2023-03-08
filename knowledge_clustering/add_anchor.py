@@ -9,18 +9,7 @@ from typing import TextIO
 import sys
 
 from knowledge_clustering.tex_document import TexDocument
-from knowledge_clustering import misc
-
-_INTRO_DELIMITERS: list[tuple[str, str]] = [
-    ('""', '""'),
-    ("\\intro{", "}"),
-    ("\\reintro{", "}"),
-    ("\\phantomintro{", "}"),
-    ("\\intro[", "]"),
-    ("\\reintro[", "]"),
-    ("\\phantomintro[", "]"),
-]
-_AP_STRING: list[str] = ["\\AP", "\\itemAP"]
+from knowledge_clustering import (misc, cst)
 
 
 def app(tex_filename: str, space: int):
@@ -48,11 +37,11 @@ def missing_anchor(tex_doc: TexDocument, space: int, out: TextIO = sys.stdout) -
         out: an outpur stream.
     """
     # First, compute the list of pairs (i1,i2,i3,i4) corresponding to
-    # the indices in s = tex_doc.tex_cleaned of some pair in _INTRO_DELIMITERS, i.e.
-    # (s[i1:i2], s[i3:i4]) is in _INTRO_DELIMITERS
+    # the indices in s = tex_doc.tex_cleaned of some pair in cst.INTRO_DELIMITERS, i.e.
+    # (s[i1:i2], s[i3:i4]) is in cst.INTRO_DELIMITERS
     matches: list[tuple[int, int, int, int]] = []
     is_end_of_match = [False for _ in range(len(tex_doc.tex_cleaned))]
-    for beg_str, end_str in _INTRO_DELIMITERS:
+    for beg_str, end_str in cst.INTRO_DELIMITERS:
         for i_match in re.finditer(re.escape(beg_str), tex_doc.tex_cleaned):
             i1: int = i_match.start()
             i2: int = i_match.end()
@@ -65,7 +54,7 @@ def missing_anchor(tex_doc: TexDocument, space: int, out: TextIO = sys.stdout) -
     matches.sort(key=lambda x: x[0])
     for (i1, i2, i3, _) in matches:
         beg: int = max(0, i1 - space)
-        if not any(ap_str in tex_doc.tex_cleaned[beg:i1] for ap_str in _AP_STRING):
+        if not any(ap_str in tex_doc.tex_cleaned[beg:i1] for ap_str in cst.AP_STRING):
             start_pt: int | None = tex_doc.pointer[i1]
             if start_pt is not None:
                 message: str = f"Missing anchor point at line {tex_doc.find_line[start_pt]} (knowledge: {misc.emph(tex_doc.tex_cleaned[i2:i3])})."

@@ -4,8 +4,56 @@ from __future__ import annotations  # Support of `|` for type union in Python 3.
 
 import copy
 
-from knowledge_clustering import distance
+from knowledge_clustering import (distance, config, scope_meaning, diagnose, cst)
 from knowledge_clustering.knowledges import Knowledges
+
+def app(
+    kl_filename: str,
+    dg_filename: str,
+    scope: bool,
+    lang: str,
+    config_filename: None | str,
+):
+    """
+    Defines, as a comment and in the knowledge file, all the knowledges occuring in the diagnose file.
+    Args:
+        kl_filename: the name of the knowledge file.
+        dg_filename: the name of the diagnose file.
+        scope: a boolean specifying whether the scopes meaning should be printed.
+        lang: the langage of the document.
+        config_filename: a configuration file, specifying prefixes to ignore.
+    """
+    kl = Knowledges(kl_filename)
+
+    if config_filename is None:
+        config_filename = cst.CONFIG_FILE[lang]
+
+    list_prefixes = config.parse(config_filename)
+
+    scopes_meaning = scope_meaning.infer_all_scopes(kl.get_all_bags(), cst.NLTK_LANG[lang])
+    if scope:
+        scope_meaning.print_scopes(scopes_meaning, print_meaning=True)
+
+    unknown_knowledges = diagnose.parse(dg_filename)
+
+    if len(unknown_knowledges) == 0:
+        return
+
+    # update `kl` using the clustering algorithm
+    clustering(
+        kl,
+        unknown_knowledges,
+        cst.ALPHA,
+        list_prefixes,
+        scopes_meaning,
+        cst.NLTK_LANG[lang],
+    )
+    print(
+        f"Found a solution by adding {len(kl.get_new_bags())} new bag"
+        + ("s" if len(kl.get_new_bags()) >= 2 else "")
+        + "."
+    )
+    kl.write_knowledges_in_file()
 
 
 def clustering(

@@ -7,37 +7,8 @@ import nltk  # type: ignore
 import nltk.stem.snowball as nss  # type: ignore
 from unidecode import unidecode
 
-_IMPORTANT_POS = [
-    "CD",
-    "JJ",
-    "JJR",
-    "JJS",
-    "NN",
-    "NNP",
-    "NNS",
-    "PDT",
-    "RB",
-    "RBR",
-    "RBS",
-    "VB",
-    "VBD",
-    "VBG",
-    "VBN",
-    "VBP",
-    "VBZ",
-]
-_IGNORE_SUFFIXES = ["", "s"]
-_INFINITY = 10000
-_LATEX_ACCENTS = [
-    "\\`",
-    "\\'",
-    "\\^",
-    '\\"',
-    "\\~",
-    "\\=",
-    "\\.",
-]  # LaTeX accents defined using non-alphanumerical commands
-_IGNORE_CHAR = ["\\-", "{", "}"]
+from knowledge_clustering import cst 
+
 
 # ---
 # Edit distance
@@ -109,7 +80,7 @@ def normalise_notion(notion):
         if len(sp) <= 1:
             break
         notion_norm = sp[0] + sp[2]
-    for remove_char in _LATEX_ACCENTS:
+    for remove_char in cst.LATEX_ACCENTS:
         while remove_char in notion_norm:
             # If the notion contains remove_char, remove it.
             sp = notion_norm.split(remove_char, 1)
@@ -123,7 +94,7 @@ def normalise_notion(notion):
         while i < len(suff) and suff[i].isalpha():
             i += 1
         notion_norm = pref + suff[i:]
-    for remove_char in _IGNORE_CHAR:
+    for remove_char in cst.IGNORE_CHAR:
         while remove_char in notion_norm:
             # If the notion contains remove_char, remove it.
             sp = notion_norm.split(remove_char, 1)
@@ -138,7 +109,7 @@ def breakup_notion(notion, lang):
 
     If the language is `english`, remove unimportant words.
     Important words are: cardinals, preposition or conjunction, subordinating,
-    adjectives, nouns, pre-determiners, adverbs, verbs (list defined in _IMPORTANT_POS).
+    adjectives, nouns, pre-determiners, adverbs, verbs (list defined in cst.IMPORTANT_POS).
 
     """
     kl, scope = extract_scope(normalise_notion(notion))
@@ -146,7 +117,7 @@ def breakup_notion(notion, lang):
         words_with_POStag = nltk.pos_tag(  # pylint: disable=invalid-name
             nltk.word_tokenize(kl, language="english")
         )
-        important_words = {w for (w, pos) in words_with_POStag if pos in _IMPORTANT_POS}
+        important_words = {w for (w, pos) in words_with_POStag if pos in cst.IMPORTANT_POS}
         return (important_words, scope)
     return (set(nltk.word_tokenize(kl, language=lang)), scope)
 
@@ -166,7 +137,7 @@ def similar_words(w1, w2, list_prefixes, stemmer):
     s1 = stemmer.stem(w1)
     s2 = stemmer.stem(w2)
     for p in list_prefixes:
-        for s in _IGNORE_SUFFIXES:
+        for s in cst.IGNORE_SUFFIXES:
             if (
                 p + s1 + s == s2
                 or p + s1 == s2 + s
@@ -248,17 +219,17 @@ def distance(
     kl2_words, sc2 = breakup_notion(notion2, lang)
     stemmer = new_stemmer(lang)
     if sc1 != "" and sc2 != "" and sc1 != sc2:
-        return _INFINITY
+        return cst.INFINITY
     if len(kl1_words) == 0 or len(kl2_words) == 0:
         # Can happen in the notion is a command
-        return _INFINITY
+        return cst.INFINITY
     if sc1 == sc2:
         return distance_sets_of_words(kl1_words, kl2_words, list_prefixes, stemmer)
     if sc1 == "":
         kl1_words, sc1, kl2_words, sc2 = kl2_words, sc2, kl1_words, sc1
     # sc2 is empty and sc1 isn't
     # return the minimal distance obtained by replacing sc1 by one of its possible meanings
-    dist = _INFINITY
+    dist = cst.INFINITY
     if sc1 in scopes_meaning:
         sc1_meaning = scopes_meaning[sc1]
     else:
