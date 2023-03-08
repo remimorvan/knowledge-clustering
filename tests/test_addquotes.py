@@ -19,7 +19,7 @@ def test_app_addquotes() -> None:
             app_addquotes("tests/ordinal.tex", "tests/ordinal-kl.tex", 1, inp, out)
     with open("tests/output_addquotes.txt", "r", encoding="utf-8") as out:
         nb_line_output = sum(1 for _ in out)
-    b: bool = nb_line_output == 10
+    b: bool = nb_line_output == 7
     os.remove("tests/yes.txt")
     os.remove("tests/ordinal.tex")
     os.remove("tests/ordinal-kl.tex")

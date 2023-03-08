@@ -11,4 +11,5 @@ check:
 
 test:
 	python -m pytest tests/test_clustering.py -v
-	python -m pytest tests/test_app.py -v
+	python -m pytest tests/test_addquotes.py -v
+	python -m pytest tests/test_anchor.py -v

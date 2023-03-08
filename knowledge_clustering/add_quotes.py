@@ -116,11 +116,7 @@ def add_quote(
             if op.kl not in ignore_synonym:
                 if op.kl not in [k for (_, k) in new_knowledges]:
                     # Propose to the user to define a synonym
-                    tex_doc.print(
-                        op.start,
-                        op.end,
-                        print_line,
-                    )
+                    tex_doc.print(op.start, op.end, print_line, out)
                     message = (
                         f"Do you want to add `{misc.emph_alt(op.kl)}` as a synonym "
                         f"of `{misc.emph_alt(op.kl_origin)}` and add quotes? [y/n] "
@@ -155,7 +151,7 @@ def add_quote(
                                 )
                             else:
                                 ignore_subknowledge.append(op.kl)
-                    print("")
+                    print("", file=out)
                 else:
                     # If op.kl was already accepted as a synonym earlier, treat it
                     # as a regular knowledge
@@ -165,14 +161,10 @@ def add_quote(
                 # to add quotes around op.kl_origin
                 op = AddQuote(op.kl_origin, op.start_origin, op.end_origin)
         elif isinstance(op, AddQuote):
-            tex_doc.print(
-                op.start,
-                op.end,
-                print_line,
-            )
+            tex_doc.print(op.start, op.end, print_line, out)
             if ask_consent("Add quotes? [y/n] ", inp, out):
                 operations_addquote.append(op)
-            print("")
+            print("", file=out)
     add_quote_before = [tex_doc.pointer[op.start] for op in operations_addquote]
     add_quote_after = [tex_doc.pointer[op.end] for op in operations_addquote]
     # Simply add quotes before and after every positions corresponding to the beginning / end of

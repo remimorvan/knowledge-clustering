@@ -1,6 +1,7 @@
 """Handling a Tex document."""
 
 from __future__ import annotations  # Support of `|` for type union in Python 3.9
+from typing import TextIO
 
 from knowledge_clustering import misc
 
@@ -99,7 +100,7 @@ class TexDocument:
         self.tex_cleaned: str = tex_cleaned
         self.pointer: list[None | int] = pointer
 
-    def print(self, start: int, end: int, n: int):
+    def print(self, start: int, end: int, n: int, out: TextIO):
         """
         Prints the lines between positions (in the clean tex) `start` and `end`
         together with `n`-1 lines preceding `start`.
@@ -117,22 +118,25 @@ class TexDocument:
                     print(
                         f"l{i+1}: \t{self.lines[i][:c_start-1]}"
                         + misc.emph(self.lines[i][c_start - 1 : c_end])
-                        + self.lines[i][c_end:]
+                        + self.lines[i][c_end:],
+                        file=out,
                     )
                 elif i + 1 == l_start:
                     print(
                         f"l{i+1}: \t{self.lines[i][:c_start-1]}"
-                        + misc.emph(self.lines[i][c_start - 1 :])
+                        + misc.emph(self.lines[i][c_start - 1 :]),
+                        file=out,
                     )
                 elif i + 1 == l_end:
                     print(
                         f"l{i+1}: \t"
                         + misc.emph(self.lines[i][:c_end])
-                        + self.lines[i][c_end:]
+                        + self.lines[i][c_end:],
+                        file=out,
                     )
                 elif l_start < i + 1 and i + 1 < l_end:
-                    print(f"l{i+1}: \t" + misc.emph(self.lines[i]))
+                    print(f"l{i+1}: \t" + misc.emph(self.lines[i]), file=out)
                 else:
-                    print(f"l{i+1}: \t{self.lines[i]}")
+                    print(f"l{i+1}: \t{self.lines[i]}", file=out)
         else:
             raise Exception("Undefined pointer", self.pointer, (start, end))
