@@ -9,10 +9,12 @@ import click
 from click_default_group import DefaultGroup  # type: ignore
 import nltk  # type: ignore
 
-from knowledge_clustering import add_anchor, add_quotes, clustering, cst
+from knowledge_clustering import add_anchor, add_quotes, clustering, cst, _version
 
 
 @click.group(cls=DefaultGroup, default="cluster", default_if_no_args=True)
+@click.version_option(_version.VERSION)
+@click.pass_context
 def cli():
     """Automated notion clustering for the knowledge LaTeX package"""
 
