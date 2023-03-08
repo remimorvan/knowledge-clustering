@@ -28,6 +28,10 @@ To install (or upgrade) `knowledge-clustering`, run
 and then
 
     knowledge init
+    
+To check if you have the latest version of `knowledge-clustering`, you can run
+
+    knowledge --version
 
 ## Clustering notions 
 
@@ -184,7 +188,7 @@ pip3 install --editable .
   either launch a new terminal or run `source ~/.zshrc`
   (or `source ~/.bashrc`).
 
-- I've updated `knowledge-clustering` but I still don't have the last version:
+- I've updated `knowledge-clustering` but I still don't have the last version (which can be checked using `knowledge --version`):
 
   This can happen if you have multiple versions of `python` (and multiple versions
   of `knowledge-clustering`).
