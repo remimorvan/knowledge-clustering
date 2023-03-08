@@ -147,7 +147,7 @@ TeX document).
 
 ## Devel using virtualenv
 
-Using `venv and the `--editable` option from `pip3` allows for an easy
+Using `venv` and the `--editable` option from `pip3` allows for an easy
 setup of a development environment that will match a future user install without
 the hassle.
 
