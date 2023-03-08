@@ -1,6 +1,6 @@
 VENV-BLACK=black.venv
 
-.PHONY: black check test
+.PHONY: black check test coverage
 
 black: 
 	source ./$(VENV-BLACK)/bin/activate && black .
@@ -10,6 +10,7 @@ check:
 	pylint knowledge_clustering/*.py # Linter
 
 test:
-	python -m pytest tests/test_clustering.py -v
-	python -m pytest tests/test_addquotes.py -v
-	python -m pytest tests/test_anchor.py -v
+	python -m pytest tests/ -v
+
+coverage:
+	python -m pytest tests/ --cov
