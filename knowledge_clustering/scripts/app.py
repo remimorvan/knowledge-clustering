@@ -9,11 +9,7 @@ import click
 from click_default_group import DefaultGroup  # type: ignore
 import nltk  # type: ignore
 
-from knowledge_clustering import (
-    add_anchor,
-    add_quotes,
-    clustering,
-)
+from knowledge_clustering import add_anchor, add_quotes, clustering, cst
 
 
 @click.group(cls=DefaultGroup, default="cluster", default_if_no_args=True)
@@ -68,7 +64,7 @@ the possible meaning of those scope inferred by knowledge-clustering.",
     "-c",
     "config_filename",
     default=None,
-    help=f"Specify the configuration file. By default the configuration file in the folder {_cst.CONFIG_DIR} \
+    help=f"Specify the configuration file. By default the configuration file in the folder {cst.CONFIG_DIR} \
 corresponding to your language is used.",
 )
 def cluster(

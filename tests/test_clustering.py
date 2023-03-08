@@ -3,6 +3,9 @@ Tests for the modules of knowledge_clustering on which the cluster command is ba
 """
 
 from typing import TypeVar
+import os
+import filecmp
+import shutil
 
 from knowledge_clustering.distance import distance, new_stemmer
 from knowledge_clustering.scope_meaning import infer_scope, infer_all_scopes
@@ -10,6 +13,7 @@ from knowledge_clustering.clustering import clustering
 from knowledge_clustering.knowledges import Knowledges
 from knowledge_clustering.diagnose import parse as parse_diagnose
 from knowledge_clustering.config import parse as parse_config
+from knowledge_clustering.clustering import app as app_clustering
 
 T = TypeVar("T")  # Generic type
 
@@ -99,3 +103,20 @@ def test_clustering() -> None:
         ["semigroup", "semigroups"],
     ]
     assert compare(kls.get_all_bags(), solution)
+
+
+def test_app_clustering() -> None:
+    """Tests the cluster command."""
+    for filename in ["ordinal-kl.tex", "ordinal.diagnose"]:
+        shutil.copy(f"tests/.{filename}.original", f"tests/{filename}")
+    app_clustering("tests/ordinal-kl.tex", "tests/ordinal.diagnose", False, "en", None)
+    # Diagnose file should be left unchanged…
+    assert filecmp.cmp(
+        "tests/ordinal.diagnose", "tests/.ordinal.diagnose.original", shallow=False
+    )
+    # Check if knowledge file has good content
+    assert filecmp.cmp(
+        "tests/ordinal-kl.tex", "tests/.ordinal-kl.tex.solution", shallow=False
+    )
+    for filename in ["ordinal-kl.tex", "ordinal.diagnose"]:
+        os.remove(f"tests/{filename}")

@@ -10,12 +10,7 @@ import sys
 
 from knowledge_clustering.knowledges import Knowledges
 from knowledge_clustering.tex_document import TexDocument
-from knowledge_clustering import (
-    file_updater,
-    misc,
-    cst
-)
-
+from knowledge_clustering import file_updater, misc, cst
 
 
 class NewKL(NamedTuple):
@@ -53,7 +48,13 @@ def ask_consent(message: str, inp: TextIO, out: TextIO):
     return ans.lower() in ["y", "yes"]
 
 
-def app(tex_filename: str, kl_filename: str, print_line: int):
+def app(
+    tex_filename: str,
+    kl_filename: str,
+    print_line: int,
+    inp: TextIO = sys.stdin,
+    out: TextIO = sys.stdout,
+):
     """
     Finds knowledges defined in the knowledge file that appear in tex file without quote
     symbols. Proposes to add quotes around them.
@@ -61,6 +62,8 @@ def app(tex_filename: str, kl_filename: str, print_line: int):
         tex_filename: the name of the tex file.
         kl_filename: the name of the knowledge file.
         print_line: an integer specifying how many lines of the tex file should be printed.
+        inp: input stream.
+        out: output stream.
     """
     tex_hash = file_updater.hash_file(tex_filename)
     with open(tex_filename, "r", encoding="utf-8") as f:
@@ -68,7 +71,7 @@ def app(tex_filename: str, kl_filename: str, print_line: int):
     f.close()
     kl = Knowledges(kl_filename)
     tex_document_new, new_knowledges = quote_maximal_substrings(
-        tex_doc, kl, print_line
+        tex_doc, kl, print_line, inp, out
     )
     with file_updater.AtomicUpdate(tex_filename, original_hash=tex_hash) as f:
         f.write(tex_document_new)
@@ -76,6 +79,7 @@ def app(tex_filename: str, kl_filename: str, print_line: int):
     for known_kl, new_kl in new_knowledges:
         kl.define_synonym_of(new_kl, known_kl)
     kl.write_knowledges_in_file(nocomment=True)
+
 
 def add_quote(
     tex_doc: TexDocument,
@@ -193,8 +197,8 @@ def quote_maximal_substrings(
     tex_doc: TexDocument,
     kl: Knowledges,
     print_line: int,
-    inp: TextIO = sys.stdin,
-    out: TextIO = sys.stdout,
+    inp: TextIO,
+    out: TextIO,
 ) -> tuple[str, list[tuple[str, str]]]:
     """
     Finds knowledges defined in the knowledge file that appear in tex file without quote

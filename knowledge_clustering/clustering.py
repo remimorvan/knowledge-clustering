@@ -4,8 +4,9 @@ from __future__ import annotations  # Support of `|` for type union in Python 3.
 
 import copy
 
-from knowledge_clustering import (distance, config, scope_meaning, diagnose, cst)
+from knowledge_clustering import distance, config, scope_meaning, diagnose, cst
 from knowledge_clustering.knowledges import Knowledges
+
 
 def app(
     kl_filename: str,
@@ -30,7 +31,9 @@ def app(
 
     list_prefixes = config.parse(config_filename)
 
-    scopes_meaning = scope_meaning.infer_all_scopes(kl.get_all_bags(), cst.NLTK_LANG[lang])
+    scopes_meaning = scope_meaning.infer_all_scopes(
+        kl.get_all_bags(), cst.NLTK_LANG[lang]
+    )
     if scope:
         scope_meaning.print_scopes(scopes_meaning, print_meaning=True)
 

@@ -30,7 +30,7 @@ AP_STRING: list[str] = ["\\AP", "\\itemAP"]
 
 KL_DELIMITERS: list[tuple[str, str]] = [
     ('"', '"'),
-    ('"', '@'),
+    ('"', "@"),
     ("@", '"'),
     ("@", "@"),
     ("\\kl{", "}"),

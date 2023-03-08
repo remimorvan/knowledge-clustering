@@ -9,7 +9,6 @@ import knowledge_clustering.file_updater as fu
 from knowledge_clustering import cst
 
 
-
 class DocInfoTex(NamedTuple):
     """Lines of a TeX document."""
 

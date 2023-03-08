@@ -7,7 +7,7 @@ import nltk  # type: ignore
 import nltk.stem.snowball as nss  # type: ignore
 from unidecode import unidecode
 
-from knowledge_clustering import cst 
+from knowledge_clustering import cst
 
 
 # ---
@@ -117,7 +117,9 @@ def breakup_notion(notion, lang):
         words_with_POStag = nltk.pos_tag(  # pylint: disable=invalid-name
             nltk.word_tokenize(kl, language="english")
         )
-        important_words = {w for (w, pos) in words_with_POStag if pos in cst.IMPORTANT_POS}
+        important_words = {
+            w for (w, pos) in words_with_POStag if pos in cst.IMPORTANT_POS
+        }
         return (important_words, scope)
     return (set(nltk.word_tokenize(kl, language=lang)), scope)
 
