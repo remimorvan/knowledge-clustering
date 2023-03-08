@@ -17,6 +17,7 @@ from knowledge_clustering import add_anchor, add_quotes, clustering, cst, _versi
 def cli():
     """Automated notion clustering for the knowledge LaTeX package"""
 
+
 @cli.command()
 def init():
     """Downloads the required NLTK packages."""
