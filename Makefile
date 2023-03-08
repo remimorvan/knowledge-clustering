@@ -1,6 +1,6 @@
 VENV-BLACK=black.venv
 
-.PHONY: black check test coverage
+.PHONY: black check test coverage build deploy-test
 
 black: 
 	source ./$(VENV-BLACK)/bin/activate && black .
@@ -14,3 +14,9 @@ test:
 
 coverage:
 	python -m pytest tests/ --cov
+
+build: 
+	python3 -m build .
+
+deploy-test: knowledge_clustering/_version.py
+	python3 -m twine upload --repository testpypi dist/* 
