@@ -16,7 +16,7 @@ It has three features:
   - **Add quotes**: find where you might have missed some quotes in your document.
   - **Anchor points**: find where you might have missed anchor points in your document.
 
-The **clustering** algorithm is meant to be use while writing your document, while the last two tools
+The **clustering** algorithm is meant to be used while writing your document, while the last two tools
 should be used when your document is (nearly) ready to be published, to check if everything is right.
 
 ## Installation
