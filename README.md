@@ -173,6 +173,10 @@ pip3 install --editable .
 
 ## FAQ
 
+- `knowledge: command not found` after installing `knowledge-clustering`
+
+  **Solution**: make sure you have Python>=3.9.
+  
 - When running `knowledge`, I obtain a long message error indicating "Resource punkt not found."
 
   **Solution**: run `knowledge init`.
