@@ -31,7 +31,7 @@ def flat(list_of_list):
 class Knowledges:
     def __init__(self, filename):
         """
-        Reads a tex file from a file descriptor f.
+        Reads a knowledge file from a file descriptor f.
 
         Args:
             filename: the name of a file containing knowledges.
@@ -39,20 +39,20 @@ class Knowledges:
         Computes:
             self.original_hash: the hash of the document ;
             self.document: a list of records, either of the form:
-                {
-                    "type"="tex",
-                    "lines"= list of strings (the lines)
-                }
-                or {
-                    "type"="knowledge",
-                    "lines"= list of strings (the lines)
-                    "command" = string representing the line introducing the knowledge,
-                    "number" = the number of the knowledge
-                }
+                    {
+                            "type"="tex",
+                            "lines"= list of strings (the lines)
+                    }
+                    or {
+                            "type"="knowledge",
+                            "lines"= list of strings (the lines)
+                            "command" = string representing the line introducing the knowledge,
+                            "number" = the number of the knowledge
+                    }
             self.known_knowledges: a list of list of strings.
-                Each list of strings contains strings corresponding to the same knowledge.
-                The position in the string corresponds to the "number" field in the above
-                document description.
+                    Each list of strings contains strings corresponding to the same knowledge.
+                    The position in the string corresponds to the "number" field in the above
+                    document description.
         """
         self.bags: list[list[str]] = []  # Lists of lists, containing knowledges.
         self.filename: str = filename
@@ -148,8 +148,7 @@ class Knowledges:
             self.compute_dependency_graph()
 
     def get_all_bags(self) -> list[list[str]]:
-        """Returns all bags that were not added since the last checkpoint,
-        as a list of lists of strings."""
+        """Returns all bags as a list of lists of strings."""
         return self.bags
 
     def get_new_bags(self) -> list[list[str]]:
@@ -233,3 +232,57 @@ class Knowledges:
                         file.write("%\\knowledge{notion}\n")
                         for kl in bag:
                             file.write((f" | {kl}\n" if nocomment else f"%  | {kl}\n"))
+
+
+class KnowledgesList:
+    def __init__(self, kls_list: list[str]):
+        """
+        Reads a list of knowledge files.
+
+        Args:
+            kls_list: the list of filenames containing knowledges.
+        """
+        self.nb_file: int = len(kls_list)
+        self.kls_list: list[Knowledges] = [
+            Knowledges(filename) for filename in kls_list
+        ]
+
+    def default_kls(self) -> Knowledges:
+        """Returns the default kls."""
+        return self.kls_list[self.nb_file - 1]
+
+    def get_all_bags(self) -> list[list[str]]:
+        """Returns all bags as a list of lists of strings."""
+        return flat([kls.get_all_bags() for kls in self.kls_list])
+
+    def get_all_knowledges(self) -> list[str]:
+        """Returns all knowledges, as a list of strings."""
+        return flat([kls.get_all_knowledges() for kls in self.kls_list])
+
+    def add_new_bag(self, kl: str) -> None:
+        """Adds a new bag that contains only the string `kl`."""
+        self.default_kls().add_new_bag(kl)
+
+    def define_synonym_of(self, kl1: str, kl2: str) -> None:
+        """
+        Defines a new knowledge (string) `kl1` as a new synonym of the already
+        existing knowledge (string) `kl2`.
+        """
+        for kls in self.kls_list:
+            for b_id, bag in enumerate(kls.bags):
+                if kl2 in bag:
+                    kls.bags[b_id].append(kl1)
+                    return
+        print(f"Error: {kl2} is not a knowledge.")
+
+    def write_knowledges_in_file(self, nocomment: bool = False) -> None:
+        """
+        Writes the new synonyms and new knowledges in the file containing the knowledges.
+        """
+        for kls in self.kls_list:
+            kls.write_knowledges_in_file(nocomment)
+
+    def get_new_bags(self) -> list[list[str]]:
+        """Returns all bags that were not added since the last checkpoint,
+        as a list of lists of strings."""
+        return self.default_kls().get_new_bags()

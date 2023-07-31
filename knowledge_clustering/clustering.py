@@ -5,11 +5,11 @@ from __future__ import annotations  # Support of `|` for type union in Python 3.
 import copy
 
 from knowledge_clustering import distance, config, scope_meaning, diagnose, cst
-from knowledge_clustering.knowledges import Knowledges
+from knowledge_clustering.knowledges import KnowledgesList
 
 
 def app(
-    kl_filename: str,
+    kl_filename: list[str],
     dg_filename: str,
     scope: bool,
     lang: str,
@@ -24,7 +24,7 @@ def app(
         lang: the langage of the document.
         config_filename: a configuration file, specifying prefixes to ignore.
     """
-    kl = Knowledges(kl_filename)
+    kls = KnowledgesList(kl_filename)
 
     if config_filename is None:
         config_filename = cst.CONFIG_FILE[lang]
@@ -32,11 +32,10 @@ def app(
     list_prefixes = config.parse(config_filename)
 
     scopes_meaning = scope_meaning.infer_all_scopes(
-        kl.get_all_bags(), cst.NLTK_LANG[lang]
+        kls.get_all_bags(), cst.NLTK_LANG[lang]
     )
     if scope:
         scope_meaning.print_scopes(scopes_meaning, print_meaning=True)
-
     unknown_knowledges = diagnose.parse(dg_filename)
 
     if len(unknown_knowledges) == 0:
@@ -44,7 +43,7 @@ def app(
 
     # update `kl` using the clustering algorithm
     clustering(
-        kl,
+        kls,
         unknown_knowledges,
         cst.ALPHA,
         list_prefixes,
@@ -52,15 +51,15 @@ def app(
         cst.NLTK_LANG[lang],
     )
     print(
-        f"Found a solution by adding {len(kl.get_new_bags())} new bag"
-        + ("s" if len(kl.get_new_bags()) >= 2 else "")
+        f"Found a solution by adding {len(kls.get_new_bags())} new bag"
+        + ("s" if len(kls.get_new_bags()) >= 2 else "")
         + "."
     )
-    kl.write_knowledges_in_file()
+    kls.write_knowledges_in_file()
 
 
 def clustering(
-    kls: Knowledges,
+    kls: KnowledgesList,
     unknown_kl: list[str],
     alpha: float,
     list_prefixes: list[str],
@@ -77,7 +76,7 @@ def clustering(
                 the two notions initially belongs to unknown_kls.
 
     Args:
-        kl: known knowledges.
+        kls: known knowledges.
         unknown_kl: a list of unknown knowledges.
         alpha: a threshold indicating the maximal distance allowed for clustering
             two knowkledges together.

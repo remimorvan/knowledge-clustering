@@ -109,7 +109,9 @@ def test_app_clustering() -> None:
     """Tests the cluster command."""
     for filename in ["ordinal-kl.tex", "ordinal.diagnose"]:
         shutil.copy(f"tests/.{filename}.original", f"tests/{filename}")
-    app_clustering("tests/ordinal-kl.tex", "tests/ordinal.diagnose", False, "en", None)
+    app_clustering(
+        ("tests/ordinal-kl.tex",), "tests/ordinal.diagnose", False, "en", None
+    )
     # Diagnose file should be left unchanged…
     assert filecmp.cmp(
         "tests/ordinal.diagnose", "tests/.ordinal.diagnose.original", shallow=False

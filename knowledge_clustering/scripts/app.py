@@ -32,10 +32,11 @@ def init():
     "--knowledge",
     "-k",
     "kl_filename",
+    multiple=True,
     type=click.Path(
         exists=True, file_okay=True, dir_okay=False, writable=True, readable=True
     ),
-    help="File containing the knowledges that are already defined.",
+    help="File containing the knowledges that are already defined. Multiple files are allowed; new knowledges will be written in the last one.",
     required=True,
 )
 @click.option(
@@ -69,16 +70,16 @@ the possible meaning of those scope inferred by knowledge-clustering.",
 corresponding to your language is used.",
 )
 def cluster(
-    kl_filename: str,
+    kl_filename: tuple[str],
     dg_filename: str,
     scope: bool,
     lang: str,
     config_filename: None | str,
 ):
     """
-    Defines, as a comment and in the knowledge file, all the knowledges occuring in the diagnose file.
+    Defines, as a comment and in the knowledge file, all the knowledges occuring in the file.
     """
-    clustering.app(kl_filename, dg_filename, scope, lang, config_filename)
+    clustering.app(list(kl_filename), dg_filename, scope, lang, config_filename)
 
 
 @cli.command()
