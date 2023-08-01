@@ -188,29 +188,30 @@ pip3 install --editable .
 ## FAQ
 
 - `knowledge: command not found` after installing `knowledge-clustering`
-
-  **Solution**: make sure you have Python>=3.9.
+  > Make sure you have Python>=3.9.
   
 - When running `knowledge`, I obtain a long message error indicating "Resource punkt not found."
-
-  **Solution**: run `knowledge init`.
+  > Run `knowledge init`.
 
 - My shell doesn't autocomplete the command `knowledge`.
+  > Depending on whether you use `zsh` or `bash` write
+  >
+  >     eval "`pip completion --<shellname>`"
+  >
+  > (where `<shellname>` is either `zsh` or `bash`)
+  > in your `.zshrc` (or `.bashrc`) file and then,
+  > either launch a new terminal or run `source ~/.zshrc`
+  > (or `source ~/.bashrc`).
 
-  **Solution**: depending on whether you use `zsh` or `bash` write
-
-       eval "`pip completion --<shellname>`"
-
-  (where `<shellname>` is either `zsh` or `bash`)
-  in your `.zshrc` (or `.bashrc`) file and then,
-  either launch a new terminal or run `source ~/.zshrc`
-  (or `source ~/.bashrc`).
+- `Error: Got unexpected extra argument` when using multiple knowledge files.
+  > You should use the option `-k` before **every** knowledge file, like in
+  >
+  > 	knowledge cluster -k 1.kl -k 2.kl -d blabla.diagnose 
 
 - I've updated `knowledge-clustering` but I still don't have the last version (which can be checked using `knowledge --version`):
-
   This can happen if you have multiple versions of `python` (and multiple versions
   of `knowledge-clustering`).
-  **Solution**: Type `where python3`, and uninstall `knowledge-clustering`
+  > Type `where python3`, and uninstall `knowledge-clustering`
   from everywhere (using `<path>/python3 -m pip uninstall knowledge-clustering`)
   except your main version of python. Try to then upgrade `knowledge-clustering`
   by running `pip3 install --upgrade knowledge-clustering`.
