@@ -145,7 +145,6 @@ class Knowledges:
             self.bags = knowledges
             self.nb_known_bags: int = len(self.bags)
             self.length_known_bags: list[int] = [len(bag) for bag in self.bags]
-            self.compute_dependency_graph()
 
     def get_all_bags(self) -> list[list[str]]:
         """Returns all bags as a list of lists of strings."""
@@ -189,26 +188,6 @@ class Knowledges:
                 return
         print(f"Error: {kl2} is not a knowledge.")
 
-    def compute_dependency_graph(self) -> None:
-        """
-        Computes the dependency graph of all knowledges, for the substring relation.
-        Then, sort all knowledges using topological sorting.
-        Result are stored in self.dependency and self.all_knowledges_sorted.
-        """
-        dependency: dict[str, set[str]] = {}
-        dependency_reversed: dict[str, set[str]] = {}
-        for s1 in self.get_all_knowledges():
-            dependency[s1] = {
-                s2 for s2 in self.get_all_knowledges() if s2 in s1 and s1 != s2
-            }
-            dependency_reversed[s1] = {
-                s2 for s2 in self.get_all_knowledges() if s1 in s2 and s1 != s2
-            }
-        self.dependency: dict[str, set[str]] = dependency
-        self.all_knowledges_sorted: list[str] = list(
-            toposort.toposort_flatten(dependency_reversed)
-        )
-
     def write_knowledges_in_file(self, nocomment: bool = False) -> None:
         """
         Writes the new synonyms and new knowledges in the file containing the knowledges.
@@ -246,6 +225,7 @@ class KnowledgesList:
         self.kls_list: list[Knowledges] = [
             Knowledges(filename) for filename in kls_list
         ]
+        self.compute_dependency_graph()
 
     def default_kls(self) -> Knowledges:
         """Returns the default kls."""
@@ -258,6 +238,10 @@ class KnowledgesList:
     def get_all_knowledges(self) -> list[str]:
         """Returns all knowledges, as a list of strings."""
         return flat([kls.get_all_knowledges() for kls in self.kls_list])
+
+    def get_sorted_knowledges(self) -> list[str]:
+        """Returns all knowledges, sorted by topological sort."""
+        return self.all_knowledges_sorted
 
     def add_new_bag(self, kl: str) -> None:
         """Adds a new bag that contains only the string `kl`."""
@@ -286,3 +270,23 @@ class KnowledgesList:
         """Returns all bags that were not added since the last checkpoint,
         as a list of lists of strings."""
         return self.default_kls().get_new_bags()
+
+    def compute_dependency_graph(self) -> None:
+        """
+        Computes the dependency graph of all knowledges, for the substring relation.
+        Then, sort all knowledges using topological sorting.
+        Result are stored in self.dependency and self.all_knowledges_sorted.
+        """
+        dependency: dict[str, set[str]] = {}
+        dependency_reversed: dict[str, set[str]] = {}
+        for s1 in self.get_all_knowledges():
+            dependency[s1] = {
+                s2 for s2 in self.get_all_knowledges() if s2 in s1 and s1 != s2
+            }
+            dependency_reversed[s1] = {
+                s2 for s2 in self.get_all_knowledges() if s1 in s2 and s1 != s2
+            }
+        self.dependency: dict[str, set[str]] = dependency
+        self.all_knowledges_sorted: list[str] = list(
+            toposort.toposort_flatten(dependency_reversed)
+        )

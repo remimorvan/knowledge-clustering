@@ -16,7 +16,7 @@ def test_app_addquotes() -> None:
         yes.write("y\n" * 100)
     with open("tests/yes.txt", "r", encoding="utf-8") as inp:
         with open("tests/output_addquotes.txt", "w", encoding="utf-8") as out:
-            app_addquotes("tests/ordinal.tex", "tests/ordinal-kl.tex", 1, inp, out)
+            app_addquotes("tests/ordinal.tex", ["tests/ordinal-kl.tex"], 1, inp, out)
     with open("tests/output_addquotes.txt", "r", encoding="utf-8") as out:
         nb_line_output = sum(1 for _ in out)
     b: bool = nb_line_output == 7

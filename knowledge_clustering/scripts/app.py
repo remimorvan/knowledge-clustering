@@ -97,10 +97,11 @@ def cluster(
     "--knowledge",
     "-k",
     "kl_filename",
+    multiple=True,
     type=click.Path(
         exists=True, file_okay=True, dir_okay=False, writable=True, readable=True
     ),
-    help="File containing the knowledges that are already defined.",
+    help="File containing the knowledges that are already defined. Multiple files are allowed; new knowledges will be written in the last one.",
     required=True,
 )
 @click.option(
@@ -116,7 +117,7 @@ def addquotes(tex_filename: str, kl_filename: str, print_line: int):
     Finds knowledges defined in the knowledge file that appear in tex file without quote
     symbols. Proposes to add quotes around them.
     """
-    return add_quotes.app(tex_filename, kl_filename, print_line)
+    return add_quotes.app(tex_filename, list(kl_filename), print_line)
 
 
 @cli.command()

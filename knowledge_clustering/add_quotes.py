@@ -8,7 +8,7 @@ import re  # Regular expressions
 from typing import NamedTuple, TextIO
 import sys
 
-from knowledge_clustering.knowledges import Knowledges
+from knowledge_clustering.knowledges import KnowledgesList
 from knowledge_clustering.tex_document import TexDocument
 from knowledge_clustering import file_updater, misc, cst
 
@@ -50,7 +50,7 @@ def ask_consent(message: str, inp: TextIO, out: TextIO):
 
 def app(
     tex_filename: str,
-    kl_filename: str,
+    kl_filenames: list[str],
     print_line: int,
     inp: TextIO = sys.stdin,
     out: TextIO = sys.stdout,
@@ -60,7 +60,7 @@ def app(
     symbols. Proposes to add quotes around them.
     Args:
         tex_filename: the name of the tex file.
-        kl_filename: the name of the knowledge file.
+        kl_filenames: the names of the knowledge files.
         print_line: an integer specifying how many lines of the tex file should be printed.
         inp: input stream.
         out: output stream.
@@ -69,16 +69,16 @@ def app(
     with open(tex_filename, "r", encoding="utf-8") as f:
         tex_doc = TexDocument(f.read())
     f.close()
-    kl = Knowledges(kl_filename)
+    kls = KnowledgesList(kl_filenames)
     tex_document_new, new_knowledges = quote_maximal_substrings(
-        tex_doc, kl, print_line, inp, out
+        tex_doc, kls, print_line, inp, out
     )
     with file_updater.AtomicUpdate(tex_filename, original_hash=tex_hash) as f:
         f.write(tex_document_new)
     f.close()
     for known_kl, new_kl in new_knowledges:
-        kl.define_synonym_of(new_kl, known_kl)
-    kl.write_knowledges_in_file(nocomment=True)
+        kls.define_synonym_of(new_kl, known_kl)
+    kls.write_knowledges_in_file(nocomment=True)
 
 
 def add_quote(
@@ -187,7 +187,7 @@ def add_quote(
 
 def quote_maximal_substrings(
     tex_doc: TexDocument,
-    kl: Knowledges,
+    kls: KnowledgesList,
     print_line: int,
     inp: TextIO,
     out: TextIO,
@@ -198,7 +198,7 @@ def quote_maximal_substrings(
 
     Args:
         tex_doc: a TeX document.
-        kl: knowledges.
+        kls: list of knowledges.
         print_line: an integer specifying how many lines of the tex file should be printed.
         inp: input stream.
         out: output stream.
@@ -211,7 +211,7 @@ def quote_maximal_substrings(
     add_quote_location: list[NewKL | AddQuote] = []
     for ignore_case in [False, True]:
         # Start the algo by being case sensitive, then run it while being insensitive.
-        for s1 in kl.all_knowledges_sorted:
+        for s1 in kls.get_sorted_knowledges():
             match_list = (
                 re.finditer(re.escape(s1), tex_doc.tex_cleaned, re.IGNORECASE)
                 if ignore_case
@@ -223,7 +223,7 @@ def quote_maximal_substrings(
                     # Ignore every infix of s1 that is also a substring of the list
                     for i in range(start, end + 1):
                         ignore_position[i] = True
-                    for s2 in kl.dependency[s1]:
+                    for s2 in kls.dependency[s1]:
                         for submatch in re.finditer(
                             re.escape(s2), tex_doc.tex_cleaned[start : end + 1]
                         ):
