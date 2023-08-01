@@ -76,6 +76,7 @@ LATEX_ACCENTS = [
     "\\.",
 ]  # LaTeX accents defined using non-alphanumerical commands
 IGNORE_CHAR = ["\\-", "{", "}"]
+SPACE_CHAR = ["~"]
 
 DISCARD_LINE = "%%%%% NEW KNOWLEDGES "
 

@@ -70,9 +70,10 @@ def extract_scope(notion):
     return notion, ""
 
 
-def normalise_notion(notion):
+def normalise_notion(notion: str) -> str:
     """
-    Returns the substring of a notion obtained by removing math and commands.
+    Returns the substring of a notion obtained by removing math, commands, accents
+    and non-brekable spaces.
     """
     notion_norm = notion
     while "$" in notion_norm:
@@ -99,6 +100,11 @@ def normalise_notion(notion):
             # If the notion contains remove_char, remove it.
             sp = notion_norm.split(remove_char, 1)
             notion_norm = sp[0] + sp[1]
+    for space_char in cst.SPACE_CHAR:
+        while space_char in notion_norm:
+            # If the notion contains remove_char, replace it with a space.
+            sp = notion_norm.split(space_char, 1)
+            notion_norm = sp[0] + " " + sp[1]
     return unidecode(notion_norm)  # Ascii-fy (in particular, remove accents) the result
 
 
