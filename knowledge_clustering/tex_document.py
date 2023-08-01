@@ -9,10 +9,9 @@ from knowledge_clustering import misc
 class TexDocument:
     """Class for handling a tex document."""
 
-    def __init__(self, tex_code: str, size_tab: int = 4) -> None:
+    def __init__(self, tex_code: str) -> None:
         self.tex_code: str = tex_code
         self.lines: list[str] = self.tex_code.split("\n")
-        self.size_tab: int = size_tab
         self.__update_col_line()
         self.__clean()
         self.length: int = len(self.tex_cleaned)
@@ -31,9 +30,7 @@ class TexDocument:
             self.find_col[position] = col
             if letter == "\n":
                 line += 1
-                col = 0
-            if letter == "\t":
-                col += self.size_tab
+                col = 1
             else:
                 col += 1
 
