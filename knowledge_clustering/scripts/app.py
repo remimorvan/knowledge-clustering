@@ -77,7 +77,7 @@ def cluster(
     config_filename: None | str,
 ):
     """
-    Defines, as a comment and in the knowledge file, all the knowledges occuring in the file.
+    Defines, as a comment and in the knowledge files, all the knowledges occuring in the file.
     """
     clustering.app(list(kl_filename), dg_filename, scope, lang, config_filename)
 
@@ -114,7 +114,7 @@ def cluster(
 )
 def addquotes(tex_filename: str, kl_filename: str, print_line: int):
     """
-    Finds knowledges defined in the knowledge file that appear in tex file without quote
+    Finds knowledges defined in the knowledge files that appear in tex file without quote
     symbols. Proposes to add quotes around them.
     """
     return add_quotes.app(tex_filename, list(kl_filename), print_line)

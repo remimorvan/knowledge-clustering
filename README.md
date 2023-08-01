@@ -21,7 +21,7 @@ should be used when your document is (nearly) ready to be published, to check if
 
 ## Installation
 
-To install (or upgrade) `knowledge-clustering`, run
+To install (or upgrade) `knowledge-clustering`, you need to have Python 3.9 (or a more recent version), and then run
 
     pip3 install --upgrade knowledge-clustering
 
@@ -40,20 +40,22 @@ To check if you have the latest version of `knowledge-clustering`, you can run
 ```
 Usage: knowledge cluster [OPTIONS]
 
-  Edit a NOTION file using the knowledges present in a DIAGNOSE file.
+  Defines, as a comment and in the knowledge files, all the knowledges
+  occuring in the file.
 
 Options:
   -k, --knowledge FILE      File containing the knowledges that are already
-                            defined.  [required]
+                            defined. Multiple files are allowed; new
+                            knowledges will be written in the last one.
+                            [required]
   -d, --diagnose FILE       Diagnose file produced by LaTeX.  [required]
   -l, --lang [en|fr]        Language of your TeX document.
-  -S, --scope / --no-scope  Print the scopes defined in the notion file and
+  -S, --scope / --no-scope  Print the scopes defined in the knowledge file and
                             print the possible meaning of those scope inferred
                             by knowledge-clustering.
   -c, --config-file TEXT    Specify the configuration file. By default the
                             configuration file in the folder
-                            <knowledge-clustering-installation-
-                            folder>/knowledge_clustering/data/ corresponding
+                            <knowledge-clustering-installation-folder>/data corresponding
                             to your language is used.
   --help                    Show this message and exit.
 ```
@@ -62,46 +64,58 @@ Options:
 
 Example files can be found in the `examples/` folder.
 
-While writing some document, you have defined some knowledges in a file called `ordinal-kl.tex` (distinct
+While writing some document, you have defined some knowledges in a file called `ordinal.kl` (distinct
 from your main `LaTeX`).
 You continued writing your `LaTeX` document (not provided in the `examples/` folder)
 for some time, and used some knowledges that were undefined.
 When compiling, `LaTeX` and the [`knowledge package`](https://ctan.org/pkg/knowledge) gives you a warning
 and writes in a `.diagnose` file some information explaining what went wrong. This `.diagnose` file contains
 a section called "Undefined knowledges" containing all knowledges used in your main `LaTeX` file but not
-defined in `ordinal-kl.tex`. We reproduced this section
+defined in `ordinal.kl`. We reproduced this section
 in the `ordinal.diagnose` file.
 
-![Screenshot of the `small.tex` and `small.diagnose` files before running knowledge-clustering. `small.tex` contains four knowledges, while `small.diagnose` contains five undefined knowledges.](img/small-before.png "Files `small.tex` and `small.diagnose` before running knowledge-clustering")
+![Screenshot of the `ordinal.kl` and `ordinal.diagnose` files before running knowledge-clustering. `ordinal.kl` contains four knowledges, while `ordinal.diagnose` contains five undefined knowledges.](img/small-before.png "Files `ordinal.kl` and `ordinal.diagnose` before running knowledge-clustering")
 
 Normally, you would add every undefined knowledge, one after the other, in your
-`oridnal-kl.tex`. This is quite burdensome and can
+`oridnal.kl`. This is quite burdensome and can
 largely be automated. This is precisely what `knowledge-clustering` does: after running
 
-    knowledge cluster -k small.tex -d small.diagnose
+    knowledge cluster -k ordinal.kl -d ordinal.diagnose
 
 your file `ordinal.diagnose` is left unchanged
-but `ordinal-kl.tex` is updated with comments.
+but `ordinal.kl` is updated with comments.
 
-The `cluster` command is optional: you can also write `knowledge -k ordinal-kl.tex -d ordinal.diagnose`.
+The `cluster` command is optional: you can also write `knowledge -k ordinal.kl -d ordinal.diagnose`.
 
-![After running knowledge-clustering, the five undefined knowledges are included in the `small.tex` file as comments.](img/small-after.png "Files `ordinal-kl.tex` and `ordinal.diagnose` after running knowledge-clustering`")
+![After running knowledge-clustering, the five undefined knowledges are included in the `ordinal.kl` file as comments.](img/small-after.png "Files `ordinal.kl` and `ordinal.diagnose` after running knowledge-clustering`")
 
-Now you simply have to check that the recommandations of `knowledge-clustering` are
+Now you simply have to check that the recommendations of `knowledge-clustering` are
 correct, and uncomment those lines.
+
+### Multiple knowledge files
+
+If you have **multiple knowledge files**, you can use the `-k` option multiple times.
+For instance, you could write:
+
+	knowledge cluster -k 1.kl -k 2.kl -d ordinal.diagnose
+
+Synonyms of knowledges defined in `1.kl` (resp. `2.kl`) will be defined, as comments,
+in `1.kl` (resp. `2.kl`). New knowledges will always be added, as comments, to the last
+file, which is `2.kl` in the example.
 
 ## Adding quotes
 
 ```
 Usage: knowledge addquotes [OPTIONS]
 
-  Finds knowledges defined in KNOWLEDGE that appear in TEX without quote
-  symbols. Proposes to add quotes around them.
+  Finds knowledges defined in the knowledge files that appear in tex file
+  without quote symbols. Proposes to add quotes around them.
 
 Options:
   -t, --tex FILE        Your TeX file.  [required]
   -k, --knowledge FILE  File containing the knowledges that are already
-                        defined.  [required]
+                        defined. Multiple files are allowed; new knowledges
+                        will be written in the last one.  [required]
   -p, --print INTEGER   When finding a match, number of lines (preceding the
                         match) that are printed in the prompt to the user.
   --help                Show this message and exit.
@@ -109,7 +123,7 @@ Options:
 
 After running 
 
-    knowledge addquotes -t mydocument.tex -k knowledges.tex
+    knowledge addquotes -t mydocument.tex -k knowledges1.kl -k knowledges2.kl
 
 your prompt will propose to add quotes around defined knowledges,
 and to define synonyms of knowledges that occur in your TeX file. For instance, if
