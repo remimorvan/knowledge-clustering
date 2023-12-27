@@ -150,6 +150,11 @@ class Knowledges:
         """Returns all bags as a list of lists of strings."""
         return self.bags
 
+    def get_old_bags(self) -> list[list[str]]:
+        """Returns all bags that were present at the last checkpoint,
+        as a list of lists of strings."""
+        return self.bags[: self.nb_known_bags]
+
     def get_new_bags(self) -> list[list[str]]:
         """Returns all bags that were not added since the last checkpoint,
         as a list of lists of strings."""
@@ -187,6 +192,17 @@ class Knowledges:
                 self.bags[b_id].append(kl1)
                 return
         print(f"Error: {kl2} is not a knowledge.")
+
+    def was_changed(self) -> bool:
+        """
+        Returns whether kl has new bags or new synonyms.
+        """
+        if len(self.get_new_bags()) > 0:
+            return True
+        for b_id in range(len(self.get_old_bags())):
+            if len(self.get_new_knowledges_in_bag(b_id)) > 0:
+                return True
+        return False
 
     def write_knowledges_in_file(self, nocomment: bool = False) -> None:
         """
@@ -226,6 +242,10 @@ class KnowledgesList:
             Knowledges(filename) for filename in kls_list
         ]
         self.compute_dependency_graph()
+
+    def get_all_kls_struct(self) -> list[Knowledges]:
+        """Returns the list of all knowledge structures"""
+        return self.kls_list
 
     def default_kls(self) -> Knowledges:
         """Returns the default kls."""

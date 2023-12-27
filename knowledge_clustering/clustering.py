@@ -6,6 +6,7 @@ import copy
 
 from knowledge_clustering import distance, config, scope_meaning, diagnose, cst
 from knowledge_clustering.knowledges import KnowledgesList
+from knowledge_clustering.misc import emph
 
 
 def app(
@@ -18,7 +19,7 @@ def app(
     """
     Defines, as a comment and in the knowledge file, all the knowledges occuring in the diagnose file.
     Args:
-        kl_filename: the name of the knowledge file.
+        kl_filename: the list of name of the knowledge files.
         dg_filename: the name of the diagnose file.
         scope: a boolean specifying whether the scopes meaning should be printed.
         lang: the langage of the document.
@@ -50,11 +51,22 @@ def app(
         scopes_meaning,
         cst.NLTK_LANG[lang],
     )
-    print(
+    msg = (
         f"Found a solution by adding {len(kls.get_new_bags())} new bag"
         + ("s" if len(kls.get_new_bags()) >= 2 else "")
-        + "."
+        + ".\n"
     )
+    changed_filenames = [
+        kl.filename for kl in kls.get_all_kls_struct() if kl.was_changed()
+    ]
+    if len(changed_filenames) == 0:
+        msg += "No file was changed."
+    else:
+        msg += "The following files were changed:"
+        for i, fn in enumerate(changed_filenames):
+            msg += emph(f" {fn}")
+            msg += "," if i < len(changed_filenames) - 1 else "."
+    print(msg)
     kls.write_knowledges_in_file()
 
 
