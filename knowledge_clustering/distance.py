@@ -180,7 +180,7 @@ def inclusion_sets_of_words(
     Given two sets of words (considered up to permutation), are
     all words of the first set similar to words of the second set?
     """
-    d1, d2 = __semi_distance_sets_of_words(
+    d1, _ = __semi_distance_sets_of_words(
         set_words1, set_words2, list_prefixes, stemmer
     )
     return d1 == 0

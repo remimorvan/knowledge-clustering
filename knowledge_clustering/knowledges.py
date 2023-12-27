@@ -314,12 +314,16 @@ class KnowledgesList:
 
 
 def remove_redundant_files(list_filenames: list[str]) -> list[str]:
+    """
+    Given a list of filenames, return the same list without duplicates, and output a warning
+    if there is such a duplicate.
+    """
     output: list[str] = []
     for fn in list_filenames:
         if fn in output:
             print(
                 print_orange("[Warning]")
-                + " same knowledge file given twice, second occurrence is ignored."
+                + f" same knowledge file given twice ({fn}), second occurrence is ignored."
             )
         else:
             output.append(fn)

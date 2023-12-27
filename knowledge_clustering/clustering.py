@@ -17,7 +17,8 @@ def app(
     config_filename: None | str,
 ):
     """
-    Defines, as a comment and in the knowledge file, all the knowledges occuring in the diagnose file.
+    Defines, as a comment and in the knowledge file, all the knowledges occuring
+    in the diagnose file.
     Args:
         kl_filename: the list of name of the knowledge files.
         dg_filename: the name of the diagnose file.
