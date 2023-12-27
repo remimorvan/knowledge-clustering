@@ -15,7 +15,7 @@ from knowledge_clustering import cst
 # ---
 
 
-def levenshtein_distance(s, t):
+def levenshtein_distance(s: str, t: str) -> int:
     """
     Computes the Levenshtein (insertions, deletions or substitutions are allowed)
     edit distance between two strings.
@@ -39,7 +39,7 @@ def levenshtein_distance(s, t):
     return dist[m][n]
 
 
-def minimise_levenshtein_distance(s, t_list):
+def minimise_levenshtein_distance(s: str, t_list: list[str]) -> int:
     """
     Given a string s, and a non-empty list of strings, returns an element of t_list
     minimising the edit distance with s.
@@ -59,7 +59,7 @@ def minimise_levenshtein_distance(s, t_list):
 # ---
 
 
-def extract_scope(notion):
+def extract_scope(notion: str) -> tuple[str, str]:
     """
     Given a notion of the form "knowledge@scope" or "knowledge",
     returns a pair consisting of the knowledge and the (possibly empty) scope.
@@ -108,7 +108,7 @@ def normalise_notion(notion: str) -> str:
     return unidecode(notion_norm)  # Ascii-fy (in particular, remove accents) the result
 
 
-def breakup_notion(notion, lang):
+def breakup_notion(notion: str, lang: str) -> tuple[set[str], str]:
     """
     Takes a notion, and a language, and returns
     a set of words contained in the notion.
@@ -135,7 +135,7 @@ def breakup_notion(notion, lang):
 # ---
 
 
-def similar_words(w1, w2, list_prefixes, stemmer):
+def similar_words(w1: str, w2: str, list_prefixes: list[str], stemmer) -> bool:
     """
     Checks if two words w1 and w2 are similar up to taking their stem (removing a suffix)
     and removing a prefix in the list `list_prefixes`.
@@ -151,7 +151,9 @@ def similar_words(w1, w2, list_prefixes, stemmer):
     return False
 
 
-def __semi_distance_sets_of_words(set_words1, set_words2, list_prefixes, stemmer):
+def __semi_distance_sets_of_words(
+    set_words1: set[str], set_words2: set[str], list_prefixes: list[str], stemmer
+) -> tuple[int, int]:
     """
     Given two sets of words (considered up to permutation), computes the
     numbers of words of w1 that aren't close to a word of w2 and reciprocally.
@@ -171,7 +173,9 @@ def __semi_distance_sets_of_words(set_words1, set_words2, list_prefixes, stemmer
     return (len(set_words1), len(set_words2))
 
 
-def inclusion_sets_of_words(set_words1, set_words2, list_prefixes, stemmer):
+def inclusion_sets_of_words(
+    set_words1: set[str], set_words2: set[str], list_prefixes: list[str], stemmer
+) -> bool:
     """
     Given two sets of words (considered up to permutation), are
     all words of the first set similar to words of the second set?
@@ -182,7 +186,9 @@ def inclusion_sets_of_words(set_words1, set_words2, list_prefixes, stemmer):
     return d1 == 0
 
 
-def distance_sets_of_words(set_words1, set_words2, list_prefixes, stemmer):
+def distance_sets_of_words(
+    set_words1: set[str], set_words2: set[str], list_prefixes: list[str], stemmer
+) -> int:
     """
     Given two sets of words (considered up to permutation), computes the distance between them.
     """
