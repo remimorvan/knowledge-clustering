@@ -16,7 +16,7 @@ coverage:
 	python -m pytest tests/ --cov
 
 build: 
-	python3 -m build .
+	python -m build .
 
 deploy-test: knowledge_clustering/_version.py
-	python3 -m twine upload --repository testpypi dist/* 
+	python -m twine upload --repository testpypi dist/* 

@@ -90,7 +90,7 @@ def test_scope_meaning() -> None:
 
 def test_clustering() -> None:
     """Tests functions from the clustering module."""
-    kls = Knowledges("examples/ordinal-kl.tex")
+    kls = Knowledges("examples/ordinal.kl")
     unknown_kl = parse_diagnose("examples/ordinal.diagnose")
     list_prefixes = parse_config("knowledge_clustering/data/english.ini")
     scopes_meaning = infer_all_scopes(kls.get_all_bags(), "english")
@@ -107,18 +107,14 @@ def test_clustering() -> None:
 
 def test_app_clustering() -> None:
     """Tests the cluster command."""
-    for filename in ["ordinal-kl.tex", "ordinal.diagnose"]:
+    for filename in ["ordinal.kl", "ordinal.diagnose"]:
         shutil.copy(f"tests/.{filename}.original", f"tests/{filename}")
-    app_clustering(
-        ["tests/ordinal-kl.tex"], "tests/ordinal.diagnose", False, "en", None
-    )
+    app_clustering(["tests/ordinal.kl"], "tests/ordinal.diagnose", False, "en", None)
     # Diagnose file should be left unchanged…
     assert filecmp.cmp(
         "tests/ordinal.diagnose", "tests/.ordinal.diagnose.original", shallow=False
     )
     # Check if knowledge file has good content
-    assert filecmp.cmp(
-        "tests/ordinal-kl.tex", "tests/.ordinal-kl.tex.solution", shallow=False
-    )
-    for filename in ["ordinal-kl.tex", "ordinal.diagnose"]:
+    assert filecmp.cmp("tests/ordinal.kl", "tests/.ordinal.kl.solution", shallow=False)
+    for filename in ["ordinal.kl", "ordinal.diagnose"]:
         os.remove(f"tests/{filename}")
