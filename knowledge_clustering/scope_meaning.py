@@ -35,9 +35,9 @@ def infer_scope(list_kl: list[str], scope: str, lang: str, stemmer) -> list[list
     list_kl_broke: list[tuple[list[str], str]] = [
         dist.breakup_notion(kl, lang) for kl in list_kl
     ]
-    for (kl1_words, sc1) in list_kl_broke:
+    for kl1_words, sc1 in list_kl_broke:
         if sc1 == scope:
-            for (kl2_words, sc2) in list_kl_broke:
+            for kl2_words, sc2 in list_kl_broke:
                 if sc2 == "":
                     if dist.inclusion_sets_of_words(
                         kl1_words, kl2_words, [""], stemmer

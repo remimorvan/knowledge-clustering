@@ -11,7 +11,7 @@ ALPHA = 0
 CONFIG_FILENAME: dict[str, str] = {"en": "english.ini", "fr": "french.ini"}
 CONFIG_DIR: str = pkg_resources.resource_filename("knowledge_clustering", "data")
 CONFIG_FILE: dict[str, str] = dict()
-for (lan, filename) in CONFIG_FILENAME.items():
+for lan, filename in CONFIG_FILENAME.items():
     CONFIG_FILE[lan] = pkg_resources.resource_filename(
         "knowledge_clustering", f"data/{filename}"
     )

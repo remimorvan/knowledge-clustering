@@ -25,7 +25,7 @@ class TexDocument:
         self.find_col: list[int] = [0] * len(self.tex_code)
         line: int = 1
         col: int = 1
-        for (position, letter) in enumerate(self.tex_code):
+        for position, letter in enumerate(self.tex_code):
             self.find_line[position] = line
             self.find_col[position] = col
             if letter == "\n":
@@ -42,6 +42,7 @@ class TexDocument:
         The cleaned file is stored in self.tex_cleaned. A pointer
         from tex_cleaned to tex_code, in the form of an array, is produced in self.pointer.
         """
+
         # Essentially, the algorithm is a deterministic transducer with five states
         # 0: the last character is `normal` (not a space, a tab, nor a new line) ; initial state
         # 1: the last character is not normal,

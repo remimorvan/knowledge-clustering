@@ -53,7 +53,7 @@ def missing_anchor(tex_doc: TexDocument, space: int, out: TextIO) -> None:
                     matches.append((i1, i2, i3, i4))
                     is_end_of_match[i3] = True
     matches.sort(key=lambda x: x[0])
-    for (i1, i2, i3, _) in matches:
+    for i1, i2, i3, _ in matches:
         beg: int = max(0, i1 - space)
         if not any(ap_str in tex_doc.tex_cleaned[beg:i1] for ap_str in cst.AP_STRING):
             start_pt: int | None = tex_doc.pointer[i1]
