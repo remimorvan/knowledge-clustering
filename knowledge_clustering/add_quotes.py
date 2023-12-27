@@ -8,7 +8,7 @@ import re  # Regular expressions
 from typing import NamedTuple, TextIO
 import sys
 
-from knowledge_clustering.knowledges import KnowledgesList
+from knowledge_clustering.knowledges import KnowledgesList, remove_redundant_files
 from knowledge_clustering.tex_document import TexDocument
 from knowledge_clustering import file_updater, misc, cst
 
@@ -69,7 +69,7 @@ def app(
     with open(tex_filename, "r", encoding="utf-8") as f:
         tex_doc = TexDocument(f.read())
     f.close()
-    kls = KnowledgesList(kl_filenames)
+    kls = KnowledgesList(remove_redundant_files(kl_filenames))
     tex_document_new, new_knowledges = quote_maximal_substrings(
         tex_doc, kls, print_line, inp, out
     )

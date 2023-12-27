@@ -5,7 +5,7 @@ from __future__ import annotations  # Support of `|` for type union in Python 3.
 import copy
 
 from knowledge_clustering import distance, config, scope_meaning, diagnose, cst
-from knowledge_clustering.knowledges import KnowledgesList
+from knowledge_clustering.knowledges import KnowledgesList, remove_redundant_files
 from knowledge_clustering.misc import emph
 
 
@@ -25,7 +25,7 @@ def app(
         lang: the langage of the document.
         config_filename: a configuration file, specifying prefixes to ignore.
     """
-    kls = KnowledgesList(kl_filename)
+    kls = KnowledgesList(remove_redundant_files(kl_filename))
 
     if config_filename is None:
         config_filename = cst.CONFIG_FILE[lang]

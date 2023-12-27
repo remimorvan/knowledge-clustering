@@ -39,7 +39,7 @@ def levenshtein_distance(s: str, t: str) -> int:
     return dist[m][n]
 
 
-def minimise_levenshtein_distance(s: str, t_list: list[str]) -> int:
+def minimise_levenshtein_distance(s: str, t_list: list[str]) -> str:
     """
     Given a string s, and a non-empty list of strings, returns an element of t_list
     minimising the edit distance with s.
@@ -108,7 +108,7 @@ def normalise_notion(notion: str) -> str:
     return unidecode(notion_norm)  # Ascii-fy (in particular, remove accents) the result
 
 
-def breakup_notion(notion: str, lang: str) -> tuple[set[str], str]:
+def breakup_notion(notion: str, lang: str) -> tuple[list[str], str]:
     """
     Takes a notion, and a language, and returns
     a set of words contained in the notion.
@@ -126,8 +126,8 @@ def breakup_notion(notion: str, lang: str) -> tuple[set[str], str]:
         important_words = {
             w for (w, pos) in words_with_POStag if pos in cst.IMPORTANT_POS
         }
-        return (important_words, scope)
-    return (set(nltk.word_tokenize(kl, language=lang)), scope)
+        return (list(important_words), scope)
+    return (list(set(nltk.word_tokenize(kl, language=lang))), scope)
 
 
 # ---
@@ -152,7 +152,7 @@ def similar_words(w1: str, w2: str, list_prefixes: list[str], stemmer) -> bool:
 
 
 def __semi_distance_sets_of_words(
-    set_words1: set[str], set_words2: set[str], list_prefixes: list[str], stemmer
+    set_words1: list[str], set_words2: list[str], list_prefixes: list[str], stemmer
 ) -> tuple[int, int]:
     """
     Given two sets of words (considered up to permutation), computes the
@@ -174,7 +174,7 @@ def __semi_distance_sets_of_words(
 
 
 def inclusion_sets_of_words(
-    set_words1: set[str], set_words2: set[str], list_prefixes: list[str], stemmer
+    set_words1: list[str], set_words2: list[str], list_prefixes: list[str], stemmer
 ) -> bool:
     """
     Given two sets of words (considered up to permutation), are
@@ -187,7 +187,7 @@ def inclusion_sets_of_words(
 
 
 def distance_sets_of_words(
-    set_words1: set[str], set_words2: set[str], list_prefixes: list[str], stemmer
+    set_words1: list[str], set_words2: list[str], list_prefixes: list[str], stemmer
 ) -> int:
     """
     Given two sets of words (considered up to permutation), computes the distance between them.
