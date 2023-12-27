@@ -142,17 +142,15 @@ def similar_words(w1, w2, list_prefixes, stemmer):
     """
     if w1 == w2:
         return True
-    s1 = stemmer.stem(w1)
-    s2 = stemmer.stem(w2)
-    for p in list_prefixes:
-        for s in cst.IGNORE_SUFFIXES:
-            if (
-                p + s1 + s == s2
-                or p + s1 == s2 + s
-                or s1 + s == p + s2
-                or s1 == p + s2 + s
-            ):
-                return True
+    for s1 in [w1, stemmer.stem(w1)]:
+        for s2 in [w2, stemmer.stem(w2)]:
+            for p in list_prefixes:
+                for s in cst.IGNORE_SUFFIXES:
+                    if (
+                        p + s1 + s == s2
+                        or s1 == p + s2 + s
+                    ):
+                        return True
     return False
 
 

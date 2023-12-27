@@ -31,6 +31,7 @@ def test_distance() -> None:
     assert distance("foo", "turbofoo", ["", "turbo"], {}, "english") == 0
     assert distance("foo", "turbofoo", [""], {}, "english") > 0
     assert distance("foo", "megafoo", ["", "turbo"], {}, "english") > 0
+    assert distance("full", "non-full", ["", "non-"], {}, "english") == 0
     # Test with accent and math
     assert distance("Büchi", 'B\\"uchi', [""], {}, "english") == 0
     assert (
