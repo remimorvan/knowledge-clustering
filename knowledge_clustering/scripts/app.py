@@ -13,7 +13,15 @@ from knowledge_clustering import add_anchor, add_quotes, clustering, cst, _versi
 from knowledge_clustering.check_update import check_update
 
 
-@click.group(cls=DefaultGroup, default="cluster", default_if_no_args=True)
+# https://stackoverflow.com/a/67324391/19340201
+class AliasedGroup(DefaultGroup):
+    def get_command(self, ctx, cmd_name):
+        if cmd_name in ["anchor", "AP"]:
+            return DefaultGroup.get_command(self, ctx, "anchor")
+        return DefaultGroup.get_command(self, ctx, cmd_name)
+
+
+@click.group(cls=AliasedGroup, default="cluster", default_if_no_args=True)
 @click.version_option(_version.VERSION)
 def cli():
     """Automated notion clustering for the knowledge LaTeX package"""
@@ -90,7 +98,7 @@ def cluster(
     Defines, as a comment and in the knowledge files, all the knowledges occuring in the file.
     """
     clustering.app(list(kl_filename), dg_filename, scope, lang, config_filename)
-    if not (noupdate):
+    if not noupdate:
         check_update()
 
 
@@ -138,7 +146,7 @@ def addquotes(tex_filename: str, kl_filename: str, print_line: int, noupdate: bo
     symbols. Proposes to add quotes around them.
     """
     add_quotes.app(tex_filename, list(kl_filename), print_line)
-    if not (noupdate):
+    if not noupdate:
         check_update()
 
 
@@ -172,7 +180,7 @@ def anchor(tex_filename: str, space: int, noupdate: bool):
     Prints warning when a knowledge is introduced but is not preceded by an anchor point.
     """
     add_anchor.app(tex_filename, space)
-    if not (noupdate):
+    if not noupdate:
         check_update()
 
 
