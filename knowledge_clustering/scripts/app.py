@@ -37,7 +37,8 @@ def init():
     type=click.Path(
         exists=True, file_okay=True, dir_okay=False, writable=True, readable=True
     ),
-    help="File containing the knowledges that are already defined. Multiple files are allowed; new knowledges will be written in the last one.",
+    help="File containing the knowledges that are already defined. \
+Multiple files are allowed; new knowledges will be written in the last one.",
     required=True,
 )
 @click.option(
@@ -67,8 +68,8 @@ the possible meaning of those scope inferred by knowledge-clustering.",
     "-c",
     "config_filename",
     default=None,
-    help=f"Specify the configuration file. By default the configuration file in the folder {cst.CONFIG_DIR} \
-corresponding to your language is used.",
+    help=f"Specify the configuration file. By default the configuration file \
+in the folder {cst.CONFIG_DIR} corresponding to your language is used.",
 )
 def cluster(
     kl_filename: tuple[str],
@@ -103,7 +104,8 @@ def cluster(
     type=click.Path(
         exists=True, file_okay=True, dir_okay=False, writable=True, readable=True
     ),
-    help="File containing the knowledges that are already defined. Multiple files are allowed; new knowledges will be written in the last one.",
+    help="File containing the knowledges that are already defined. Multiple files are \
+allowed; new knowledges will be written in the last one.",
     required=True,
 )
 @click.option(
@@ -112,7 +114,8 @@ def cluster(
     "print_line",
     type=int,
     default=1,
-    help="When finding a match, number of lines (preceding the match) that are printed in the prompt to the user.",
+    help="When finding a match, number of lines (preceding the match) that are printed \
+in the prompt to the user.",
 )
 def addquotes(tex_filename: str, kl_filename: str, print_line: int):
     """
