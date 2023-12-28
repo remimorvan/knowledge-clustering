@@ -12,7 +12,10 @@ from knowledge_clustering.cst import TIMEOUT_REQUEST
 
 
 def check_update() -> None:
-    """Checks if an update is available, and if so, prints a message in the string pointer given as input."""
+    """
+    Checks if an update is available, and if so, prints a message in
+    the string pointer given as input.
+    """
     # From https://stackoverflow.com/a/62571316/19340201
     try:
         package = "knowledge-clustering"

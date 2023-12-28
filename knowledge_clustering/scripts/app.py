@@ -3,18 +3,29 @@ Launching knowledge commands (init, cluster, addquotes, anchor).
 """
 
 from __future__ import annotations  # Support of `|` for type union in Python 3.9
+from pathlib import Path
 
 import os
 import click
 from click_default_group import DefaultGroup  # type: ignore
 import nltk  # type: ignore
 
-from knowledge_clustering import add_anchor, add_quotes, clustering, cst, _version
+from knowledge_clustering import (
+    add_anchor,
+    add_quotes,
+    clustering,
+    cst,
+    _version,
+    autofinder,
+)
 from knowledge_clustering.check_update import check_update
+from knowledge_clustering.misc import print_red
 
 
 # https://stackoverflow.com/a/67324391/19340201
 class AliasedGroup(DefaultGroup):
+    """Group where `AP` is a synonym for `anchor`."""
+
     def get_command(self, ctx, cmd_name):
         if cmd_name in ["anchor", "AP"]:
             return DefaultGroup.get_command(self, ctx, "anchor")
@@ -46,16 +57,20 @@ def init():
         exists=True, file_okay=True, dir_okay=False, writable=True, readable=True
     ),
     help="File containing the knowledges that are already defined. \
-Multiple files are allowed; new knowledges will be written in the last one.",
-    required=True,
+Multiple files are allowed; new knowledges will be written in the last one. \
+If the option is not specified, all .kl file in the current directory (and subdirectory, \
+recursively) will be taken. If there are multiple files, exactly one of them must end \
+with `default.kl`.",
+    required=False,
 )
 @click.option(
     "--diagnose",
     "-d",
     "dg_filename",
     type=click.Path(exists=True, file_okay=True, dir_okay=False, readable=True),
-    help="Diagnose file produced by LaTeX.",
-    required=True,
+    help="Diagnose file produced by LaTeX. If the option is not specified, the unique \
+.diagnose file in the current directory (and subdirectory, recursively) is taken instead.",
+    required=False,
 )
 @click.option(
     "--lang",
@@ -97,9 +112,17 @@ def cluster(
     """
     Defines, as a comment and in the knowledge files, all the knowledges occuring in the file.
     """
-    clustering.app(list(kl_filename), dg_filename, scope, lang, config_filename)
-    if not noupdate:
-        check_update()
+    try:
+        if not dg_filename:
+            dg_filename = autofinder.get_unique_diagnose_file(Path("."))
+        kl_filename = list(kl_filename)
+        if not kl_filename:
+            kl_filename = autofinder.get_knowledge_files(Path("."))
+        clustering.app(kl_filename, dg_filename, scope, lang, config_filename)
+        if not noupdate:
+            check_update()
+    except (autofinder.NoFile, autofinder.TooManyFiles) as e:
+        print(print_red("\n[error] ") + e.args[0])
 
 
 @cli.command()
