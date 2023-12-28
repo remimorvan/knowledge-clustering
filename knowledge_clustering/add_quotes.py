@@ -54,7 +54,7 @@ def app(
     print_line: int,
     inp: TextIO = sys.stdin,
     out: TextIO = sys.stdout,
-):
+) -> None:
     """
     Finds knowledges defined in the knowledge file that appear in tex file without quote
     symbols. Proposes to add quotes around them.

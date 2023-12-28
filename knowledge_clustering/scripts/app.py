@@ -10,6 +10,7 @@ from click_default_group import DefaultGroup  # type: ignore
 import nltk  # type: ignore
 
 from knowledge_clustering import add_anchor, add_quotes, clustering, cst, _version
+from knowledge_clustering.check_update import check_update
 
 
 @click.group(cls=DefaultGroup, default="cluster", default_if_no_args=True)
@@ -80,6 +81,7 @@ def cluster(
     Defines, as a comment and in the knowledge files, all the knowledges occuring in the file.
     """
     clustering.app(list(kl_filename), dg_filename, scope, lang, config_filename)
+    check_update()
 
 
 @cli.command()
@@ -117,7 +119,8 @@ def addquotes(tex_filename: str, kl_filename: str, print_line: int):
     Finds knowledges defined in the knowledge files that appear in tex file without quote
     symbols. Proposes to add quotes around them.
     """
-    return add_quotes.app(tex_filename, list(kl_filename), print_line)
+    add_quotes.app(tex_filename, list(kl_filename), print_line)
+    check_update()
 
 
 @cli.command()
@@ -143,7 +146,8 @@ def anchor(tex_filename: str, space: int):
     """
     Prints warning when a knowledge is introduced but is not preceded by an anchor point.
     """
-    return add_anchor.app(tex_filename, space)
+    add_anchor.app(tex_filename, space)
+    check_update()
 
 
 if __name__ == "__main__":
