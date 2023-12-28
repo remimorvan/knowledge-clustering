@@ -144,9 +144,12 @@ def cluster(
     type=click.Path(
         exists=True, file_okay=True, dir_okay=False, writable=True, readable=True
     ),
-    help="File containing the knowledges that are already defined. Multiple files are \
-allowed; new knowledges will be written in the last one.",
-    required=True,
+    help="File containing the knowledges that are already defined. \
+Multiple files are allowed; new knowledges will be written in the last one. \
+If the option is not specified, all .kl file in the current directory (and subdirectory, \
+recursively) will be taken. If there are multiple files, exactly one of them must end \
+with `default.kl`.",
+    required=False,
 )
 @click.option(
     "--print",
@@ -168,9 +171,15 @@ def addquotes(tex_filename: str, kl_filename: str, print_line: int, noupdate: bo
     Finds knowledges defined in the knowledge files that appear in tex file without quote
     symbols. Proposes to add quotes around them.
     """
-    add_quotes.app(tex_filename, list(kl_filename), print_line)
-    if not noupdate:
-        check_update()
+    try:
+        kl_filename = list(kl_filename)
+        if not kl_filename:
+            kl_filename = autofinder.get_knowledge_files(Path("."))
+        add_quotes.app(tex_filename, kl_filename, print_line)
+        if not noupdate:
+            check_update()
+    except (autofinder.NoFile, autofinder.TooManyFiles) as e:
+        print(print_red("\n[error] ") + e.args[0])
 
 
 @cli.command()
