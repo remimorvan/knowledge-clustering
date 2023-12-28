@@ -19,7 +19,7 @@ from knowledge_clustering import (
     autofinder,
 )
 from knowledge_clustering.check_update import check_update
-from knowledge_clustering.misc import print_red
+from knowledge_clustering.misc import add_red, add_bold
 
 
 # https://stackoverflow.com/a/67324391/19340201
@@ -122,7 +122,7 @@ def cluster(
         if not noupdate:
             check_update()
     except (autofinder.NoFile, autofinder.TooManyFiles) as e:
-        print(print_red("\n[error] ") + e.args[0])
+        print(add_bold(add_red("\n[Error] ")) + e.args[0])
 
 
 @cli.command()
@@ -179,7 +179,7 @@ def addquotes(tex_filename: str, kl_filename: str, print_line: int, noupdate: bo
         if not noupdate:
             check_update()
     except (autofinder.NoFile, autofinder.TooManyFiles) as e:
-        print(print_red("\n[error] ") + e.args[0])
+        print(add_bold(add_red("\n[Error] ")) + e.args[0])
 
 
 @cli.command()

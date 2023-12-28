@@ -83,14 +83,6 @@ SPACE_CHAR = ["~"]
 
 DISCARD_LINE = "%%%%% NEW KNOWLEDGES "
 
-BEGIN_EMPH: str = "\033[1m\033[95m"
-BEGIN_EMPH_ALT: str = "\033[1m\033[92m"
-BEGIN_EMPH_BOLD: str = "\033[1m"
-BEGIN_RED: str = "\033[31m"
-BEGIN_ORANGE: str = "\033[33m"
-BEGIN_GREEN: str = "\033[32m"
-END_EMPH: str = "\033[0m"
-
 TIMEOUT_REQUEST: float = (
     0.2  # Timeout to resquest the latest version
     # of knowledge-clustering (in seconds)

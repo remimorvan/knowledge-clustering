@@ -7,7 +7,7 @@ from pip._vendor.rich.markup import escape
 from pip._internal.utils.entrypoints import get_best_invocation_for_this_pip
 
 from knowledge_clustering import _version
-from knowledge_clustering.misc import emph_alt, print_red, print_green
+from knowledge_clustering.misc import emph_alt, add_red, add_green
 from knowledge_clustering.cst import TIMEOUT_REQUEST
 
 
@@ -34,15 +34,15 @@ def check_update() -> None:
             "\n"
             + emph_alt("[notice]")
             + " A new release of knowledge-clustering is available: "
-            + print_red(_version.VERSION)
+            + add_red(_version.VERSION)
             + " -> "
-            + print_green(latest_version)
+            + add_green(latest_version)
         )
         msg += (
             "\n"
             + emph_alt("[notice]")
             + " To update, run: "
-            + print_green(
+            + add_green(
                 escape(get_best_invocation_for_this_pip())
                 + " install --upgrade knowledge-clustering"
             )

@@ -7,7 +7,7 @@ import toposort  # Topological sort pylint: disable=import-error
 
 import knowledge_clustering.file_updater as fu
 from knowledge_clustering import cst
-from knowledge_clustering.misc import print_orange
+from knowledge_clustering.misc import add_orange, add_bold
 
 
 class DocInfoTex(NamedTuple):
@@ -322,7 +322,7 @@ def remove_redundant_files(list_filenames: list[str]) -> list[str]:
     for fn in list_filenames:
         if fn in output:
             print(
-                print_orange("[Warning]")
+                add_bold(add_orange("[Warning]"))
                 + f" same knowledge file given twice ({fn}), second occurrence is ignored."
             )
         else:
