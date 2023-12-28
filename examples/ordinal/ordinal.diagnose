@@ -330,7 +330,11 @@
  | scattered@word
  | countable words
  | scattered@word
-
+ | inseparability
+ | semigroup
+ | words
+ | semigroups
+ | countable ordinal word
 
 ****************************
 * autoref-introduced-twice *
