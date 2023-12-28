@@ -7,7 +7,7 @@ from pip._vendor.rich.markup import escape
 from pip._internal.utils.entrypoints import get_best_invocation_for_this_pip
 
 from knowledge_clustering import _version
-from knowledge_clustering.misc import emph_alt, add_red, add_green
+from knowledge_clustering.misc import add_bold, add_red, add_orange, add_green
 from knowledge_clustering.cst import TIMEOUT_REQUEST
 
 
@@ -32,7 +32,7 @@ def check_update() -> None:
     if is_available:
         msg += (
             "\n"
-            + emph_alt("[notice]")
+            + add_bold(add_orange("[notice]"))
             + " A new release of knowledge-clustering is available: "
             + add_red(_version.VERSION)
             + " -> "
@@ -40,7 +40,7 @@ def check_update() -> None:
         )
         msg += (
             "\n"
-            + emph_alt("[notice]")
+            + add_bold(add_orange("[notice]"))
             + " To update, run: "
             + add_green(
                 escape(get_best_invocation_for_this_pip())
