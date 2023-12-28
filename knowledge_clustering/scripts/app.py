@@ -64,6 +64,13 @@ Multiple files are allowed; new knowledges will be written in the last one.",
 the possible meaning of those scope inferred by knowledge-clustering.",
 )
 @click.option(
+    "--no-update/--update",
+    "-N/ ",
+    "noupdate",
+    default=False,
+    help="Don't look on PyPI if a newer version of knowledge-clustering is available.",
+)
+@click.option(
     "--config-file",
     "-c",
     "config_filename",
@@ -74,15 +81,17 @@ in the folder {cst.CONFIG_DIR} corresponding to your language is used.",
 def cluster(
     kl_filename: tuple[str],
     dg_filename: str,
-    scope: bool,
     lang: str,
+    scope: bool,
+    noupdate: bool,
     config_filename: None | str,
 ):
     """
     Defines, as a comment and in the knowledge files, all the knowledges occuring in the file.
     """
     clustering.app(list(kl_filename), dg_filename, scope, lang, config_filename)
-    check_update()
+    if not (noupdate):
+        check_update()
 
 
 @cli.command()
@@ -117,13 +126,20 @@ allowed; new knowledges will be written in the last one.",
     help="When finding a match, number of lines (preceding the match) that are printed \
 in the prompt to the user.",
 )
-def addquotes(tex_filename: str, kl_filename: str, print_line: int):
+@click.option(
+    "--no-update/--update",
+    "-N/ ",
+    "noupdate",
+    default=False,
+)
+def addquotes(tex_filename: str, kl_filename: str, print_line: int, noupdate: bool):
     """
     Finds knowledges defined in the knowledge files that appear in tex file without quote
     symbols. Proposes to add quotes around them.
     """
     add_quotes.app(tex_filename, list(kl_filename), print_line)
-    check_update()
+    if not (noupdate):
+        check_update()
 
 
 @cli.command()
@@ -145,12 +161,19 @@ def addquotes(tex_filename: str, kl_filename: str, print_line: int):
     help="Number of characters tolerated between an anchor point and the introduction \
 of a knowledge. (Default value: 200)",
 )
-def anchor(tex_filename: str, space: int):
+@click.option(
+    "--no-update/--update",
+    "-N/ ",
+    "noupdate",
+    default=False,
+)
+def anchor(tex_filename: str, space: int, noupdate: bool):
     """
     Prints warning when a knowledge is introduced but is not preceded by an anchor point.
     """
     add_anchor.app(tex_filename, space)
-    check_update()
+    if not (noupdate):
+        check_update()
 
 
 if __name__ == "__main__":

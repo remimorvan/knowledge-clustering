@@ -1,6 +1,7 @@
 """Parse a configuration file."""
 
 from __future__ import annotations  # Support of `|` for type union in Python 3.9
+from pathlib import Path
 
 import configparser
 
@@ -17,7 +18,7 @@ class ListConfigParser(configparser.ConfigParser):
     #     return [int(x) for x in self.getlist(section, option)]
 
 
-def parse(filename: str) -> list[str]:
+def parse(filename: Path) -> list[str]:
     """
     Reads a config file and returns the list of words occuring
     under the keyphrase `[DEFAULT] PREFIXES_SIMILAR=`.

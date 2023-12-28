@@ -4,17 +4,18 @@ Constants used throughout knowledge-clustering.
 
 from __future__ import annotations  # Support of `|` for type union in Python 3.9
 
+from pathlib import Path
 from importlib import resources
 
 ALPHA = 0
 
 CONFIG_FILENAME: dict[str, str] = {"en": "english.ini", "fr": "french.ini"}
-ref = resources.files('knowledge_clustering') / 'data'
+ref = resources.files("knowledge_clustering") / "data"
 with resources.as_file(ref) as path:
-    CONFIG_DIR: str = path
-CONFIG_FILE: dict[str, str] = dict()
+    CONFIG_DIR: Path = path
+CONFIG_FILE: dict[str, Path] = dict()
 for lan, filename in CONFIG_FILENAME.items():
-    ref_file =  resources.files('knowledge_clustering') / f"data/{filename}"
+    ref_file = resources.files("knowledge_clustering") / f"data/{filename}"
     with resources.as_file(ref_file) as path_file:
         CONFIG_FILE[lan] = path_file
 NLTK_LANG: dict[str, str] = {"en": "english", "fr": "french"}

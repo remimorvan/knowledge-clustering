@@ -1,5 +1,5 @@
 """
-Checks if there is a newer version of knowledge-clustering available on PyPi.
+Checks if there is a newer version of knowledge-clustering available on PyPI.
 """
 
 import requests

@@ -1,6 +1,7 @@
 """Clustering algorithm."""
 
 from __future__ import annotations  # Support of `|` for type union in Python 3.9
+from pathlib import Path
 
 import copy
 
@@ -14,7 +15,7 @@ def app(
     dg_filename: str,
     scope: bool,
     lang: str,
-    config_filename: None | str,
+    config_filename: None | Path,
 ):
     """
     Defines, as a comment and in the knowledge file, all the knowledges occuring
