@@ -3,7 +3,7 @@ Tests for the modules of knowledge_clustering on which the cluster command is ba
 """
 
 from typing import TypeVar
-import os
+from pathlib import Path
 import filecmp
 import shutil
 
@@ -117,5 +117,6 @@ def test_app_clustering() -> None:
     )
     # Check if knowledge file has good content
     assert filecmp.cmp("tests/ordinal.kl", "tests/.ordinal.kl.solution", shallow=False)
+    p = Path("tests/")
     for filename in ["ordinal.kl", "ordinal.diagnose"]:
-        os.remove(f"tests/{filename}")
+        (p / filename).unlink()

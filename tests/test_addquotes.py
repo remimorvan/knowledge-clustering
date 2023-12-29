@@ -2,7 +2,7 @@
 Tests for the modules of knowledge_clustering on which the addquotes command is based.
 """
 
-import os
+from pathlib import Path
 import shutil
 
 from knowledge_clustering.add_quotes import app as app_addquotes
@@ -20,8 +20,7 @@ def test_app_addquotes() -> None:
     with open("tests/output_addquotes.txt", "r", encoding="utf-8") as out:
         nb_line_output = sum(1 for _ in out)
     b: bool = nb_line_output == 7
-    os.remove("tests/yes.txt")
-    os.remove("tests/ordinal.tex")
-    os.remove("tests/ordinal.kl")
-    os.remove("tests/output_addquotes.txt")
+    p = Path("tests/")
+    for filename in ["yes.txt", "ordinal.tex", "ordinal.kl", "output_addquotes.txt"]:
+        (p / filename).unlink()
     assert b
