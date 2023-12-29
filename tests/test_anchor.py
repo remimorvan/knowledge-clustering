@@ -13,7 +13,9 @@ def test_app_anchor() -> None:
     shutil.copy("tests/.ordinal.tex.original", "tests/ordinal.tex")
     with open("tests/output_anchor.txt", "w", encoding="utf-8") as out:
         app_anchor("tests/ordinal.tex", 200, out)
-    nb_line_output = sum(1 for line in open("tests/output_anchor.txt", encoding="utf-8"))
+    nb_line_output = sum(
+        1 for line in open("tests/output_anchor.txt", encoding="utf-8")
+    )
     b1: bool = nb_line_output == 3
     with open("tests/output_anchor.txt", "w", encoding="utf-8") as out:
         app_anchor("tests/ordinal.tex", 5, out)

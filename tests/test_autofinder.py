@@ -17,7 +17,7 @@ def test_autofinder() -> None:
     from the module autofinder."""
     p = Path("tests/testaf/")
     p.mkdir()
-    test_results = [False]*6
+    test_results = [False] * 6
     # 0th test with 1 diagnose file and 3 .kl with a unique default file (OK)
     (p / "subdir1").mkdir()
     (p / "subdir2").mkdir()
@@ -37,7 +37,11 @@ def test_autofinder() -> None:
     try:
         dg_file = get_unique_diagnose_file(p)
         kl_files = get_knowledge_files(p)
-        if (str(dg_file) == "tests/testaf/subdir1/coolproject.diagnose" and len(kl_files) == 3 and str(kl_files[2]) == "tests/testaf/subdir2/main-default.kl"):
+        if (
+            str(dg_file) == "tests/testaf/subdir1/coolproject.diagnose"
+            and len(kl_files) == 3
+            and str(kl_files[2]) == "tests/testaf/subdir2/main-default.kl"
+        ):
             test_results[0] = True
     except (NoFile, TooManyFiles):
         pass
