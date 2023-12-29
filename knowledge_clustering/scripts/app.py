@@ -6,6 +6,7 @@ from __future__ import annotations  # Support of `|` for type union in Python 3.
 from pathlib import Path
 
 import os
+import sys
 import click
 from click_default_group import DefaultGroup  # type: ignore
 import nltk  # type: ignore
@@ -43,8 +44,8 @@ def init():
     """Downloads the required NLTK packages."""
     nltk.download("punkt")
     nltk.download("averaged_perceptron_tagger")
-    os.system("python3 -m spacy download en_core_web_sm")
-    os.system("python3 -m spacy download fr_core_news_sm")
+    os.system(sys.executable + " -m spacy download en_core_web_sm")
+    os.system(sys.executable + " -m spacy download fr_core_news_sm")
 
 
 @cli.command()

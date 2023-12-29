@@ -7,9 +7,10 @@ and a prompt is offered using click.
 
 from __future__ import annotations  # Support of `|` for type union in Python 3.9
 
+from pathlib import Path
+
 import hashlib
 import tempfile
-import os
 import click
 
 
@@ -36,14 +37,15 @@ class AtomicUpdate:
     def __init__(self, filename: str, original_hash=None):
         self.filename: str = filename
         self.hash = hash_file(filename)
-        self.ctx = tempfile.NamedTemporaryFile(mode="w", dir=os.getcwd(), delete=False)
+        self.ctx = tempfile.NamedTemporaryFile(mode="w", dir=Path.cwd(), delete=False)
         self.tmp = None
         if (
             original_hash is not None
             and original_hash.hexdigest() != self.hash.hexdigest()
         ):
             click.confirm(
-                f"File {self.filename} has been modified during the run of the program, erase anyway?",
+                f"File {self.filename} has been modified during the run of the program, \
+erase anyway?",
                 default=None,
                 abort=True,
                 prompt_suffix=": ",
@@ -73,5 +75,5 @@ class AtomicUpdate:
                 if confirm is False:
                     print(f"Temporary file accessible at {self.tmp.name}")
                     return self.ctx.__exit__(typ, value, traceback)
-            os.replace(self.tmp.name, self.filename)
+            _ = Path(self.tmp.name).replace(self.filename)
         return self.ctx.__exit__(typ, value, traceback)
