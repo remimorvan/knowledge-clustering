@@ -84,6 +84,6 @@ SPACE_CHAR = ["~"]
 DISCARD_LINE = "%%%%% NEW KNOWLEDGES "
 
 TIMEOUT_REQUEST: float = (
-    0.2  # Timeout to resquest the latest version
+    0.25  # Timeout to resquest the latest version
     # of knowledge-clustering (in seconds)
 )

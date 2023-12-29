@@ -91,8 +91,8 @@ def test_scope_meaning() -> None:
 
 def test_clustering() -> None:
     """Tests functions from the clustering module."""
-    kls = Knowledges("examples/ordinal.kl")
-    unknown_kl = parse_diagnose("examples/ordinal.diagnose")
+    kls = Knowledges("tests/.ordinal.kl.original")
+    unknown_kl = parse_diagnose("tests/.ordinal.diagnose.original")
     list_prefixes = parse_config("knowledge_clustering/data/english.ini")
     scopes_meaning = infer_all_scopes(kls.get_all_bags(), "english")
     clustering(kls, unknown_kl, 0, list_prefixes, scopes_meaning, "english")
