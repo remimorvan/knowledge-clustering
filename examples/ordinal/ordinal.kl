@@ -8,6 +8,8 @@
 %  | \FO -separable
 %  | \FO -separated
 %  | separable
+%  | inseparability
+%  | \FO -inseparability
 %
 %\knowledge{notion}
 %  | \FO -formula
@@ -263,9 +265,6 @@
 %
 %\knowledge{notion}
 %  | \FOk -equivalent
-%
-%\knowledge{notion}
-%  | \FO -inseparability
 %
 %\knowledge{notion}
 %  | ordinal monoids with merge
