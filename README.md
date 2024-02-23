@@ -2,9 +2,8 @@
 
 [![PyPI](https://img.shields.io/pypi/v/knowledge-clustering.svg)](https://pypi.python.org/pypi/knowledge-clustering)
 
-Clustering notions for the [knowledge LaTeX package](https://ctan.org/pkg/knowledge).
-Maintained by Rémi Morvan, Thomas Colcombet and Aliaume Lopez.
-A tutorial on how to use `knowledge-clustering` can be found [here](https://github.com/remimorvan/knowledge-examples).
+Command-line tool to help with the use of the [knowledge LaTeX package](https://ctan.org/pkg/knowledge).
+A tutorial on how to use both `knowledge` and `knowledge-clustering` can be found [here](https://github.com/remimorvan/knowledge-examples).
 
 ## Principle
 
@@ -44,53 +43,69 @@ Usage: knowledge cluster [OPTIONS]
   occuring in the file.
 
 Options:
-  -k, --knowledge FILE      File containing the knowledges that are already
-                            defined. Multiple files are allowed; new
-                            knowledges will be written in the last one.
-                            [required]
-  -d, --diagnose FILE       Diagnose file produced by LaTeX.  [required]
-  -l, --lang [en|fr]        Language of your TeX document.
-  -S, --scope / --no-scope  Print the scopes defined in the knowledge file and
-                            print the possible meaning of those scope inferred
-                            by knowledge-clustering.
-  -c, --config-file TEXT    Specify the configuration file. By default the
-                            configuration file in the folder
-                            <knowledge-clustering-installation-folder>/data corresponding
-                            to your language is used.
-  --help                    Show this message and exit.
+  -k, --knowledge FILE        File containing the knowledges that are already
+                              defined. Multiple files are allowed; new
+                              knowledges will be written in the last one. If
+                              the option is not specified, all .kl file in the
+                              current directory (and subdirectory,
+                              recursively) will be taken. If there are
+                              multiple files, exactly one of them must end
+                              with `default.kl`.
+  -d, --diagnose FILE         Diagnose file produced by LaTeX. If the option
+                              is not specified, the unique .diagnose file in
+                              the current directory (and subdirectory,
+                              recursively) is taken instead.
+  -l, --lang [en|fr]          Language of your TeX document.
+  -S, --scope / --no-scope    Print the scopes defined in the knowledge file
+                              and print the possible meaning of those scope
+                              inferred by knowledge-clustering.
+  -N, --no-update / --update  Don't look on PyPI if a newer version of
+                              knowledge-clustering is available.
+  -c, --config-file TEXT      Specify the configuration file. By default the
+                              configuration file in the folder
+                              /Users/rmorvan/knowledge-
+                              clustering/knowledge_clustering/data
+                              corresponding to your language is used.
+  --help                      Show this message and exit.
 ```
 
 ### Example
 
 Example files can be found in the `examples/` folder.
 
-While writing some document, you have defined some knowledges in a file called `ordinal.kl` (distinct
+While writing some document, you have defined some knowledges in a file called `preservation.kl` (distinct
 from your main `LaTeX`).
 You continued writing your `LaTeX` document (not provided in the `examples/` folder)
 for some time, and used some knowledges that were undefined.
 When compiling, `LaTeX` and the [`knowledge package`](https://ctan.org/pkg/knowledge) gives you a warning
 and writes in a `.diagnose` file some information explaining what went wrong. This `.diagnose` file contains
 a section called "Undefined knowledges" containing all knowledges used in your main `LaTeX` file but not
-defined in `ordinal.kl`. We reproduced this section
-in the `ordinal.diagnose` file.
+defined in `preservation.kl`. We reproduced this section
+in the `preservation.diagnose` file.
 
-![Screenshot of the `ordinal.kl` and `ordinal.diagnose` files before running knowledge-clustering. `ordinal.kl` contains four knowledges, while `ordinal.diagnose` contains five undefined knowledges.](img/small-before.png "Files `ordinal.kl` and `ordinal.diagnose` before running knowledge-clustering")
+![Screenshot of the `preservation.kl` and `preservation.diagnose` files before running knowledge-clustering. `preservation.kl` contains three knowledges, while `preservation.diagnose` contains five undefined knowledges.](img/preservation-before.png "Files `preservation.kl` and `preservation.diagnose` before running knowledge-clustering")
 
 Normally, you would add every undefined knowledge, one after the other, in your
-`oridnal.kl`. This is quite burdensome and can
+`preservation.kl`. This is quite burdensome and can
 largely be automated. This is precisely what `knowledge-clustering` does: after running
 
-    knowledge cluster -k ordinal.kl -d ordinal.diagnose
+    knowledge cluster -k preservation.kl -d preservation.diagnose
 
-your file `ordinal.diagnose` is left unchanged
-but `ordinal.kl` is updated with comments.
+your file `preservation.diagnose` is left unchanged
+but `preservation.kl` is updated with comments.
 
-The `cluster` command is optional: you can also write `knowledge -k ordinal.kl -d ordinal.diagnose`.
+The `cluster` command is optional: you can also write `knowledge -k preservation.kl -d preservation.diagnose`.
 
-![After running knowledge-clustering, the five undefined knowledges are included in the `ordinal.kl` file as comments.](img/small-after.png "Files `ordinal.kl` and `ordinal.diagnose` after running knowledge-clustering`")
+![After running knowledge-clustering, the five undefined knowledges are included in the `preservation.kl` file as comments.](img/preservation-after.png "Files `preservation.kl` and `preservation.diagnose` after running knowledge-clustering`")
 
 Now you simply have to check that the recommendations of `knowledge-clustering` are
 correct, and uncomment those lines.
+
+### Autofinder
+
+If the current directory (and its recursive subdirectories) contains
+a unique `.diagnose` file and a unique `.kl` file,
+you can simply write `knowledge cluster` (or `knowledge`): the files will be automatically found.
 
 ### Multiple knowledge files
 
@@ -103,7 +118,14 @@ Synonyms of knowledges defined in `1.kl` (resp. `2.kl`) will be defined, as comm
 in `1.kl` (resp. `2.kl`). New knowledges will always be added, as comments, to the last
 file, which is `2.kl` in the example.
 
+You can also use the autofinder in this case, using `knowledge cluster`
+or `knowledge`: if multiple `.kl` files are present in the current directory (and
+its recursive subdirectories), exactly one of them must end with `default.kl`—this is
+where new knowledges will be put.
+
 ## Adding quotes
+
+/!\ This feature is somewhat experimental.
 
 ```
 Usage: knowledge addquotes [OPTIONS]
@@ -112,13 +134,20 @@ Usage: knowledge addquotes [OPTIONS]
   without quote symbols. Proposes to add quotes around them.
 
 Options:
-  -t, --tex FILE        Your TeX file.  [required]
-  -k, --knowledge FILE  File containing the knowledges that are already
-                        defined. Multiple files are allowed; new knowledges
-                        will be written in the last one.  [required]
-  -p, --print INTEGER   When finding a match, number of lines (preceding the
-                        match) that are printed in the prompt to the user.
-  --help                Show this message and exit.
+  -t, --tex FILE              Your TeX file.  [required]
+  -k, --knowledge FILE        File containing the knowledges that are already
+                              defined. Multiple files are allowed; new
+                              knowledges will be written in the last one. If
+                              the option is not specified, all .kl file in the
+                              current directory (and subdirectory,
+                              recursively) will be taken. If there are
+                              multiple files, exactly one of them must end
+                              with `default.kl`.
+  -p, --print INTEGER         When finding a match, number of lines (preceding
+                              the match) that are printed in the prompt to the
+                              user.
+  -N, --no-update / --update
+  --help                      Show this message and exit.
 ```
 
 After running 
@@ -145,11 +174,12 @@ Usage: knowledge anchor [OPTIONS]
   anchor point.
 
 Options:
-  -t, --tex FILE       Your TeX file.  [required]
-  -s, --space INTEGER  Number of characters tolerated between an anchor point
-                       and the introduction of a knowledge. (Default value:
-                       150)
-  --help               Show this message and exit.
+  -t, --tex FILE              Your TeX file.  [required]
+  -s, --space INTEGER         Number of characters tolerated between an anchor
+                              point and the introduction of a knowledge.
+                              (Default value: 200)
+  -N, --no-update / --update
+  --help                      Show this message and exit.
 ```
 
 When one runs
