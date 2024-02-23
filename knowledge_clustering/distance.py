@@ -81,7 +81,7 @@ def normalise_notion(notion: str) -> str:
         if len(sp) <= 1:
             break
         notion_norm = sp[0] + sp[2]
-    for remove_char in cst.LATEX_ACCENTS:
+    for remove_char in cst.IGNORE_CHAR_BACKSLASH:
         while remove_char in notion_norm:
             # If the notion contains remove_char, remove it.
             sp = notion_norm.split(remove_char, 1)
@@ -95,7 +95,7 @@ def normalise_notion(notion: str) -> str:
         while i < len(suff) and suff[i].isalpha():
             i += 1
         notion_norm = pref + suff[i:]
-    for remove_char in cst.IGNORE_CHAR:
+    for remove_char in cst.IGNORE_CHAR_NO_BACKSLASH:
         while remove_char in notion_norm:
             # If the notion contains remove_char, remove it.
             sp = notion_norm.split(remove_char, 1)

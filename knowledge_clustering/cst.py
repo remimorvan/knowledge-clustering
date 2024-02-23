@@ -69,7 +69,8 @@ IMPORTANT_POS = [
 ]
 IGNORE_SUFFIXES = ["", "s"]
 INFINITY = 10000
-LATEX_ACCENTS = [
+IGNORE_CHAR_BACKSLASH = [
+    # LaTeX accents defined using non-alphanumerical commands
     "\\`",
     "\\'",
     "\\^",
@@ -77,8 +78,9 @@ LATEX_ACCENTS = [
     "\\~",
     "\\=",
     "\\.",
-]  # LaTeX accents defined using non-alphanumerical commands
-IGNORE_CHAR = ["\\-", "{", "}"]
+    "\\-",  # Hyphen
+]
+IGNORE_CHAR_NO_BACKSLASH = ["{", "}"]
 SPACE_CHAR = ["~"]
 
 DISCARD_LINE = "%%%%% NEW KNOWLEDGES "
