@@ -22,7 +22,7 @@ should be used when your document is (nearly) ready to be published, to check if
 
 To install (or upgrade) `knowledge-clustering`, you need to have Python 3.9 (or a more recent version), and then run
 
-    pip3 install --upgrade knowledge-clustering
+    python3 -m pip install --upgrade knowledge-clustering
 
 and then
 
@@ -195,7 +195,7 @@ TeX document).
 
 ## Devel using virtualenv
 
-Using `venv` and the `--editable` option from `pip3` allows for an easy
+Using `venv` and the `--editable` option from `pip` allows for an easy
 setup of a development environment that will match a future user install without
 the hassle.
 
@@ -204,7 +204,7 @@ For bash and Zsh users
 ```bash
 python3 -m venv kl.venv
 source ./kl.venv/bin/activate
-pip3 install --editable .
+python3 -m pip install --editable .
 ```
 
 For fish users
@@ -212,7 +212,7 @@ For fish users
 ```fish
 python3 -m venv kl.venv
 source ./kl.venv/bin/activate.fish
-pip3 install --editable .
+python3 -m pip install --editable .
 ```
 
 ## FAQ
@@ -242,6 +242,6 @@ pip3 install --editable .
   This can happen if you have multiple versions of `python` (and multiple versions
   of `knowledge-clustering`).
   > Type `where python3`, and uninstall `knowledge-clustering`
-  from everywhere (using `<path>/python3 -m pip uninstall knowledge-clustering`)
-  except your main version of python. Try to then upgrade `knowledge-clustering`
-  by running `pip3 install --upgrade knowledge-clustering`.
+  from everywhere (using `<path>/python3 -m pip uninstall knowledge-clustering`).
+  Try to then reinstall `knowledge-clustering`
+  by running `python3 -m pip install --upgrade knowledge-clustering`.

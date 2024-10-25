@@ -3,8 +3,6 @@ Checks if there is a newer version of knowledge-clustering available on PyPI.
 """
 
 import requests
-from pip._vendor.rich.markup import escape
-from pip._internal.utils.entrypoints import get_best_invocation_for_this_pip
 
 from knowledge_clustering import _version
 from knowledge_clustering.misc import add_bold, add_red, add_orange, add_green
@@ -43,8 +41,7 @@ def check_update() -> None:
             + add_bold(add_orange("[notice]"))
             + " To update, run: "
             + add_green(
-                escape(get_best_invocation_for_this_pip())
-                + " install --upgrade knowledge-clustering"
+                "python3 -m pip install --upgrade knowledge-clustering"
             )
         )
     print(msg)
