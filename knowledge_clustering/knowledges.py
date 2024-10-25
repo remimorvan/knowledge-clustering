@@ -301,7 +301,6 @@ class KnowledgesList:
         dependency: dict[str, set[str]] = {}
         dependency_reversed: dict[str, set[str]] = {}
         for s1 in self.get_all_knowledges():
-            print("knowledge:", s1)
             dependency[s1] = {
                 s2 for s2 in self.get_all_knowledges() if s2 in s1 and s1 != s2
             }
