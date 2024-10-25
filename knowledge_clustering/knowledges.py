@@ -94,13 +94,13 @@ class Knowledges:
                     current_kl_strs = []
 
             def line_is_discard(line):
-                return line == cst.DISCARD_LINE
+                return line.strip() == cst.DISCARD_LINE
 
             def line_is_comment(line):
-                return line.startswith("%")
+                return line.strip().startswith("%")
 
             def line_is_knowledge(line):
-                return line.startswith("\\knowledge{")
+                return line.strip().startswith("\\knowledge{")
 
             def bar_knowledge_from_line(line):
                 line = line.strip()
@@ -301,6 +301,7 @@ class KnowledgesList:
         dependency: dict[str, set[str]] = {}
         dependency_reversed: dict[str, set[str]] = {}
         for s1 in self.get_all_knowledges():
+            print("knowledge:", s1)
             dependency[s1] = {
                 s2 for s2 in self.get_all_knowledges() if s2 in s1 and s1 != s2
             }
