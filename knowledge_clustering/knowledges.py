@@ -192,7 +192,7 @@ class Knowledges:
             if kl2 in bag:
                 self.bags[b_id].append(kl1)
                 return
-        print(f"Error: {kl2} is not a knowledge.")
+        raise Exception(f"Error: {kl2} is not a knowledge.")
 
     def was_changed(self) -> bool:
         """
@@ -212,11 +212,11 @@ class Knowledges:
         with fu.AtomicUpdate(self.filename, original_hash=self.original_hash) as file:
             for b in self.document:
                 if isinstance(b, DocInfoTex):
-                    for l in b.lines:
-                        file.write(l + "\n")
+                    for line in b.lines:
+                        file.write(line + "\n")
                 elif isinstance(b, DocInfoKnowledge):
-                    for l in b.lines:
-                        file.write(l + "\n")
+                    for line in b.lines:
+                        file.write(line + "\n")
                     if b.number < self.nb_known_bags:
                         for kl in self.get_new_knowledges_in_bag(b.number):
                             file.write((f" | {kl}\n" if nocomment else f"%  | {kl}\n"))
@@ -231,34 +231,35 @@ class Knowledges:
 
 
 class KnowledgesList:
-    def __init__(self, kls_list: list[str]):
+    def __init__(self, kls_filenames: list[str]):
         """
         Reads a list of knowledge files.
 
         Args:
             kls_list: the list of filenames containing knowledges.
         """
-        self.nb_file: int = len(kls_list)
-        self.kls_list: list[Knowledges] = [
-            Knowledges(filename) for filename in kls_list
-        ]
+        self.nb_file: int = len(kls_filenames)
+        self.kls_list: dict[str, Knowledges] = {
+            fn: Knowledges(fn) for fn in kls_filenames
+        }
+        self.default_fn: str = kls_filenames[self.nb_file - 1]
         self.compute_dependency_graph()
 
     def get_all_kls_struct(self) -> list[Knowledges]:
         """Returns the list of all knowledge structures"""
-        return self.kls_list
+        return list(self.kls_list.values())
 
     def default_kls(self) -> Knowledges:
         """Returns the default kls."""
-        return self.kls_list[self.nb_file - 1]
+        return self.kls_list[self.default_fn]
 
     def get_all_bags(self) -> list[list[str]]:
         """Returns all bags as a list of lists of strings."""
-        return flat([kls.get_all_bags() for kls in self.kls_list])
+        return flat([kls.get_all_bags() for kls in self.kls_list.values()])
 
     def get_all_knowledges(self) -> list[str]:
         """Returns all knowledges, as a list of strings."""
-        return flat([kls.get_all_knowledges() for kls in self.kls_list])
+        return flat([kls.get_all_knowledges() for kls in self.kls_list.values()])
 
     def get_sorted_knowledges(self) -> list[str]:
         """Returns all knowledges, sorted by topological sort."""
@@ -273,24 +274,36 @@ class KnowledgesList:
         Defines a new knowledge (string) `kl1` as a new synonym of the already
         existing knowledge (string) `kl2`.
         """
-        for kls in self.kls_list:
+        for kls in self.kls_list.values():
             for b_id, bag in enumerate(kls.bags):
                 if kl2 in bag:
                     kls.bags[b_id].append(kl1)
                     return
-        print(f"Error: {kl2} is not a knowledge.")
+        raise Exception(f"Error: {kl2} is not a knowledge.")
 
     def write_knowledges_in_file(self, nocomment: bool = False) -> None:
         """
         Writes the new synonyms and new knowledges in the file containing the knowledges.
         """
-        for kls in self.kls_list:
+        for kls in self.kls_list.values():
             kls.write_knowledges_in_file(nocomment)
 
     def get_new_bags(self) -> list[list[str]]:
-        """Returns all bags that were not added since the last checkpoint,
+        """Returns all bags that were added since the last checkpoint,
         as a list of lists of strings."""
         return self.default_kls().get_new_bags()
+
+    def get_new_knowledges_in_file(self, fn: str) -> list[str]:
+        """Returns all new knowledges that were added in some file since the last
+        checkpoint, as a list of strings."""
+        if fn not in self.kls_list:
+            raise Exception(f"No knowledge file named {fn}.")
+        return flat(
+            [
+                self.kls_list[fn].get_new_knowledges_in_bag(bag_id)
+                for bag_id in range(len(self.kls_list[fn].get_all_bags()))
+            ]
+        )
 
     def compute_dependency_graph(self) -> None:
         """

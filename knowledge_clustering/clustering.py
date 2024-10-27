@@ -14,6 +14,7 @@ def app(
     kl_filename: list[str],
     dg_filename: str,
     scope: bool,
+    print_kl: bool,
     lang: str,
     config_filename: None | Path,
 ):
@@ -53,7 +54,7 @@ def app(
         scopes_meaning,
         cst.NLTK_LANG[lang],
     )
-    msg = (
+    print(
         f"Found a solution by adding {len(kls.get_new_bags())} new bag"
         + ("s" if len(kls.get_new_bags()) >= 2 else "")
         + ".\n"
@@ -62,12 +63,18 @@ def app(
         kl.filename for kl in kls.get_all_kls_struct() if kl.was_changed()
     ]
     if len(changed_filenames) == 0:
-        msg += "No file was changed."
-    else:
-        msg += "The following files were changed:"
+        msg = "No file was changed."
+    elif not print_kl:
+        msg = "The following files were changed:"
         for i, fn in enumerate(changed_filenames):
             msg += emph(f" {fn}")
             msg += "," if i < len(changed_filenames) - 1 else "."
+    else:
+        msg = ""
+        for i, fn in enumerate(changed_filenames):
+            msg += "Added in file " + emph(f" {fn}") + ":\n"
+            for kl in kls.get_new_knowledges_in_file(fn):
+                msg += f"\t{kl}\n"
     print(msg)
     kls.write_knowledges_in_file()
 

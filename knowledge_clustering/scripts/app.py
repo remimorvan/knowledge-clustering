@@ -88,6 +88,13 @@ with `default.kl`.",
 the possible meaning of those scope inferred by knowledge-clustering.",
 )
 @click.option(
+    "--print/--no-print",
+    "-P/ ",
+    "print_kl",
+    default=False,
+    help="Print all new knowledges.",
+)
+@click.option(
     "--no-update/--update",
     "-N/ ",
     "noupdate",
@@ -107,6 +114,7 @@ def cluster(
     dg_filename: str,
     lang: str,
     scope: bool,
+    print_kl: bool,
     noupdate: bool,
     config_filename: None | str,
 ):
@@ -119,7 +127,7 @@ def cluster(
         kl_filename = list(kl_filename)
         if not kl_filename:
             kl_filename = autofinder.get_knowledge_files(Path("."))
-        clustering.app(kl_filename, dg_filename, scope, lang, config_filename)
+        clustering.app(kl_filename, dg_filename, scope, print_kl, lang, config_filename)
         if not noupdate:
             check_update()
     except (autofinder.NoFile, autofinder.TooManyFiles) as e:
