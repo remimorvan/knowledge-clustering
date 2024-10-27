@@ -59,6 +59,7 @@ Options:
   -S, --scope / --no-scope    Print the scopes defined in the knowledge file
                               and print the possible meaning of those scope
                               inferred by knowledge-clustering.
+  -P, --print / --no-print    Print all new knowledges.
   -N, --no-update / --update  Don't look on PyPI if a newer version of
                               knowledge-clustering is available.
   -c, --config-file TEXT      Specify the configuration file. By default the
