@@ -94,7 +94,7 @@ class Knowledges:
                     current_kl_strs = []
 
             def line_is_discard(line):
-                return line.strip() == cst.DISCARD_LINE
+                return line.strip() == cst.DISCARD_LINE.strip()
 
             def line_is_comment(line):
                 return line.strip().startswith("%")
