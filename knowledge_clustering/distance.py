@@ -8,7 +8,7 @@ import nltk.stem.snowball as nss  # type: ignore
 from unidecode import unidecode
 
 from knowledge_clustering import cst
-
+from knowledge_clustering.misc import emph
 
 # ---
 # Edit distance
@@ -119,15 +119,22 @@ def breakup_notion(notion: str, lang: str) -> tuple[list[str], str]:
 
     """
     kl, scope = extract_scope(normalise_notion(notion))
-    if lang == "english":
-        words_with_POStag = nltk.pos_tag(  # pylint: disable=invalid-name
-            nltk.word_tokenize(kl, language="english")
-        )
-        important_words = {
-            w for (w, pos) in words_with_POStag if pos in cst.IMPORTANT_POS
-        }
-        return (list(important_words), scope)
-    return (list(set(nltk.word_tokenize(kl, language=lang))), scope)
+    try:
+        if lang == "english":
+            words_with_POStag = nltk.pos_tag(  # pylint: disable=invalid-name
+                nltk.word_tokenize(kl, language="english")
+            )
+            important_words = {
+                w for (w, pos) in words_with_POStag if pos in cst.IMPORTANT_POS
+            }
+            return (list(important_words), scope)
+        return (list(set(nltk.word_tokenize(kl, language=lang))), scope)
+    except LookupError:
+        raise LookupError(
+            f"Missing NLTK data. Run `"
+            + emph("knowledge init")
+            + "` before using the cluster command."
+        ) from None
 
 
 # ---
