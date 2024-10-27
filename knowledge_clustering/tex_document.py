@@ -82,7 +82,7 @@ class TexDocument:
                 if state == 0:
                     return (1, " ", counter)
                 return (state, "", None)
-            raise Exception("Transition not defined", state, letter)
+            raise KeyError("Transition not defined", state, letter)
 
         state: int = 0
         tex_cleaned: str = ""
@@ -137,4 +137,4 @@ class TexDocument:
                 else:
                     print(f"l{i+1}: \t{self.lines[i]}", file=out)
         else:
-            raise Exception("Undefined pointer", self.pointer, (start, end))
+            raise IndexError("Undefined pointer", self.pointer, (start, end))

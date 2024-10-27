@@ -61,4 +61,4 @@ def missing_anchor(tex_doc: TexDocument, space: int, out: TextIO) -> None:
                 message: str = f"Missing anchor point at line {tex_doc.find_line[start_pt]} (knowledge: {misc.emph(tex_doc.tex_cleaned[i2:i3])})."
                 print(message, file=out)
             else:
-                raise Exception("Undefined pointer", tex_doc.pointer, i1)
+                raise IndexError("Undefined pointer", tex_doc.pointer, i1)
