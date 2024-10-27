@@ -192,7 +192,7 @@ class Knowledges:
             if kl2 in bag:
                 self.bags[b_id].append(kl1)
                 return
-        raise Exception(f"Error: {kl2} is not a knowledge.")
+        raise KeyError(f"Error: {kl2} is not a knowledge.")
 
     def was_changed(self) -> bool:
         """
@@ -279,7 +279,7 @@ class KnowledgesList:
                 if kl2 in bag:
                     kls.bags[b_id].append(kl1)
                     return
-        raise Exception(f"Error: {kl2} is not a knowledge.")
+        raise KeyError(f"Error: {kl2} is not a knowledge.")
 
     def write_knowledges_in_file(self, nocomment: bool = False) -> None:
         """
@@ -297,7 +297,7 @@ class KnowledgesList:
         """Returns all new knowledges that were added in some file since the last
         checkpoint, as a list of strings."""
         if fn not in self.kls_list:
-            raise Exception(f"No knowledge file named {fn}.")
+            raise KeyError(f"No knowledge file named {fn}.")
         return flat(
             [
                 self.kls_list[fn].get_new_knowledges_in_bag(bag_id)
