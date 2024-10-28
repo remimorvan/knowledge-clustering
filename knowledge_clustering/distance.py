@@ -129,12 +129,12 @@ def breakup_notion(notion: str, lang: str) -> tuple[list[str], str]:
             }
             return (list(important_words), scope)
         return (list(set(nltk.word_tokenize(kl, language=lang))), scope)
-    except LookupError:
+    except LookupError as e:
         raise LookupError(
             f"Missing NLTK data. Run `"
             + emph("knowledge init")
             + "` before using the cluster command."
-        ) from None
+        ) from e
 
 
 # ---
