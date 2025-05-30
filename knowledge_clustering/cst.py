@@ -81,7 +81,7 @@ IGNORE_CHAR_BACKSLASH = [
     "\\-",  # Hyphen
 ]
 IGNORE_CHAR_NO_BACKSLASH = ["{", "}"]
-SPACE_CHAR = ["~"]
+SPACE_CHAR = ["~", "\\\\"]
 
 DISCARD_LINE = "%%%%% NEW KNOWLEDGES "
 

@@ -7,7 +7,7 @@ from pathlib import Path
 import filecmp
 import shutil
 
-from knowledge_clustering.distance import distance, new_stemmer
+from knowledge_clustering.distance import distance, new_stemmer, normalise_notion
 from knowledge_clustering.scope_meaning import infer_scope, infer_all_scopes
 from knowledge_clustering.clustering import clustering
 from knowledge_clustering.knowledges import Knowledges
@@ -17,9 +17,11 @@ from knowledge_clustering.clustering import app as app_clustering
 
 T = TypeVar("T")  # Generic type
 
-
+def test_normalise() -> None:
+    assert normalise_notion("two-way\\\\rational~relation") == "two-way rational relation"
 def test_distance() -> None:
     """Test functions from the the distance module."""
+    assert distance("", "", [""], {}, "english") == 0
     # Tests where only the empty word is allowed as a prefix. No prior scope meaning is known.
     assert distance("ordinal semigroup", "ordinal semigroups", [""], {}, "english") == 0
     assert distance("cheval", "chevaux", [""], {}, "french") == 0
@@ -44,6 +46,11 @@ def test_distance() -> None:
         == 0
     )
     assert distance("word@ord", "ordinal word", [""], {}, "english") > 0
+    # Test with space
+    assert distance("foo~bar", "foo bar", [""], {}, "english") == 0
+    assert distance("foo\\\\bar", "foo bar", [""], {}, "english") == 0
+    assert distance("foo\\\\ bar", "foo bar", [""], {}, "english") == 0
+    assert distance("two-way\\\\rational@rel", "two-way rational@rel", [""], {}, "english") == 0
 
 
 def compare(l1: list[list[T]], l2: list[list[T]]) -> bool:

@@ -86,6 +86,11 @@ def normalise_notion(notion: str) -> str:
             # If the notion contains remove_char, remove it.
             sp = notion_norm.split(remove_char, 1)
             notion_norm = sp[0] + sp[1]
+    for space_char in cst.SPACE_CHAR:
+        while space_char in notion_norm:
+            # If the notion contains remove_char, replace it with a space.
+            sp = notion_norm.split(space_char, 1)
+            notion_norm = sp[0] + " " + sp[1]
     while "\\" in notion_norm:
         # If the notion contains a backslash, remove every letter following the backslash
         # see https://tex.stackexchange.com/a/34381/206008 for naming conventions of TeX commands
@@ -100,11 +105,6 @@ def normalise_notion(notion: str) -> str:
             # If the notion contains remove_char, remove it.
             sp = notion_norm.split(remove_char, 1)
             notion_norm = sp[0] + sp[1]
-    for space_char in cst.SPACE_CHAR:
-        while space_char in notion_norm:
-            # If the notion contains remove_char, replace it with a space.
-            sp = notion_norm.split(space_char, 1)
-            notion_norm = sp[0] + " " + sp[1]
     return unidecode(notion_norm)  # Ascii-fy (in particular, remove accents) the result
 
 
@@ -236,8 +236,11 @@ def distance(
     stemmer = new_stemmer(lang)
     if sc1 != "" and sc2 != "" and sc1 != sc2:
         return cst.INFINITY
+    if len(kl1_words) == 0 and len(kl2_words) == 0:
+        # Can happen if the notion is a command
+        return 0
     if len(kl1_words) == 0 or len(kl2_words) == 0:
-        # Can happen in the notion is a command
+        # Can happen if the notion is a command
         return cst.INFINITY
     if sc1 == sc2:
         return distance_sets_of_words(kl1_words, kl2_words, list_prefixes, stemmer)
