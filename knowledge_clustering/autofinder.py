@@ -32,7 +32,7 @@ def get_unique_diagnose_file(dr: Path) -> Path:
     if len(dg_files) > 1:
         raise TooManyFiles(
             f"Multiple .diagnose files present in the directory: \
-f{dg_files[0]} and {dg_files[1]}."
+{dg_files[0]} and {dg_files[1]}."
         )
     return dg_files[0]
 
@@ -57,7 +57,7 @@ def get_knowledge_files(dr: Path) -> list[Path]:
     if len(list_default) > 1:
         raise TooManyFiles(
             f"Multiple files ending with `default.kl` present in the directory: \
-f{kl_files[list_default[0]]} and {kl_files[list_default[1]]}."
+{kl_files[list_default[0]]} and {kl_files[list_default[1]]}."
         )
     idx_default = list_default[0]
     idx_last = len(kl_files) - 1
