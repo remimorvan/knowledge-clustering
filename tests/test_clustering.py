@@ -19,6 +19,7 @@ T = TypeVar("T")  # Generic type
 
 def test_normalise() -> None:
     assert normalise_notion("two-way\\\\rational~relation") == "two-way rational relation"
+
 def test_distance() -> None:
     """Test functions from the the distance module."""
     assert distance("", "", [""], {}, "english") == 0
@@ -46,7 +47,9 @@ def test_distance() -> None:
         == 0
     )
     assert distance("word@ord", "ordinal word", [""], {}, "english") > 0
-    # Test with space
+    # Tests with scope (should be case-insensitive)
+    assert distance("foo@BaR", "foo@bar", [""], {}, "english") == 0
+    # Tests with space
     assert distance("foo~bar", "foo bar", [""], {}, "english") == 0
     assert distance("foo\\\\bar", "foo bar", [""], {}, "english") == 0
     assert distance("foo\\\\ bar", "foo bar", [""], {}, "english") == 0
