@@ -75,7 +75,7 @@ def normalise_notion(notion: str) -> str:
     Returns the substring of a notion obtained by removing math, commands, accents
     and non-brekable spaces.
     """
-    notion_norm = notion.lower() # to lowercase
+    notion_norm = notion.lower()  # to lowercase
     while "$" in notion_norm:
         sp = notion_norm.split("$", 2)
         if len(sp) <= 1:
