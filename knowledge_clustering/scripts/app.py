@@ -43,9 +43,9 @@ def cli():
 def init():
     """Downloads the required NLTK packages."""
     nltk.download("punkt")
+    nltk.download("punkt_tab")
     nltk.download("averaged_perceptron_tagger")
-    os.system(sys.executable + " -m spacy download en_core_web_sm")
-    os.system(sys.executable + " -m spacy download fr_core_news_sm")
+    nltk.download("averaged_perceptron_tagger_eng")
 
 
 @cli.command()
