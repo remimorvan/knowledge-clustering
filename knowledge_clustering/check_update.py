@@ -40,6 +40,6 @@ def check_update() -> None:
             "\n"
             + add_bold(add_orange("[notice]"))
             + " To update, run: "
-            + add_green("python3 -m pip install --upgrade knowledge-clustering")
+            + add_green("pipx upgrade knowledge-clustering")
         )
     print(msg)

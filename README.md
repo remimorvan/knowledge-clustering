@@ -20,17 +20,23 @@ should be used when your document is (nearly) ready to be published, to check if
 
 ## Installation
 
-To install (or upgrade) `knowledge-clustering`, you need to have Python 3.9 (or a more recent version), and then run
+To **install** `knowledge-clustering`, you need to have Python 3.9 (or a more recent version), and then run
 
-    python3 -m pip install --upgrade knowledge-clustering
+    python3 -m pip install --user pipx
+    python3 -m pipx ensurepath
 
-and then
+and then, in a new terminal, 
 
+    pipx install knowledge
     knowledge init
     
 To check if you have the latest version of `knowledge-clustering`, you can run
 
     knowledge --version
+
+To **upgrade**, simply run
+
+  pipx upgrade knowledge-clustering
 
 ## Clustering notions 
 
@@ -219,30 +225,14 @@ python3 -m pip install --editable .
 ## FAQ
 
 - `knowledge: command not found` after installing `knowledge-clustering`
+  > Try running it in a new terminal (or source your `.*rc` file).
   > Make sure you have Python>=3.9.
   
 - When running `knowledge`, I obtain a long message error indicating "Resource punkt not found."
   > Run `knowledge init`.
-
-- My shell doesn't autocomplete the command `knowledge`.
-  > Depending on whether you use `zsh` or `bash` write
-  >
-  >     eval "`pip completion --<shellname>`"
-  >
-  > (where `<shellname>` is either `zsh` or `bash`)
-  > in your `.zshrc` (or `.bashrc`) file and then,
-  > either launch a new terminal or run `source ~/.zshrc`
-  > (or `source ~/.bashrc`).
 
 - `Error: Got unexpected extra argument` when using multiple knowledge files.
   > You should use the option `-k` before **every** knowledge file, like in
   >
   > 	knowledge cluster -k 1.kl -k 2.kl -d blabla.diagnose 
 
-- I've updated `knowledge-clustering` but I still don't have the last version (which can be checked using `knowledge --version`):
-  This can happen if you have multiple versions of `python` (and multiple versions
-  of `knowledge-clustering`).
-  > Type `where python3`, and uninstall `knowledge-clustering`
-  from everywhere (using `<path>/python3 -m pip uninstall knowledge-clustering`).
-  Try to then reinstall `knowledge-clustering`
-  by running `python3 -m pip install --upgrade knowledge-clustering`.
