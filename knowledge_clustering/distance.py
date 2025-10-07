@@ -145,14 +145,20 @@ def similar_words(w1: str, w2: str, prefixes: tuple[str,...], lang: str) -> bool
     Checks if two words w1 and w2 are similar up to taking their stem (removing a suffix)
     and removing a prefix in the list `prefixes`.
     """
+    def asymmetric_similar(s1: str, s2: str) -> bool:
+        if s1 in s2:
+            for p in prefixes:
+                if s2.startswith(p):
+                    for s in cst.IGNORE_SUFFIXES:
+                        if p + s1 + s == s2:
+                            return True
+        return False
     if w1 == w2:
         return True
     for s1 in [w1, cached_stem(w1, lang)]:
         for s2 in [w2, cached_stem(w2, lang)]:
-            for p in prefixes:
-                for s in cst.IGNORE_SUFFIXES:
-                    if p + s1 + s == s2 or s1 == p + s2 + s:
-                        return True
+            if asymmetric_similar(s1,s2) or asymmetric_similar(s2,s1):
+                return True
     return False
 
 
