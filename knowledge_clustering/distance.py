@@ -6,6 +6,7 @@ import copy
 import nltk  # type: ignore
 import nltk.stem.snowball as nss  # type: ignore
 from unidecode import unidecode
+from functools import cache
 
 from knowledge_clustering import cst
 from knowledge_clustering.misc import emph
@@ -13,7 +14,6 @@ from knowledge_clustering.misc import emph
 # ---
 # Edit distance
 # ---
-
 
 def levenshtein_distance(s: str, t: str) -> int:
     """
@@ -58,7 +58,6 @@ def minimise_levenshtein_distance(s: str, t_list: list[str]) -> str:
 # Functions to extract content from strings
 # ---
 
-
 def extract_scope(notion: str) -> tuple[str, str]:
     """
     Given a notion of the form "knowledge@scope" or "knowledge",
@@ -68,7 +67,6 @@ def extract_scope(notion: str) -> tuple[str, str]:
         s = notion.split("@", 1)
         return s[0], s[1]
     return notion, ""
-
 
 def normalise_notion(notion: str) -> str:
     """
@@ -107,7 +105,7 @@ def normalise_notion(notion: str) -> str:
             notion_norm = sp[0] + sp[1]
     return unidecode(notion_norm)  # Ascii-fy (in particular, remove accents) the result
 
-
+@cache
 def breakup_notion(notion: str, lang: str) -> tuple[list[str], str]:
     """
     Takes a notion, and a language, and returns
@@ -142,15 +140,15 @@ def breakup_notion(notion: str, lang: str) -> tuple[list[str], str]:
 # ---
 
 
-def similar_words(w1: str, w2: str, list_prefixes: list[str], stemmer) -> bool:
+def similar_words(w1: str, w2: str, list_prefixes: list[str], lang: str) -> bool:
     """
     Checks if two words w1 and w2 are similar up to taking their stem (removing a suffix)
     and removing a prefix in the list `list_prefixes`.
     """
     if w1 == w2:
         return True
-    for s1 in [w1, stemmer.stem(w1)]:
-        for s2 in [w2, stemmer.stem(w2)]:
+    for s1 in [w1, cached_stem(w1, lang)]:
+        for s2 in [w2, cached_stem(w2, lang)]:
             for p in list_prefixes:
                 for s in cst.IGNORE_SUFFIXES:
                     if p + s1 + s == s2 or s1 == p + s2 + s:
@@ -159,7 +157,7 @@ def similar_words(w1: str, w2: str, list_prefixes: list[str], stemmer) -> bool:
 
 
 def __semi_distance_sets_of_words(
-    set_words1: list[str], set_words2: list[str], list_prefixes: list[str], stemmer
+    set_words1: list[str], set_words2: list[str], list_prefixes: list[str], lang: str
 ) -> tuple[int, int]:
     """
     Given two sets of words (considered up to permutation), computes the
@@ -167,7 +165,7 @@ def __semi_distance_sets_of_words(
     """
     for w1 in set_words1:
         similar_to_w1 = [
-            w2 for w2 in set_words2 if similar_words(w1, w2, list_prefixes, stemmer)
+            w2 for w2 in set_words2 if similar_words(w1, w2, list_prefixes, lang)
         ]
         # If you find a pair of similar words, remove them.
         if len(similar_to_w1) > 0:
@@ -175,40 +173,29 @@ def __semi_distance_sets_of_words(
             set_words1.remove(w1)
             set_words2.remove(w2)
             return __semi_distance_sets_of_words(
-                set_words1, set_words2, list_prefixes, stemmer
+                set_words1, set_words2, list_prefixes, lang
             )
     return (len(set_words1), len(set_words2))
 
-
-def inclusion_sets_of_words(
-    set_words1: list[str], set_words2: list[str], list_prefixes: list[str], stemmer
-) -> bool:
-    """
-    Given two sets of words (considered up to permutation), are
-    all words of the first set similar to words of the second set?
-    """
-    d1, _ = __semi_distance_sets_of_words(
-        set_words1, set_words2, list_prefixes, stemmer
-    )
-    return d1 == 0
-
-
 def distance_sets_of_words(
-    set_words1: list[str], set_words2: list[str], list_prefixes: list[str], stemmer
+    set_words1: list[str], set_words2: list[str], list_prefixes: list[str], lang: str
 ) -> int:
     """
     Given two sets of words (considered up to permutation), computes the distance between them.
     """
     d1, d2 = __semi_distance_sets_of_words(
-        set_words1, set_words2, list_prefixes, stemmer
+        set_words1, set_words2, list_prefixes, lang
     )
     return d1 + d2
 
-
+@cache # todo check if useful
 def new_stemmer(lang: str):
     """Returns a stemmer."""
     return nss.SnowballStemmer(lang)
 
+@cache
+def cached_stem(word: str, lang: str):
+    return new_stemmer(lang).stem(word)
 
 def distance(
     notion1: str,
@@ -233,7 +220,6 @@ def distance(
     """
     kl1_words, sc1 = breakup_notion(notion1, lang)
     kl2_words, sc2 = breakup_notion(notion2, lang)
-    stemmer = new_stemmer(lang)
     if sc1 != "" and sc2 != "" and sc1 != sc2:
         return cst.INFINITY
     if len(kl1_words) == 0 and len(kl2_words) == 0:
@@ -243,7 +229,7 @@ def distance(
         # Can happen if the notion is a command
         return cst.INFINITY
     if sc1 == sc2:
-        return distance_sets_of_words(kl1_words, kl2_words, list_prefixes, stemmer)
+        return distance_sets_of_words(kl1_words, kl2_words, list_prefixes, lang)
     if sc1 == "":
         kl1_words, sc1, kl2_words, sc2 = kl2_words, sc2, kl1_words, sc1
     # sc2 is empty and sc1 isn't
@@ -258,6 +244,6 @@ def distance(
         kl1_with_meaning.extend([w for w in meaning if w not in kl1_with_meaning])
         dist = min(
             dist,
-            distance_sets_of_words(kl1_with_meaning, kl2_words, list_prefixes, stemmer),
+            distance_sets_of_words(kl1_with_meaning, kl2_words, list_prefixes, lang),
         )
     return dist
