@@ -139,17 +139,17 @@ def breakup_notion(notion: str, lang: str) -> tuple[list[str], str]:
 # Computing the distance between two notions
 # ---
 
-
-def similar_words(w1: str, w2: str, list_prefixes: list[str], lang: str) -> bool:
+@cache
+def similar_words(w1: str, w2: str, prefixes: tuple[str,...], lang: str) -> bool:
     """
     Checks if two words w1 and w2 are similar up to taking their stem (removing a suffix)
-    and removing a prefix in the list `list_prefixes`.
+    and removing a prefix in the list `prefixes`.
     """
     if w1 == w2:
         return True
     for s1 in [w1, cached_stem(w1, lang)]:
         for s2 in [w2, cached_stem(w2, lang)]:
-            for p in list_prefixes:
+            for p in prefixes:
                 for s in cst.IGNORE_SUFFIXES:
                     if p + s1 + s == s2 or s1 == p + s2 + s:
                         return True
@@ -157,7 +157,7 @@ def similar_words(w1: str, w2: str, list_prefixes: list[str], lang: str) -> bool
 
 
 def __semi_distance_sets_of_words(
-    set_words1: list[str], set_words2: list[str], list_prefixes: list[str], lang: str
+    set_words1: list[str], set_words2: list[str], prefixes: tuple[str, ...], lang: str
 ) -> tuple[int, int]:
     """
     Given two sets of words (considered up to permutation), computes the
@@ -165,7 +165,7 @@ def __semi_distance_sets_of_words(
     """
     for w1 in set_words1:
         similar_to_w1 = [
-            w2 for w2 in set_words2 if similar_words(w1, w2, list_prefixes, lang)
+            w2 for w2 in set_words2 if similar_words(w1, w2, prefixes, lang)
         ]
         # If you find a pair of similar words, remove them.
         if len(similar_to_w1) > 0:
@@ -173,18 +173,18 @@ def __semi_distance_sets_of_words(
             set_words1.remove(w1)
             set_words2.remove(w2)
             return __semi_distance_sets_of_words(
-                set_words1, set_words2, list_prefixes, lang
+                set_words1, set_words2, prefixes, lang
             )
     return (len(set_words1), len(set_words2))
 
 def distance_sets_of_words(
-    set_words1: list[str], set_words2: list[str], list_prefixes: list[str], lang: str
+    set_words1: list[str], set_words2: list[str], prefixes: tuple[str, ...], lang: str
 ) -> int:
     """
     Given two sets of words (considered up to permutation), computes the distance between them.
     """
     d1, d2 = __semi_distance_sets_of_words(
-        set_words1, set_words2, list_prefixes, lang
+        set_words1, set_words2, prefixes, lang
     )
     return d1 + d2
 
@@ -200,7 +200,7 @@ def cached_stem(word: str, lang: str):
 def distance(
     notion1: str,
     notion2: str,
-    list_prefixes: list[str],
+    prefixes: tuple[str, ...],
     scopes_meaning: dict[str, list[list[str]]],
     lang: str,
 ) -> int:
@@ -210,7 +210,7 @@ def distance(
     Args:
         notion1: first notion
         notion2: second notion
-        list_prefixes: a list of prefixes that will be ignored
+        prefixes: a list of prefixes that will be ignored
         scope_meaning: a dictionnary, assigning to every scope a list of
             its possible meanings, each possible meaning being a list of words
         lang: the identifier of some language (e.g. "english")
@@ -229,7 +229,7 @@ def distance(
         # Can happen if the notion is a command
         return cst.INFINITY
     if sc1 == sc2:
-        return distance_sets_of_words(kl1_words, kl2_words, list_prefixes, lang)
+        return distance_sets_of_words(kl1_words, kl2_words, prefixes, lang)
     if sc1 == "":
         kl1_words, sc1, kl2_words, sc2 = kl2_words, sc2, kl1_words, sc1
     # sc2 is empty and sc1 isn't
@@ -244,6 +244,6 @@ def distance(
         kl1_with_meaning.extend([w for w in meaning if w not in kl1_with_meaning])
         dist = min(
             dist,
-            distance_sets_of_words(kl1_with_meaning, kl2_words, list_prefixes, lang),
+            distance_sets_of_words(kl1_with_meaning, kl2_words, prefixes, lang),
         )
     return dist

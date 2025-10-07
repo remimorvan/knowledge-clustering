@@ -128,7 +128,7 @@ def clustering(
             kl2_min_list = []
             # Finds the processed notion that is at a minimal distance from kl
             for kl2 in kl_processed_new:
-                d = distance.distance(kl, kl2, list_prefixes, scopes_meaning, lang)
+                d = distance.distance(kl, kl2, tuple(list_prefixes), scopes_meaning, lang)
                 if dist_min is None or d < dist_min:
                     dist_min = d
                     kl2_min_list = [kl2]
