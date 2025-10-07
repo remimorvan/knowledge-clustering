@@ -1,0 +1,2810 @@
+%%%%% NEW KNOWLEDGES 
+%
+%\knowledge{notion}
+%  | CC BY 4.0
+%  | via
+%
+%\knowledge{notion}
+%  | knowledge package
+%
+%\knowledge{notion}
+%  | automatic structure
+%
+%\knowledge{notion}
+%  | knowledge
+%
+%\knowledge{notion}
+%  | knowledge-clustering
+%
+%\knowledge{notion}
+%  | CC BY SA 4.0
+%
+%\knowledge{notion}
+%  | Malament–Hogarth spacetime
+%
+%\knowledge{notion}
+%  | NP
+%
+%\knowledge{notion}
+%  | P
+%
+%\knowledge{notion}
+%  | NL
+%
+%\knowledge{notion}
+%  | homomorphism problem
+%  | homomorphism problems
+%
+%\knowledge{notion}
+%  | primitive-positive formulas
+%
+%\knowledge{notion}
+%  | conjunctive query
+%
+%\knowledge{notion}
+%  | constraint satisfaction
+%
+%\knowledge{notion}
+%  | homomorphism
+%  | homomorphisms
+%
+%\knowledge{notion}
+%  | edges
+%
+%\knowledge{notion}
+%  | relational structure
+%
+%\knowledge{notion}
+%  | signature
+%
+%\knowledge{notion}
+%  | $\sigma $-structures
+%  | relational structures
+%
+%\knowledge{notion}
+%  | Homomorphism Problem
+%
+%\knowledge{notion}
+%  | source structure
+%
+%\knowledge{notion}
+%  | target structure
+%
+%\knowledge{notion}
+%  | structure
+%
+%\knowledge{notion}
+%  | relational database
+%  | relational databases
+%
+%\knowledge{notion}
+%  | query@sem
+%  | queries@sem
+%  | conjunctive queries
+%
+%\knowledge{notion}
+%  | predicates
+%  | predicate
+%
+%\knowledge{notion}
+%  | st
+%
+%\knowledge{notion}
+%  | marked structure
+%
+%\knowledge{notion}
+%  | $k$-colourable
+%  | $3$-colouring
+%
+%\knowledge{notion}
+%  | ie
+%
+%\knowledge{notion}
+%  | graph@dir
+%  | graphs@dir
+%
+%\knowledge{notion}
+%  | substructure
+%  | substructures
+%
+%\knowledge{notion}
+%  | first-order logic
+%
+%\knowledge{notion}
+%  | output@var
+%
+%\knowledge{notion}
+%  | CQ
+%
+%\knowledge{notion}
+%  | primitive-positive fragment
+%
+%\knowledge{notion}
+%  | conjunctive query evaluation
+%
+%\knowledge{notion}
+%  | uniform-AC0
+%
+%\knowledge{notion}
+%  | AC0
+%
+%\knowledge{notion}
+%  | XP
+%
+%\knowledge{notion}
+%  | fixed-parameter tractable
+%
+%\knowledge{notion}
+%  | FPT
+%
+%\knowledge{notion}
+%  | core
+%  | cores
+%  | Conjunctive queries
+%
+%\knowledge{notion}
+%  | finite $\sigma $-structure
+%
+%\knowledge{notion}
+%  | $\sigma $-structure
+%
+%\knowledge{notion}
+%  | iff
+%
+%\knowledge{notion}
+%  | semantically equivalent
+%
+%\knowledge{notion}
+%  | eg
+%
+%\knowledge{notion}
+%  | tree-width
+%  | semantic tree-width
+%
+%\knowledge{notion}
+%  | queries@CQ
+%
+%\knowledge{notion}
+%  | path-width
+%  | CQs
+%
+%\knowledge{notion}
+%  | W[1]
+%
+%\knowledge{notion}
+%  | graph@undir
+%
+%\knowledge{notion}
+%  | $k$-clique
+%  | $3$-clique
+%
+%\knowledge{notion}
+%  | W1
+%
+%\knowledge{notion}
+%  | tree-shaped
+%
+%\knowledge{notion}
+%  | structures
+%
+%\knowledge{notion}
+%  | distance@struct
+%  | distances@struct
+%
+%\knowledge{notion}
+%  | graph databases
+%  | graph database
+%
+%\knowledge{notion}
+%  | Wikidata
+%
+%\knowledge{notion}
+%  | Statistique des gens de lettres et des savants existant en France@wd
+%
+%\knowledge{notion}
+%  | François-Fortuné Guyot de Fère@wd
+%
+%\knowledge{notion}
+%  | French@wd
+%
+%\knowledge{notion}
+%  | biographical dictionary@wd
+%
+%\knowledge{notion}
+%  | biography@wd
+%
+%\knowledge{notion}
+%  | dictionary@wd
+%
+%\knowledge{notion}
+%  | catalogue@wd
+%
+%\knowledge{notion}
+%  | knowledge organization system@wd
+%
+%\knowledge{notion}
+%  | reference work@wd
+%
+%\knowledge{notion}
+%  | biographical work@wd
+%
+%\knowledge{notion}
+%  | non-fiction work@wd
+%
+%\knowledge{notion}
+%  | literary work@wd
+%
+%\knowledge{notion}
+%  | conjunctive regular path queries
+%
+%\knowledge{notion}
+%  | regular language
+%
+%\knowledge{notion}
+%  | conjunctive regular path query
+%  | regular languages
+%
+%\knowledge{notion}
+%  | Graph databases
+%
+%\knowledge{notion}
+%  | semantical equivalence
+%
+%\knowledge{notion}
+%  | ExpSpace
+%  | $k$-ExpSpace
+%
+%\knowledge{notion}
+%  | minimization problem@CRPQ
+%  | minimization problem for CRPQs
+%  | minimization problem
+%  | Minimization problem@CRPQ
+%  | CRPQ
+%  | CRPQs
+%  | constraint satisfaction problems
+%  | CQ minimization problem over $\+C$
+%
+%\knowledge{notion}
+%  | query@CRPQ
+%  | queries@CRPQ
+%
+%\knowledge{notion}
+%  | atoms
+%
+%\knowledge{notion}
+%  | maximal under-approximation
+%  | maximal under-approximations
+%
+%\knowledge{notion}
+%  | minor-closed
+%
+%\knowledge{notion}
+%  | semantical structure theorem
+%
+%\knowledge{notion}
+%  | tree decomposition
+%
+%\knowledge{notion}
+%  | contractions@2w
+%  | contract@2w
+%  | contracted path-width
+%  | contracting edges
+%
+%\knowledge{notion}
+%  | simple regular expressions
+%
+%\knowledge{notion}
+%  | aka
+%
+%\knowledge{notion}
+%  | automatic structures
+%  | finite structure
+%  | regular homomorphisms
+%
+%\knowledge{notion}
+%  | $k$-colouring
+%  | $3$-colourability
+%
+%\knowledge{notion}
+%  | $3$-colourability problem
+%  | $3$-colourable
+%
+%\knowledge{notion}
+%  | wlog
+%  | Wlog
+%
+%\knowledge{notion}
+%  | wrt
+%
+%\knowledge{notion}
+%  | undirected graphs
+%  | directed graphs
+%
+%\knowledge{notion}
+%  | L
+%
+%\knowledge{notion}
+%  | FOfin
+%
+%\knowledge{notion}
+%  | first-order definable
+%
+%\knowledge{notion}
+%  | finite structures
+%
+%\knowledge{notion}
+%  | target structures
+%
+%\knowledge{notion}
+%  | finite@struct
+%
+%\knowledge{notion}
+%  | incompleteness theorem
+%  | finite graph
+%
+%\knowledge{notion}
+%  | Gödel's incompleteness theorem
+%
+%\knowledge{notion}
+%  | Gödel's completeness theorem
+%
+%\knowledge{notion}
+%  | Zermelo–Fraenkel set theory plus the axiom of choice
+%
+%\knowledge{notion}
+%  | first-order sentence
+%
+%\knowledge{notion}
+%  | automatic@struct
+%  | non-automaticity@struct
+%  | automatic graph
+%  | first-order formula
+%  | automatic graphs
+%
+%\knowledge{notion}
+%  | configuration graph
+%
+%\knowledge{notion}
+%  | Turing machine
+%
+%\knowledge{notion}
+%  | 2-colourable
+%
+%\knowledge{notion}
+%  | $2$-clique
+%  | clique
+%
+%\knowledge{notion}
+%  | $3$-transitive tournament
+%  | transitive tournament
+%
+%\knowledge{notion}
+%  | regular $2$-colouring
+%  | regular colouring
+%
+%\knowledge{notion}
+%  | finite duality
+%
+%\knowledge{notion}
+%  | hyperedge consistency algorithm@finite
+%
+%\knowledge{notion}
+%  | Rice's theorem
+%
+%\knowledge{notion}
+%  | non-first-order definable
+%  | non-hyperedges
+%  | hyperedge consistency@finite
+%  | hyperedge
+%  | hyperedges
+%
+%\knowledge{notion}
+%  | $\AUT $/$\REC $-separability problem
+%
+%\knowledge{notion}
+%  | automatic relations
+%
+%\knowledge{notion}
+%  | synchronous automata
+%
+%\knowledge{notion}
+%  | separated@rel
+%  | separable@rel
+%
+%\knowledge{notion}
+%  | recognizable relation
+%
+%\knowledge{notion}
+%  | regular homomorphism
+%
+%\knowledge{notion}
+%  | syntactic monoid
+%
+%\knowledge{notion}
+%  | regular@lang
+%  | regularity@lang
+%  | monoid
+%  | Regular Queries
+%
+%\knowledge{notion}
+%  | monoids
+%
+%\knowledge{notion}
+%  | synchronous algebras
+%
+%\knowledge{notion}
+%  | syntactic synchronous algebra
+%
+%\knowledge{notion}
+%  | automatic@rel
+%
+%\knowledge{notion}
+%  | synchronous automaton
+%
+%\knowledge{notion}
+%  | coRE
+%
+%\knowledge{notion}
+%  | RE
+%
+%\knowledge{notion}
+%  | automatic relation
+%  | recognizable relations
+%
+%\knowledge{notion}
+%  | approximations
+%
+%\knowledge{notion}
+%  | refinement
+%
+%\knowledge{notion}
+%  | expansion
+%  | expansions
+%
+%\knowledge{notion}
+%  | pseudovariety of monoids
+%
+%\knowledge{notion}
+%  | finite regular colourability@pb
+%
+%\knowledge{notion}
+%  | coNP
+%
+%\knowledge{notion}
+%  | functional@rel
+%  | Functional@rel
+%  | finite regular colourability of automatic graphs
+%  | Finite Regular Colourability of Automatic Graphs
+%  | regular $k$-colouring
+%  | regularly $k$-colourable
+%  | regular $k$-colourability
+%  | $2$-colouring
+%  | colouring
+%  | regularly $2$-colourable
+%  | finitely regularly colourable
+%  | regular colourings
+%  | Finite Colourability of Automatic Graphs
+%  | Finite colourability of automatic graphs
+%  | finite colourability of automatic graphs
+%  | $4$-colouring
+%  | $(k+1)$-colouring
+%  | $(k-1)$-colouring
+%  | finitely colourable
+%  | regular functions
+%
+%\knowledge{notion}
+%  | reflexive@rel
+%
+%\knowledge{notion}
+%  | symmetric@rel
+%
+%\knowledge{notion}
+%  | transitive@rel
+%
+%\knowledge{notion}
+%  | Relational structures
+%
+%\knowledge{notion}
+%  | purely relational signature
+%
+%\knowledge{notion}
+%  | relational signature
+%
+%\knowledge{notion}
+%  | signatures
+%
+%\knowledge{notion}
+%  | relational@signature
+%
+%\knowledge{notion}
+%  | interpretation@predicate
+%  | predicate interpretations
+%  | interpreted@predicate
+%  | graph signature
+%
+%\knowledge{notion}
+%  | $\+R$-tuple
+%  | $\+R$-tuples
+%
+%\knowledge{notion}
+%  | proper substructure
+%
+%\knowledge{notion}
+%  | induced substructure
+%
+%\knowledge{notion}
+%  | pointed structures
+%
+%\knowledge{notion}
+%  | pointed $\sigma $-structures
+%  | $\sigma '$-structures
+%
+%\knowledge{notion}
+%  | disjoint union
+%
+%\knowledge{notion}
+%  | Cartesian product
+%
+%\knowledge{notion}
+%  | block product
+%
+%\knowledge{notion}
+%  | purely relational@signature
+%
+%\knowledge{notion}
+%  | adjacency
+%  | adjacencies
+%
+%\knowledge{notion}
+%  | undirected path
+%  | simple path
+%  | undirected graph
+%
+%\knowledge{notion}
+%  | connected
+%
+%\knowledge{notion}
+%  | connected component
+%
+%\knowledge{notion}
+%  | incidence graph
+%
+%\knowledge{notion}
+%  | diameter
+%
+%\knowledge{notion}
+%  | locally finite@structure
+%
+%\knowledge{notion}
+%  | directed cycle
+%  | directed acyclic graph
+%  | finite $\signatureCRPQ {\A }$-structure
+%  | $I$-locally finite
+%  | $\intInt {1,k}$-locally finite
+%  | $\{3\}$-locally finite
+%  | $\tau $-structure
+%  | finite $\sigma $-structures
+%  | $\signatureSynchronous {\Sigma }$-structure
+%  | Automatic structures
+%  | $\omega $-automatic structures
+%  | automatic $\sigma $-structure
+%  | automatic $\sigma $-structures
+%  | $\extendedSignature {\sigma }{\?B}$-structure
+%  | finiteness@structure
+%  | $\extendedSignature {\sigma }{\?B}$-structures
+%  | \(\sigma \)-structures
+%  | hyperedge consistency algorithm for automatic structures
+%  | hyperedge consistency algorithm for finite structures
+%  | locally transitive
+%
+%\knowledge{notion}
+%  | DAG
+%
+%\knowledge{notion}
+%  | directed tree
+%
+%\knowledge{notion}
+%  | chromatic number
+%
+%\knowledge{notion}
+%  | embedding
+%
+%\knowledge{notion}
+%  | strong onto homomorphism
+%
+%\knowledge{notion}
+%  | homomorphic image
+%
+%\knowledge{notion}
+%  | isomorphism
+%  | isomorphic
+%
+%\knowledge{notion}
+%  | automorphism
+%  | automorphisms
+%
+%\knowledge{notion}
+%  | congruence@struct
+%
+%\knowledge{notion}
+%  | quotient structure
+%
+%\knowledge{notion}
+%  | interpretation@predicates
+%  | predicate interpreted
+%  | $\+I$-interpretation of $\?A$
+%  | interpretation
+%  | Interpretation
+%
+%\knowledge{notion}
+%  | induced@substructure
+%
+%\knowledge{notion}
+%  | quotient@struct
+%
+%\knowledge{notion}
+%  | homomorphically equivalent
+%  | quotient structures
+%  | induce
+%  | induces
+%  | induced
+%
+%\knowledge{notion}
+%  | isomorphisms
+%
+%\knowledge{notion}
+%  | homomorphical equivalence
+%
+%\knowledge{notion}
+%  | Boolean
+%
+%\knowledge{notion}
+%  | (semantical) query
+%  | (semantical) queries
+%
+%\knowledge{notion}
+%  | pointed $\sigma $-structure
+%
+%\knowledge{notion}
+%  | first-order formulas
+%
+%\knowledge{notion}
+%  | quantifier alternation rank
+%
+%\knowledge{notion}
+%  | existential formulas
+%
+%\knowledge{notion}
+%  | existential FO
+%
+%\knowledge{notion}
+%  | existential-positive formulas
+%
+%\knowledge{notion}
+%  | positive quantifier-free formulas
+%
+%\knowledge{notion}
+%  | existential formula
+%
+%\knowledge{notion}
+%  | existential-positive@formula
+%
+%\knowledge{notion}
+%  | primitive-positive@formula
+%
+%\knowledge{notion}
+%  | First-order logic
+%  | quantified Boolean formula problem
+%  | primitive-positive formula
+%
+%\knowledge{notion}
+%  | monadic second-order logic
+%
+%\knowledge{notion}
+%  | second-order logic
+%
+%\knowledge{notion}
+%  | interpreting@predicate
+%  | interpretations@predicate
+%
+%\knowledge{notion}
+%  | signature of binary strings
+%
+%\knowledge{notion}
+%  | monoid morphism
+%
+%\knowledge{notion}
+%  | Monoids
+%
+%\knowledge{notion}
+%  | monoid morphisms
+%  | finite monoid
+%
+%\knowledge{notion}
+%  | syntactic monoids
+%
+%\knowledge{notion}
+%  | syntactic morphisms
+%
+%\knowledge{notion}
+%  | divides@monoid
+%  | divide@monoid
+%  | finite monoids
+%
+%\knowledge{notion}
+%  | monoid division
+%
+%\knowledge{notion}
+%  | $\ast $-pseudovariety of regular languages
+%
+%\knowledge{notion}
+%  | $*$-pseudovariety of regular languages
+%
+%\knowledge{notion}
+%  | Eilenberg-Schützenberger correspondence@lang
+%  | Eilenberg-Schützenberger correspondences@lang
+%
+%\knowledge{notion}
+%  | $\+V$-membership problem@lang
+%
+%\knowledge{notion}
+%  | pseudovariety of regular languages
+%  | membership problem
+%  | membership problems
+%  | isomorphism problem
+%  | $\+D$-membership problem
+%  | $\REC $-membership problem
+%  | $\RAT $/$\REC $-separability problem
+%  | $k$-colourability problem
+%  | regular $k$-colourability problem
+%  | regular colourability problem
+%  | regular $2$-colourability problem
+%  | $\kREC $-membership problem
+%  | $\kPROD $-membership problem
+%  | finite regular colourability problem
+%  | finite colourability problem
+%
+%\knowledge{notion}
+%  | corresponding@EilenbergLang
+%
+%\knowledge{notion}
+%  | configuration@TM
+%
+%\knowledge{notion}
+%  | initial configuration
+%  | initial configurations
+%  | Configuration graph
+%
+%\knowledge{notion}
+%  | reachable@configuration
+%
+%\knowledge{notion}
+%  | computationally equivalent
+%
+%\knowledge{notion}
+%  | Complexity Zoo
+%
+%\knowledge{notion}
+%  | first-order definable classes
+%  | reachability in finite graphs
+%  | finite graph reachability problem
+%  | regular reachability problem
+%  | reachable configurations
+%  | Reachability in Finite Graphs
+%  | Reachability in finite graphs
+%
+%\knowledge{notion}
+%  | first-order reductions
+%
+%\knowledge{notion}
+%  | PSpace
+%
+%\knowledge{notion}
+%  | SigmaP2
+%
+%\knowledge{notion}
+%  | PiP2
+%
+%\knowledge{notion}
+%  | $k$-ExpTime
+%  | ExpTime
+%
+%\knowledge{notion}
+%  | Tower
+%  | TOWER
+%
+%\knowledge{notion}
+%  | arithmetical hierarchy
+%
+%\knowledge{notion}
+%  | definable@first-order
+%
+%\knowledge{notion}
+%  | Sigma0-2
+%
+%\knowledge{notion}
+%  | Pi0-2
+%
+%\knowledge{notion}
+%  | analytical hierarchy
+%  | first-order
+%  | first-order sentences
+%  | first-order queries
+%  | first-order interpretation
+%  | first-order interpretable
+%  | first-order interpretations
+%  | first-order reduction
+%
+%\knowledge{notion}
+%  | Connectivity in Finite Graphs
+%  | Connectivity in finite graphs
+%
+%\knowledge{notion}
+%  | $k$-path
+%  | directed paths
+%
+%\knowledge{notion}
+%  | duality@CQ
+%  | Duality@CQ
+%
+%\knowledge{notion}
+%  | pointed relational database
+%
+%\knowledge{notion}
+%  | isolated vertices
+%
+%\knowledge{notion}
+%  | pointed relational databases
+%
+%\knowledge{notion}
+%  | isolated variables
+%
+%\knowledge{notion}
+%  | Trakhtenbrot's theorem
+%
+%\knowledge{notion}
+%  | formula@FO
+%  | formulas@FO
+%
+%\knowledge{notion}
+%  | prenex form
+%  | Prenex form
+%
+%\knowledge{notion}
+%  | atoms@cq
+%
+%\knowledge{notion}
+%  | free variables@cq
+%
+%\knowledge{notion}
+%  | output variables@cq
+%
+%\knowledge{notion}
+%  | output variable
+%  | output variables
+%  | atom
+%  | atom $m$-refinement
+%  | atomic
+%  | non-atomic
+%
+%\knowledge{notion}
+%  | canonical database@cq
+%  | canonical databases@cq
+%
+%\knowledge{notion}
+%  | Boolean queries
+%
+%\knowledge{notion}
+%  | Boolean@cq
+%
+%\knowledge{notion}
+%  | Boolean query
+%  | Boolean CQs
+%  | non-Boolean queries
+%  | non-Boolean
+%  | Boolean CRPQs
+%
+%\knowledge{notion}
+%  | database@rel
+%  | databases@rel
+%
+%\knowledge{notion}
+%  | evaluation map
+%
+%\knowledge{notion}
+%  | Conjunctive Query Evaluation
+%  | evaluated
+%  | Boolean conjunctive queries
+%
+%\knowledge{notion}
+%  | pointed relational $\sigma $-database
+%
+%\knowledge{notion}
+%  | containment
+%  | contained
+%
+%\knowledge{notion}
+%  | Containment
+%
+%\knowledge{notion}
+%  | canonical conjunctive query
+%  | Boolean conjunctive query
+%  | canonical database
+%
+%\knowledge{notion}
+%  | closed under homomorphisms
+%
+%\knowledge{notion}
+%  | vs
+%
+%\knowledge{notion}
+%  | homomorphic equivalence
+%  | mapped homomorphically
+%
+%\knowledge{notion}
+%  | synthesis problem
+%  | synthesis problem for CQs
+%
+%\knowledge{notion}
+%  | disjoint conjunction
+%  | Conjunctive Queries
+%
+%\knowledge{notion}
+%  | weak union
+%
+%\knowledge{notion}
+%  | canonical CQ
+%
+%\knowledge{notion}
+%  | database@graph
+%  | databases@graph
+%  | Relational Databases
+%
+%\knowledge{notion}
+%  | canonical conjunctive queries
+%
+%\knowledge{notion}
+%  | connected components
+%  | regular unconnectivity in automatic graphs
+%
+%\knowledge{notion}
+%  | subquery@CQ
+%
+%\knowledge{notion}
+%  | monotone@classCQ
+%  | monotonicity@classCQ
+%  | subquery
+%  | subqueries
+%  | Monotone classes of CQs
+%
+%\knowledge{notion}
+%  | monotone classes of CQs
+%  | monotone class of CQs
+%
+%\knowledge{notion}
+%  | cliques
+%
+%\knowledge{notion}
+%  | core@CQ
+%  | cores@cq
+%
+%\knowledge{notion}
+%  | pointed databases@rel
+%
+%\knowledge{notion}
+%  | Synthesis Problem for CQs
+%  | pointed graph database
+%  | finite databases
+%
+%\knowledge{notion}
+%  | coNExp
+%
+%\knowledge{notion}
+%  | synthesis problem@CQ
+%
+%\knowledge{notion}
+%  | Tree-width
+%
+%\knowledge{notion}
+%  | bag
+%  | bags
+%
+%\knowledge{notion}
+%  | contains@tw
+%  | contained@tw
+%
+%\knowledge{notion}
+%  | containing@tw
+%
+%\knowledge{notion}
+%  | directed graph
+%  | containment problem
+%  | con\-tainment problem
+%  | contains
+%
+%\knowledge{notion}
+%  | width
+%
+%\knowledge{notion}
+%  | tree decompositions
+%
+%\knowledge{notion}
+%  | forests
+%  | forest
+%
+%\knowledge{notion}
+%  | disjoint unions
+%
+%\knowledge{notion}
+%  | evaluation problem@cq
+%
+%\knowledge{notion}
+%  | containing@bag
+%
+%\knowledge{notion}
+%  | CQ evaluation problem
+%  | evaluation
+%  | union of conjunctive queries
+%  | CQ evaluation
+%  | evaluation problem
+%  | evaluate
+%  | atomic bags
+%  | non-atomic bags
+%
+%\knowledge{notion}
+%  | equivalent@sem
+%
+%\knowledge{notion}
+%  | Grohe's theorem
+%
+%\knowledge{notion}
+%  | path decomposition
+%  | path decompositions
+%  | equivalent
+%  | equivalence
+%  | Equivalent
+%  | equivalences
+%  | first-order equivalent
+%
+%\knowledge{notion}
+%  | UC2RPQs
+%  | UC2RPQ
+%
+%\knowledge{notion}
+%  | database@relpointed
+%
+%\knowledge{notion}
+%  | UCQ
+%  | UCQs
+%
+%\knowledge{notion}
+%  | disjunct
+%  | disjuncts
+%
+%\knowledge{notion}
+%  | CC BY SA 3.0
+%
+%\knowledge{notion}
+%  | unions of conjunctive queries
+%
+%\knowledge{notion}
+%  | semantical query
+%  | semantical queries
+%
+%\knowledge{notion}
+%  | hom-minimal
+%  | hom-minimality
+%
+%\knowledge{notion}
+%  | canonical databases
+%
+%\knowledge{notion}
+%  | Rossman's theorem
+%
+%\knowledge{notion}
+%  | finite relational structures
+%  | Automatic relations
+%
+%\knowledge{notion}
+%  | cores@CQ
+%
+%\knowledge{notion}
+%  | unions of conjunctive regular path queries
+%  | directed path
+%
+%\knowledge{notion}
+%  | satisfies@db
+%  | satisfy@db
+%
+%\knowledge{notion}
+%  | Evaluation maps
+%  | evaluations maps
+%
+%\knowledge{notion}
+%  | evaluation maps
+%
+%\knowledge{notion}
+%  | interpret@pred
+%  | interpreted@pred
+%
+%\knowledge{notion}
+%  | $k$-transitive tournament
+%  | $2$-transitive tournament
+%
+%\knowledge{notion}
+%  | Conjunctive Regular Path Queries Evaluation
+%  | conjunctive regular path queries evaluation problem
+%
+%\knowledge{notion}
+%  | Regular path queries
+%
+%\knowledge{notion}
+%  | RPQ
+%
+%\knowledge{notion}
+%  | CRPQ with two-way navigation
+%
+%\knowledge{notion}
+%  | C2RPQ
+%  | C2RPQs
+%
+%\knowledge{notion}
+%  | Unions of conjunctive regular path queries
+%
+%\knowledge{notion}
+%  | UCRPQs
+%  | UCRPQ
+%
+%\knowledge{notion}
+%  | unions of conjunctive two-way regular path queries
+%
+%\knowledge{notion}
+%  | Infinitary unions
+%  | infinitary unions
+%
+%\knowledge{notion}
+%  | infinitary union
+%
+%\knowledge{notion}
+%  | canonical database@CQ
+%  | canonical databases@CQ
+%
+%\knowledge{notion}
+%  | canonical databases@CRPQ
+%  | canonical database@CRPQ
+%
+%\knowledge{notion}
+%  | C(2)RPQs
+%
+%\knowledge{notion}
+%  | equality atoms
+%  | equality atom
+%
+%\knowledge{notion}
+%  | sublanguage
+%  | sublanguages
+%
+%\knowledge{notion}
+%  | Homomorphisms
+%  | Homomorphism
+%
+%\knowledge{notion}
+%  | refinements
+%  | atom refinement
+%
+%\knowledge{notion}
+%  | condensation
+%  | condense
+%
+%\knowledge{notion}
+%  | refinement length
+%  | contraction length
+%  | $m$-refinement
+%
+%\knowledge{notion}
+%  | $m$-refinements@atom
+%
+%\knowledge{notion}
+%  | atom $m'$-refinement
+%  | atom refinements
+%  | $m$-refinements
+%  | refining
+%  | Refinements
+%  | refine
+%
+%\knowledge{notion}
+%  | UC(2)RPQs
+%
+%\knowledge{notion}
+%  | simple regular expression
+%
+%\knowledge{notion}
+%  | SRE
+%  | SREs
+%
+%\knowledge{notion}
+%  | positive simple regular expressions
+%
+%\knowledge{notion}
+%  | (U)C(2)RPQ
+%
+%\knowledge{notion}
+%  | 2ExpSpace
+%
+%\knowledge{notion}
+%  | Minimization problem
+%
+%\knowledge{notion}
+%  | minimization of CRPQs
+%
+%\knowledge{notion}
+%  | strong minimality
+%  | minimal
+%
+%\knowledge{notion}
+%  | variable-minimization problem
+%
+%\knowledge{notion}
+%  | internal variable
+%
+%\knowledge{notion}
+%  | external
+%
+%\knowledge{notion}
+%  | one-way internal path
+%
+%\knowledge{notion}
+%  | internal path
+%
+%\knowledge{notion}
+%  | internal
+%
+%\knowledge{notion}
+%  | segment
+%
+%\knowledge{notion}
+%  | cyclic@segment
+%  | cyclic segment
+%  | segment graph
+%  | Segments
+%  | locally acyclic
+%  | segments
+%
+%\knowledge{notion}
+%  | internal@variable
+%  | Internal variables
+%  | external variable
+%  | internal variables
+%
+%\knowledge{notion}
+%  | incident@segment
+%
+%\knowledge{notion}
+%  | contraction@1w
+%  | contracted@1w
+%
+%\knowledge{notion}
+%  | fully contracted
+%
+%\knowledge{notion}
+%  | Contractions@1w
+%  | contractions@1w
+%
+%\knowledge{notion}
+%  | redundant atom
+%  | non-redundant
+%
+%\knowledge{notion}
+%  | atom expansion
+%  | atom expansions
+%
+%\knowledge{notion}
+%  | redundant
+%  | non-redundancy
+%
+%\knowledge{notion}
+%  | minimality
+%
+%\knowledge{notion}
+%  | strongly minimal
+%
+%\knowledge{notion}
+%  | underlying graph
+%
+%\knowledge{notion}
+%  | minor
+%  | minors
+%
+%\knowledge{notion}
+%  | class of CRPQs
+%
+%\knowledge{notion}
+%  | underlying graph@dir
+%
+%\knowledge{notion}
+%  | edge contraction
+%
+%\knowledge{notion}
+%  | Semantical Structure
+%  | semantic tree-width $k$ problem
+%  | underlying monoids
+%  | underlying monoid
+%  | underlying graphs
+%
+%\knowledge{notion}
+%  | hom-equivalent
+%  | hom-equivalence
+%
+%\knowledge{notion}
+%  | external variables
+%
+%\knowledge{notion}
+%  | $\gamma $-type
+%
+%\knowledge{notion}
+%  | basic paths
+%
+%\knowledge{notion}
+%  | basic path
+%  | path induced
+%
+%\knowledge{notion}
+%  | subgraphs
+%  | finite subgraph
+%
+%\knowledge{notion}
+%  | explicit approximation
+%
+%\knowledge{notion}
+%  | contained@approx
+%
+%\knowledge{notion}
+%  | contract@1w
+%
+%\knowledge{notion}
+%  | UCRPQ(SRE)
+%
+%\knowledge{notion}
+%  | resp
+%
+%\knowledge{notion}
+%  | CRPQ(SRE)
+%  | Boolean CRPQ
+%
+%\knowledge{notion}
+%  | simple regular expression@positive
+%  | simple regular expressions@positive
+%
+%\knowledge{notion}
+%  | (i)@sre
+%
+%\knowledge{notion}
+%  | (ii)@sre
+%
+%\knowledge{notion}
+%  | (iii)@sre
+%
+%\knowledge{notion}
+%  | minimization problems
+%
+%\knowledge{notion}
+%  | non-degenerate@db
+%
+%\knowledge{notion}
+%  | non-degenerate expansion
+%  | Expansion
+%
+%\knowledge{notion}
+%  | $\classCRPQ $-canonization problem
+%
+%\knowledge{notion}
+%  | non-degenerate@cdb
+%
+%\knowledge{notion}
+%  | strong onto
+%
+%\knowledge{notion}
+%  | $\classCRPQ $-strong canonization problem
+%
+%\knowledge{notion}
+%  | $\classCRPQ $-canonization oracle
+%  | $\classCRPQ $-strong canonization oracle
+%
+%\knowledge{notion}
+%  | canonization problem
+%
+%\knowledge{notion}
+%  | closed under disjoint conjunction
+%
+%\knowledge{notion}
+%  | relevant@prooflowerbound
+%
+%\knowledge{notion}
+%  | strong canonization problem
+%
+%\knowledge{notion}
+%  | classes of CRPQs
+%
+%\knowledge{notion}
+%  | locally redundant
+%  | locally redundant atom
+%
+%\knowledge{notion}
+%  | locally redundant atoms
+%  | finitely redundant
+%
+%\knowledge{notion}
+%  | forest-shaped CRPQs
+%  | forest-shaped
+%
+%\knowledge{notion}
+%  | CRPQ minimization
+%  | (U)CRPQs
+%
+%\knowledge{notion}
+%  | (U)CRPQ
+%
+%\knowledge{notion}
+%  | variable-minimization problem(s)
+%
+%\knowledge{notion}
+%  | Variable-minimization problem
+%
+%\knowledge{notion}
+%  | variable minimal
+%  | UCRPQ minimization
+%
+%\knowledge{notion}
+%  | tree patterns
+%
+%\knowledge{notion}
+%  | 4ExpSpace
+%
+%\knowledge{notion}
+%  | tree pattern
+%
+%\knowledge{notion}
+%  | encoding
+%  | Encoding
+%
+%\knowledge{notion}
+%  | encode
+%
+%\knowledge{notion}
+%  | expanding
+%
+%\knowledge{notion}
+%  | class@CRPQ
+%
+%\knowledge{notion}
+%  | closed under variable marking
+%  | degenerate CRPQ
+%  | minor-closed classes
+%
+%\knowledge{notion}
+%  | class of CRPQs closed under disjoint conjunction
+%
+%\knowledge{notion}
+%  | degenerate@CRPQ
+%  | non-degenerate@CRPQ
+%
+%\knowledge{notion}
+%  | union of C2RPQs
+%  | (U)C2RPQ
+%
+%\knowledge{notion}
+%  | one-way semantic tree-width
+%
+%\knowledge{notion}
+%  | one-way semantic tree-width $k$ problem
+%
+%\knowledge{notion}
+%  | Maximal under-approximations
+%
+%\knowledge{notion}
+%  | Key Lemma
+%
+%\knowledge{notion}
+%  | semantic tree-width $1$ problem
+%  | semantic tree-width 1 problem
+%
+%\knowledge{notion}
+%  | closed under sublanguages
+%
+%\knowledge{notion}
+%  | one-way semantic tree-width 1 problem
+%
+%\knowledge{notion}
+%  | semantic path-width $k$ problems
+%
+%\knowledge{notion}
+%  | semantic path-width
+%
+%\knowledge{notion}
+%  | para-NL
+%
+%\knowledge{notion}
+%  | one-way semantic path-width
+%
+%\knowledge{notion}
+%  | two-way navigation
+%  | two-way contractions
+%  | one-way contractions
+%
+%\knowledge{notion}
+%  | cf
+%
+%\knowledge{notion}
+%  | homomorphic images
+%  | strong onto homomorphisms
+%
+%\knowledge{notion}
+%  | fine tree decomposition
+%
+%\knowledge{notion}
+%  | full bag
+%  | non-full
+%
+%\knowledge{notion}
+%  | approximation
+%
+%\knowledge{notion}
+%  | bridge-width
+%
+%\knowledge{notion}
+%  | bridge
+%
+%\knowledge{notion}
+%  | Savitch's Theorem
+%
+%\knowledge{notion}
+%  | tagged tree decomposition
+%
+%\knowledge{notion}
+%  | tagging
+%
+%\knowledge{notion}
+%  | fine tagged tree decomposition
+%
+%\knowledge{notion}
+%  | fine
+%
+%\knowledge{notion}
+%  | tagged
+%
+%\knowledge{notion}
+%  | induces the path
+%  | induced path
+%
+%\knowledge{notion}
+%  | link
+%  | $n$-link
+%
+%\knowledge{notion}
+%  | leaves
+%  | leaving
+%
+%\knowledge{notion}
+%  | cyclic@path
+%  | acyclic@path
+%
+%\knowledge{notion}
+%  | fine tagged tree decompositions
+%
+%\knowledge{notion}
+%  | non-branching paths
+%  | non-branching path
+%  | tag
+%
+%\knowledge{notion}
+%  | non-full bags
+%  | full
+%
+%\knowledge{notion}
+%  | trio
+%  | Trio
+%
+%\knowledge{notion}
+%  | acyclic paths
+%  | acyclic path
+%
+%\knowledge{notion}
+%  | cyclic path
+%
+%\knowledge{notion}
+%  | profile
+%  | Profiles
+%
+%\knowledge{notion}
+%  | type@stw
+%  | types@stw
+%
+%\knowledge{notion}
+%  | fine tagged tree decom\-position
+%
+%\knowledge{notion}
+%  | full bags
+%
+%\knowledge{notion}
+%  | condensations
+%
+%\knowledge{notion}
+%  | Non-branching path
+%
+%\knowledge{notion}
+%  | profiles
+%
+%\knowledge{notion}
+%  | fineness
+%
+%\knowledge{notion}
+%  | local acyclicity
+%
+%\knowledge{notion}
+%  | summary query
+%  | Summary queries
+%
+%\knowledge{notion}
+%  | path-$l$ approximations
+%
+%\knowledge{notion}
+%  | path-$l$ approximation
+%
+%\knowledge{notion}
+%  | $k$-summary query
+%
+%\knowledge{notion}
+%  | refinement@summary
+%  | refinements@summary
+%
+%\knowledge{notion}
+%  | tree decomposition@summary
+%
+%\knowledge{notion}
+%  | homomorphism@summary
+%
+%\knowledge{notion}
+%  | $k$-summary queries
+%  | tagged tree decompositions
+%  | Tree decomposition
+%  | regular homomorphism problem
+%  | $\sigma $-tree
+%  | $\sigma $-trees
+%
+%\knowledge{notion}
+%  | recursive atom
+%  | non-recursive atom
+%
+%\knowledge{notion}
+%  | non-recursive atoms
+%
+%\knowledge{notion}
+%  | non-recursive@nrat
+%
+%\knowledge{notion}
+%  | recursive@rat
+%
+%\knowledge{notion}
+%  | (two-way) internal path
+%
+%\knowledge{notion}
+%  | recursive atoms
+%
+%\knowledge{notion}
+%  | one-way semantic tree-width $1$ problem
+%
+%\knowledge{notion}
+%  | contracted tree-width
+%
+%\knowledge{notion}
+%  | one-way contraction
+%
+%\knowledge{notion}
+%  | contraction@2w
+%  | contracted@2w
+%
+%\knowledge{notion}
+%  | one-way internal paths
+%  | one-way contracted tree-width
+%
+%\knowledge{notion}
+%  | one-wayness
+%  | one-way contracted path-width
+%
+%\knowledge{notion}
+%  | induces a path
+%  | Path decomposition
+%
+%\knowledge{notion}
+%  | visits
+%  | visit
+%
+%\knowledge{notion}
+%  | semantic tree-width 1 problems
+%  | asymmetric containment problem for tree-width $k$
+%
+%\knowledge{notion}
+%  | paraNL
+%
+%\knowledge{notion}
+%  | semantic path-width $k$ problem
+%
+%\knowledge{notion}
+%  | one-way semantic path-width $k$ problem
+%
+%\knowledge{notion}
+%  | satisfying@db
+%
+%\knowledge{notion}
+%  | loopless CRPQs
+%  | loopless
+%
+%\knowledge{notion}
+%  | directed cycles
+%  | directed trees
+%
+%\knowledge{notion}
+%  | parameterized clique problem
+%
+%\knowledge{notion}
+%  | infinitary UCQ
+%
+%\knowledge{notion}
+%  | finite redundancy
+%
+%\knowledge{notion}
+%  | Evaluation problem@crpq
+%
+%\knowledge{notion}
+%  | sem. path-w.
+%
+%\knowledge{notion}
+%  | sem. tree-w.
+%
+%\knowledge{notion}
+%  | profinite databases
+%  | profinite database
+%
+%\knowledge{notion}
+%  | closed under minors
+%
+%\knowledge{notion}
+%  | duality
+%  | tree duality
+%
+%\knowledge{notion}
+%  | pseudovarieties of monoids
+%
+%\knowledge{notion}
+%  | hom-minimal expansions
+%
+%\knowledge{notion}
+%  | semantically forest-shaped
+%
+%\knowledge{notion}
+%  | DAG-shaped
+%  | DAG-shaped CRPQ
+%  | forest-shaped CRPQ
+%
+%\knowledge{notion}
+%  | unfolding
+%
+%\knowledge{notion}
+%  | hom-minimal canonical database
+%
+%\knowledge{notion}
+%  | semantically DAG-shaped
+%
+%\knowledge{notion}
+%  | multitape automata
+%  | multitape automaton
+%
+%\knowledge{notion}
+%  | same parity length relation
+%
+%\knowledge{notion}
+%  | prefix relation
+%
+%\knowledge{notion}
+%  | identity relation
+%
+%\knowledge{notion}
+%  | subword relation
+%
+%\knowledge{notion}
+%  | suffix relation
+%
+%\knowledge{notion}
+%  | deterministic rational relations
+%
+%\knowledge{notion}
+%  | rational relations
+%
+%\knowledge{notion}
+%  | deterministic two-way rational relations
+%
+%\knowledge{notion}
+%  | two-way rational relations
+%
+%\knowledge{notion}
+%  | functional relations
+%
+%\knowledge{notion}
+%  | regular functions@bojan
+%
+%\knowledge{notion}
+%  | recognizable@rel
+%  | $\+V$-recognizable@rel
+%
+%\knowledge{notion}
+%  | transducers
+%
+%\knowledge{notion}
+%  | deterministic two-way transductions
+%  | transductions
+%
+%\knowledge{notion}
+%  | functional relation
+%  | $\+D$-membership problem for $\+C$-relations
+%
+%\knowledge{notion}
+%  | $\+C$/$\+D$-membership problem
+%  | $\RAT $/$\REC $-membership problem
+%
+%\knowledge{notion}
+%  | $\+D$-separability problem for $\+C$-relations
+%  | same parity relation
+%
+%\knowledge{notion}
+%  | separates@rel
+%
+%\knowledge{notion}
+%  | membership@problemrel
+%
+%\knowledge{notion}
+%  | separability@problemrel
+%
+%\knowledge{notion}
+%  | $\+D$-separability problem
+%  | $\REC $-separability problem
+%  | $\kREC [1]$-separability problem
+%  | $\kREC $-separability problem
+%  | $\kPROD [1]$-separability problem
+%  | $\kPROD $-separability problem
+%  | $\kPROD [2]$-separability problem
+%  | separability problems
+%
+%\knowledge{notion}
+%  | inclusion problem@rel
+%
+%\knowledge{notion}
+%  | equivalence problem@rel
+%
+%\knowledge{notion}
+%  | Mezei theorem
+%
+%\knowledge{notion}
+%  | Cartesian products
+%  | product
+%
+%\knowledge{notion}
+%  | pseudovariety@reglang
+%  | $*$-pseudovarieties@reglang
+%
+%\knowledge{notion}
+%  | syntactic morphism
+%
+%\knowledge{notion}
+%  | membership@problang
+%
+%\knowledge{notion}
+%  | $\+V$-recognizable relations
+%
+%\knowledge{notion}
+%  | reflexive relations
+%
+%\knowledge{notion}
+%  | Ramsey's infinite theorem
+%
+%\knowledge{notion}
+%  | equal-length relation
+%
+%\knowledge{notion}
+%  | convolution@word
+%
+%\knowledge{notion}
+%  | blank symbol
+%
+%\knowledge{notion}
+%  | padding symbol
+%  | $\REC $-membership problem for automatic relations
+%
+%\knowledge{notion}
+%  | padding symbols
+%  | non-blank symbols
+%
+%\knowledge{notion}
+%  | recognizing@syncauto
+%  | recognizes@syncauto
+%
+%\knowledge{notion}
+%  | recognized@syncauto
+%  | recognize@syncauto
+%
+%\knowledge{notion}
+%  | well-formed
+%  | well-formed words
+%
+%\knowledge{notion}
+%  | 3ExpTime
+%
+%\knowledge{notion}
+%  | 2ExpTime
+%
+%\knowledge{notion}
+%  | separation problem@rel
+%
+%\knowledge{notion}
+%  | $\REC $-separability problem for automatic relations
+%
+%\knowledge{notion}
+%  | length-multiplying
+%
+%\knowledge{notion}
+%  | length-multiplying morphisms
+%
+%\knowledge{notion}
+%  | length-multiplying morphism
+%
+%\knowledge{notion}
+%  | morphism@monoid
+%
+%\knowledge{notion}
+%  | Rational relations
+%
+%\knowledge{notion}
+%  | rational@rel
+%
+%\knowledge{notion}
+%  | recognized@desync
+%
+%\knowledge{notion}
+%  | Multitape automata
+%
+%\knowledge{notion}
+%  | automaton@desync
+%
+%\knowledge{notion}
+%  | intersection non-emptiness problem
+%  | $k$-coloured automaton
+%
+%\knowledge{notion}
+%  | automaton@sync
+%
+%\knowledge{notion}
+%  | deterministic@desync
+%
+%\knowledge{notion}
+%  | deterministic@multitape
+%
+%\knowledge{notion}
+%  | deterministic multitape automaton
+%  | Deterministic multitape automata
+%  | $T$-multitape automaton
+%  | $T_{\textrm {sync}}$-multitape automaton
+%  | $T_{\textrm {rec}}$-multitape automaton
+%  | Multitape automaton
+%
+%\knowledge{notion}
+%  | deterministic rational@rel
+%
+%\knowledge{notion}
+%  | synchronous@auto
+%
+%\knowledge{notion}
+%  | recognizes@multitape
+%
+%\knowledge{notion}
+%  | intersection non-emptiness problem@drat
+%
+%\knowledge{notion}
+%  | deterministic multitape automata
+%  | $\{\{i\} \mid i \in \intInt {1,k}\}^*$-multitape automata
+%  | Synchronous automaton
+%  | synchronous words
+%
+%\knowledge{notion}
+%  | $\DRAT $/$\REC $-membership problem
+%
+%\knowledge{notion}
+%  | $T$-controlled relation
+%  | $T$-controlled relations
+%
+%\knowledge{notion}
+%  | $T$-multitape automata
+%
+%\knowledge{notion}
+%  | $T_1$-controlled relations
+%  | $T_2$-controlled relations
+%
+%\knowledge{notion}
+%  | Right-automatic relations
+%
+%\knowledge{notion}
+%  | right-automatic@rel
+%
+%\knowledge{notion}
+%  | equivalence@pbrel
+%
+%\knowledge{notion}
+%  | deterministic two-way multitape automata
+%
+%\knowledge{notion}
+%  | Deterministic two-way rational relations
+%
+%\knowledge{notion}
+%  | deterministic one-way rational relations
+%
+%\knowledge{notion}
+%  | deterministic\\rational@rel
+%
+%\knowledge{notion}
+%  | deterministic two-way rational@rel
+%
+%\knowledge{notion}
+%  | two-way\\rational@rel
+%
+%\knowledge{notion}
+%  | non-deterministic one-way transducers
+%  | deterministic\\rational relations
+%
+%\knowledge{notion}
+%  | transducer
+%  | deterministic transducer
+%
+%\knowledge{notion}
+%  | deterministic@transducer
+%
+%\knowledge{notion}
+%  | deterministic transducers
+%  | deterministic one-way transducer
+%
+%\knowledge{notion}
+%  | deterministic transduction
+%
+%\knowledge{notion}
+%  | two-way transductions
+%
+%\knowledge{notion}
+%  | Deterministic two-way transductions
+%
+%\knowledge{notion}
+%  | determinstic\\transductions
+%
+%\knowledge{notion}
+%  | deterministic\\two-way rational\\ relations
+%  | two-way\\rational relations
+%
+%\knowledge{notion}
+%  | polyregular\\functions@bojan
+%
+%\knowledge{notion}
+%  | Regular functions@bojan
+%  | polyregular functions@bojan
+%
+%\knowledge{notion}
+%  | one-way deterministic transductions
+%
+%\knowledge{notion}
+%  | polyregular function@bojan
+%
+%\knowledge{notion}
+%  | regular@bojan
+%
+%\knowledge{notion}
+%  | two-way rational relation
+%
+%\knowledge{notion}
+%  | relational signatures
+%  | regular function
+%  | deterministic transductions
+%
+%\knowledge{notion}
+%  | $d$-dimensional first-order interpretation
+%  | $d$-dimensional interpretation
+%
+%\knowledge{notion}
+%  | one-dimensional interpretation
+%  | one-dimensional interpretations
+%
+%\knowledge{notion}
+%  | two-dimensional interpretation
+%
+%\knowledge{notion}
+%  | injective@interpretation
+%
+%\knowledge{notion}
+%  | injective interpretation
+%  | injective first-order interpretation
+%
+%\knowledge{notion}
+%  | FO-interpretations
+%  | FO-interpretation
+%
+%\knowledge{notion}
+%  | FO-reduction
+%
+%\knowledge{notion}
+%  | lexicographic order
+%
+%\knowledge{notion}
+%  | FO
+%
+%\knowledge{notion}
+%  | MSO
+%
+%\knowledge{notion}
+%  | definable relations
+%  | right-automatic relations
+%
+%\knowledge{notion}
+%  | automatic groups
+%  | automatic group
+%
+%\knowledge{notion}
+%  | automatic presentation $\+A$ of a $\sigma $-structure
+%  | automatic presentation
+%
+%\knowledge{notion}
+%  | structure represented
+%
+%\knowledge{notion}
+%  | represented@struct
+%  | represents@struct
+%
+%\knowledge{notion}
+%  | injective presentations
+%  | automatic presentations
+%
+%\knowledge{notion}
+%  | injective presentation
+%  | injective automatic presentation
+%
+%\knowledge{notion}
+%  | length-lexicographic
+%  | length-lexicographic order
+%
+%\knowledge{notion}
+%  | automatic@pres
+%
+%\knowledge{notion}
+%  | presentation
+%  | presentations of automatic $\sigma $-structures
+%
+%\knowledge{notion}
+%  | automaticity@struct
+%
+%\knowledge{notion}
+%  | injective@pres
+%
+%\knowledge{notion}
+%  | tree-automatic structures
+%  | $\omega $-tree-automatic structures
+%
+%\knowledge{notion}
+%  | First-Order Model Checking of Automatic $\sigma $-Structures
+%  | First-order model checking of automatic structures
+%
+%\knowledge{notion}
+%  | data complexity
+%
+%\knowledge{notion}
+%  | Hodgson's theorem
+%
+%\knowledge{notion}
+%  | first-order model-checking
+%
+%\knowledge{notion}
+%  | first-order model checking of automatic structures
+%
+%\knowledge{notion}
+%  | primitive-positive sentences
+%  | existential sentences
+%
+%\knowledge{notion}
+%  | positive quantifier-free formula
+%
+%\knowledge{notion}
+%  | FOaut
+%
+%\knowledge{notion}
+%  | Presburger arithmetic
+%
+%\knowledge{notion}
+%  | higher-order automatic structures
+%  | higher-order automatic
+%
+%\knowledge{notion}
+%  | upward Löwenheim–Skolem theorem
+%
+%\knowledge{notion}
+%  | order-invariant first-order formula
+%  | $\omega $-order-invariant first-order formulas
+%
+%\knowledge{notion}
+%  | sentences@FO
+%
+%\knowledge{notion}
+%  | $\omega $-order-invariant@FO
+%  | order-invariant@FO
+%
+%\knowledge{notion}
+%  | $\omega $-order-invariant first-order formula
+%
+%\knowledge{notion}
+%  | order-invariance@FO
+%
+%\knowledge{notion}
+%  | order-invariant first-order formulas
+%
+%\knowledge{notion}
+%  | Isomorphism Problem for Automatic Structures
+%
+%\knowledge{notion}
+%  | isomorphic@struct
+%
+%\knowledge{notion}
+%  | Automatic ordinals
+%  | automatic ordinals
+%  | graph isomorphisms
+%
+%\knowledge{notion}
+%  | $\omega $-tree-automatic ordinals
+%  | tree-automatic ordinals
+%
+%\knowledge{notion}
+%  | automatic Boolean algebras
+%
+%\knowledge{notion}
+%  | $\omega $-tree-automaticity
+%  | $\omega $-tree-automatic Boolean algebras
+%
+%\knowledge{notion}
+%  | ZFC
+%
+%\knowledge{notion}
+%  | automatic semigroups
+%
+%\knowledge{notion}
+%  | \emph {analytical} hierarchy
+%
+%\knowledge{notion}
+%  | \emph {arithmetical} hierarchy
+%
+%\knowledge{notion}
+%  | finite relational structure
+%  | rational relation
+%
+%\knowledge{notion}
+%  | regular@hom
+%  | Regularity@hom
+%
+%\knowledge{notion}
+%  | Mycielski's construction
+%
+%\knowledge{notion}
+%  | $\REC $-membership@problem
+%
+%\knowledge{notion}
+%  | $\AUT $/$\REC $-separability@problem
+%  | $\AUT $/$\kREC $-separability@problem
+%
+%\knowledge{notion}
+%  | CSPs
+%  | CSP
+%
+%\knowledge{notion}
+%  | $2$-path
+%
+%\knowledge{notion}
+%  | coNLogTime
+%
+%\knowledge{notion}
+%  | modL
+%
+%\knowledge{notion}
+%  | obstructions
+%  | obstruction
+%
+%\knowledge{notion}
+%  | constraint satisfaction problem
+%
+%\knowledge{notion}
+%  | Atserias' theorem
+%
+%\knowledge{notion}
+%  | Larose-Tesson theorem
+%
+%\knowledge{notion}
+%  | source side@struct
+%
+%\knowledge{notion}
+%  | finite regular colourability@problem
+%
+%\knowledge{notion}
+%  | regular $k$-colourability@problem
+%
+%\knowledge{notion}
+%  | Dichotomy Theorem for Automatic Structures
+%
+%\knowledge{notion}
+%  | uniformly first-order definable homomorphisms
+%  | Uniformly first-order definable homomorphisms
+%  | source@struct
+%
+%\knowledge{notion}
+%  | reversible Turing machines
+%  | reversible
+%
+%\knowledge{notion}
+%  | linear Turing machines
+%
+%\knowledge{notion}
+%  | hyperedge consistency algorithm@automatic
+%
+%\knowledge{notion}
+%  | presentation@auto
+%
+%\knowledge{notion}
+%  | presentation of an automatic graph
+%  | automatic presentations of $\sigma $-structures
+%  | presentations
+%
+%\knowledge{notion}
+%  | regular@colouring
+%
+%\knowledge{notion}
+%  | idempotent core
+%
+%\knowledge{notion}
+%  | first-order@reduction
+%
+%\knowledge{notion}
+%  | finite@structure
+%
+%\knowledge{notion}
+%  | De Bruijn–Erdős Theorem
+%
+%\knowledge{notion}
+%  | Tychonoff's compactness theorem
+%
+%\knowledge{notion}
+%  | induced@structure
+%
+%\knowledge{notion}
+%  | finite intersection property
+%
+%\knowledge{notion}
+%  | dual
+%  | duals
+%
+%\knowledge{notion}
+%  | \emph {undirected} graph
+%
+%\knowledge{notion}
+%  | critical@obs
+%
+%\knowledge{notion}
+%  | critical obstruction
+%  | critical obstructions
+%
+%\knowledge{notion}
+%  | zigzag graph
+%
+%\knowledge{notion}
+%  | De Bruijn-Erdős theorem
+%
+%\knowledge{notion}
+%  | rigid
+%
+%\knowledge{notion}
+%  | strongly acyclic@struct
+%
+%\knowledge{notion}
+%  | height@struct
+%
+%\knowledge{notion}
+%  | compatible@recognizable
+%  | incompatible@recognizable
+%  | incompatibility graph
+%
+%\knowledge{notion}
+%  | Incompatibility graph
+%
+%\knowledge{notion}
+%  | incompatibility relation
+%  | symmetric relation
+%
+%\knowledge{notion}
+%  | well-founded
+%
+%\knowledge{notion}
+%  | linear@TM
+%
+%\knowledge{notion}
+%  | germinal
+%  | germinal configurations
+%  | linear Turing machine
+%
+%\knowledge{notion}
+%  | $k$-coloured automata
+%
+%\knowledge{notion}
+%  | separator@rel
+%  | $\+V$-separable@rel
+%
+%\knowledge{notion}
+%  | higher-order automatic structure
+%
+%\knowledge{notion}
+%  | Connectivity in automatic graphs
+%  | Connectivity in Automatic Graphs
+%
+%\knowledge{notion}
+%  | $n$-linked
+%  | linked
+%
+%\knowledge{notion}
+%  | connectivity in automatic graphs
+%  | Regular Unconnectivity in Automatic Graphs
+%
+%\knowledge{notion}
+%  | $1$-link
+%  | $1$-linked
+%
+%\knowledge{notion}
+%  | interpret@predicate
+%
+%\knowledge{notion}
+%  | unary type
+%
+%\knowledge{notion}
+%  | obstructing@unarytype
+%
+%\knowledge{notion}
+%  | regularly unconnected
+%  | Regular unconnectivity in automatic graphs
+%  | type
+%
+%\knowledge{notion}
+%  | regularity@hom
+%
+%\knowledge{notion}
+%  | complete lattice
+%
+%\knowledge{notion}
+%  | Knaster-Tarski theorem
+%
+%\knowledge{notion}
+%  | regularity@fun
+%  | regular@fun
+%
+%\knowledge{notion}
+%  | quantifier alternation
+%
+%\knowledge{notion}
+%  | locally finite@struct
+%
+%\knowledge{notion}
+%  | presentation@automatic
+%
+%\knowledge{notion}
+%  | connected graphs
+%
+%\knowledge{notion}
+%  | unconnected@struct
+%  | connectivity@struct
+%
+%\knowledge{notion}
+%  | contain unbounded tournaments
+%
+%\knowledge{notion}
+%  | has bounded tournaments
+%
+%\knowledge{notion}
+%  | triangle-free graphs@dir
+%  | triangle-free@dir
+%
+%\knowledge{notion}
+%  | triangle-free@undir
+%  | triangle-free graph@undir
+%
+%\knowledge{notion}
+%  | triangle-free graphs@undir
+%
+%\knowledge{notion}
+%  | automaticity@graph
+%  | automatic@graph
+%  | infinite Mycielski graph
+%
+%\knowledge{notion}
+%  | Mycielskian
+%
+%\knowledge{notion}
+%  | adjacent elements
+%
+%\knowledge{notion}
+%  | dichotomy theorem for automatic structures
+%
+%\knowledge{notion}
+%  | $\+V$-relation
+%  | $\+V$-relations
+%
+%\knowledge{notion}
+%  | lifting theorem
+%
+%\knowledge{notion}
+%  | dependency relation
+%  | dependency
+%  | $\symbf {\+V}$-relation
+%
+%\knowledge{notion}
+%  | syntactic congruence@sync
+%  | congruence@sync
+%  | syntactic congruence
+%
+%\knowledge{notion}
+%  | Lifting theorem: Elementary Formulation
+%
+%\knowledge{notion}
+%  | corresponding@EilenbergSg
+%
+%\knowledge{notion}
+%  | recognized@sync
+%  | recognizes@sync
+%
+%\knowledge{notion}
+%  | synchronous algebra
+%  | syntactic synchronous algebras
+%
+%\knowledge{notion}
+%  | syntactic algebras@sync
+%  | algebra@sync
+%  | Morphisms of synchronous algebras
+%  | synchronous algebra morphisms
+%  | synchronous algebra morphism
+%
+%\knowledge{notion}
+%  | residuals
+%  | residual
+%
+%\knowledge{notion}
+%  | lifting theorem@monoids
+%
+%\knowledge{notion}
+%  | $*$-pseudovarieties of automatic relations
+%  | Lifting theorem
+%  | lifting theorem for monoids
+%  | Lifting Theorem
+%
+%\knowledge{notion}
+%  | lifting theorem@monoidspseudovar
+%
+%\knowledge{notion}
+%  | complement@rel
+%
+%\knowledge{notion}
+%  | group relations
+%
+%\knowledge{notion}
+%  | group relation
+%
+%\knowledge{notion}
+%  | letter-type
+%  | letter-types
+%
+%\knowledge{notion}
+%  | $\types $-typed set
+%
+%\knowledge{notion}
+%  | typed set
+%
+%\knowledge{notion}
+%  | map between typed sets
+%
+%\knowledge{notion}
+%  | typed sets
+%
+%\knowledge{notion}
+%  | dependent set
+%
+%\knowledge{notion}
+%  | closed subset
+%  | closed subsets
+%
+%\knowledge{notion}
+%  | types
+%
+%\knowledge{notion}
+%  | compatible@type
+%  | compatibility@type
+%
+%\knowledge{notion}
+%  | dependent sets
+%
+%\knowledge{notion}
+%  | Eilenberg-Moore algebras
+%
+%\knowledge{notion}
+%  | maps of typed sets
+%
+%\knowledge{notion}
+%  | morphism@sync
+%
+%\knowledge{notion}
+%  | recognizability@sync
+%
+%\knowledge{notion}
+%  | induces@sync
+%
+%\knowledge{notion}
+%  | compatible type
+%
+%\knowledge{notion}
+%  | consolidation
+%
+%\knowledge{notion}
+%  | recognize@sync
+%  | recognizing@sync
+%
+%\knowledge{notion}
+%  | syntactic synchronous algebra morphism
+%
+%\knowledge{notion}
+%  | Syntactic morphism theorem@sync
+%
+%\knowledge{notion}
+%  | quotient structure@sync
+%
+%\knowledge{notion}
+%  | morphism of synchronous algebras
+%  | synchronous algebra induced by the monoid
+%  | quotient@sync
+%
+%\knowledge{notion}
+%  | syntactic morphism@sync
+%
+%\knowledge{notion}
+%  | syntactic morphisms@sync
+%
+%\knowledge{notion}
+%  | closed
+%
+%\knowledge{notion}
+%  | dependent
+%
+%\knowledge{notion}
+%  | divides@sync
+%  | divide@sync
+%
+%\knowledge{notion}
+%  | division@monoid
+%
+%\knowledge{notion}
+%  | $\ast $-pseudovariety@reglang
+%
+%\knowledge{notion}
+%  | naive synchronous algebra
+%
+%\knowledge{notion}
+%  | $\typesEps $-typed sets
+%
+%\knowledge{notion}
+%  | pseudovariety of synchronous algebras
+%  | $\ast $-pseudovariety of automatic relations
+%  | Lifting Theorem: Pseudovariety Formulation
+%  | $\ast $-pseudovarieties of regular languages
+%  | pseudovarieties of mon\-oids
+%
+%\knowledge{notion}
+%  | Eilenberg-Schützenberger correspondence@sync
+%  | Eilenberg-Schützenberger correspondence theorem@sync
+%
+%\knowledge{notion}
+%  | subalgebra@sync
+%
+%\knowledge{notion}
+%  | locally generated@sync
+%
+%\knowledge{notion}
+%  | locally generated
+%  | pseudovariety generated
+%  | subalgebras
+%
+%\knowledge{notion}
+%  | pseudovariety@syncalg
+%
+%\knowledge{notion}
+%  | Boolean combinations
+%  | Boolean combination
+%
+%\knowledge{notion}
+%  | Syntactic derivatives
+%  | syntactic derivatives
+%
+%\knowledge{notion}
+%  | Inverse morphisms
+%  | inverse morphisms
+%
+%\knowledge{notion}
+%  | morphisms@sync
+%
+%\knowledge{notion}
+%  | syntactic algebra@sync
+%  | algebras@sync
+%
+%\knowledge{notion}
+%  | $\ast $-pseudo\-variety of automatic relations
+%
+%\knowledge{notion}
+%  | generated@var
+%
+%\knowledge{notion}
+%  | An Eilenberg theorem for automatic relations
+%
+%\knowledge{notion}
+%  | pseudovarieties of synchronous algebras
+%  | $\Omega $-path algebras
+%
+%\knowledge{notion}
+%  | $\ast $-pseudovarieties of automatic relations
+%  | pseudovariety of automatic relations
+%
+%\knowledge{notion}
+%  | division@sync
+%
+%\knowledge{notion}
+%  | fully-preordered@lang
+%
+%\knowledge{notion}
+%  | monadic second-order
+%
+%\knowledge{notion}
+%  | monad adjunction
+%
+%\knowledge{notion}
+%  | monad functor
+%
+%\knowledge{notion}
+%  | Monad functors
+%
+%\knowledge{notion}
+%  | Monads functors
+%
+%\knowledge{notion}
+%  | Kleene's monad
+%
+%\knowledge{notion}
+%  | Wilke's monad
+%
+%\knowledge{notion}
+%  | 2-typed sets
+%
+%\knowledge{notion}
+%  | monad functors
+%
+%\knowledge{notion}
+%  | mutually dependent
+%
+%\knowledge{notion}
+%  | $\DRAT $/$\REC $-separability@pb
+%
+%\knowledge{notion}
+%  | $\RAT $/$\REC $-sepa\-ra\-bility problems
+%
+%\knowledge{notion}
+%  | $\WellFormed $-path algebras
+%  | $\Omega _T$-path algebras
+%
+%\knowledge{notion}
+%  | fully-preordered languages

@@ -1,0 +1,3529 @@
+***********
+* Summary *
+***********
+
+1883 undefined knowledge(s).
+0 autoreference(s) are introduced twice.
+0 autoreference(s) are used but not introduced.
+
+204 autoreference(s) are properly used.
+2 autoreference(s) are defined but not used.
+
+
+********
+* Help *
+********
+
+\knowledgeconfigure{diagnose bar=false} deactivate `|'-notation in diagnose file.
+\knowledgeconfigure{diagnose help=false} deactivate long help in the diagnose file.
+\knowledgeconfigure{diagnose line=true} add line numbers to diagnose file.
+
+************************
+* Undefined knowledges *
+************************
+
+\knowledge{ignore}
+% copyright.tex:36
+ | CC BY 4.0
+% preface.tex:74
+ | knowledge package
+% preface.tex:76
+ | automatic structure
+% preface.tex:81
+ | knowledge
+ | knowledge-clustering
+% preface.tex:109
+ | CC BY SA 4.0
+% preface.tex:113
+ | Malament–Hogarth spacetime
+% ch-resume-fr.tex:84
+ | NP
+% ch-resume-fr.tex:308
+ | P
+% ch-resume-fr.tex:353
+ | NL
+% sec-structures.tex:3
+ | homomorphism problem
+% sec-structures.tex:6
+ | primitive-positive formulas
+ | conjunctive query
+ | constraint satisfaction
+% sec-structures.tex:9
+ | homomorphism problems
+% sec-structures.tex:12
+ | homomorphism
+% sec-structures.tex:26
+ | edges
+% sec-structures.tex:155
+ | relational structure
+% sec-structures.tex:159
+ | signature
+% sec-structures.tex:160
+ | $\sigma $-structures
+ | relational structures
+% sec-structures.tex:162
+ | homomorphisms
+% sec-structures.tex:169
+ | Homomorphism Problem
+% sec-structures.tex:171
+ | source structure
+% sec-structures.tex:172
+ | target structure
+% sec-structures.tex:217
+ | structure
+% sec-structures.tex:250
+ | relational database
+% sec-structures.tex:311
+ | relational databases
+ | query@sem
+% sec-structures.tex:362
+ | predicates
+% sec-structures.tex:372
+ | st
+% sec-structures.tex:383
+ | marked structure
+% sec-structures.tex:397
+ | query@sem
+% sec-structures.tex:401
+ | query@sem
+% sec-structures.tex:405
+ | query@sem
+% sec-structures.tex:417
+ | $k$-colourable
+% sec-structures.tex:430
+ | ie
+% sec-existential.tex:16
+ | graph@dir
+% sec-existential.tex:23
+ | substructure
+% sec-existential.tex:29
+ | query@sem
+% sec-existential.tex:32
+ | first-order logic
+% sec-existential.tex:91
+ | conjunctive queries
+% sec-existential.tex:92
+ | output@var
+% sec-existential.tex:95
+ | CQ
+% sec-existential.tex:109
+ | primitive-positive fragment
+% sec-existential.tex:113
+ | conjunctive query evaluation
+% sec-existential.tex:115
+ | query@sem
+% sec-existential.tex:119
+ | uniform-AC0
+% sec-existential.tex:133
+ | query@sem
+% sec-existential.tex:136
+ | AC0
+% sec-existential.tex:137
+ | XP
+% sec-existential.tex:138
+ | fixed-parameter tractable
+ | FPT
+% sec-existential.tex:184
+ | graph@dir
+ | core
+% sec-existential.tex:189
+ | finite $\sigma $-structure
+% sec-existential.tex:190
+ | $\sigma $-structure
+% sec-existential.tex:195
+ | iff
+% sec-existential.tex:216
+ | semantically equivalent
+% sec-existential.tex:217
+ | substructures
+ | eg
+% sec-existential.tex:218
+ | tree-width
+% sec-existential.tex:223
+ | queries@CQ
+% sec-existential.tex:226
+ | Conjunctive queries
+% sec-existential.tex:228
+ | path-width
+% sec-existential.tex:238
+ | W[1]
+% sec-existential.tex:240
+ | graph@undir
+ | $k$-clique
+% sec-existential.tex:245
+ | graph@undir
+% sec-existential.tex:248
+ | W1
+% sec-existential.tex:276
+ | tree-shaped
+% sec-existential.tex:317
+ | semantic tree-width
+% sec-existential.tex:356
+ | structures
+% sec-existential.tex:357
+ | distance@struct
+% sec-existential.tex:359
+ | distance@struct
+% sec-existential.tex:361
+ | graph@dir
+% sec-existential.tex:366
+ | distances@struct
+% sec-existential.tex:373
+ | graph databases
+% sec-existential.tex:383
+ | Wikidata
+ | graph database
+% sec-existential.tex:462
+ | Statistique des gens de lettres et des savants existant en France@wd
+% sec-existential.tex:464
+ | François-Fortuné Guyot de Fère@wd
+% sec-existential.tex:468
+ | French@wd
+% sec-existential.tex:470
+ | biographical dictionary@wd
+% sec-existential.tex:472
+ | biography@wd
+% sec-existential.tex:474
+ | dictionary@wd
+% sec-existential.tex:476
+ | catalogue@wd
+% sec-existential.tex:478
+ | knowledge organization system@wd
+% sec-existential.tex:480
+ | reference work@wd
+% sec-existential.tex:482
+ | biographical work@wd
+% sec-existential.tex:484
+ | non-fiction work@wd
+% sec-existential.tex:486
+ | literary work@wd
+% sec-existential.tex:528
+ | conjunctive regular path queries
+% sec-existential.tex:534
+ | regular language
+% sec-existential.tex:537
+ | conjunctive regular path query
+% sec-existential.tex:578
+ | Graph databases
+% sec-existential.tex:587
+ | semantical equivalence
+% sec-existential.tex:589
+ | regular languages
+% sec-existential.tex:591
+ | ExpSpace
+% sec-existential.tex:592
+ | cores
+% sec-existential.tex:604
+ | minimization problem@CRPQ
+% sec-existential.tex:605
+ | CRPQ
+% sec-existential.tex:620
+ | query@CRPQ
+% sec-existential.tex:621
+ | queries@CRPQ
+% sec-existential.tex:630
+ | queries@CRPQ
+% sec-existential.tex:639
+ | atoms
+% sec-existential.tex:650
+ | maximal under-approximation
+% sec-existential.tex:655
+ | maximal under-approximations
+% sec-existential.tex:672
+ | minor-closed
+% sec-existential.tex:677
+ | semantical structure theorem
+% sec-existential.tex:680
+ | query@sem
+% sec-existential.tex:725
+ | tree decomposition
+% sec-existential.tex:738
+ | contractions@2w
+ | contracted path-width
+% sec-existential.tex:756
+ | simple regular expressions
+% sec-existential.tex:758
+ | aka
+% sec-existential.tex:774
+ | query@sem
+% sec-existential.tex:788
+ | CRPQs
+% sec-universal.tex:8
+ | constraint satisfaction problems
+ | automatic structures
+% sec-universal.tex:36
+ | $3$-clique
+% sec-universal.tex:46
+ | $3$-colouring
+ | graph@dir
+% sec-universal.tex:51
+ | graph@dir
+% sec-universal.tex:54
+ | $k$-colouring
+% sec-universal.tex:55
+ | graph@dir
+% sec-universal.tex:58
+ | graph@dir
+% sec-universal.tex:67
+ | $3$-colourability
+% sec-universal.tex:71
+ | $3$-colourability problem
+ | graph@dir
+ | $3$-colourable
+% sec-universal.tex:83
+ | wlog
+% sec-universal.tex:174
+ | wrt
+% sec-universal.tex:180
+ | undirected graphs
+% sec-universal.tex:185
+ | finite structure
+% sec-universal.tex:195
+ | L
+ | FOfin
+ | first-order definable
+ | finite structures
+% sec-universal.tex:201
+ | target structures
+% sec-universal.tex:215
+ | finite@struct
+% sec-universal.tex:224
+ | incompleteness theorem
+% sec-universal.tex:247
+ | Gödel's incompleteness theorem
+% sec-universal.tex:249
+ | Gödel's completeness theorem
+% sec-universal.tex:265
+ | Zermelo–Fraenkel set theory plus the axiom of choice
+% sec-universal.tex:279
+ | first-order sentence
+% sec-universal.tex:332
+ | automatic@struct
+% sec-universal.tex:337
+ | automatic@struct
+% sec-universal.tex:338
+ | automatic@struct
+% sec-universal.tex:339
+ | configuration graph
+ | Turing machine
+ | automatic@struct
+% sec-universal.tex:344
+ | automatic graph
+ | 2-colourable
+% sec-universal.tex:346
+ | $2$-clique
+% sec-universal.tex:353
+ | regular homomorphisms
+% sec-universal.tex:366
+ | $3$-transitive tournament
+% sec-universal.tex:368
+ | regular $2$-colouring
+% sec-universal.tex:370
+ | transitive tournament
+% sec-universal.tex:377
+ | first-order formula
+% sec-universal.tex:378
+ | automatic graphs
+% sec-universal.tex:383
+ | finite duality
+% sec-universal.tex:388
+ | clique
+% sec-universal.tex:405
+ | hyperedge consistency algorithm@finite
+% sec-universal.tex:409
+ | Rice's theorem
+% sec-universal.tex:414
+ | non-first-order definable
+% sec-universal.tex:421
+ | $\AUT $/$\REC $-separability problem
+ | automatic relations
+ | synchronous automata
+% sec-universal.tex:422
+ | separated@rel
+ | recognizable relation
+% sec-universal.tex:425
+ | regular colouring
+% sec-universal.tex:426
+ | regular homomorphism
+% sec-universal.tex:431
+ | separable@rel
+% sec-universal.tex:447
+ | syntactic monoid
+% sec-universal.tex:448
+ | regular@lang
+% sec-universal.tex:450
+ | monoid
+% sec-universal.tex:451
+ | monoids
+% sec-universal.tex:461
+ | synchronous algebras
+% sec-universal.tex:465
+ | syntactic synchronous algebra
+% sec-universal.tex:466
+ | automatic@rel
+% sec-universal.tex:478
+ | synchronous automaton
+% sec-universal.tex:500
+ | coRE
+% sec-universal.tex:501
+ | RE
+% sec-universal.tex:509
+ | automatic relation
+% sec-universal.tex:521
+ | recognizable relations
+% sec-universal.tex:524
+ | via
+% sec-universal.tex:528
+ | separable@rel
+% ch-general-preliminaries.tex:32
+ | approximations
+% ch-general-preliminaries.tex:33
+ | refinement
+% ch-general-preliminaries.tex:34
+ | expansion
+% ch-general-preliminaries.tex:37
+ | pseudovariety of monoids
+% ch-general-preliminaries.tex:44
+ | finite regular colourability@pb
+% ch-general-preliminaries.tex:45
+ | coNP
+% ch-general-preliminaries.tex:80
+ | functional@rel
+% ch-general-preliminaries.tex:84
+ | reflexive@rel
+% ch-general-preliminaries.tex:85
+ | symmetric@rel
+% ch-general-preliminaries.tex:87
+ | transitive@rel
+% ch-general-preliminaries.tex:100
+ | Relational structures
+ | graphs@dir
+% ch-general-preliminaries.tex:104
+ | purely relational signature
+% ch-general-preliminaries.tex:109
+ | predicate
+% ch-general-preliminaries.tex:111
+ | relational signature
+% ch-general-preliminaries.tex:115
+ | signatures
+ | relational@signature
+% ch-general-preliminaries.tex:125
+ | interpretation@predicate
+% ch-general-preliminaries.tex:131
+ | graph signature
+% ch-general-preliminaries.tex:135
+ | directed graphs
+% ch-general-preliminaries.tex:137
+ | $\+R$-tuple
+% ch-general-preliminaries.tex:140
+ | hyperedge
+% ch-general-preliminaries.tex:143
+ | finite@struct
+% ch-general-preliminaries.tex:144
+ | hyperedges
+% ch-general-preliminaries.tex:154
+ | interpretation@predicate
+% ch-general-preliminaries.tex:155
+ | interpretation@predicate
+% ch-general-preliminaries.tex:159
+ | proper substructure
+% ch-general-preliminaries.tex:164
+ | induced substructure
+% ch-general-preliminaries.tex:173
+ | pointed structures
+% ch-general-preliminaries.tex:175
+ | pointed $\sigma $-structures
+% ch-general-preliminaries.tex:178
+ | $\sigma '$-structures
+% ch-general-preliminaries.tex:183
+ | disjoint union
+% ch-general-preliminaries.tex:186
+ | predicate interpretations
+% ch-general-preliminaries.tex:201
+ | graphs@dir
+ | Cartesian product
+% ch-general-preliminaries.tex:211
+ | graphs@dir
+ | block product
+% ch-general-preliminaries.tex:219
+ | interpretation@predicate
+% ch-general-preliminaries.tex:235
+ | purely relational@signature
+% ch-general-preliminaries.tex:239
+ | adjacency
+% ch-general-preliminaries.tex:257
+ | graphs@dir
+% ch-general-preliminaries.tex:262
+ | undirected path
+% ch-general-preliminaries.tex:267
+ | connected
+% ch-general-preliminaries.tex:269
+ | connected component
+% ch-general-preliminaries.tex:271
+ | undirected graph
+% ch-general-preliminaries.tex:273
+ | incidence graph
+% ch-general-preliminaries.tex:283
+ | distance@struct
+% ch-general-preliminaries.tex:287
+ | diameter
+% ch-general-preliminaries.tex:288
+ | distance@struct
+% ch-general-preliminaries.tex:292
+ | distance@struct
+% ch-general-preliminaries.tex:293
+ | locally finite@structure
+% ch-general-preliminaries.tex:294
+ | finite@struct
+% ch-general-preliminaries.tex:296
+ | simple path
+% ch-general-preliminaries.tex:303
+ | directed cycle
+ | graph@dir
+% ch-general-preliminaries.tex:305
+ | directed acyclic graph
+ | DAG
+% ch-general-preliminaries.tex:306
+ | graph@dir
+% ch-general-preliminaries.tex:313
+ | directed tree
+% ch-general-preliminaries.tex:315
+ | graph@dir
+% ch-general-preliminaries.tex:320
+ | chromatic number
+ | graph@dir
+% ch-general-preliminaries.tex:321
+ | graph@dir
+% ch-general-preliminaries.tex:322
+ | finitely colourable
+% ch-general-preliminaries.tex:333
+ | embedding
+% ch-general-preliminaries.tex:334
+ | strong onto homomorphism
+% ch-general-preliminaries.tex:338
+ | homomorphic image
+% ch-general-preliminaries.tex:340
+ | isomorphism
+% ch-general-preliminaries.tex:344
+ | isomorphic
+% ch-general-preliminaries.tex:345
+ | automorphism
+% ch-general-preliminaries.tex:357
+ | congruence@struct
+% ch-general-preliminaries.tex:362
+ | quotient structure
+ | congruence@struct
+% ch-general-preliminaries.tex:364
+ | interpretation@predicates
+% ch-general-preliminaries.tex:367
+ | induced@substructure
+% ch-general-preliminaries.tex:368
+ | quotient@struct
+% ch-general-preliminaries.tex:372
+ | homomorphically equivalent
+% ch-general-preliminaries.tex:428
+ | graph@dir
+% ch-general-preliminaries.tex:438
+ | automorphisms
+% ch-general-preliminaries.tex:439
+ | isomorphisms
+% ch-general-preliminaries.tex:477
+ | homomorphical equivalence
+% ch-general-preliminaries.tex:504
+ | Boolean
+ | (semantical) query
+% ch-general-preliminaries.tex:506
+ | query@sem
+% ch-general-preliminaries.tex:521
+ | interpreted@predicate
+% ch-general-preliminaries.tex:527
+ | pointed $\sigma $-structure
+% ch-general-preliminaries.tex:545
+ | first-order formulas
+% ch-general-preliminaries.tex:572
+ | quantifier alternation rank
+% ch-general-preliminaries.tex:575
+ | existential formulas
+% ch-general-preliminaries.tex:582
+ | existential FO
+% ch-general-preliminaries.tex:583
+ | existential-positive formulas
+% ch-general-preliminaries.tex:585
+ | positive quantifier-free formulas
+% ch-general-preliminaries.tex:591
+ | existential formula
+% ch-general-preliminaries.tex:592
+ | existential-positive@formula
+% ch-general-preliminaries.tex:593
+ | primitive-positive@formula
+% ch-general-preliminaries.tex:594
+ | existential-positive@formula
+% ch-general-preliminaries.tex:603
+ | First-order logic
+% ch-general-preliminaries.tex:604
+ | monadic second-order logic
+% ch-general-preliminaries.tex:605
+ | second-order logic
+% ch-general-preliminaries.tex:627
+ | interpreting@predicate
+% ch-general-preliminaries.tex:632
+ | regular@lang
+% ch-general-preliminaries.tex:634
+ | signature of binary strings
+% ch-general-preliminaries.tex:643
+ | monoid morphism
+% ch-general-preliminaries.tex:645
+ | Monoids
+ | monoid morphisms
+% ch-general-preliminaries.tex:647
+ | regular@lang
+ | finite monoid
+% ch-general-preliminaries.tex:661
+ | syntactic monoids
+ | syntactic morphisms
+% ch-general-preliminaries.tex:665
+ | quotient structures
+% ch-general-preliminaries.tex:666
+ | divides@monoid
+% ch-general-preliminaries.tex:669
+ | finite monoids
+% ch-general-preliminaries.tex:670
+ | monoid division
+% ch-general-preliminaries.tex:675
+ | $\ast $-pseudovariety of regular languages
+% ch-general-preliminaries.tex:692
+ | $*$-pseudovariety of regular languages
+% ch-general-preliminaries.tex:696
+ | Eilenberg-Schützenberger correspondence@lang
+% ch-general-preliminaries.tex:699
+ | $\+V$-membership problem@lang
+% ch-general-preliminaries.tex:701
+ | pseudovariety of regular languages
+% ch-general-preliminaries.tex:703
+ | corresponding@EilenbergLang
+% ch-general-preliminaries.tex:714
+ | configuration@TM
+% ch-general-preliminaries.tex:720
+ | initial configuration
+ | configuration@TM
+% ch-general-preliminaries.tex:722
+ | configuration@TM
+ | reachable@configuration
+% ch-general-preliminaries.tex:723
+ | initial configurations
+% ch-general-preliminaries.tex:730
+ | computationally equivalent
+% ch-general-preliminaries.tex:744
+ | Complexity Zoo
+% ch-general-preliminaries.tex:746
+ | first-order definable classes
+% ch-general-preliminaries.tex:748
+ | first-order reductions
+% ch-general-preliminaries.tex:749
+ | PSpace
+% ch-general-preliminaries.tex:753
+ | SigmaP2
+ | PiP2
+% ch-general-preliminaries.tex:756
+ | $k$-ExpTime
+ | $k$-ExpSpace
+% ch-general-preliminaries.tex:760
+ | Tower
+% ch-general-preliminaries.tex:777
+ | arithmetical hierarchy
+% ch-general-preliminaries.tex:778
+ | definable@first-order
+% ch-general-preliminaries.tex:782
+ | Sigma0-2
+ | Pi0-2
+% ch-general-preliminaries.tex:783
+ | analytical hierarchy
+% ch-general-preliminaries.tex:788
+ | Connectivity in Finite Graphs
+% ch-general-preliminaries.tex:789
+ | graph@dir
+% ch-general-preliminaries.tex:791
+ | Reachability in Finite Graphs
+% ch-general-preliminaries.tex:794
+ | Reachability in finite graphs
+% ch-general-preliminaries.tex:795
+ | Connectivity in finite graphs
+% ch-general-preliminaries.tex:800
+ | graph@dir
+% ch-general-preliminaries.tex:801
+ | $k$-path
+% ch-preliminaries-graph-databases.tex:10
+ | duality@CQ
+% sec-cq.tex:25
+ | pointed relational database
+% sec-cq.tex:37
+ | first-order sentences
+% sec-cq.tex:53
+ | isolated vertices
+% sec-cq.tex:54
+ | pointed relational databases
+% sec-cq.tex:156
+ | isolated variables
+% sec-cq.tex:193
+ | quantified Boolean formula problem
+% sec-cq.tex:197
+ | (semantical) queries
+% sec-cq.tex:199
+ | finite@struct
+ | finite@struct
+% sec-cq.tex:208
+ | Trakhtenbrot's theorem
+% sec-cq.tex:222
+ | formula@FO
+% sec-cq.tex:260
+ | prenex form
+% sec-cq.tex:262
+ | Prenex form
+% sec-cq.tex:271
+ | formulas@FO
+% sec-cq.tex:288
+ | atoms@cq
+% sec-cq.tex:289
+ | free variables@cq
+% sec-cq.tex:290
+ | output variables@cq
+% sec-cq.tex:303
+ | output variable
+% sec-cq.tex:316
+ | duality@CQ
+% sec-cq.tex:319
+ | canonical database@cq
+% sec-cq.tex:335
+ | canonical database@cq
+% sec-cq.tex:343
+ | canonical database@cq
+% sec-cq.tex:349
+ | Boolean queries
+% sec-cq.tex:350
+ | canonical database@cq
+% sec-cq.tex:352
+ | Boolean@cq
+% sec-cq.tex:354
+ | output variables
+% sec-cq.tex:357
+ | Duality@CQ
+% sec-cq.tex:360
+ | canonical database@cq
+% sec-cq.tex:363
+ | canonical database@cq
+% sec-cq.tex:396
+ | Boolean query
+% sec-cq.tex:403
+ | duality@CQ
+% sec-cq.tex:405
+ | canonical database@cq
+% sec-cq.tex:406
+ | database@rel
+% sec-cq.tex:410
+ | evaluation map
+% sec-cq.tex:413
+ | Duality@CQ
+% sec-cq.tex:421
+ | Conjunctive Query Evaluation
+ | pointed relational $\sigma $-database
+% sec-cq.tex:422
+ | Boolean conjunctive queries
+% sec-cq.tex:423
+ | database@rel
+% sec-cq.tex:426
+ | Boolean CQs
+% sec-cq.tex:428
+ | duality@CQ
+% sec-cq.tex:429
+ | containment
+% sec-cq.tex:430
+ | CQs
+% sec-cq.tex:432
+ | queries@sem
+% sec-cq.tex:433
+ | contained
+% sec-cq.tex:436
+ | finite@struct
+% sec-cq.tex:446
+ | duality@CQ
+ | finite@struct
+% sec-cq.tex:455
+ | canonical databases@cq
+% sec-cq.tex:461
+ | duality@CQ
+% sec-cq.tex:465
+ | duality@CQ
+% sec-cq.tex:472
+ | duality@CQ
+% sec-cq.tex:476
+ | duality@CQ
+% sec-cq.tex:482
+ | Containment
+% sec-cq.tex:495
+ | Duality@CQ
+% sec-cq.tex:507
+ | canonical conjunctive query
+ | atom
+% sec-cq.tex:509
+ | canonical databases@cq
+% sec-cq.tex:514
+ | duality@CQ
+% sec-cq.tex:516
+ | canonical database@cq
+% sec-cq.tex:522
+ | closed under homomorphisms
+% sec-cq.tex:539
+ | non-Boolean queries
+% sec-cq.tex:541
+ | database@rel
+% sec-cq.tex:577
+ | graphs@dir
+% sec-cq.tex:585
+ | directed paths
+% sec-cq.tex:630
+ | canonical database
+% sec-cq.tex:631
+ | Boolean conjunctive query
+% sec-cq.tex:646
+ | canonical database@cq
+% sec-cq.tex:649
+ | canonical database@cq
+% sec-cq.tex:650
+ | duality@CQ
+% sec-cq.tex:655
+ | canonical database@cq
+% sec-cq.tex:679
+ | canonical database@cq
+% sec-cq.tex:686
+ | vs
+% sec-cq.tex:831
+ | databases@rel
+% sec-cq.tex:835
+ | homomorphic equivalence
+% sec-cq.tex:839
+ | databases@rel
+% sec-cq.tex:840
+ | duality@CQ
+% sec-cq.tex:846
+ | synthesis problem
+% sec-cq.tex:853
+ | disjoint conjunction
+% sec-cq.tex:870
+ | canonical database@cq
+% sec-cq.tex:871
+ | canonical databases@cq
+% sec-cq.tex:872
+ | duality@CQ
+% sec-cq.tex:877
+ | duality@CQ
+% sec-cq.tex:888
+ | weak union
+% sec-cq.tex:890
+ | canonical CQ
+ | canonical databases@cq
+% sec-cq.tex:927
+ | database@graph
+% sec-cq.tex:991
+ | Conjunctive Queries
+ | Relational Databases
+% sec-cq.tex:998
+ | database@rel
+% sec-cq.tex:1007
+ | duality@CQ
+ | canonical databases@cq
+ | canonical conjunctive queries
+% sec-cq.tex:1011
+ | database@rel
+% sec-cq.tex:1017
+ | databases@rel
+% sec-cq.tex:1022
+ | database@rel
+% sec-cq.tex:1051
+ | duality@CQ
+% sec-cq.tex:1052
+ | database@rel
+% sec-cq.tex:1058
+ | connected components
+% sec-cq.tex:1059
+ | mapped homomorphically
+% sec-cq.tex:1060
+ | duality@CQ
+% sec-cq.tex:1074
+ | canonical database@cq
+% sec-cq.tex:1090
+ | duality@CQ
+% sec-cq.tex:1097
+ | subquery@CQ
+% sec-cq.tex:1101
+ | duality@CQ
+% sec-cq.tex:1102
+ | canonical database@cq
+% sec-cq.tex:1105
+ | monotone@classCQ
+% sec-cq.tex:1106
+ | subquery@CQ
+% sec-cq.tex:1108
+ | Monotone classes of CQs
+% sec-cq.tex:1109
+ | monotonicity@classCQ
+% sec-cq.tex:1113
+ | monotone classes of CQs
+% sec-cq.tex:1119
+ | cliques
+% sec-cq.tex:1122
+ | core@CQ
+% sec-cq.tex:1123
+ | canonical database@cq
+% sec-cq.tex:1127
+ | monotone class of CQs
+% sec-cq.tex:1128
+ | core@CQ
+% sec-cq.tex:1146
+ | CQ minimization problem over $\+C$
+% sec-cq.tex:1166
+ | subquery
+% sec-cq.tex:1178
+ | duality@CQ
+% sec-cq.tex:1207
+ | minimization problem for CRPQs
+% sec-cq.tex:1212
+ | query@sem
+% sec-cq.tex:1213
+ | query@sem
+% sec-cq.tex:1218
+ | pointed databases@rel
+% sec-cq.tex:1251
+ | synthesis problem for CQs
+% sec-cq.tex:1263
+ | Synthesis Problem for CQs
+% sec-cq.tex:1267
+ | coNExp
+% sec-cq.tex:1334
+ | synthesis problem@CQ
+% sec-cq.tex:1340
+ | query@sem
+% sec-cq.tex:1344
+ | query@sem
+% sec-cq.tex:1345
+ | query@sem
+% sec-cq.tex:1348
+ | query@sem
+% sec-cq.tex:1370
+ | duality@CQ
+% sec-cq.tex:1373
+ | evaluated
+% sec-cq.tex:1376
+ | Tree-width
+% sec-cq.tex:1385
+ | bag
+% sec-cq.tex:1387
+ | contains@tw
+% sec-cq.tex:1389
+ | contained@tw
+% sec-cq.tex:1391
+ | contains@tw
+% sec-cq.tex:1392
+ | containing@tw
+% sec-cq.tex:1418
+ | directed graph
+ | width
+% sec-cq.tex:1423
+ | bags
+% sec-cq.tex:1432
+ | tree decompositions
+% sec-cq.tex:1438
+ | canonical database@cq
+% sec-cq.tex:1440
+ | forests
+ | disjoint unions
+% sec-cq.tex:1441
+ | graph@dir
+% sec-cq.tex:1449
+ | evaluation problem@cq
+% sec-cq.tex:1478
+ | Wlog
+% sec-cq.tex:1480
+ | canonical database@cq
+% sec-cq.tex:1514
+ | containing@bag
+% sec-cq.tex:1522
+ | duality@CQ
+% sec-cq.tex:1567
+ | CQ evaluation problem
+% sec-cq.tex:1575
+ | core@CQ
+% sec-cq.tex:1577
+ | database@rel
+% sec-cq.tex:1585
+ | core@CQ
+% sec-cq.tex:1594
+ | equivalent@sem
+% sec-cq.tex:1613
+ | Grohe's theorem
+% sec-cq.tex:1618
+ | cores@cq
+% sec-cq.tex:1641
+ | evaluation
+% sec-cq.tex:1652
+ | path decomposition
+% sec-cq.tex:1655
+ | path decompositions
+% sec-cq.tex:1664
+ | UC2RPQs
+% sec-cq.tex:1698
+ | graph@dir
+% sec-cq.tex:1709
+ | database@relpointed
+% sec-cq.tex:1789
+ | union of conjunctive queries
+% sec-cq.tex:1795
+ | database@rel
+% sec-cq.tex:1800
+ | UCQ
+% sec-cq.tex:1812
+ | UCQs
+% sec-cq.tex:1813
+ | disjunct
+% sec-cq.tex:1823
+ | CC BY SA 3.0
+% sec-cq.tex:1830
+ | unions of conjunctive queries
+% sec-cq.tex:1835
+ | semantical query
+% sec-cq.tex:1836
+ | hom-minimal
+% sec-cq.tex:1842
+ | duality@CQ
+% sec-cq.tex:1846
+ | canonical databases
+% sec-cq.tex:1853
+ | contains
+ | disjuncts
+% sec-cq.tex:1903
+ | canonical database@cq
+% sec-cq.tex:1941
+ | canonical database@cq
+ | duality@CQ
+% sec-cq.tex:1945
+ | duality@CQ
+% sec-cq.tex:1954
+ | duality@CQ
+% sec-cq.tex:1956
+ | duality@CQ
+% sec-cq.tex:1959
+ | Rossman's theorem
+% sec-cq.tex:1968
+ | finite relational structures
+% sec-cq.tex:1977
+ | cores@CQ
+% sec-cq.tex:1991
+ | unions of conjunctive regular path queries
+% sec-crpq.tex:15
+ | duality@CQ
+% sec-crpq.tex:71
+ | duality@CQ
+ | canonical database@cq
+% sec-crpq.tex:73
+ | distance@struct
+% sec-crpq.tex:89
+ | first-order queries
+ | distances@struct
+ | duality@CQ
+% sec-crpq.tex:153
+ | finite@struct
+% sec-crpq.tex:167
+ | pointed graph database
+% sec-crpq.tex:176
+ | satisfies@db
+% sec-crpq.tex:211
+ | Evaluation maps
+% sec-crpq.tex:224
+ | canonical database@cq
+% sec-crpq.tex:229
+ | evaluations maps
+ | evaluation maps
+% sec-crpq.tex:252
+ | primitive-positive formula
+% sec-crpq.tex:253
+ | finite $\signatureCRPQ {\A }$-structure
+% sec-crpq.tex:256
+ | interpret@pred
+% sec-crpq.tex:269
+ | finite@struct
+% sec-crpq.tex:271
+ | directed path
+% sec-crpq.tex:276
+ | $k$-transitive tournament
+% sec-crpq.tex:299
+ | Conjunctive Regular Path Queries Evaluation
+% sec-crpq.tex:311
+ | conjunctive regular path queries evaluation problem
+% sec-crpq.tex:317
+ | database@graph
+% sec-crpq.tex:322
+ | reachability in finite graphs
+% sec-crpq.tex:327
+ | CQ evaluation
+% sec-crpq.tex:337
+ | Regular path queries
+ | RPQ
+% sec-crpq.tex:347
+ | CRPQ with two-way navigation
+ | C2RPQ
+% sec-crpq.tex:358
+ | Unions of conjunctive regular path queries
+ | UCRPQs
+% sec-crpq.tex:359
+ | unions of conjunctive two-way regular path queries
+% sec-crpq.tex:361
+ | Infinitary unions
+% sec-crpq.tex:362
+ | infinitary unions
+% sec-crpq.tex:366
+ | semantical queries
+% sec-crpq.tex:370
+ | query@sem
+% sec-crpq.tex:372
+ | infinitary union
+% sec-crpq.tex:396
+ | duality@CQ
+% sec-crpq.tex:397
+ | canonical database@CQ
+% sec-crpq.tex:399
+ | canonical databases@CRPQ
+% sec-crpq.tex:402
+ | C2RPQs
+% sec-crpq.tex:420
+ | equivalent@sem
+% sec-crpq.tex:440
+ | database@graph
+ | satisfies@db
+% sec-crpq.tex:456
+ | C(2)RPQs
+% sec-crpq.tex:460
+ | satisfies@db
+% sec-crpq.tex:461
+ | canonical databases@CRPQ
+% sec-crpq.tex:472
+ | canonical databases@CRPQ
+ | satisfies@db
+% sec-crpq.tex:475
+ | canonical databases@CRPQ
+% sec-crpq.tex:480
+ | equality atoms
+% sec-crpq.tex:483
+ | equality atom
+% sec-crpq.tex:491
+ | sublanguage
+% sec-crpq.tex:492
+ | atom $m$-refinement
+% sec-crpq.tex:517
+ | Homomorphisms
+ | refinements
+% sec-crpq.tex:522
+ | atom refinement
+% sec-crpq.tex:528
+ | condensation
+% sec-crpq.tex:547
+ | refinement length
+% sec-crpq.tex:559
+ | $m$-refinement
+ | $m$-refinements@atom
+% sec-crpq.tex:560
+ | $m$-refinements@atom
+% sec-crpq.tex:564
+ | atom $m'$-refinement
+% sec-crpq.tex:565
+ | atom refinements
+% sec-crpq.tex:568
+ | $m$-refinements
+% sec-crpq.tex:574
+ | equivalent
+% sec-crpq.tex:582
+ | expansions
+% sec-crpq.tex:595
+ | canonical databases@CRPQ
+ | canonical databases@CQ
+% sec-crpq.tex:598
+ | canonical database@CRPQ
+% sec-crpq.tex:599
+ | UC(2)RPQs
+% sec-crpq.tex:602
+ | UC2RPQ
+% sec-crpq.tex:613
+ | duality@CQ
+% sec-crpq.tex:622
+ | non-Boolean
+% sec-crpq.tex:655
+ | Homomorphism
+% sec-crpq.tex:687
+ | canonical database@CRPQ
+% sec-crpq.tex:688
+ | canonical databases@CRPQ
+% sec-crpq.tex:693
+ | canonical databases@CRPQ
+% sec-crpq.tex:741
+ | containment problem
+% sec-crpq.tex:742
+ | Boolean CRPQs
+% sec-crpq.tex:750
+ | con\-tainment problem
+% sec-crpq.tex:794
+ | simple regular expression
+ | SRE
+% sec-crpq.tex:795
+ | UCRPQ
+% sec-crpq.tex:797
+ | SREs
+% sec-crpq.tex:810
+ | positive simple regular expressions
+% sec-crpq.tex:825
+ | (U)C(2)RPQ
+% ch-minimization-CRPQ.tex:12
+ | 2ExpSpace
+% sec-intro.tex:12
+ | minimization problem
+% sec-intro.tex:17
+ | Minimization problem@CRPQ
+% sec-intro.tex:25
+ | Minimization problem
+% sec-intro.tex:34
+ | minimization of CRPQs
+% sec-intro.tex:41
+ | strong minimality
+% sec-intro.tex:44
+ | variable-minimization problem
+% sec-conditions.tex:3
+ | minimal
+% sec-conditions.tex:7
+ | internal variable
+% sec-conditions.tex:8
+ | external
+% sec-conditions.tex:9
+ | one-way internal path
+% sec-conditions.tex:13
+ | internal path
+% sec-conditions.tex:19
+ | internal
+% sec-conditions.tex:20
+ | segment
+% sec-conditions.tex:22
+ | cyclic@segment
+% sec-conditions.tex:23
+ | segments
+% sec-conditions.tex:25
+ | cyclic segment
+ | internal@variable
+% sec-conditions.tex:26
+ | incident@segment
+% sec-conditions.tex:34
+ | Internal variables
+% sec-conditions.tex:39
+ | segment graph
+% sec-conditions.tex:41
+ | Segments
+% sec-conditions.tex:49
+ | incident@segment
+ | external variable
+% sec-conditions.tex:61
+ | contraction@1w
+% sec-conditions.tex:62
+ | fully contracted
+ | contracted@1w
+% sec-conditions.tex:64
+ | contraction@1w
+ | contraction@1w
+ | contraction@1w
+% sec-conditions.tex:68
+ | Contractions@1w
+% sec-conditions.tex:77
+ | redundant atom
+% sec-conditions.tex:78
+ | non-redundant
+% sec-conditions.tex:147
+ | equivalence
+% sec-conditions.tex:162
+ | atom expansion
+% sec-conditions.tex:169
+ | redundant
+% sec-conditions.tex:176
+ | non-redundancy
+ | minimality
+% sec-conditions.tex:189
+ | Equivalent
+% sec-conditions.tex:197
+ | strongly minimal
+% sec-conditions.tex:203
+ | underlying graph
+% sec-conditions.tex:217
+ | incident@segment
+% sec-conditions.tex:232
+ | minor
+% sec-conditions.tex:233
+ | contracting edges
+% sec-conditions.tex:234
+ | class of CRPQs
+% sec-conditions.tex:235
+ | query@CRPQ
+ | query@CRPQ
+ | underlying graph@dir
+% sec-conditions.tex:236
+ | underlying graph@dir
+% sec-conditions.tex:286
+ | refining
+% sec-conditions.tex:297
+ | edge contraction
+% sec-conditions.tex:303
+ | Semantical Structure
+% sec-conditions.tex:321
+ | hom-minimality
+ | hom-equivalent
+% sec-conditions.tex:417
+ | external variables
+% sec-conditions.tex:505
+ | satisfy@db
+% sec-conditions.tex:513
+ | atom expansions
+% sec-upper-bound-crpqs.tex:16
+ | underlying graphs
+% sec-upper-bound-crpqs.tex:29
+ | $\gamma $-type
+% sec-upper-bound-crpqs.tex:82
+ | basic paths
+% sec-upper-bound-crpqs.tex:93
+ | basic path
+% sec-minimization-ucrpq.tex:149
+ | satisfies@db
+% sec-minimization-ucrpq.tex:198
+ | contractions@1w
+ | contraction@1w
+% sec-minimization-ucrpq.tex:206
+ | contraction@1w
+ | contraction@1w
+ | contraction@1w
+ | contraction@1w
+ | contraction@1w
+ | contraction@1w
+ | contraction@1w
+ | contraction@1w
+% sec-minimization-ucrpq.tex:211
+ | minors
+% sec-minimization-ucrpq.tex:224
+ | contraction@1w
+% sec-minimization-ucrpq.tex:227
+ | contraction@1w
+% sec-minimization-ucrpq.tex:236
+ | subgraphs
+% sec-minimization-ucrpq.tex:264
+ | contraction@1w
+ | contraction@1w
+ | contraction@1w
+ | contraction@1w
+ | contraction@1w
+ | contraction@1w
+ | contraction@1w
+ | contraction@1w
+% sec-minimization-ucrpq.tex:273
+ | explicit approximation
+% sec-minimization-ucrpq.tex:280
+ | contraction@1w
+% sec-minimization-ucrpq.tex:286
+ | contained@approx
+% sec-minimization-ucrpq.tex:289
+ | contained@approx
+% sec-minimization-ucrpq.tex:294
+ | contraction length
+% sec-minimization-ucrpq.tex:297
+ | contained@approx
+% sec-minimization-ucrpq.tex:304
+ | internal variables
+% sec-minimization-ucrpq.tex:305
+ | contract@1w
+% sec-minimization-ucrpq.tex:309
+ | contained@approx
+% sec-minimization-ucrpq.tex:325
+ | sublanguages
+% sec-minimization-ucrpq.tex:349
+ | UCRPQ(SRE)
+ | resp
+ | CRPQ(SRE)
+% sec-minimization-ucrpq.tex:351
+ | simple regular expression@positive
+% sec-minimization-ucrpq.tex:354
+ | simple regular expressions@positive
+% sec-minimization-ucrpq.tex:361
+ | (i)@sre
+ | (ii)@sre
+ | (iii)@sre
+% sec-minimization-ucrpq.tex:373
+ | (i)@sre
+ | (ii)@sre
+ | (iii)@sre
+% sec-lowerbounds.tex:4
+ | minimization problems
+% sec-lowerbounds.tex:13
+ | Boolean CRPQ
+% sec-lowerbounds.tex:121
+ | non-degenerate@db
+% sec-lowerbounds.tex:126
+ | non-degenerate expansion
+% sec-lowerbounds.tex:130
+ | $\classCRPQ $-canonization problem
+% sec-lowerbounds.tex:139
+ | non-degenerate@cdb
+% sec-lowerbounds.tex:140
+ | non-degenerate@cdb
+ | strong onto
+% sec-lowerbounds.tex:150
+ | $\classCRPQ $-strong canonization problem
+% sec-lowerbounds.tex:153
+ | non-degenerate@cdb
+% sec-lowerbounds.tex:154
+ | non-degenerate@cdb
+% sec-lowerbounds.tex:161
+ | $\classCRPQ $-canonization oracle
+ | $\classCRPQ $-strong canonization oracle
+% sec-lowerbounds.tex:191
+ | canonization problem
+% sec-lowerbounds.tex:209
+ | closed under disjoint conjunction
+% sec-lowerbounds.tex:308
+ | relevant@prooflowerbound
+% sec-lowerbounds.tex:322
+ | relevant@prooflowerbound
+% sec-lowerbounds.tex:334
+ | strong canonization problem
+% sec-lowerbounds.tex:340
+ | classes of CRPQs
+% sec-lowerbounds.tex:495
+ | non-degenerate@db
+% sec-lowerbounds.tex:510
+ | simple regular expression@positive
+% sec-lowerbounds.tex:520
+ | locally redundant
+% sec-lowerbounds.tex:527
+ | locally redundant atom
+% sec-lowerbounds.tex:559
+ | non-degenerate@db
+% sec-lowerbounds.tex:587
+ | locally redundant atoms
+% sec-lowerbounds.tex:599
+ | forest-shaped CRPQs
+% sec-discussion.tex:4
+ | CRPQ minimization
+% sec-discussion.tex:9
+ | (U)CRPQs
+% sec-discussion.tex:11
+ | (U)CRPQ
+ | variable-minimization problem(s)
+% sec-discussion.tex:16
+ | Variable-minimization problem
+% sec-discussion.tex:17
+ | variable minimal
+% sec-discussion.tex:19
+ | tree patterns
+% sec-discussion.tex:27
+ | 4ExpSpace
+% sec-discussion.tex:53
+ | tree pattern
+% sec-discussion.tex:65
+ | encoding
+% sec-discussion.tex:70
+ | Encoding
+% sec-discussion.tex:72
+ | encode
+% sec-apdx-lowerbound-variables.tex:119
+ | expanding
+% sec-apdx-lowerbound-variables.tex:143
+ | class@CRPQ
+% sec-apdx-lowerbound-variables.tex:146
+ | closed under variable marking
+% sec-apdx-lowerbound-variables.tex:166
+ | class@CRPQ
+% sec-apdx-lowerbound-variables.tex:173
+ | class of CRPQs closed under disjoint conjunction
+% sec-apdx-lowerbound-variables.tex:181
+ | degenerate@CRPQ
+% sec-apdx-lowerbound-variables.tex:182
+ | non-degenerate@CRPQ
+% sec-apdx-lowerbound-variables.tex:183
+ | non-degenerate@db
+% sec-apdx-lowerbound-variables.tex:187
+ | degenerate CRPQ
+ | non-degenerate@CRPQ
+% sec-apdx-lowerbound-variables.tex:196
+ | non-degenerate@CRPQ
+% sec-apdx-lowerbound-variables.tex:240
+ | non-degenerate@CRPQ
+% sec-apdx-lowerbound-variables.tex:241
+ | non-degenerate@CRPQ
+% sec-apdx-lowerbound-variables.tex:242
+ | non-degenerate@db
+% sec-intro.tex:6
+ | union of C2RPQs
+% sec-intro.tex:50
+ | evaluation problem
+% sec-intro.tex:65
+ | semantic tree-width $k$ problem
+% sec-intro.tex:67
+ | evaluate
+% sec-intro.tex:70
+ | one-way semantic tree-width
+ | one-way semantic tree-width $k$ problem
+% sec-intro.tex:109
+ | database@graph
+ | satisfies@db
+% sec-intro.tex:111
+ | database@graph
+ | satisfies@db
+% sec-intro.tex:136
+ | Maximal under-approximations
+% sec-intro.tex:152
+ | Key Lemma
+% sec-intro.tex:153
+ | semantic tree-width $1$ problem
+% sec-intro.tex:156
+ | closed under sublanguages
+% sec-intro.tex:252
+ | semantic tree-width 1 problem
+% sec-intro.tex:253
+ | one-way semantic tree-width 1 problem
+% sec-intro.tex:261
+ | semantic path-width $k$ problems
+% sec-intro.tex:270
+ | semantic path-width
+ | para-NL
+% sec-intro.tex:322
+ | one-way semantic path-width
+% sec-intro.tex:334
+ | two-way navigation
+ | cf
+% sec-intro.tex:343
+ | finitely redundant
+% sec-preliminaries.tex:5
+ | two-way contractions
+ | contractions@2w
+ | one-way contractions
+% sec-preliminaries.tex:15
+ | contract@2w
+% sec-preliminaries.tex:22
+ | subqueries
+% sec-preliminaries.tex:68
+ | homomorphic images
+% sec-preliminaries.tex:98
+ | Refinements
+% sec-preliminaries.tex:132
+ | fine tree decomposition
+% sec-preliminaries.tex:139
+ | full bag
+% sec-maximal-under-approximations.tex:48
+ | approximation
+% sec-maximal-under-approximations.tex:58
+ | refine
+% sec-maximal-under-approximations.tex:122
+ | strong onto homomorphisms
+% sec-maximal-under-approximations.tex:227
+ | (U)C2RPQ
+% sec-maximal-under-approximations.tex:240
+ | bridge-width
+% sec-maximal-under-approximations.tex:243
+ | bridge
+% sec-maximal-under-approximations.tex:254
+ | Savitch's Theorem
+% sec-maximal-under-approximations.tex:266
+ | equivalences
+% sec-tagged-tree-decompositions.tex:46
+ | tagged tree decomposition
+% sec-tagged-tree-decompositions.tex:49
+ | tagging
+% sec-tagged-tree-decompositions.tex:50
+ | contains@tw
+% sec-tagged-tree-decompositions.tex:63
+ | fine tagged tree decomposition
+ | fine
+% sec-tagged-tree-decompositions.tex:66
+ | contains@tw
+% sec-tagged-tree-decompositions.tex:77
+ | tagged
+% sec-tagged-tree-decompositions.tex:107
+ | path induced
+% sec-tagged-tree-decompositions.tex:128
+ | induces the path
+% sec-tagged-tree-decompositions.tex:144
+ | link
+% sec-tagged-tree-decompositions.tex:180
+ | leaves
+% sec-tagged-tree-decompositions.tex:189
+ | induced path
+ | cyclic@path
+% sec-tagged-tree-decompositions.tex:191
+ | acyclic@path
+% sec-tagged-tree-decompositions.tex:195
+ | cyclic@path
+% sec-tagged-tree-decompositions.tex:196
+ | acyclic@path
+% sec-tagged-tree-decompositions.tex:200
+ | acyclic@path
+% sec-tagged-tree-decompositions.tex:212
+ | fine tagged tree decompositions
+ | non-branching paths
+ | non-full
+% sec-tagged-tree-decompositions.tex:233
+ | non-full bags
+% sec-tagged-tree-decompositions.tex:253
+ | non-branching path
+% sec-tagged-tree-decompositions.tex:274
+ | tag
+% sec-proof-key-lemma.tex:5
+ | trio
+% sec-proof-key-lemma.tex:28
+ | induce
+ | acyclic paths
+% sec-proof-key-lemma.tex:36
+ | induces
+ | acyclic path
+% sec-proof-key-lemma.tex:37
+ | locally acyclic
+% sec-proof-key-lemma.tex:82
+ | cyclic path
+% sec-proof-key-lemma.tex:83
+ | induced
+ | condense
+% sec-proof-key-lemma.tex:98
+ | leaving
+% sec-proof-key-lemma.tex:136
+ | acyclic@path
+% sec-proof-key-lemma.tex:239
+ | profile
+% sec-proof-key-lemma.tex:250
+ | Profiles
+% sec-proof-key-lemma.tex:256
+ | atomic
+% sec-proof-key-lemma.tex:261
+ | non-atomic
+% sec-proof-key-lemma.tex:262
+ | type@stw
+% sec-proof-key-lemma.tex:270
+ | type@stw
+% sec-proof-key-lemma.tex:283
+ | atomic bags
+% sec-proof-key-lemma.tex:290
+ | full
+% sec-proof-key-lemma.tex:294
+ | non-atomic bags
+% sec-proof-key-lemma.tex:318
+ | fine tagged tree decom\-position
+% sec-proof-key-lemma.tex:353
+ | full bags
+ | condensations
+% sec-proof-key-lemma.tex:372
+ | types@stw
+% sec-proof-key-lemma.tex:393
+ | type@stw
+% sec-proof-key-lemma.tex:401
+ | type@stw
+% sec-proof-key-lemma.tex:446
+ | Non-branching path
+% sec-proof-key-lemma.tex:466
+ | Trio
+% sec-proof-key-lemma.tex:512
+ | profiles
+% sec-proof-key-lemma.tex:529
+ | fineness
+% sec-proof-key-lemma.tex:530
+ | local acyclicity
+% sec-simple-queries.tex:15
+ | summary query
+% sec-simple-queries.tex:16
+ | Summary queries
+ | path-$l$ approximations
+% sec-simple-queries.tex:20
+ | path-$l$ approximation
+% sec-simple-queries.tex:46
+ | $k$-summary query
+% sec-simple-queries.tex:47
+ | refinement@summary
+% sec-simple-queries.tex:51
+ | database@graph
+% sec-simple-queries.tex:52
+ | refinements@summary
+% sec-simple-queries.tex:54
+ | tree decomposition@summary
+% sec-simple-queries.tex:69
+ | refinement@summary
+% sec-simple-queries.tex:70
+ | tree decomposition@summary
+% sec-simple-queries.tex:73
+ | homomorphism@summary
+% sec-simple-queries.tex:84
+ | $k$-summary queries
+% sec-simple-queries.tex:87
+ | homomorphism@summary
+% sec-simple-queries.tex:190
+ | recursive atom
+ | non-recursive atom
+% sec-simple-queries.tex:191
+ | non-recursive atoms
+ | non-recursive@nrat
+ | recursive@rat
+% sec-simple-queries.tex:200
+ | (two-way) internal path
+% sec-simple-queries.tex:206
+ | recursive atoms
+% sec-acyclic-queries.tex:17
+ | one-way semantic tree-width $1$ problem
+% sec-acyclic-queries.tex:25
+ | contracted tree-width
+% sec-acyclic-queries.tex:26
+ | one-way contraction
+ | contraction@2w
+ | one-way internal paths
+% sec-acyclic-queries.tex:30
+ | one-way contracted tree-width
+% sec-acyclic-queries.tex:31
+ | contractions@2w
+% sec-acyclic-queries.tex:44
+ | contracted@2w
+% sec-acyclic-queries.tex:73
+ | contractions@2w
+ | contractions@2w
+ | contractions@2w
+ | contractions@2w
+ | contractions@2w
+ | contractions@2w
+ | contractions@2w
+ | contractions@2w
+% sec-acyclic-queries.tex:74
+ | one-wayness
+% sec-acyclic-queries.tex:110
+ | contraction@2w
+% sec-acyclic-queries.tex:113
+ | contraction@2w
+% sec-acyclic-queries.tex:138
+ | induces a path
+% sec-acyclic-queries.tex:142
+ | tagged tree decompositions
+% sec-acyclic-queries.tex:160
+ | visits
+% sec-acyclic-queries.tex:164
+ | visit
+% sec-acyclic-queries.tex:205
+ | contraction@2w
+% sec-acyclic-queries.tex:261
+ | semantic tree-width 1 problems
+% sec-path-width.tex:5
+ | paraNL
+% sec-path-width.tex:49
+ | Expansion
+% sec-path-width.tex:54
+ | Tree decomposition
+% sec-path-width.tex:59
+ | Path decomposition
+% sec-path-width.tex:112
+ | one-way contracted path-width
+% sec-path-width.tex:113
+ | contractions@2w
+% sec-path-width.tex:135
+ | contractions@2w
+ | contractions@2w
+ | contractions@2w
+ | contractions@2w
+ | contractions@2w
+ | contractions@2w
+ | contractions@2w
+ | contractions@2w
+% sec-path-width.tex:151
+ | contraction@2w
+% sec-lowerbound.tex:17
+ | semantic path-width $k$ problem
+ | one-way semantic path-width $k$ problem
+% sec-lowerbound.tex:25
+ | databases@graph
+% sec-lowerbound.tex:26
+ | satisfies@db
+ | satisfies@db
+% sec-lowerbound.tex:27
+ | satisfies@db
+% sec-lowerbound.tex:36
+ | satisfies@db
+% sec-lowerbound.tex:43
+ | satisfies@db
+% sec-lowerbound.tex:47
+ | satisfies@db
+ | satisfies@db
+% sec-lowerbound.tex:48
+ | satisfy@db
+% sec-lowerbound.tex:52
+ | satisfy@db
+% sec-lowerbound.tex:53
+ | satisfy@db
+% sec-lowerbound.tex:59
+ | satisfies@db
+% sec-lowerbound.tex:69
+ | asymmetric containment problem for tree-width $k$
+% sec-lowerbound.tex:106
+ | satisfies@db
+ | satisfies@db
+ | satisfies@db
+ | satisfies@db
+% sec-lowerbound.tex:108
+ | satisfy@db
+ | satisfy@db
+ | satisfy@db
+ | satisfy@db
+% sec-lowerbound.tex:112
+ | database@graph
+ | satisfying@db
+ | satisfies@db
+% sec-lowerbound.tex:113
+ | satisfies@db
+ | satisfies@db
+% sec-lowerbound.tex:115
+ | satisfies@db
+% sec-lowerbound.tex:116
+ | satisfies@db
+% sec-lowerbound.tex:117
+ | satisfies@db
+% sec-lowerbound.tex:118
+ | satisfies@db
+% sec-lowerbound.tex:120
+ | satisfies@db
+% sec-lowerbound.tex:122
+ | database@graph
+ | satisfies@db
+% sec-lowerbound.tex:123
+ | satisfies@db
+% sec-discussion.tex:44
+ | database@graph
+% sec-discussion.tex:65
+ | contracted@2w
+% sec-discussion.tex:85
+ | loopless CRPQs
+% sec-discussion.tex:91
+ | loopless
+% sec-discussion.tex:92
+ | directed cycles
+% sec-discussion.tex:100
+ | parameterized clique problem
+% sec-discussion.tex:117
+ | infinitary UCQ
+% sec-discussion.tex:183
+ | satisfies@db
+% sec-discussion.tex:185
+ | satisfies@db
+ | satisfies@db
+% sec-discussion.tex:187
+ | satisfies@db
+% sec-discussion.tex:188
+ | satisfies@db
+% sec-discussion.tex:195
+ | finite redundancy
+% sec-discussion.tex:201
+ | Regular Queries
+% sec-discussion.tex:212
+ | Evaluation problem@crpq
+% sec-discussion.tex:216
+ | sem. path-w.
+% sec-discussion.tex:219
+ | sem. tree-w.
+% sec-discussion.tex:229
+ | contracted@2w
+% ch-conclu-databases.tex:10
+ | profinite databases
+% ch-conclu-databases.tex:40
+ | forest-shaped
+% ch-conclu-databases.tex:41
+ | directed trees
+% ch-conclu-databases.tex:43
+ | equivalent@sem
+% ch-conclu-databases.tex:44
+ | equivalent@sem
+% ch-conclu-databases.tex:45
+ | equivalent@sem
+% ch-conclu-databases.tex:50
+ | equivalent@sem
+% ch-conclu-databases.tex:55
+ | UCRPQ minimization
+% ch-conclu-databases.tex:65
+ | graphs@dir
+ | closed under minors
+% ch-conclu-databases.tex:77
+ | duality
+% ch-conclu-databases.tex:83
+ | profinite database
+% ch-conclu-databases.tex:124
+ | graphs@dir
+% ch-conclu-databases.tex:157
+ | pseudovarieties of monoids
+% ch-conclu-databases.tex:166
+ | core@CQ
+% ch-conclu-databases.tex:221
+ | query@sem
+% ch-conclu-databases.tex:225
+ | hom-minimal expansions
+% ch-conclu-databases.tex:234
+ | database@graph
+% ch-conclu-databases.tex:243
+ | finite databases
+% ch-conclu-databases.tex:280
+ | minor-closed classes
+% sec-treelike.tex:10
+ | semantically forest-shaped
+% sec-treelike.tex:13
+ | DAG-shaped
+% sec-treelike.tex:15
+ | unfolding
+% sec-treelike.tex:27
+ | DAG-shaped CRPQ
+ | forest-shaped CRPQ
+% sec-treelike.tex:39
+ | hom-minimal canonical database
+% sec-treelike.tex:50
+ | semantically DAG-shaped
+% sec-treelike.tex:86
+ | hom-equivalence
+% sec-treelike.tex:117
+ | forest
+% ch-preliminaries-automatic-structures.tex:14
+ | multitape automata
+% ch-preliminaries-automatic-structures.tex:17
+ | Automatic relations
+% ch-preliminaries-automatic-structures.tex:27
+ | isomorphism problem
+% sec-relations.tex:58
+ | same parity length relation
+% sec-relations.tex:62
+ | prefix relation
+% sec-relations.tex:64
+ | identity relation
+% sec-relations.tex:70
+ | subword relation
+% sec-relations.tex:72
+ | suffix relation
+% sec-relations.tex:79
+ | deterministic rational relations
+% sec-relations.tex:81
+ | rational relations
+% sec-relations.tex:83
+ | deterministic two-way rational relations
+% sec-relations.tex:85
+ | two-way rational relations
+% sec-relations.tex:87
+ | functional relations
+% sec-relations.tex:89
+ | regular functions@bojan
+% sec-relations.tex:109
+ | recognizable@rel
+% sec-relations.tex:114
+ | regular functions@bojan
+% sec-relations.tex:121
+ | recognizable@rel
+% sec-relations.tex:130
+ | transducers
+% sec-relations.tex:136
+ | regular functions@bojan
+% sec-relations.tex:139
+ | deterministic two-way transductions
+% sec-relations.tex:161
+ | functional relation
+% sec-relations.tex:185
+ | $\+D$-membership problem for $\+C$-relations
+% sec-relations.tex:186
+ | $\+C$/$\+D$-membership problem
+% sec-relations.tex:188
+ | $\+D$-membership problem
+% sec-relations.tex:199
+ | $\+D$-separability problem for $\+C$-relations
+% sec-relations.tex:200
+ | separates@rel
+% sec-relations.tex:202
+ | membership@problemrel
+ | separability@problemrel
+% sec-relations.tex:203
+ | separable@rel
+% sec-relations.tex:207
+ | $\+D$-separability problem
+% sec-relations.tex:209
+ | inclusion problem@rel
+% sec-relations.tex:211
+ | equivalence problem@rel
+% sec-relations.tex:219
+ | recognizable@rel
+% sec-relations.tex:230
+ | same parity relation
+% sec-relations.tex:238
+ | recognizable@rel
+% sec-relations.tex:242
+ | Mezei theorem
+% sec-relations.tex:247
+ | recognizable@rel
+% sec-relations.tex:257
+ | Cartesian products
+% sec-relations.tex:278
+ | $\+V$-recognizable@rel
+% sec-relations.tex:281
+ | pseudovariety@reglang
+% sec-relations.tex:286
+ | recognizable@rel
+% sec-relations.tex:304
+ | syntactic morphism
+% sec-relations.tex:324
+ | membership@problang
+ | $\+V$-recognizable relations
+% sec-relations.tex:325
+ | membership@problang
+% sec-relations.tex:331
+ | reflexive relations
+ | regularity@lang
+% sec-relations.tex:333
+ | reflexive@rel
+% sec-relations.tex:351
+ | Ramsey's infinite theorem
+% sec-relations.tex:362
+ | equal-length relation
+% sec-relations.tex:366
+ | recognizable@rel
+% sec-relations.tex:391
+ | convolution@word
+% sec-relations.tex:395
+ | blank symbol
+ | padding symbol
+% sec-relations.tex:397
+ | padding symbols
+% sec-relations.tex:427
+ | recognizing@syncauto
+% sec-relations.tex:434
+ | recognizes@syncauto
+% sec-relations.tex:444
+ | automatic@rel
+ | recognized@syncauto
+% sec-relations.tex:455
+ | well-formed
+ | well-formed words
+% sec-relations.tex:465
+ | recognize@syncauto
+% sec-relations.tex:486
+ | recognizing@syncauto
+% sec-relations.tex:510
+ | automatic@rel
+ | recognizable@rel
+% sec-relations.tex:514
+ | automatic@rel
+% sec-relations.tex:521
+ | automatic@rel
+% sec-relations.tex:561
+ | automatic@struct
+% sec-relations.tex:564
+ | automatic@rel
+% sec-relations.tex:569
+ | non-automaticity@struct
+% sec-relations.tex:572
+ | $I$-locally finite
+% sec-relations.tex:578
+ | $\intInt {1,k}$-locally finite
+% sec-relations.tex:587
+ | automatic@struct
+% sec-relations.tex:596
+ | $\{3\}$-locally finite
+% sec-relations.tex:599
+ | automatic@struct
+% sec-relations.tex:611
+ | 3ExpTime
+ | 2ExpTime
+ | ExpTime
+% sec-relations.tex:612
+ | $\REC $-membership problem for automatic relations
+% sec-relations.tex:615
+ | separation problem@rel
+% sec-relations.tex:620
+ | $\REC $-separability problem for automatic relations
+% sec-relations.tex:627
+ | separable@rel
+% sec-relations.tex:636
+ | length-multiplying
+% sec-relations.tex:641
+ | length-multiplying morphisms
+% sec-relations.tex:645
+ | length-multiplying morphism
+% sec-relations.tex:655
+ | automatic@rel
+% sec-relations.tex:657
+ | automatic@rel
+ | morphism@monoid
+% sec-relations.tex:658
+ | automatic@rel
+% sec-relations.tex:666
+ | Rational relations
+% sec-relations.tex:678
+ | multitape automaton
+% sec-relations.tex:715
+ | rational@rel
+% sec-relations.tex:716
+ | recognized@desync
+% sec-relations.tex:779
+ | Multitape automata
+% sec-relations.tex:781
+ | rational@rel
+% sec-relations.tex:783
+ | rational@rel
+% sec-relations.tex:784
+ | automaton@desync
+% sec-relations.tex:805
+ | $\RAT $/$\REC $-membership problem
+% sec-relations.tex:816
+ | intersection non-emptiness problem
+% sec-relations.tex:826
+ | automaton@sync
+% sec-relations.tex:843
+ | deterministic@desync
+% sec-relations.tex:856
+ | automaton@sync
+ | deterministic@multitape
+% sec-relations.tex:857
+ | automaton@sync
+% sec-relations.tex:863
+ | deterministic multitape automaton
+% sec-relations.tex:873
+ | deterministic rational@rel
+% sec-relations.tex:884
+ | deterministic rational@rel
+% sec-relations.tex:890
+ | deterministic rational@rel
+% sec-relations.tex:910
+ | recognizing@syncauto
+% sec-relations.tex:966
+ | synchronous@auto
+% sec-relations.tex:967
+ | recognized@syncauto
+% sec-relations.tex:968
+ | recognizes@multitape
+% sec-relations.tex:969
+ | deterministic rational@rel
+% sec-relations.tex:973
+ | deterministic@multitape
+% sec-relations.tex:974
+ | deterministic rational@rel
+% sec-relations.tex:977
+ | automaton@sync
+ | deterministic@desync
+% sec-relations.tex:978
+ | deterministic rational@rel
+% sec-relations.tex:990
+ | Deterministic multitape automata
+% sec-relations.tex:998
+ | deterministic rational@rel
+% sec-relations.tex:1001
+ | intersection non-emptiness problem@drat
+% sec-relations.tex:1006
+ | inclusion problem@rel
+ | deterministic multitape automata
+% sec-relations.tex:1008
+ | equivalence problem@rel
+% sec-relations.tex:1019
+ | $\DRAT $/$\REC $-membership problem
+% sec-relations.tex:1057
+ | $T$-multitape automaton
+% sec-relations.tex:1063
+ | $T_{\textrm {sync}}$-multitape automaton
+% sec-relations.tex:1069
+ | $T_{\textrm {rec}}$-multitape automaton
+% sec-relations.tex:1072
+ | $\{\{i\} \mid i \in \intInt {1,k}\}^*$-multitape automata
+% sec-relations.tex:1077
+ | $T$-controlled relation
+% sec-relations.tex:1078
+ | $T$-multitape automata
+% sec-relations.tex:1087
+ | $T$-controlled relations
+ | recognizable@rel
+ | automatic@rel
+% sec-relations.tex:1092
+ | $T_1$-controlled relations
+ | $T_2$-controlled relations
+% sec-relations.tex:1118
+ | Right-automatic relations
+% sec-relations.tex:1120
+ | automatic@rel
+ | right-automatic@rel
+% sec-relations.tex:1121
+ | right-automatic@rel
+ | automatic@rel
+% sec-relations.tex:1125
+ | Multitape automaton
+% sec-relations.tex:1167
+ | equivalence@pbrel
+% sec-relations.tex:1171
+ | non-blank symbols
+% sec-relations.tex:1173
+ | deterministic two-way multitape automata
+% sec-relations.tex:1179
+ | intersection non-emptiness problem@drat
+% sec-relations.tex:1184
+ | inclusion problem@rel
+ | equivalence problem@rel
+% sec-relations.tex:1194
+ | Deterministic two-way rational relations
+% sec-relations.tex:1201
+ | deterministic one-way rational relations
+% sec-relations.tex:1220
+ | recognizable@rel
+% sec-relations.tex:1226
+ | automatic@rel
+% sec-relations.tex:1232
+ | right-automatic@rel
+% sec-relations.tex:1238
+ | deterministic\\rational@rel
+% sec-relations.tex:1244
+ | rational@rel
+% sec-relations.tex:1250
+ | deterministic two-way rational@rel
+% sec-relations.tex:1256
+ | two-way\\rational@rel
+% sec-relations.tex:1277
+ | inclusion problem@rel
+ | equivalence problem@rel
+% sec-relations.tex:1297
+ | non-deterministic one-way transducers
+% sec-relations.tex:1308
+ | transductions
+% sec-relations.tex:1311
+ | transducer
+% sec-relations.tex:1314
+ | deterministic transducer
+% sec-relations.tex:1318
+ | deterministic@transducer
+% sec-relations.tex:1330
+ | functional@rel
+% sec-relations.tex:1331
+ | deterministic transducers
+% sec-relations.tex:1335
+ | deterministic rational@rel
+% sec-relations.tex:1336
+ | deterministic transduction
+ | deterministic one-way transducer
+% sec-relations.tex:1345
+ | automatic@rel
+% sec-relations.tex:1360
+ | two-way transductions
+% sec-relations.tex:1363
+ | Deterministic two-way transductions
+% sec-relations.tex:1364
+ | regular functions@bojan
+% sec-relations.tex:1368
+ | regular functions
+% sec-relations.tex:1373
+ | equivalence problem@rel
+% sec-relations.tex:1395
+ | functional@rel
+% sec-relations.tex:1400
+ | functional@rel
+% sec-relations.tex:1405
+ | functional@rel
+ | right-automatic@rel
+ | right-automatic@rel
+% sec-relations.tex:1410
+ | determinstic\\transductions
+% sec-relations.tex:1415
+ | functional@rel
+ | deterministic\\rational relations
+% sec-relations.tex:1420
+ | functional@rel
+% sec-relations.tex:1427
+ | regular functions@bojan
+ | functional@rel
+% sec-relations.tex:1432
+ | functional@rel
+ | deterministic\\two-way rational\\ relations
+% sec-relations.tex:1437
+ | functional@rel
+ | two-way\\rational relations
+% sec-relations.tex:1442
+ | polyregular\\functions@bojan
+% sec-relations.tex:1466
+ | Functional@rel
+ | inclusion problem@rel
+ | equivalence problem@rel
+% sec-relations.tex:1468
+ | equivalence problem@rel
+% sec-relations.tex:1473
+ | Regular functions@bojan
+% sec-relations.tex:1477
+ | one-way deterministic transductions
+% sec-relations.tex:1479
+ | polyregular functions@bojan
+% sec-relations.tex:1482
+ | polyregular function@bojan
+ | regular@bojan
+% sec-relations.tex:1485
+ | regular@bojan
+% sec-relations.tex:1497
+ | two-way rational relation
+% sec-relations.tex:1498
+ | functional@rel
+% sec-relations.tex:1501
+ | functional@rel
+ | functional@rel
+% sec-logic.tex:8
+ | queries@sem
+% sec-logic.tex:9
+ | queries@sem
+% sec-logic.tex:22
+ | first-order interpretation
+% sec-logic.tex:26
+ | relational signatures
+% sec-logic.tex:27
+ | $d$-dimensional first-order interpretation
+% sec-logic.tex:37
+ | $\+I$-interpretation of $\?A$
+ | $\tau $-structure
+% sec-logic.tex:57
+ | one-dimensional interpretation
+% sec-logic.tex:90
+ | interpretation
+% sec-logic.tex:132
+ | one-dimensional interpretations
+% sec-logic.tex:134
+ | non-hyperedges
+% sec-logic.tex:171
+ | Interpretation
+% sec-logic.tex:176
+ | two-dimensional interpretation
+% sec-logic.tex:187
+ | injective@interpretation
+% sec-logic.tex:190
+ | injective interpretation
+% sec-logic.tex:192
+ | interpreted@pred
+% sec-logic.tex:197
+ | first-order interpretable
+% sec-logic.tex:199
+ | first-order equivalent
+% sec-logic.tex:202
+ | predicate interpreted
+% sec-logic.tex:208
+ | first-order interpretations
+% sec-logic.tex:212
+ | injective first-order interpretation
+% sec-logic.tex:214
+ | FO-interpretations
+ | FO-reduction
+% sec-logic.tex:222
+ | finite $\sigma $-structures
+% sec-logic.tex:227
+ | first-order reduction
+% sec-logic.tex:243
+ | formula@FO
+% sec-logic.tex:265
+ | interpretations@predicate
+% sec-logic.tex:266
+ | $\signatureSynchronous {\Sigma }$-structure
+% sec-logic.tex:267
+ | interpreted@predicate
+% sec-logic.tex:275
+ | automatic@rel
+% sec-logic.tex:285
+ | automatic@rel
+% sec-logic.tex:340
+ | automatic@rel
+% sec-logic.tex:365
+ | lexicographic order
+% sec-logic.tex:396
+ | FO
+ | MSO
+% sec-logic.tex:411
+ | interpreted@pred
+% sec-logic.tex:413
+ | definable relations
+% sec-automatic-structures.tex:6
+ | Automatic structures
+% sec-automatic-structures.tex:27
+ | automatic groups
+% sec-automatic-structures.tex:32
+ | automatic presentation $\+A$ of a $\sigma $-structure
+% sec-automatic-structures.tex:47
+ | structure represented
+ | automatic presentation
+% sec-automatic-structures.tex:49
+ | interpreted@pred
+% sec-automatic-structures.tex:54
+ | automatic@struct
+% sec-automatic-structures.tex:55
+ | represented@struct
+% sec-automatic-structures.tex:58
+ | automatic@rel
+% sec-automatic-structures.tex:108
+ | injective presentations
+% sec-automatic-structures.tex:112
+ | automatic@struct
+% sec-automatic-structures.tex:139
+ | Synchronous automaton
+% sec-automatic-structures.tex:159
+ | represents@struct
+% sec-automatic-structures.tex:162
+ | automatic@rel
+% sec-automatic-structures.tex:164
+ | automatic presentations
+% sec-automatic-structures.tex:173
+ | $\omega $-automatic structures
+% sec-automatic-structures.tex:175
+ | injective presentation
+% sec-automatic-structures.tex:180
+ | represents@struct
+ | injective automatic presentation
+% sec-automatic-structures.tex:182
+ | length-lexicographic
+% sec-automatic-structures.tex:183
+ | length-lexicographic order
+% sec-automatic-structures.tex:191
+ | automatic@pres
+% sec-automatic-structures.tex:192
+ | automatic@rel
+% sec-automatic-structures.tex:202
+ | represents@struct
+% sec-automatic-structures.tex:208
+ | presentation
+% sec-automatic-structures.tex:215
+ | automaticity@struct
+% sec-automatic-structures.tex:219
+ | automatic@rel
+% sec-automatic-structures.tex:230
+ | automatic@struct
+% sec-automatic-structures.tex:232
+ | injective@pres
+% sec-automatic-structures.tex:256
+ | $d$-dimensional interpretation
+% sec-automatic-structures.tex:283
+ | right-automatic relations
+% sec-automatic-structures.tex:301
+ | tree-automatic structures
+% sec-automatic-structures.tex:302
+ | $\omega $-tree-automatic structures
+% sec-automatic-structures.tex:310
+ | injective@pres
+% sec-automatic-structures.tex:323
+ | First-Order Model Checking of Automatic $\sigma $-Structures
+ | automatic $\sigma $-structure
+% sec-automatic-structures.tex:325
+ | data complexity
+% sec-automatic-structures.tex:333
+ | Hodgson's theorem
+% sec-automatic-structures.tex:339
+ | First-order model checking of automatic structures
+% sec-automatic-structures.tex:340
+ | TOWER
+% sec-automatic-structures.tex:390
+ | first-order model-checking
+% sec-automatic-structures.tex:403
+ | first-order model checking of automatic structures
+% sec-automatic-structures.tex:404
+ | primitive-positive sentences
+% sec-automatic-structures.tex:413
+ | positive quantifier-free formula
+% sec-automatic-structures.tex:429
+ | finite graph reachability problem
+% sec-automatic-structures.tex:437
+ | existential sentences
+% sec-automatic-structures.tex:449
+ | FOaut
+% sec-automatic-structures.tex:464
+ | Presburger arithmetic
+% sec-automatic-structures.tex:483
+ | automatic@struct
+% sec-automatic-structures.tex:491
+ | higher-order automatic structures
+% sec-automatic-structures.tex:495
+ | automatic@struct
+ | higher-order automatic
+% sec-automatic-structures.tex:498
+ | upward Löwenheim–Skolem theorem
+% sec-automatic-structures.tex:502
+ | automaticity@struct
+% sec-automatic-structures.tex:505
+ | order-invariant first-order formula
+% sec-automatic-structures.tex:510
+ | sentences@FO
+% sec-automatic-structures.tex:515
+ | $\omega $-order-invariant first-order formulas
+% sec-automatic-structures.tex:524
+ | $\omega $-order-invariant@FO
+% sec-automatic-structures.tex:525
+ | order-invariant@FO
+% sec-automatic-structures.tex:528
+ | $\omega $-order-invariant first-order formula
+% sec-automatic-structures.tex:529
+ | interpreted@pred
+% sec-automatic-structures.tex:530
+ | order-invariance@FO
+% sec-automatic-structures.tex:531
+ | automatic@rel
+% sec-automatic-structures.tex:536
+ | order-invariant first-order formulas
+% sec-automatic-structures.tex:549
+ | order-invariant@FO
+ | $\omega $-order-invariant@FO
+% sec-automatic-structures.tex:554
+ | order-invariant@FO
+ | $\omega $-order-invariant@FO
+% sec-automatic-structures.tex:577
+ | FO-interpretation
+% sec-automatic-structures.tex:588
+ | automaticity@struct
+% sec-automatic-structures.tex:601
+ | Isomorphism Problem for Automatic Structures
+ | isomorphic@struct
+% sec-automatic-structures.tex:608
+ | Automatic ordinals
+% sec-automatic-structures.tex:609
+ | automatic@struct
+% sec-automatic-structures.tex:612
+ | automatic@struct
+% sec-automatic-structures.tex:616
+ | automatic ordinals
+% sec-automatic-structures.tex:617
+ | $\omega $-tree-automatic ordinals
+% sec-automatic-structures.tex:619
+ | tree-automatic ordinals
+% sec-automatic-structures.tex:628
+ | automaticity@struct
+% sec-automatic-structures.tex:630
+ | automatic Boolean algebras
+% sec-automatic-structures.tex:633
+ | $\omega $-tree-automaticity
+% sec-automatic-structures.tex:635
+ | $\omega $-tree-automatic Boolean algebras
+% sec-automatic-structures.tex:636
+ | ZFC
+% sec-automatic-structures.tex:643
+ | automatic group
+% sec-automatic-structures.tex:656
+ | automatic semigroups
+% sec-automatic-structures.tex:659
+ | automatic@struct
+% sec-automatic-structures.tex:664
+ | automaticity@struct
+% sec-automatic-structures.tex:665
+ | automatic@struct
+% sec-automatic-structures.tex:668
+ | automatic@struct
+% sec-automatic-structures.tex:688
+ | configuration@TM
+% sec-automatic-structures.tex:706
+ | \emph {analytical} hierarchy
+% sec-automatic-structures.tex:713
+ | \emph {arithmetical} hierarchy
+% sec-automatic-structures.tex:719
+ | $\omega $-order-invariant@FO
+% ch-dichotomy-theorem.tex:9
+ | finite regular colourability of automatic graphs
+ | graph@dir
+% ch-dichotomy-theorem.tex:18
+ | finite relational structure
+% ch-dichotomy-theorem.tex:21
+ | regular@hom
+% ch-dichotomy-theorem.tex:37
+ | Mycielski's construction
+% sec-introduction.tex:24
+ | $\REC $-membership problem
+% sec-introduction.tex:25
+ | rational relation
+% sec-introduction.tex:30
+ | $\REC $-membership@problem
+% sec-introduction.tex:35
+ | $\REC $-membership@problem
+% sec-introduction.tex:39
+ | $\REC $-membership@problem
+% sec-introduction.tex:45
+ | $\REC $-membership@problem
+% sec-introduction.tex:50
+ | $\RAT $/$\REC $-separability problem
+% sec-introduction.tex:52
+ | separates@rel
+% sec-introduction.tex:53
+ | separable@rel
+% sec-introduction.tex:73
+ | $\REC $-membership@problem
+% sec-introduction.tex:74
+ | $\AUT $/$\REC $-separability@problem
+% sec-introduction.tex:83
+ | CSPs
+% sec-introduction.tex:86
+ | $k$-colourability problem
+% sec-introduction.tex:94
+ | CSP
+% sec-introduction.tex:123
+ | $2$-transitive tournament
+ | $2$-path
+% sec-introduction.tex:129
+ | coNLogTime
+% sec-introduction.tex:130
+ | modL
+% sec-introduction.tex:141
+ | graph@dir
+% sec-introduction.tex:150
+ | finite graph
+% sec-introduction.tex:155
+ | obstructions
+% sec-introduction.tex:157
+ | constraint satisfaction problem
+% sec-introduction.tex:163
+ | Atserias' theorem
+% sec-introduction.tex:169
+ | Larose-Tesson theorem
+% sec-introduction.tex:175
+ | source side@struct
+% sec-introduction.tex:196
+ | Finite Regular Colourability of Automatic Graphs
+% sec-introduction.tex:197
+ | regular $k$-colouring
+% sec-introduction.tex:200
+ | regular $k$-colourability problem
+% sec-introduction.tex:202
+ | regularly $k$-colourable
+% sec-introduction.tex:213
+ | $\AUT $/$\REC $-separability@problem
+ | finite regular colourability@problem
+ | finite regular colourability@problem
+ | $\AUT $/$\REC $-separability@problem
+ | regular $k$-colourability@problem
+ | $\AUT $/$\kREC $-separability@problem
+% sec-introduction.tex:215
+ | finite regular colourability@problem
+% sec-introduction.tex:246
+ | graph@dir
+% sec-introduction.tex:249
+ | regular $k$-colourability
+% sec-introduction.tex:254
+ | regular homomorphism problem
+% sec-introduction.tex:271
+ | Dichotomy Theorem for Automatic Structures
+ | uniformly first-order definable homomorphisms
+% sec-introduction.tex:279
+ | reversible Turing machines
+% sec-introduction.tex:280
+ | regular reachability problem
+ | linear Turing machines
+% sec-introduction.tex:281
+ | regular unconnectivity in automatic graphs
+% sec-introduction.tex:293
+ | hyperedge consistency algorithm@automatic
+% sec-introduction.tex:295
+ | tree duality
+% sec-preliminaries.tex:8
+ | regular function
+% sec-preliminaries.tex:13
+ | automatic@rel
+% sec-preliminaries.tex:14
+ | presentations of automatic $\sigma $-structures
+% sec-preliminaries.tex:49
+ | regular@lang
+% sec-preliminaries.tex:61
+ | presentation@auto
+% sec-preliminaries.tex:63
+ | presentation of an automatic graph
+% sec-preliminaries.tex:91
+ | $2$-colouring
+% sec-preliminaries.tex:94
+ | colouring
+ | regular@colouring
+% sec-preliminaries.tex:103
+ | automatic presentations of $\sigma $-structures
+% sec-preliminaries.tex:167
+ | presentation@auto
+% sec-preliminaries.tex:184
+ | formula@FO
+% sec-preliminaries.tex:189
+ | automatic $\sigma $-structures
+% sec-preliminaries.tex:193
+ | automatic@struct
+% sec-preliminaries.tex:257
+ | $\extendedSignature {\sigma }{\?B}$-structure
+ | interpretation@predicate
+% sec-preliminaries.tex:265
+ | interpreting@predicate
+% sec-preliminaries.tex:277
+ | idempotent core
+% sec-preliminaries.tex:282
+ | finiteness@structure
+% sec-preliminaries.tex:295
+ | interpreting@predicate
+% sec-preliminaries.tex:298
+ | first-order@reduction
+% sec-preliminaries.tex:314
+ | interpretation@predicate
+% sec-preliminaries.tex:319
+ | adjacencies
+% sec-preliminaries.tex:364
+ | finiteness@structure
+% sec-preliminaries.tex:365
+ | finite@structure
+% sec-preliminaries.tex:371
+ | De Bruijn–Erdős Theorem
+% sec-preliminaries.tex:384
+ | Tychonoff's compactness theorem
+% sec-preliminaries.tex:392
+ | induced@structure
+% sec-preliminaries.tex:397
+ | finite intersection property
+% sec-preliminaries.tex:404
+ | dual
+% sec-preliminaries.tex:429
+ | obstruction
+% sec-preliminaries.tex:445
+ | \emph {undirected} graph
+% sec-preliminaries.tex:462
+ | duals
+% sec-preliminaries.tex:466
+ | critical@obs
+% sec-preliminaries.tex:469
+ | critical obstruction
+% sec-preliminaries.tex:471
+ | critical obstructions
+% sec-preliminaries.tex:486
+ | critical@obs
+% sec-preliminaries.tex:487
+ | quotient@struct
+% sec-preliminaries.tex:501
+ | zigzag graph
+% sec-preliminaries.tex:506
+ | graph@dir
+% sec-preliminaries.tex:581
+ | De Bruijn-Erdős theorem
+% sec-preliminaries.tex:584
+ | rigid
+% sec-preliminaries.tex:597
+ | strongly acyclic@struct
+% sec-preliminaries.tex:598
+ | $\sigma $-tree
+ | strongly acyclic@struct
+% sec-preliminaries.tex:604
+ | height@struct
+% sec-preliminaries.tex:605
+ | distance@struct
+% sec-preliminaries.tex:608
+ | $\sigma $-trees
+% sec-preliminaries.tex:650
+ | graphs@dir
+% sec-preliminaries.tex:674
+ | graph@dir
+% sec-preliminaries.tex:685
+ | graph@dir
+% subsec-colouring-separability.tex:3
+ | $\REC $-separability problem
+% subsec-colouring-separability.tex:4
+ | regular colourability problem
+% subsec-colouring-separability.tex:24
+ | $\AUT $/$\REC $-separability@problem
+ | finite regular colourability@problem
+ | finite regular colourability@problem
+ | $\AUT $/$\REC $-separability@problem
+ | regular $k$-colourability@problem
+ | $\AUT $/$\kREC $-separability@problem
+% subsec-colouring-separability.tex:32
+ | separates@rel
+% subsec-colouring-separability.tex:34
+ | separates@rel
+ | separates@rel
+% subsec-colouring-separability.tex:40
+ | compatible@recognizable
+% subsec-colouring-separability.tex:51
+ | incompatibility graph
+% subsec-colouring-separability.tex:53
+ | compatible@recognizable
+% subsec-colouring-separability.tex:64
+ | incompatible@recognizable
+% subsec-colouring-separability.tex:85
+ | Incompatibility graph
+% subsec-colouring-separability.tex:88
+ | recognizable@rel
+% subsec-colouring-separability.tex:89
+ | separable@rel
+ | recognizable@rel
+% subsec-colouring-separability.tex:91
+ | regularly $2$-colourable
+% subsec-colouring-separability.tex:97
+ | automatic@rel
+% subsec-colouring-separability.tex:102
+ | incompatibility relation
+% subsec-colouring-separability.tex:111
+ | automaton@sync
+% subsec-colouring-separability.tex:128
+ | automaton@sync
+% subsec-colouring-separability.tex:129
+ | automaton@sync
+% subsec-colouring-separability.tex:141
+ | separates@rel
+% subsec-colouring-separability.tex:149
+ | compatible@recognizable
+% subsec-colouring-separability.tex:153
+ | separates@rel
+% subsec-colouring-separability.tex:159
+ | finitely regularly colourable
+% subsec-colouring-separability.tex:172
+ | compatible@recognizable
+% subsec-colouring-separability.tex:175
+ | separates@rel
+% subsec-colouring-separability.tex:177
+ | recognizable@rel
+% subsec-colouring-separability.tex:188
+ | separable@rel
+% subsec-colouring-separability.tex:199
+ | regular colourings
+% subsec-colouring-separability.tex:200
+ | regular $k$-colourability@problem
+% subsec-colouring-regular.tex:28
+ | reversible
+% subsec-colouring-regular.tex:35
+ | well-founded
+% subsec-colouring-regular.tex:41
+ | linear@TM
+% subsec-colouring-regular.tex:42
+ | linear@TM
+% subsec-colouring-regular.tex:45
+ | linear@TM
+% subsec-colouring-regular.tex:47
+ | reachable configurations
+% subsec-colouring-regular.tex:68
+ | linear@TM
+% subsec-colouring-regular.tex:115
+ | linear@TM
+% subsec-colouring-regular.tex:119
+ | configuration@TM
+% subsec-colouring-regular.tex:122
+ | configuration@TM
+% subsec-colouring-regular.tex:144
+ | germinal
+% subsec-colouring-regular.tex:154
+ | linear Turing machine
+% subsec-colouring-regular.tex:155
+ | germinal configurations
+% subsec-colouring-regular.tex:180
+ | Configuration graph
+% subsec-colouring-regular.tex:213
+ | $k$-coloured automaton
+% subsec-colouring-regular.tex:224
+ | $k$-coloured automata
+% subsec-colouring-regular.tex:241
+ | regular@colouring
+% subsec-colouring-bounded.tex:9
+ | $\kREC [1]$-separability problem
+ | separator@rel
+% subsec-colouring-bounded.tex:13
+ | $\kREC $-separability problem
+% subsec-colouring-bounded.tex:23
+ | $\kPROD [1]$-separability problem
+% subsec-colouring-bounded.tex:27
+ | separates@rel
+% subsec-colouring-bounded.tex:28
+ | separates@rel
+% subsec-colouring-bounded.tex:41
+ | $\kPROD $-separability problem
+% subsec-colouring-bounded.tex:44
+ | symmetric@rel
+ | separable@rel
+ | separator@rel
+% subsec-colouring-bounded.tex:47
+ | separates@rel
+% subsec-colouring-bounded.tex:51
+ | separates@rel
+% subsec-colouring-bounded.tex:80
+ | separator@rel
+% subsec-colouring-bounded.tex:84
+ | symmetric@rel
+ | separable@rel
+% subsec-colouring-bounded.tex:88
+ | symmetric relation
+ | separates@rel
+% subsec-colouring-bounded.tex:91
+ | $\kPROD [2]$-separability problem
+ | regular $2$-colourability problem
+% subsec-colouring-bounded.tex:96
+ | automatic@struct
+% subsec-colouring-bounded.tex:98
+ | separates@rel
+% subsec-colouring-bounded.tex:125
+ | separable@rel
+ | separable@rel
+% subsec-colouring-bounded.tex:135
+ | separator@rel
+ | separator@rel
+% subsec-colouring-bounded.tex:138
+ | separator@rel
+% subsec-colouring-bounded.tex:144
+ | separator@rel
+% subsec-colouring-bounded.tex:145
+ | separator@rel
+% subsec-colouring-bounded.tex:154
+ | automatic@rel
+ | automatic@rel
+% subsec-colouring-bounded.tex:163
+ | automatic@rel
+% subsec-colouring-bounded.tex:179
+ | $\kREC $-membership problem
+% subsec-colouring-bounded.tex:210
+ | $\kPROD $-membership problem
+% sec-undecidability.tex:30
+ | higher-order automatic structure
+% sec-undecidability.tex:163
+ | Connectivity in automatic graphs
+% sec-undecidability.tex:169
+ | $n$-link
+% sec-undecidability.tex:181
+ | $n$-linked
+% sec-undecidability.tex:182
+ | linked
+% sec-undecidability.tex:227
+ | Connectivity in Automatic Graphs
+% sec-undecidability.tex:235
+ | automatic@struct
+% sec-undecidability.tex:239
+ | configuration@TM
+% sec-undecidability.tex:247
+ | connectivity in automatic graphs
+% sec-undecidability.tex:258
+ | graph@dir
+% sec-undecidability.tex:276
+ | $1$-link
+% sec-undecidability.tex:290
+ | $1$-linked
+% sec-undecidability.tex:304
+ | interpret@predicate
+% sec-undecidability.tex:324
+ | $\extendedSignature {\sigma }{\?B}$-structures
+% sec-undecidability.tex:380
+ | $\+R$-tuples
+% sec-undecidability.tex:435
+ | unary type
+% sec-undecidability.tex:443
+ | obstructing@unarytype
+% sec-undecidability.tex:448
+ | obstructing@unarytype
+% sec-undecidability.tex:459
+ | obstructing@unarytype
+% sec-undecidability.tex:468
+ | obstructing@unarytype
+% sec-undecidability.tex:476
+ | obstructing@unarytype
+ | obstructing@unarytype
+ | obstructing@unarytype
+ | obstructing@unarytype
+% sec-undecidability.tex:514
+ | Regular Unconnectivity in Automatic Graphs
+ | regularly unconnected
+% sec-undecidability.tex:555
+ | \(\sigma \)-structures
+% sec-undecidability.tex:568
+ | regular@lang
+% sec-undecidability.tex:595
+ | Regularity@hom
+ | regularity@lang
+% sec-undecidability.tex:608
+ | Regular unconnectivity in automatic graphs
+% sec-undecidability.tex:648
+ | automatic@struct
+% sec-undecidability.tex:653
+ | regular@lang
+% sec-undecidability.tex:676
+ | regularity@hom
+% sec-decidability.tex:12
+ | hyperedge consistency algorithm for automatic structures
+% sec-decidability.tex:13
+ | hyperedge consistency algorithm for finite structures
+% sec-decidability.tex:121
+ | formulas@FO
+% sec-decidability.tex:166
+ | Uniformly first-order definable homomorphisms
+% sec-decidability.tex:167
+ | regular@hom
+% sec-decidability.tex:191
+ | regular@lang
+% sec-decidability.tex:226
+ | graphs@dir
+% sec-decidability.tex:230
+ | hyperedge consistency@finite
+% sec-decidability.tex:255
+ | hyperedge consistency@finite
+% sec-decidability.tex:260
+ | hyperedge consistency algorithm@finite
+% sec-decidability.tex:288
+ | hyperedge consistency algorithm@finite
+% sec-decidability.tex:311
+ | hyperedge consistency algorithm@finite
+% sec-decidability.tex:327
+ | complete lattice
+% sec-decidability.tex:331
+ | Knaster-Tarski theorem
+% sec-decidability.tex:363
+ | hyperedge consistency algorithm@finite
+% sec-decidability.tex:412
+ | hyperedge consistency algorithm@finite
+% sec-decidability.tex:426
+ | hyperedge consistency algorithm@finite
+% sec-decidability.tex:430
+ | hyperedge consistency algorithm@finite
+% sec-decidability.tex:500
+ | automatic@struct
+% sec-decidability.tex:513
+ | regularity@fun
+% sec-decidability.tex:516
+ | regular@hom
+% sec-decidability.tex:517
+ | regular@hom
+% sec-decidability.tex:521
+ | regular@hom
+% sec-decidability.tex:522
+ | regular@lang
+% sec-decidability.tex:529
+ | formula@FO
+% sec-decidability.tex:531
+ | regular@hom
+% sec-decidability.tex:549
+ | quantifier alternation
+ | formulas@FO
+ | formulas@FO
+% sec-decidability.tex:567
+ | regular@fun
+% sec-decidability.tex:569
+ | regular@fun
+% sec-decidability.tex:570
+ | hyperedge consistency algorithm@finite
+% sec-decidability.tex:632
+ | hyperedge consistency algorithm@finite
+% sec-decidability.tex:635
+ | hyperedge consistency algorithm@finite
+% sec-decidability.tex:638
+ | hyperedge consistency algorithm@finite
+% sec-decidability.tex:644
+ | hyperedge consistency algorithm@finite
+% sec-decidability.tex:689
+ | locally finite@struct
+% sec-decidability.tex:694
+ | distance@struct
+% sec-decidability.tex:774
+ | height@struct
+% sec-decidability.tex:778
+ | height@struct
+% sec-decidability.tex:795
+ | height@struct
+% sec-decidability.tex:813
+ | height@struct
+ | hyperedge consistency algorithm@finite
+% sec-decidability.tex:844
+ | hyperedge consistency algorithm@finite
+% sec-decidability.tex:882
+ | induced@substructure
+% sec-discussion.tex:8
+ | finite regular colourability problem
+% sec-discussion.tex:30
+ | graph@dir
+% sec-discussion.tex:34
+ | graph@dir
+% sec-discussion.tex:52
+ | presentation@automatic
+% sec-discussion.tex:60
+ | connected graphs
+% sec-discussion.tex:83
+ | unconnected@struct
+% sec-discussion.tex:84
+ | connectivity@struct
+% sec-discussion.tex:96
+ | graph@dir
+% sec-discussion.tex:100
+ | graph isomorphisms
+% sec-discussion.tex:101
+ | presentations
+% sec-discussion.tex:114
+ | finite colourability problem
+% sec-discussion.tex:121
+ | Finite Colourability of Automatic Graphs
+% sec-discussion.tex:128
+ | finite subgraph
+ | source@struct
+ | Finite colourability of automatic graphs
+% sec-discussion.tex:130
+ | finite colourability of automatic graphs
+% sec-discussion.tex:132
+ | graph@dir
+% sec-discussion.tex:139
+ | contain unbounded tournaments
+% sec-discussion.tex:145
+ | has bounded tournaments
+% sec-discussion.tex:150
+ | graphs@dir
+% sec-discussion.tex:151
+ | triangle-free graphs@dir
+% sec-discussion.tex:153
+ | triangle-free@undir
+% sec-discussion.tex:156
+ | automatic@struct
+% sec-discussion.tex:162
+ | triangle-free@dir
+% sec-discussion.tex:166
+ | triangle-free@undir
+% sec-discussion.tex:169
+ | triangle-free graph@undir
+% sec-discussion.tex:170
+ | triangle-free graphs@undir
+% sec-discussion.tex:173
+ | graph@dir
+% sec-discussion.tex:175
+ | automaticity@graph
+% sec-discussion.tex:179
+ | Mycielskian
+% sec-discussion.tex:197
+ | triangle-free@undir
+% sec-discussion.tex:201
+ | adjacent elements
+% sec-discussion.tex:234
+ | $4$-colouring
+% sec-discussion.tex:246
+ | $(k+1)$-colouring
+% sec-discussion.tex:259
+ | $(k-1)$-colouring
+% sec-discussion.tex:288
+ | infinite Mycielski graph
+% sec-discussion.tex:290
+ | symmetric@rel
+% sec-discussion.tex:296
+ | triangle-free@dir
+ | triangle-free@undir
+% sec-discussion.tex:299
+ | automatic@graph
+% sec-discussion.tex:302
+ | regular@lang
+% sec-discussion.tex:334
+ | automatic@rel
+% sec-discussion.tex:343
+ | triangle-free@undir
+% sec-discussion.tex:350
+ | dichotomy theorem for automatic structures
+% sec-introduction.tex:62
+ | $\+V$-relation
+% sec-introduction.tex:67
+ | $\+V$-relations
+% sec-introduction.tex:86
+ | lifting theorem
+% sec-introduction.tex:94
+ | dependency relation
+% sec-introduction.tex:99
+ | syntactic congruence@sync
+% sec-introduction.tex:115
+ | syntactic congruence
+% sec-introduction.tex:125
+ | $\symbf {\+V}$-relation
+ | dependency
+% sec-introduction.tex:144
+ | Lifting theorem: Elementary Formulation
+ | corresponding@EilenbergSg
+ | recognized@sync
+ | synchronous algebra
+ | underlying monoids
+ | syntactic synchronous algebras
+% sec-introduction.tex:147
+ | syntactic algebras@sync
+% sec-introduction.tex:149
+ | automatic@rel
+% sec-introduction.tex:154
+ | residuals
+% sec-introduction.tex:163
+ | syntactic algebras@sync
+ | lifting theorem@monoids
+% sec-introduction.tex:164
+ | $*$-pseudovarieties@reglang
+ | $*$-pseudovarieties of automatic relations
+% sec-introduction.tex:165
+ | lifting theorem@monoidspseudovar
+% sec-introduction.tex:203
+ | deterministic transductions
+% sec-introduction.tex:208
+ | functional@rel
+% sec-introduction.tex:214
+ | functional@rel
+% sec-preliminaries.tex:13
+ | complement@rel
+% sec-preliminaries.tex:27
+ | automatic@rel
+% sec-preliminaries.tex:53
+ | automatic@rel
+% sec-preliminaries.tex:134
+ | group relations
+% sec-preliminaries.tex:136
+ | group relation
+% sec-synchronous-algebras.tex:15
+ | letter-type
+% sec-synchronous-algebras.tex:17
+ | type
+% sec-synchronous-algebras.tex:18
+ | letter-types
+% sec-synchronous-algebras.tex:85
+ | $\types $-typed set
+ | typed set
+% sec-synchronous-algebras.tex:88
+ | map between typed sets
+% sec-synchronous-algebras.tex:92
+ | typed sets
+% sec-synchronous-algebras.tex:108
+ | dependent set
+% sec-synchronous-algebras.tex:109
+ | closed subset
+% sec-synchronous-algebras.tex:122
+ | synchronous words
+% sec-synchronous-algebras.tex:160
+ | closed subsets
+% sec-synchronous-algebras.tex:171
+ | types
+% sec-synchronous-algebras.tex:172
+ | compatible@type
+% sec-synchronous-algebras.tex:175
+ | compatible@type
+% sec-synchronous-algebras.tex:179
+ | compatible@type
+% sec-synchronous-algebras.tex:183
+ | compatibility@type
+% sec-synchronous-algebras.tex:189
+ | product
+% sec-synchronous-algebras.tex:193
+ | compatible@type
+% sec-synchronous-algebras.tex:194
+ | compatible@type
+% sec-synchronous-algebras.tex:200
+ | compatible@type
+% sec-synchronous-algebras.tex:202
+ | compatible@type
+% sec-synchronous-algebras.tex:207
+ | compatible@type
+% sec-synchronous-algebras.tex:209
+ | compatible@type
+% sec-synchronous-algebras.tex:241
+ | underlying monoid
+% sec-synchronous-algebras.tex:250
+ | dependent sets
+% sec-synchronous-algebras.tex:251
+ | Eilenberg-Moore algebras
+% sec-synchronous-algebras.tex:255
+ | Morphisms of synchronous algebras
+% sec-synchronous-algebras.tex:261
+ | synchronous algebra morphisms
+% sec-synchronous-algebras.tex:262
+ | maps of typed sets
+% sec-synchronous-algebras.tex:268
+ | morphism@sync
+% sec-synchronous-algebras.tex:271
+ | recognizes@sync
+% sec-synchronous-algebras.tex:273
+ | recognizability@sync
+% sec-synchronous-algebras.tex:278
+ | induces@sync
+ | synchronous algebra morphism
+% sec-synchronous-algebras.tex:285
+ | compatible type
+% sec-synchronous-algebras.tex:294
+ | recognizes@sync
+% sec-synchronous-algebras.tex:299
+ | consolidation
+% sec-synchronous-algebras.tex:317
+ | recognizes@sync
+% sec-synchronous-algebras.tex:325
+ | automatic@rel
+ | recognized@sync
+% sec-synchronous-algebras.tex:383
+ | compatible@type
+% sec-synchronous-algebras.tex:397
+ | morphism@sync
+% sec-synchronous-algebras.tex:407
+ | recognize@sync
+% sec-synchronous-algebras.tex:424
+ | syntactic synchronous algebra morphism
+ | Syntactic morphism theorem@sync
+% sec-synchronous-algebras.tex:449
+ | Syntactic morphism theorem@sync
+ | recognizes@sync
+ | recognizing@sync
+ | algebra@sync
+% sec-synchronous-algebras.tex:452
+ | automatic@rel
+% sec-synchronous-algebras.tex:460
+ | congruence@sync
+% sec-synchronous-algebras.tex:461
+ | locally transitive
+% sec-synchronous-algebras.tex:470
+ | quotient structure@sync
+% sec-synchronous-algebras.tex:471
+ | congruence@sync
+% sec-synchronous-algebras.tex:484
+ | morphism of synchronous algebras
+% sec-synchronous-algebras.tex:488
+ | congruence@sync
+% sec-synchronous-algebras.tex:510
+ | congruence@sync
+% sec-synchronous-algebras.tex:524
+ | syntactic morphism@sync
+% sec-synchronous-algebras.tex:544
+ | recognizes@sync
+ | syntactic morphism@sync
+% sec-synchronous-algebras.tex:556
+ | morphism@sync
+% sec-synchronous-algebras.tex:557
+ | recognizes@sync
+% sec-synchronous-algebras.tex:559
+ | morphism@sync
+% sec-synchronous-algebras.tex:560
+ | recognizes@sync
+% sec-synchronous-algebras.tex:594
+ | morphism@sync
+% sec-synchronous-algebras.tex:616
+ | syntactic morphisms@sync
+% sec-synchronous-algebras.tex:640
+ | recognizes@sync
+% sec-synchronous-algebras.tex:641
+ | closed
+% sec-synchronous-algebras.tex:653
+ | syntactic morphism@sync
+% sec-synchronous-algebras.tex:720
+ | dependent
+% sec-synchronous-algebras.tex:782
+ | recognized@sync
+% sec-synchronous-algebras.tex:783
+ | recognized@sync
+% sec-lifting-theorem.tex:36
+ | Lifting Theorem
+% sec-lifting-theorem.tex:41
+ | corresponding@EilenbergSg
+ | recognized@sync
+% sec-lifting-theorem.tex:49
+ | synchronous algebra induced by the monoid
+% sec-lifting-theorem.tex:61
+ | divides@sync
+% sec-lifting-theorem.tex:62
+ | algebra@sync
+ | recognizing@sync
+% sec-lifting-theorem.tex:63
+ | divide@monoid
+ | division@monoid
+% sec-lifting-theorem.tex:171
+ | $\ast $-pseudovariety@reglang
+% sec-lifting-theorem.tex:178
+ | recognizing@sync
+% sec-lifting-theorem.tex:207
+ | naive synchronous algebra
+% sec-lifting-theorem.tex:219
+ | compatibility@type
+% sec-lifting-theorem.tex:220
+ | compatible@type
+% sec-lifting-theorem.tex:221
+ | compatible@type
+% sec-lifting-theorem.tex:222
+ | $\typesEps $-typed sets
+% sec-lifting-theorem.tex:225
+ | compatible@type
+% sec-lifting-theorem.tex:272
+ | pseudovariety of synchronous algebras
+% sec-lifting-theorem.tex:273
+ | $\ast $-pseudovariety of automatic relations
+ | Eilenberg-Schützenberger correspondence@sync
+% sec-lifting-theorem.tex:274
+ | Eilenberg-Schützenberger correspondence@lang
+% sec-lifting-theorem.tex:275
+ | Eilenberg-Schützenberger correspondence@sync
+% sec-lifting-theorem.tex:277
+ | quotient@sync
+% sec-lifting-theorem.tex:279
+ | subalgebra@sync
+% sec-lifting-theorem.tex:281
+ | divides@sync
+% sec-lifting-theorem.tex:282
+ | quotient@sync
+ | subalgebra@sync
+% sec-lifting-theorem.tex:288
+ | locally generated@sync
+% sec-lifting-theorem.tex:292
+ | locally generated@sync
+% sec-lifting-theorem.tex:295
+ | locally generated
+ | divides@sync
+% sec-lifting-theorem.tex:298
+ | recognized@sync
+% sec-lifting-theorem.tex:299
+ | pseudovariety@syncalg
+% sec-lifting-theorem.tex:306
+ | Boolean combinations
+% sec-lifting-theorem.tex:312
+ | Syntactic derivatives
+% sec-lifting-theorem.tex:313
+ | recognized@sync
+% sec-lifting-theorem.tex:315
+ | Inverse morphisms
+% sec-lifting-theorem.tex:366
+ | residual
+% sec-lifting-theorem.tex:371
+ | algebra@sync
+% sec-lifting-theorem.tex:383
+ | inverse morphisms
+% sec-lifting-theorem.tex:390
+ | morphism@sync
+% sec-lifting-theorem.tex:431
+ | morphisms@sync
+% sec-lifting-theorem.tex:433
+ | morphism@sync
+% sec-lifting-theorem.tex:458
+ | recognized@sync
+ | morphism@sync
+% sec-lifting-theorem.tex:459
+ | recognized@sync
+% sec-lifting-theorem.tex:460
+ | syntactic derivatives
+% sec-lifting-theorem.tex:463
+ | recognized@sync
+% sec-lifting-theorem.tex:464
+ | Boolean combination
+% sec-lifting-theorem.tex:498
+ | syntactic algebra@sync
+% sec-lifting-theorem.tex:503
+ | recognized@sync
+% sec-lifting-theorem.tex:513
+ | $\ast $-pseudo\-variety of automatic relations
+% sec-lifting-theorem.tex:514
+ | generated@var
+% sec-lifting-theorem.tex:516
+ | pseudovariety generated
+% sec-lifting-theorem.tex:518
+ | pseudovariety@syncalg
+% sec-lifting-theorem.tex:519
+ | algebras@sync
+% sec-lifting-theorem.tex:522
+ | divide@sync
+ | algebras@sync
+ | subalgebras
+ | algebras@sync
+% sec-lifting-theorem.tex:524
+ | Eilenberg-Schützenberger correspondence theorem@sync
+% sec-lifting-theorem.tex:530
+ | An Eilenberg theorem for automatic relations
+ | pseudovarieties of synchronous algebras
+ | $\ast $-pseudovarieties of automatic relations
+% sec-lifting-theorem.tex:543
+ | recognized@sync
+% sec-lifting-theorem.tex:544
+ | divides@sync
+% sec-lifting-theorem.tex:550
+ | recognized@sync
+% sec-lifting-theorem.tex:551
+ | divides@sync
+% sec-lifting-theorem.tex:552
+ | division@sync
+% sec-lifting-theorem.tex:559
+ | pseudovariety@syncalg
+% sec-lifting-theorem.tex:566
+ | locally generated@sync
+% sec-lifting-theorem.tex:569
+ | divides@sync
+% sec-lifting-theorem.tex:595
+ | quotient@sync
+ | subalgebra@sync
+% sec-lifting-theorem.tex:596
+ | algebras@sync
+% sec-lifting-theorem.tex:605
+ | divides@sync
+% sec-lifting-theorem.tex:607
+ | subalgebra@sync
+ | quotient@sync
+% sec-lifting-theorem.tex:608
+ | recognizes@sync
+% sec-lifting-theorem.tex:609
+ | morphism@sync
+% sec-lifting-theorem.tex:652
+ | morphism@sync
+% sec-lifting-theorem.tex:663
+ | Eilenberg-Schützenberger correspondence@sync
+% sec-lifting-theorem.tex:671
+ | locally generated@sync
+ | locally generated@sync
+ | locally generated@sync
+ | locally generated@sync
+ | locally generated@sync
+ | locally generated@sync
+ | locally generated@sync
+ | locally generated@sync
+% sec-lifting-theorem.tex:686
+ | Lifting Theorem: Pseudovariety Formulation
+% sec-lifting-theorem.tex:689
+ | $\ast $-pseudovarieties of regular languages
+% sec-lifting-theorem.tex:695
+ | Eilenberg-Schützenberger correspondence@lang
+% sec-lifting-theorem.tex:696
+ | pseudovarieties of mon\-oids
+% sec-lifting-theorem.tex:698
+ | Eilenberg-Schützenberger correspondence@sync
+% sec-discussion.tex:38
+ | Lifting theorem
+% sec-discussion.tex:44
+ | lifting theorem for monoids
+% sec-discussion.tex:46
+ | fully-preordered@lang
+% sec-discussion.tex:118
+ | monadic second-order
+% sec-discussion.tex:138
+ | first-order
+% sec-discussion.tex:190
+ | pseudovariety@reglang
+% sec-discussion.tex:194
+ | Eilenberg-Schützenberger correspondence@lang
+% sec-discussion.tex:199
+ | monad adjunction
+% sec-discussion.tex:207
+ | monad functor
+% sec-discussion.tex:211
+ | Monad functors
+% sec-discussion.tex:266
+ | Monads functors
+ | Kleene's monad
+ | Wilke's monad
+% sec-discussion.tex:273
+ | 2-typed sets
+% sec-discussion.tex:312
+ | monad functors
+% sec-discussion.tex:375
+ | Eilenberg-Schützenberger correspondences@lang
+ | Eilenberg-Schützenberger correspondences@lang
+% apdx-monads.tex:26
+ | mutually dependent
+% ch-conclu-automatic.tex:39
+ | separator@rel
+% ch-conclu-automatic.tex:53
+ | pseudovariety of automatic relations
+% ch-conclu-automatic.tex:62
+ | $\DRAT $/$\REC $-separability@pb
+% ch-conclu-automatic.tex:63
+ | $\RAT $/$\REC $-sepa\-ra\-bility problems
+% ch-conclu-automatic.tex:68
+ | membership problem
+% ch-conclu-automatic.tex:72
+ | membership problems
+ | separability problems
+% ch-conclu-automatic.tex:74
+ | $\+V$-separable@rel
+% ch-conclu-automatic.tex:93
+ | presentation@auto
+% ch-conclu-automatic.tex:100
+ | source@struct
+% ch-conclu-automatic.tex:109
+ | $\Omega $-path algebras
+ | $\WellFormed $-path algebras
+% ch-conclu-automatic.tex:113
+ | fully-preordered languages
+% ch-conclu-automatic.tex:121
+ | $\Omega _T$-path algebras
+% ch-conclu-automatic.tex:139
+ | Eilenberg-Schützenberger correspondences@lang
+ | Eilenberg-Schützenberger correspondences@lang
+
+
+***********************************
+* Autoref introduced but not used *
+***********************************
+
+% math-automatic.tex:393
+math-automatic.tex:393: {\MFunit }{default}{base}
+% math-automatic.tex:394
+math-automatic.tex:394: {\MFmult }{default}{base}
+
+
