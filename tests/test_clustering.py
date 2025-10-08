@@ -26,39 +26,45 @@ def test_normalise() -> None:
 
 def test_distance() -> None:
     """Test functions from the the distance module."""
-    assert distance("", "", [""], {}, "english") == 0
+    assert distance("", "", ("",), {}, "english") == 0
     # Tests where only the empty word is allowed as a prefix. No prior scope meaning is known.
-    assert distance("ordinal semigroup", "ordinal semigroups", [""], {}, "english") == 0
-    assert distance("cheval", "chevaux", [""], {}, "french") == 0
-    assert distance("cheval", "chevaux", [""], {}, "english") > 0
-    # Tests with a scope
-    assert distance("ordinal semigroup", "semigroups@ordinal", [""], {}, "english") == 0
-    assert distance("semigroup", "semigroups@ordinal", [""], {}, "english") > 0
-    # Tests with prefixes
-    assert distance("foo", "turbofoo", ["", "turbo"], {}, "english") == 0
-    assert distance("foo", "turbofoo", [""], {}, "english") > 0
-    assert distance("foo", "megafoo", ["", "turbo"], {}, "english") > 0
-    assert distance("full", "non-full", ["", "non-"], {}, "english") == 0
-    # Test with accent and math
-    assert distance("Büchi", 'B\\"uchi', [""], {}, "english") == 0
     assert (
-        distance("Büchi", '\\textsf{$\\omega$-B\\"{u}chi}', ["", "-"], {}, "english")
+        distance("ordinal semigroup", "ordinal semigroups", ("",), {}, "english") == 0
+    )
+    assert distance("cheval", "chevaux", ("",), {}, "french") == 0
+    assert distance("cheval", "chevaux", ("",), {}, "english") > 0
+    # Tests with a scope
+    assert (
+        distance("ordinal semigroup", "semigroups@ordinal", ("",), {}, "english") == 0
+    )
+    assert distance("semigroup", "semigroups@ordinal", ("",), {}, "english") > 0
+    # Tests with prefixes
+    assert distance("foo", "turbofoo", ("", "turbo"), {}, "english") == 0
+    assert distance("foo", "turbofoo", ("",), {}, "english") > 0
+    assert distance("foo", "megafoo", ("", "turbo"), {}, "english") > 0
+    assert distance("full", "non-full", ("", "non-"), {}, "english") == 0
+    # Test with accent and math
+    assert distance("Büchi", 'B\\"uchi', ("",), {}, "english") == 0
+    assert (
+        distance("Büchi", '\\textsf{$\\omega$-B\\"{u}chi}', ("", "-"), {}, "english")
         == 0
     )
     # Tests with scope
     assert (
-        distance("word@ord", "ordinal word", [""], {"ord": [["ordinal"]]}, "english")
+        distance("word@ord", "ordinal word", ("",), {"ord": [["ordinal"]]}, "english")
         == 0
     )
-    assert distance("word@ord", "ordinal word", [""], {}, "english") > 0
+    assert distance("word@ord", "ordinal word", ("",), {}, "english") > 0
     # Tests with scope (should be case-insensitive)
-    assert distance("foo@BaR", "foo@bar", [""], {}, "english") == 0
+    assert distance("foo@BaR", "foo@bar", ("",), {}, "english") == 0
     # Tests with space
-    assert distance("foo~bar", "foo bar", [""], {}, "english") == 0
-    assert distance("foo\\\\bar", "foo bar", [""], {}, "english") == 0
-    assert distance("foo\\\\ bar", "foo bar", [""], {}, "english") == 0
+    assert distance("foo~bar", "foo bar", ("",), {}, "english") == 0
+    assert distance("foo\\\\bar", "foo bar", ("",), {}, "english") == 0
+    assert distance("foo\\\\ bar", "foo bar", ("",), {}, "english") == 0
     assert (
-        distance("two-way\\\\rational@rel", "two-way rational@rel", [""], {}, "english")
+        distance(
+            "two-way\\\\rational@rel", "two-way rational@rel", ("",), {}, "english"
+        )
         == 0
     )
 
@@ -86,7 +92,6 @@ def test_scope_meaning() -> None:
             ["regular language over countable ordinals", "regular languages@ord"],
             "ord",
             "english",
-            new_stemmer("english"),
         ),
         [["ordinals", "countable"]],
     )

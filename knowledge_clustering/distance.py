@@ -15,6 +15,7 @@ from knowledge_clustering.misc import emph
 # Edit distance
 # ---
 
+
 def levenshtein_distance(s: str, t: str) -> int:
     """
     Computes the Levenshtein (insertions, deletions or substitutions are allowed)
@@ -58,6 +59,7 @@ def minimise_levenshtein_distance(s: str, t_list: list[str]) -> str:
 # Functions to extract content from strings
 # ---
 
+
 def extract_scope(notion: str) -> tuple[str, str]:
     """
     Given a notion of the form "knowledge@scope" or "knowledge",
@@ -67,6 +69,7 @@ def extract_scope(notion: str) -> tuple[str, str]:
         s = notion.split("@", 1)
         return s[0], s[1]
     return notion, ""
+
 
 def normalise_notion(notion: str) -> str:
     """
@@ -105,7 +108,17 @@ def normalise_notion(notion: str) -> str:
             notion_norm = sp[0] + sp[1]
     return unidecode(notion_norm)  # Ascii-fy (in particular, remove accents) the result
 
+
 @cache
+def cached_tokenize(word: str, lang: str) -> list[str]:
+    return nltk.word_tokenize(word, language=lang)
+
+
+@cache
+def cached_POStag(tokens: tuple[str, ...]) -> list:
+    return nltk.pos_tag(list(tokens))
+
+
 def breakup_notion(notion: str, lang: str) -> tuple[list[str], str]:
     """
     Takes a notion, and a language, and returns
@@ -119,14 +132,12 @@ def breakup_notion(notion: str, lang: str) -> tuple[list[str], str]:
     kl, scope = extract_scope(normalise_notion(notion))
     try:
         if lang == "english":
-            words_with_POStag = nltk.pos_tag(  # pylint: disable=invalid-name
-                nltk.word_tokenize(kl, language="english")
-            )
+            words_with_POStag = cached_POStag(tuple(cached_tokenize(kl, lang)))
             important_words = {
                 w for (w, pos) in words_with_POStag if pos in cst.IMPORTANT_POS
             }
             return (list(important_words), scope)
-        return (list(set(nltk.word_tokenize(kl, language=lang))), scope)
+        return (list(set(cached_tokenize(kl, lang))), scope)
     except LookupError as e:
         raise LookupError(
             f"Missing NLTK data. Run `"
@@ -139,12 +150,14 @@ def breakup_notion(notion: str, lang: str) -> tuple[list[str], str]:
 # Computing the distance between two notions
 # ---
 
+
 @cache
-def similar_words(w1: str, w2: str, prefixes: tuple[str,...], lang: str) -> bool:
+def similar_words(w1: str, w2: str, prefixes: tuple[str, ...], lang: str) -> bool:
     """
     Checks if two words w1 and w2 are similar up to taking their stem (removing a suffix)
     and removing a prefix in the list `prefixes`.
     """
+
     def asymmetric_similar(s1: str, s2: str) -> bool:
         if s1 in s2:
             for p in prefixes:
@@ -153,11 +166,12 @@ def similar_words(w1: str, w2: str, prefixes: tuple[str,...], lang: str) -> bool
                         if p + s1 + s == s2:
                             return True
         return False
+
     if w1 == w2:
         return True
     for s1 in [w1, cached_stem(w1, lang)]:
         for s2 in [w2, cached_stem(w2, lang)]:
-            if asymmetric_similar(s1,s2) or asymmetric_similar(s2,s1):
+            if asymmetric_similar(s1, s2) or asymmetric_similar(s2, s1):
                 return True
     return False
 
@@ -178,10 +192,20 @@ def __semi_distance_sets_of_words(
             w2 = similar_to_w1[0]
             set_words1.remove(w1)
             set_words2.remove(w2)
-            return __semi_distance_sets_of_words(
-                set_words1, set_words2, prefixes, lang
-            )
+            return __semi_distance_sets_of_words(set_words1, set_words2, prefixes, lang)
     return (len(set_words1), len(set_words2))
+
+
+def inclusion_sets_of_words(
+    set_words1: list[str], set_words2: list[str], prefixes: tuple[str, ...], lang: str
+) -> bool:
+    """
+    Given two sets of words (considered up to permutation), are
+    all words of the first set similar to words of the second set?
+    """
+    d1, _ = __semi_distance_sets_of_words(set_words1, set_words2, prefixes, lang)
+    return d1 == 0
+
 
 def distance_sets_of_words(
     set_words1: list[str], set_words2: list[str], prefixes: tuple[str, ...], lang: str
@@ -189,19 +213,20 @@ def distance_sets_of_words(
     """
     Given two sets of words (considered up to permutation), computes the distance between them.
     """
-    d1, d2 = __semi_distance_sets_of_words(
-        set_words1, set_words2, prefixes, lang
-    )
+    d1, d2 = __semi_distance_sets_of_words(set_words1, set_words2, prefixes, lang)
     return d1 + d2
 
-@cache # todo check if useful
+
+@cache  # todo check if useful
 def new_stemmer(lang: str):
     """Returns a stemmer."""
     return nss.SnowballStemmer(lang)
 
+
 @cache
 def cached_stem(word: str, lang: str):
     return new_stemmer(lang).stem(word)
+
 
 def distance(
     notion1: str,

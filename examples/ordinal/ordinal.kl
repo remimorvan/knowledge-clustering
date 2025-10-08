@@ -43,6 +43,8 @@
 %
 %\knowledge{notion}
 %  | regular languages@COW
+%  | regular language@cow
+%  | regular languages@cow
 %
 %\knowledge{notion}
 %  | countable ordinals
@@ -273,10 +275,6 @@
 %\knowledge{notion}
 %  | Merge operators
 %  | merge operator
-%
-%\knowledge{notion}
-%  | regular language@cow
-%  | regular languages@cow
 %
 %\knowledge{notion}
 %  | Green's relations

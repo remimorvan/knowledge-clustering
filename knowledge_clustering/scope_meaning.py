@@ -19,7 +19,7 @@ def union_list_of_lists(l1: list[T], l2: list[T]) -> list[T]:
     return s
 
 
-def infer_scope(list_kl: list[str], scope: str, lang: str, stemmer) -> list[list[str]]:
+def infer_scope(list_kl: list[str], scope: str, lang: str) -> list[list[str]]:
     """
     Takes a list of knowledges that all belong to the same bag and a scope.
 
@@ -39,9 +39,7 @@ def infer_scope(list_kl: list[str], scope: str, lang: str, stemmer) -> list[list
         if sc1 == scope:
             for kl2_words, sc2 in list_kl_broke:
                 if sc2 == "":
-                    if dist.inclusion_sets_of_words(
-                        kl1_words, kl2_words, [""], stemmer
-                    ):
+                    if dist.inclusion_sets_of_words(kl1_words, kl2_words, ("",), lang):
                         # If every word of kl1 appears in kl2 and kl2 has an empty scope,
                         # return the words in kl2 not appearing in kl1
                         result.append([w for w in kl2_words if w not in kl1_words])
@@ -61,11 +59,10 @@ def infer_all_scopes(
     if "" in list_scopes:
         list_scopes.remove("")
     scopes_meaning: dict[str, list[list[str]]] = {sc: [] for sc in list_scopes}
-    stemmer = dist.new_stemmer(lang)
     for scope in list_scopes:
         for bag in known_knowledges:
             scopes_meaning[scope] = union_list_of_lists(
-                scopes_meaning[scope], infer_scope(bag, scope, lang, stemmer)
+                scopes_meaning[scope], infer_scope(bag, scope, lang)
             )
         if [scope] not in scopes_meaning[scope]:
             scopes_meaning[scope].append([scope])
