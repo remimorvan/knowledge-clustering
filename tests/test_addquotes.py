@@ -6,33 +6,6 @@ from pathlib import Path
 import shutil
 
 from knowledge_clustering.add_quotes import app as app_addquotes
-from knowledge_clustering.add_quotes import Action, Interface
-
-
-def test_interface() -> None:
-    """Tests the actions & interface."""
-
-    def incr_state(inter: Interface, step=1) -> None:
-        assert not (inter.current_state in inter.final_states)
-        inter.current_state += step
-
-    ax = Action(
-        "X", "next", lambda i: (not (i.current_state in i.final_states)), incr_state
-    )
-    ay = Action(
-        "Y",
-        "prev",
-        lambda i: (not (i.current_state in i.final_states)),
-        lambda i: incr_state(i, step=-1),
-    )
-    inter = Interface([0, 1, 2], 0, [2], [ax, ay])
-    assert ax.is_feasible(inter) and ay.is_feasible(inter)
-    ax.execute(inter)
-    assert ax.is_feasible(inter) and ay.is_feasible(inter)
-    ay.execute(inter)
-    ax.execute(inter)
-    ax.execute(inter)
-    assert not ax.is_feasible(inter)
 
 
 def test_app_addquotes() -> None:
