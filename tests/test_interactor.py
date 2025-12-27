@@ -40,18 +40,15 @@ def test_interactor_simple() -> None:
     input_file = None
 
     def transition_change_letter(inter: Interactor) -> None:
-        doc = inter.get_document()
-        if doc:
-            if inter.has_state("after space"):
-                doc = doc[0].upper() + doc[1:]
-            else:
-                doc = doc[0].lower() + doc[1:]
-        inter.set_document(doc)
+        if inter.document_has_char():
+            c = inter.document_get_char()
+            inter.update_document(
+                c, c.upper() if inter.has_state("after space") else c.lower()
+            )
 
     def transition_update_state(inter: Interactor) -> None:
-        doc = inter.get_document()
-        if doc:
-            if doc[0] in [" ", "("]:
+        if inter.document_has_char():
+            if inter.document_get_char() in [" ", "("]:
                 inter.set_state("after space", True)
             else:
                 inter.set_state("after space", False)
@@ -60,9 +57,8 @@ def test_interactor_simple() -> None:
         inter.increment_position(+1)
 
     def transition_change_signature(inter: Interactor) -> None:
-        doc = inter.get_document()
-        if doc.startswith("XOXO GRANNY"):
-            inter.set_document("BEST, SNIPER" + doc[11:])
+        if inter.document_startswith(["XOXO GRANNY"]):
+            inter.update_document("XOXO GRANNY", "BEST, SNIPER")
 
     transitions = [
         transition_change_signature,

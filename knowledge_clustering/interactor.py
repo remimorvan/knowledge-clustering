@@ -50,7 +50,7 @@ class Interactor:
     transitions: list[Callable[[Interactor]], None]
     # registers: dict[Hashable, Any]
     document: str
-    position_in_document: int
+    document_position: int
     last_position_accessed: int
     input_stream: TextIO
     input_stream_is_file: bool
@@ -73,7 +73,7 @@ class Interactor:
         # self.registers = {}
         self.document = document
         self.document_lock = False
-        self.position_in_document = 0
+        self.document_position = 0
         self.last_position_accessed_start = 0
         self.print_state = True
         self.print_doc = True
@@ -96,8 +96,7 @@ class Interactor:
                 print(state_str, end=" ")
             print("")
         if self.print_doc:
-            print(f"Position in document: {self.position_in_document}.")
-            print(f"Current view of document (trunc.): {self.get_document()[:30]}")
+            print(f"Position in document: {self.document_position}.")
 
     def has_state(self, s: state) -> bool:
         """Checks whether the interactor is in a given state."""
@@ -118,18 +117,35 @@ class Interactor:
         """Checks whether the interactor has reached a final state."""
         return self.current_state[self.final_state_property]
 
-    def get_document(self):
-        """Returns the document handled by the interactor, between the current position and
-        the end of the document."""
-        self.last_position_accessed = self.position_in_document
-        return self.document[self.position_in_document :]
+    def document_has_char(self) -> bool:
+        """Check if the document has a next character (ie if the EOF is not reached)."""
+        return self.document_position < len(self.document)
 
-    def set_document(self, doc: str):
-        """Updates a document. Only changes the part that was last accessed with get_document.
-        At most one transition can change the document."""
+    def document_get_char(self):
+        """Returns the current character of the document."""
+        assert self.document_has_char()
+        return self.document[self.document_position]
+
+    def document_startswith(self, strings: list[str]) -> list[str]:
+        """Given a list of strings, returns the sublist of these strings
+        that can be found at the beginning of the document (starting from the
+        current position)."""
+        # Todo (if necessary): improve using prefix tree.
+        return [
+            s for s in strings if self.document.startswith(s, self.document_position)
+        ]
+
+    def update_document(self, before: str, after: str) -> None:
+        """In the document, at the current position, changes the string `before`
+        into `after`."""
+        assert self.document.startswith(before, self.document_position)
         if not self.document_lock:
             self.document_lock = True
-            self.document = self.document[: self.last_position_accessed] + doc
+            self.document = (
+                self.document[: self.document_position]
+                + after
+                + self.document[self.document_position + len(before) :]
+            )
         elif self.print_warning:
             print(
                 add_bold(
@@ -138,6 +154,27 @@ class Interactor:
                     )
                 )
             )
+
+    # def get_document(self):
+    #     """Returns a copy of the document handled by the interactor, between the current position
+    #     and the end of the document."""
+    #     self.last_position_accessed = self.document_position
+    #     return self.document[self.document_position :]
+
+    # def set_document(self, doc: str):
+    #     """Updates a document. Only changes the part that was last accessed with get_document.
+    #     At most one transition can change the document."""
+    #     if not self.document_lock:
+    #         self.document_lock = True
+    #         self.document = self.document[: self.last_position_accessed] + doc
+    #     elif self.print_warning:
+    #         print(
+    #             add_bold(
+    #                 add_orange(
+    #                     "Warning: document was already changed by another transition."
+    #                 )
+    #             )
+    #         )
 
     def execute_transitions(self) -> None:
         self.__print_context()
@@ -148,7 +185,7 @@ class Interactor:
 
     def increment_position(self, delta: int):
         """Adds `delta` to the current position in the document."""
-        self.position_in_document += delta
+        self.document_position += delta
 
     def run(self) -> None:
         while self.current_state not in self.final_states:
