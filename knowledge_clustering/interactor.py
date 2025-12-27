@@ -64,6 +64,7 @@ class Interactor:
         document: str,
         input_file: str
         | None = None,  # If none: read on input(), otherwise read from file
+        debug: bool = True,
     ) -> None:
         self.atomic_states = atomic_states
         self.current_state = copy(initial_state)
@@ -72,12 +73,10 @@ class Interactor:
         self.transitions = transitions
         # self.registers = {}
         self.document = document
+        self.document_next = copy(document)
         self.document_lock = False
         self.document_position = 0
-        self.last_position_accessed_start = 0
-        self.print_state = True
-        self.print_doc = True
-        self.print_warning = True
+        self.document_position_lock = False
         if input_file:
             with open(input_file, mode="r", encoding="utf-8") as f:
                 self.input_stream = f
@@ -85,6 +84,7 @@ class Interactor:
         else:
             self.input_stream = stdin
             self.input_stream_is_file = False
+        self.print_state = self.print_doc = self.print_warning = debug
 
     def __print_context(self) -> None:
         if self.print_state:
@@ -109,9 +109,13 @@ class Interactor:
         assert s in self.atomic_states
         self.next_state[s] = truth
 
-    def __change_state(self) -> None:
+    def __change_state_and_doc(self) -> None:
         """Move to the next state."""
         self.current_state = copy(self.next_state)
+        self.document = copy(self.document_next)
+        self.document_position = self.document_position_next
+        self.document_lock = False
+        self.document_position_lock = False
 
     def is_in_final_state(self) -> bool:
         """Checks whether the interactor has reached a final state."""
@@ -141,7 +145,7 @@ class Interactor:
         assert self.document.startswith(before, self.document_position)
         if not self.document_lock:
             self.document_lock = True
-            self.document = (
+            self.document_next = (
                 self.document[: self.document_position]
                 + after
                 + self.document[self.document_position + len(before) :]
@@ -155,43 +159,29 @@ class Interactor:
                 )
             )
 
-    # def get_document(self):
-    #     """Returns a copy of the document handled by the interactor, between the current position
-    #     and the end of the document."""
-    #     self.last_position_accessed = self.document_position
-    #     return self.document[self.document_position :]
-
-    # def set_document(self, doc: str):
-    #     """Updates a document. Only changes the part that was last accessed with get_document.
-    #     At most one transition can change the document."""
-    #     if not self.document_lock:
-    #         self.document_lock = True
-    #         self.document = self.document[: self.last_position_accessed] + doc
-    #     elif self.print_warning:
-    #         print(
-    #             add_bold(
-    #                 add_orange(
-    #                     "Warning: document was already changed by another transition."
-    #                 )
-    #             )
-    #         )
-
     def execute_transitions(self) -> None:
+        """Execute all transitions, in order, and updated the state and document."""
         self.__print_context()
-        self.document_lock = False
         for fun in self.transitions:
             fun(self)
-        self.__change_state()
+        self.__change_state_and_doc()
 
     def increment_position(self, delta: int):
         """Adds `delta` to the current position in the document."""
-        self.document_position += delta
-
-    def run(self) -> None:
-        while self.current_state not in self.final_states:
-            self.__print_context()
+        if not self.document_position_lock:
+            self.document_position_lock = True
+            self.document_position_next = self.document_position + delta
+        elif self.print_warning:
+            print(
+                add_bold(
+                    add_orange(
+                        "Warning: document position was already incremented by another transition."
+                    )
+                )
+            )
 
     def close(self) -> str:
+        """Closes the interactor, and returns the document."""
         if self.input_stream_is_file:
             self.input_stream.close()
         return self.document

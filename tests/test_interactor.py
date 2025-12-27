@@ -59,6 +59,7 @@ def test_interactor_simple() -> None:
     def transition_change_signature(inter: Interactor) -> None:
         if inter.document_startswith(["XOXO GRANNY"]):
             inter.update_document("XOXO GRANNY", "BEST, SNIPER")
+            inter.increment_position(+len("BEST, SNIPER"))
 
     transitions = [
         transition_change_signature,
@@ -72,6 +73,6 @@ def test_interactor_simple() -> None:
     while not inter.is_in_final_state():
         inter.execute_transitions()
     assert (
-        inter.document
-        == "Anax Jehovah Is Not A God. Best, Sniper. (Keep It To Yourself)"
+        inter.close()
+        == "Anax Jehovah Is Not A God. BEST, SNIPER. (Keep It To Yourself)"
     )
