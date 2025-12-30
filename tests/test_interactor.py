@@ -42,6 +42,7 @@ def test_interactor_simple() -> None:
     def transition_change_letter(inter: Interactor) -> None:
         if inter.document_has_chars():
             c = inter.document_get_chars()
+            inter.set_register("cpt", inter.get_register("cpt") + 1)
             inter.update_document(
                 c, c.upper() if inter.has_state("after space") else c.lower()
             )
@@ -70,8 +71,10 @@ def test_interactor_simple() -> None:
         atomic_states, initial_state, final_states, transitions, document, input_file
     )
     assert inter.has_state("after space") and not inter.has_state("final")
+    inter.set_register("cpt", 0)
     while not inter.is_in_final_state():
         inter.execute_transitions()
+    assert inter.get_register("cpt") == 51
     assert (
         inter.close()
         == "Anax Jehovah Is Not A God. BEST, SNIPER. (Keep It To Yourself)"

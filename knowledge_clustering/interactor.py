@@ -15,13 +15,13 @@ state = Hashable
 class Action:
     abbrev: str
     fullname: str
-    __execute: Callable[[Interactor], None]
+    __execute: Callable[[Interactor, TextIO], None]
 
     def __init__(
         self,
         abbrev: str,
         fullname: str,
-        execute: Callable[[Interactor], None],
+        execute: Callable[[Interactor, TextIO], None],
     ) -> None:
         self.abbrev = abbrev
         self.fullname = fullname
@@ -33,8 +33,8 @@ class Action:
     def __str__(self) -> str:
         return emph(self.abbrev) + " (" + self.fullname + ")"
 
-    def execute(self, interface: Interactor) -> None:
-        self.__execute(interface)
+    def execute(self, interface: Interactor, input_stream: TextIO) -> None:
+        self.__execute(interface, input_stream)
 
 
 class ActionList:
@@ -53,11 +53,16 @@ class ActionList:
 
 
 class Interactor:
+    """An interactor is a finite-state transducers with registers. It has atomic states,
+    and at a given time, the state of the machine is a subset of these states.
+    Transitions are arbitrary functions that act on the interactor.
+    These transitions can use actions, that ask the user's input via an input stream."""
+
     atomic_states: list[state]
     current_state: dict[state, bool]  # a state is actually a subset of atomic_states
     final_state_property: state
     transitions: list[Callable[[Interactor], None]]
-    # registers: dict[Hashable, Any]
+    registers: dict[Hashable, Any]
     document: str
     document_position: int
     last_position_accessed: int
@@ -80,7 +85,7 @@ class Interactor:
         self.next_state = copy(initial_state)
         self.final_state_property = final_state_property
         self.transitions = transitions
-        # self.registers = {}
+        self.registers = {}
         self.document = document
         self.document_next = copy(document)
         self.document_lock = False
@@ -211,6 +216,22 @@ class Interactor:
                     )
                 )
             )
+
+    def has_register(self, key: Hashable) -> bool:
+        """Checks if a register exists."""
+        return key in self.registers
+
+    def get_register(self, key: Hashable) -> Any:
+        """Looks up the value of a register."""
+        assert self.has_register(key)
+        return self.registers[key]
+
+    def set_register(self, key: Hashable, val: Any) -> None:
+        """Sets the value of a register."""
+        self.registers[key] = copy(val)
+
+    def get_input_stream(self) -> TextIO:
+        return self.input_stream
 
     def close(self) -> str:
         """Closes the interactor, and returns the document."""
