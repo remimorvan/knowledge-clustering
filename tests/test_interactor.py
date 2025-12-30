@@ -40,15 +40,15 @@ def test_interactor_simple() -> None:
     input_file = None
 
     def transition_change_letter(inter: Interactor) -> None:
-        if inter.document_has_char():
-            c = inter.document_get_char()
+        if inter.document_has_chars():
+            c = inter.document_get_chars()
             inter.update_document(
                 c, c.upper() if inter.has_state("after space") else c.lower()
             )
 
     def transition_update_state(inter: Interactor) -> None:
-        if inter.document_has_char():
-            if inter.document_get_char() in [" ", "("]:
+        if inter.document_has_chars():
+            if inter.document_get_chars() in [" ", "("]:
                 inter.set_state("after space", True)
             else:
                 inter.set_state("after space", False)

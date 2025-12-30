@@ -15,19 +15,16 @@ state = Hashable
 class Action:
     abbrev: str
     fullname: str
-    __is_feasible: Callable[[Interactor], bool]
-    __execute: Callable[[Interactor], Interactor]
+    __execute: Callable[[Interactor], None]
 
     def __init__(
         self,
         abbrev: str,
         fullname: str,
-        is_feasible: Callable[[Interactor], bool],
-        execute: Callable[[Interactor], Interactor],
+        execute: Callable[[Interactor], None],
     ) -> None:
         self.abbrev = abbrev
         self.fullname = fullname
-        self.__is_feasible = is_feasible
         self.__execute = execute
 
     def get_abbrev(self) -> str:
@@ -36,18 +33,30 @@ class Action:
     def __str__(self) -> str:
         return emph(self.abbrev) + " (" + self.fullname + ")"
 
-    def is_feasible(self, interface: Interactor) -> bool:
-        return self.__is_feasible(interface)
+    def execute(self, interface: Interactor) -> None:
+        self.__execute(interface)
 
-    def execute(self, interface: Interactor) -> Interactor:
-        return self.__execute(interface)
+
+class ActionList:
+    action_list: list[Action]
+
+    def __init__(self, actions: list[Action]):
+        self.actions = actions
+
+    def get_action(self, abbrev: str) -> Action | None:
+        """Given a string, returns the first action of the list with the matching abbreviation.
+        If there is none, return None."""
+        for act in self.actions:
+            if act.get_abbrev() == abbrev:
+                return act
+        return None
 
 
 class Interactor:
     atomic_states: list[state]
     current_state: dict[state, bool]  # a state is actually a subset of atomic_states
     final_state_property: state
-    transitions: list[Callable[[Interactor]], None]
+    transitions: list[Callable[[Interactor], None]]
     # registers: dict[Hashable, Any]
     document: str
     document_position: int
@@ -121,14 +130,37 @@ class Interactor:
         """Checks whether the interactor has reached a final state."""
         return self.current_state[self.final_state_property]
 
-    def document_has_char(self) -> bool:
-        """Check if the document has a next character (ie if the EOF is not reached)."""
-        return self.document_position < len(self.document)
+    def document_has_chars(self, len_=1) -> bool:
+        """Check if the document has at least `len` next characters."""
+        return self.document_position + len_ <= len(self.document)
 
-    def document_get_char(self):
+    def document_get_chars(self, len_=1) -> str:
         """Returns the current character of the document."""
-        assert self.document_has_char()
-        return self.document[self.document_position]
+        assert self.document_has_chars(len_)
+        return self.document[self.document_position : self.document_position + len_]
+
+    def document_get_control_sequence(self) -> str | None:
+        """If the current position in the document is the beginning of a LaTeX control sequence,
+        returns its name. Otheriwse, returns None."""
+        raise NotImplementedError
+
+    def document_get_argument(self) -> str:
+        """Parses a LaTeX argument in the document.
+        On '{abc{def}foo[gh{f}]}lorem ipsum', returns 'abc{def}foo[gh{f}]',
+        but on 'abc{def}foo[gh{f}]}lorem ipsum', returns 'a'."""
+        raise NotImplementedError
+
+    def document_get_begin_environment(self) -> str | None:
+        r"""If the current position in the document is the beginning of a LaTeX environment,
+        returns its name. Otheriwse, returns None. Treats $, \( and \[ as beginnings of
+        environments, whose name is `$$`, `\(\)` and `\[\]`, respecitvely."""
+        raise NotImplementedError
+
+    def document_get_end_environment(self) -> str | None:
+        r"""If the current position in the document is the end of a LaTeX environment,
+        returns its name. Otheriwse, returns None. Treats $, \) and \] as beginnings of
+        environments, whose name is `$$`, `\(\)` and `\[\]`, respecitvely."""
+        raise NotImplementedError
 
     def document_startswith(self, strings: list[str]) -> list[str]:
         """Given a list of strings, returns the sublist of these strings
