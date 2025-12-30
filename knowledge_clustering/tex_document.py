@@ -37,7 +37,7 @@ class TexDocument:
     def __clean(self):
         """
         Reads self.tex_code (the original tex file), given as a single string.
-        Converts spaces, tabulations and new lines into a single space, except
+        Converts non-breakable spaces, spaces, tabulations and new lines into a single space, except
         if there is two consecutive new lines. Removes commented lines.
         The cleaned file is stored in self.tex_cleaned. A pointer
         from tex_cleaned to tex_code, in the form of an array, is produced in self.pointer.
@@ -53,7 +53,7 @@ class TexDocument:
         #   and at least two new lines were read since the last normal character
         # 4: the line is commented.
         def is_normal(letter: str) -> bool:
-            return letter not in [" ", "\t", "\n", "%"]
+            return letter not in [" ", "~", "\t", "\n", "%"]
 
         def transition(
             state: int, letter: str, counter: int
@@ -78,7 +78,7 @@ class TexDocument:
                 if state == 2:
                     return (3, "\\par ", counter)
                 return (3, "", None)
-            if letter in [" ", "\t"]:
+            if letter in [" ", "~", "\t"]:
                 if state == 0:
                     return (1, " ", counter)
                 return (state, "", None)

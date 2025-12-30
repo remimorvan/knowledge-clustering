@@ -11,41 +11,8 @@ import sys
 from knowledge_clustering.knowledges import KnowledgesList, remove_redundant_files
 from knowledge_clustering.tex_document import TexDocument
 from knowledge_clustering import file_updater, misc, cst
-
-
-class NewKL(NamedTuple):
-    """
-    Object storing a new knowledge, together with its starting and ending point in some TeX
-    document, together with a smaller knowledge, that is already known, and is a substring of
-    the knowledge.
-    """
-
-    kl_origin: str
-    start_origin: int
-    end_origin: int
-    kl: str
-    start: int
-    end: int
-
-
-class AddQuote(NamedTuple):
-    """
-    Stores the starting and ending indexes of the occurence of some knowledge in a TeX document.
-    """
-
-    kl: str
-    start: int
-    end: int
-
-
-def ask_consent(message: str, inp: TextIO, out: TextIO):
-    """
-    Asks whether the user wants to do an action, after printing the string `message`.
-    Returns a boolean.
-    """
-    print(message, file=out)
-    ans = inp.readline().rstrip("\n")
-    return ans.lower() in ["y", "yes"]
+from knowledge_clustering.interactor import Action, ActionList, Interactor
+from knowledge_clustering.distance import distance
 
 
 def app(
@@ -67,7 +34,8 @@ def app(
     """
     tex_hash = file_updater.hash_file(tex_filename)
     with open(tex_filename, "r", encoding="utf-8") as f:
-        tex_doc = TexDocument(f.read())
+        # tex_doc = TexDocument(f.read())
+        tex_doc = f.read().replace("~", " ")
     f.close()
     kls = KnowledgesList(remove_redundant_files(kl_filenames))
     tex_document_new, new_knowledges = quote_maximal_substrings(
@@ -81,112 +49,92 @@ def app(
     kls.write_knowledges_in_file(nocomment=True)
 
 
-def add_quote(
-    tex_doc: TexDocument,
-    operations: list[NewKL | AddQuote],
-    print_line: int,
-    inp: TextIO,
-    out: TextIO,
-) -> tuple[str, list[tuple[str, str]]]:
-    """
-    In the TeX document, for every operation of type AddQuote, proposes to add quotes before
-    and after the match with the knowledge.
-    For every operation of type NewKL, proposes to define a new knowledge, and to add
-    quotes before and after the match.
+states = ["last char is space-ish", "comment", "save", "final"]
+initial_state = {
+    "last char is space-ish": True,
+    "comment": False,
+    "save": True,
+    "final": False,
+}
+final_state_property = "final"
 
-    Args:
-        tex_doc: a TeX document.
-        operations: a list of operations, whose type is either NewKL or AddQuote.
-        print_line: an integer specifying how many lines of the tex file should be printed.
-        inp: an input stream.
-        out: an output stram.
-    Given a tex code, and a list of triples (_, start, end), add a quote before the
-    start and after the end. If the boolean interactive if true, asks the user
-    if they want to add quotes: moreover, print the print_line lines preceding
-    the match before asking the user's input.
-    """
-    result: str = ""
-    new_knowledges: list[tuple[str, str]] = []
-    ignore_synonym = []
-    ignore_subknowledge = []
-    operations.sort(key=lambda x: x.start)
-    operations_addquote: list[AddQuote] = []
-    for op in operations:
-        if isinstance(op, NewKL):
-            if op.kl not in ignore_synonym:
-                if op.kl not in [k for (_, k) in new_knowledges]:
-                    # Propose to the user to define a synonym
-                    tex_doc.print(op.start, op.end, print_line, out)
-                    message = (
-                        f"Do you want to add `{misc.emph_alt(op.kl)}` as a synonym "
-                        f"of `{misc.emph_alt(op.kl_origin)}` and add quotes? [y/n] "
-                    )
-                    if ask_consent(message, inp, out):
-                        # Adds op.kl as a new knowledge, defined as a synonym of op.kl_origin
-                        new_knowledges.append((op.kl_origin, op.kl))
-                        operations_addquote.append(AddQuote(op.kl, op.start, op.end))
-                        # Removes any operations occuring on a substring of our new knowledge
-                        for op2 in operations:
-                            if isinstance(op2, AddQuote):
-                                if op.start <= op2.start and op2.end <= op.end:
-                                    operations.remove(op2)
-                    else:
-                        # From this point, do not propose again to define op.kl as a new knowledge.
-                        ignore_synonym.append(op.kl)
-                        if (
-                            op.kl_origin
-                            == tex_doc.tex_code[op.start_origin : op.end_origin + 1]
-                        ):
-                            # Propose to the user to add quotes around the original knowledge
-                            # instead, if we have a precise match.
-                            if ask_consent(
-                                f"Add quotes around `{misc.emph(op.kl_origin)}` instead? [y/n] ",
-                                inp,
-                                out,
-                            ):
-                                operations_addquote.append(
-                                    AddQuote(
-                                        op.kl_origin, op.start_origin, op.end_origin
-                                    )
-                                )
-                            else:
-                                ignore_subknowledge.append(op.kl)
-                    print("", file=out)
-                else:
-                    # If op.kl was already accepted as a synonym earlier, treat it
-                    # as a regular knowledge
-                    op = AddQuote(op.kl, op.start, op.end)
-            elif op.kl not in ignore_subknowledge:
-                # If the user doesn't want op.kl as a synonym but might want
-                # to add quotes around op.kl_origin
-                op = AddQuote(op.kl_origin, op.start_origin, op.end_origin)
-        elif isinstance(op, AddQuote):
-            tex_doc.print(op.start, op.end, print_line, out)
-            if ask_consent("Add quotes? [y/n] ", inp, out):
-                operations_addquote.append(op)
-            print("", file=out)
-    add_quote_before = [tex_doc.pointer[op.start] for op in operations_addquote]
-    add_quote_after = [tex_doc.pointer[op.end] for op in operations_addquote]
-    # Simply add quotes before and after every positions corresponding to the beginning / end of
-    # a match with a knowledge.
-    for i, char in enumerate(tex_doc.tex_code):
-        if i in add_quote_before:
-            result += '"'
-        result += char
-        if i in add_quote_after:
-            result += '"'
-    print(
-        f"Added {len(operations_addquote)} pair"
-        + ("s" if len(operations_addquote) > 1 else "")
-        + f" of quotes. Defined {len(new_knowledges)} synonym"
-        + ("s." if len(new_knowledges) > 1 else "."),
-        file=out,
-    )
-    return result, new_knowledges
+def action_tag_exec(inter: Interactor):
+    inter.update_document("", r"%kl-cl:todo\n")
+    inter.increment_position(len(r"%kl-cl:todo\n"))
+
+action_tag = Action("t", "tag", action_tag_exec, False)
+
+def action_save_and_quit_exec(inter: Interactor):
+    inter.set_state("final", True)
+
+
+action_save_and_quit = Action("s", "save & quit", action_save_and_quit_exec, True)
+
+
+def action_quit_exec(inter: Interactor):
+    inter.set_state("save", False)
+    inter.set_state("final", True)
+
+
+action_quit = Action("q", "quit", action_quit_exec, True)
+
+actions_always = [action_tag, action_save_and_quit, action_quit]
+
+
+def transition_check_EOF_not_reached(inter: Interactor) -> None:
+    """If EOF is reached, go to final state."""
+    if not inter.document_has_chars():
+        inter.set_state("final", True)
+
+
+def transition_check_knowledges(inter: Interactor) -> None:
+    """If the last char was space-ish (not alphanumerical), tries to match the content of the
+    document with an already defined knowledge. Otherwise, tries to find the next
+    few words and check if it is similar to an existing knowledge. If so, proposes to
+    define it as a synonym, and add quotes."""
+    if not inter.has_state("last char is space-ish"):
+        return
+    if matches := inter.document_startswith(inter.get_register("kls")):
+        # Get the maximal match (any other match will be a prefix)
+        maximal_match = matches[0]
+        for match in matches[1:]:
+            if len(match) > len(maximal_match):
+                maximal_match = match
+
+        def action_add_quotes_exec(inter: Interactor, inp: TextIO):
+            raise NotImplementedError
+
+        action_add_quotes = Action("y", "Add quotes", action_add_quotes_exec, False)
+
+        def action_dont_add_quotes_exec(inter: Interactor, inp: TextIO):
+            raise NotImplementedError
+
+        action_dont_add_quotes = Action(
+            "n", "Do not add quotes", action_dont_add_quotes_exec, False
+        )
+
+        actions = ActionList(
+            [action_add_quotes, action_dont_add_quotes] + actions_always,
+            f"Add quotes around '{maximal_match}'?",
+            inter.get_input_stream(),
+        )
+        while not actions.execute():
+            ...
+
+
+def transition_update_state(inter: Interactor) -> None:
+    """Defines the new state of the interactor."""
+    assert inter.document_has_chars()  # Handled by transition_check_EOF_not_reached
+    if inter.document_get_chars("%"):
+        inter.set_state("comment", "True")
+    if inter.has_state("comment") and inter.document_get_chars("\n"):
+        inter.set_state("comment", "False")
+    inter.set_state("last char is space-ish", not inter.document_get_chars().isalnum())
+    inter.increment_position(+1)
 
 
 def quote_maximal_substrings(
-    tex_doc: TexDocument,
+    tex_doc: str,
     kls: KnowledgesList,
     print_line: int,
     inp: TextIO,
@@ -197,63 +145,10 @@ def quote_maximal_substrings(
     symbols. Proposes to add quotes around them.
 
     Args:
-        tex_doc: a TeX document.
+        tex_doc: a TeX document represented as a string.
         kls: list of knowledges.
         print_line: an integer specifying how many lines of the tex file should be printed.
         inp: input stream.
         out: output stream.
     """
-
-    def stop_expanding(char):
-        return not char.isalpha()
-
-    ignore_position = [False] * tex_doc.length
-    add_quote_location: list[NewKL | AddQuote] = []
-    for ignore_case in [False, True]:
-        # Start the algo by being case sensitive, then run it while being insensitive.
-        for s1 in kls.get_sorted_knowledges():
-            match_list = (
-                re.finditer(re.escape(s1), tex_doc.tex_cleaned, re.IGNORECASE)
-                if ignore_case
-                else re.finditer(re.escape(s1), tex_doc.tex_cleaned)
-            )
-            for match in match_list:
-                start, end = match.start(), match.end() - 1
-                if not ignore_position[start]:
-                    # Ignore every infix of s1 that is also a substring of the list
-                    for i in range(start, end + 1):
-                        ignore_position[i] = True
-                    for s2 in kls.dependency[s1]:
-                        for submatch in re.finditer(
-                            re.escape(s2), tex_doc.tex_cleaned[start : end + 1]
-                        ):
-                            ignore_position[start + submatch.start()] = True
-                    # Check if s1 is precedeed by quotes, if not, either check
-                    # if we can define a new knowledge, or add the match to the
-                    # list of quotes to add.
-                    if not any(
-                        tex_doc.tex_cleaned.endswith(beg_kl, 0, start)
-                        and tex_doc.tex_cleaned.startswith(end_kl, end + 1)
-                        for (beg_kl, end_kl) in cst.KL_DELIMITERS
-                    ):
-                        start2, end2 = start, end
-                        while start2 > 0 and not stop_expanding(
-                            tex_doc.tex_cleaned[start2 - 1]
-                        ):
-                            start2 -= 1
-                        while end2 + 1 < len(
-                            tex_doc.tex_cleaned
-                        ) and not stop_expanding(tex_doc.tex_cleaned[end2 + 1]):
-                            end2 += 1
-                        # text_cleaned[start2: end2 + 1] is the maximal substring
-                        # containing text_cleaned[start, end + 1] = s1 as a factor,
-                        # and obtained by only addings letters (no space).
-                        new_kl = tex_doc.tex_cleaned[start2 : end2 + 1]
-                        if s1 != new_kl:
-                            # Propose to add new_kl as a new knowledge
-                            add_quote_location.append(
-                                NewKL(s1, start, end, new_kl, start2, end2)
-                            )
-                        else:
-                            add_quote_location.append(AddQuote(s1, start, end))
-    return add_quote(tex_doc, add_quote_location, print_line, inp, out)
+    raise NotImplementedError("Use tex_document to work on clean tex.")

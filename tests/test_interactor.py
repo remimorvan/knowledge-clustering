@@ -5,39 +5,12 @@ Tests for the modules of knowledge_clustering defining transducers.
 from knowledge_clustering.interactor import Interactor
 
 
-# def test_interactor_execute() -> None:
-#     """Tests the actions & interface."""
-
-#     def incr_state(inter: Interactor, step=1) -> None:
-#         assert inter.current_state not in inter.final_states
-#         inter.current_state += step
-
-#     ax = Action(
-#         "X", "next", lambda i: (i.current_state not in i.final_states), incr_state
-#     )
-#     ay = Action(
-#         "Y",
-#         "prev",
-#         lambda i: (i.current_state not in i.final_states),
-#         lambda i: incr_state(i, step=-1),
-#     )
-#     inter = Interactor([0, 1, 2], 0, [2], [ax, ay], "", None)
-#     assert ax.is_feasible(inter) and ay.is_feasible(inter)
-#     ax.execute(inter)
-#     assert ax.is_feasible(inter) and ay.is_feasible(inter)
-#     ay.execute(inter)
-#     ax.execute(inter)
-#     ax.execute(inter)
-#     assert not ax.is_feasible(inter)
-
-
 def test_interactor_simple() -> None:
     """Simple tests for the Interactor class."""
     atomic_states = ["after space", "final"]
     initial_state = {"after space": True, "final": False}
     final_states = "final"
     document = "ANAX JEHOVAH IS NOT A GOD. XOXO GRANNY. (KEEP IT TO YOURSELF)"
-    input_file = None
 
     def transition_change_letter(inter: Interactor) -> None:
         if inter.document_has_chars():
@@ -68,7 +41,15 @@ def test_interactor_simple() -> None:
         transition_update_state,
     ]
     inter = Interactor(
-        atomic_states, initial_state, final_states, transitions, document, input_file
+        atomic_states,
+        initial_state,
+        final_states,
+        transitions,
+        {},
+        document,
+        input_file=None,
+        output_file=None,
+        debug=True,
     )
     assert inter.has_state("after space") and not inter.has_state("final")
     inter.set_register("cpt", 0)
@@ -79,3 +60,40 @@ def test_interactor_simple() -> None:
         inter.close()
         == "Anax Jehovah Is Not A God. BEST, SNIPER. (Keep It To Yourself)"
     )
+
+
+def test_interactor_document() -> None:
+    """Tests methods related to parsing the document."""
+    doc = r"""This is a \emph{sample}  of a \LaTeX~document $\+A$ with \begin{center} environments! \end{center} and so on."""
+    inter = Interactor(["final"], {"final": False}, "final", [], {}, doc, None, None)
+    inter.document_position = 10
+    assert inter.document_has_chars()
+    assert inter.document_get_chars() == "\\"
+    assert inter.document_get_control_sequence() == "emph"
+    inter.document_position = 14
+    assert inter.document_get_argument() == "h"
+    assert inter.document_get_begin_environment() == None
+    assert inter.document_get_end_environment() == None
+    inter.document_position = 15
+    assert inter.document_get_argument() == "sample"
+    inter.document_position = 47
+    assert inter.document_get_control_sequence() == "+"
+    assert inter.document_get_begin_environment() == None
+    assert inter.document_get_end_environment() == None
+    inter.document_position = 57
+    assert inter.document_get_begin_environment() == "center"
+    assert inter.document_get_end_environment() == None
+    inter.document_position = 86
+    assert inter.document_get_begin_environment() == None
+    assert inter.document_get_end_environment() == "center"
+    inter.document_position = 99
+    assert inter.document_get_next_words(nb_words=3) == ["and", "and so", "and so on"]
+    assert inter.document_get_next_words(nb_words=5) == ["and", "and so", "and so on"]
+    inter.document_position = 9
+    assert inter.document_get_next_words(nb_words=5) == [
+        " \\emph{sample}",
+        " \\emph{sample}  of",
+        " \\emph{sample}  of a",
+        " \\emph{sample}  of a \\LaTeX",
+        " \\emph{sample}  of a \\LaTeX~document",
+    ]

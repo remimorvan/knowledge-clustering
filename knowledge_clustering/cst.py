@@ -46,6 +46,59 @@ KL_DELIMITERS: list[tuple[str, str]] = [
     ("\\phantomintro[", "]"),
 ]
 
+# Star at the end of strings are ignored
+ENV_TRIGGER_MATH_MODE: list[str] = [
+    # Standard LaTeX
+    "math",
+    "displaymath",
+    "equation",
+    "eqnarray",
+    "IEEEeqnarray",  # IEEE variant
+    # AMSMath
+    "align",
+    "gather",
+    "flalign",
+    "multline",
+    "alignat",
+    # Empheq
+    "empheq",
+    # Breqn
+    "dmath",
+    "dseries",
+    "dgroup",
+]
+
+MACRO_TRIGGER_TEXT_MODE: list[str] = [
+    # Structural Escapes
+    "text",
+    "textrm",
+    "textsf",
+    "texttt",
+    "textbf",
+    "textmd",
+    "textit",
+    "textsl",
+    "textsc",
+    "textup",
+    "textnormal",
+    "emph",
+]
+
+MACRO_TRIGGER_END_OF_WORD: list[str] = [
+    " ",
+    ".",
+    ",",
+    ";",
+    ":",
+    "(",
+    ")",
+    "!",
+    "?",
+    "~",
+    "\n",
+    "\t",
+]
+
 SEPARATION_HEADING_KL_BLOCK = "************************"
 
 IMPORTANT_POS = [

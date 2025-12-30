@@ -1,2 +1,2 @@
 """Version of knowledge-clustering."""
-VERSION = "0.8.0.dev"
+VERSION = "1.0.0dev0"
