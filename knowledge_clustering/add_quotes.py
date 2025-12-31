@@ -58,11 +58,14 @@ initial_state = {
 }
 final_state_property = "final"
 
+
 def action_tag_exec(inter: Interactor):
-    inter.update_document("", r"%kl-cl:todo\n")
-    inter.increment_position(len(r"%kl-cl:todo\n"))
+    inter.document.change_string("", r"%kl-cl:todo\n")
+    inter.document.increment_position(len(r"%kl-cl:todo\n"))
+
 
 action_tag = Action("t", "tag", action_tag_exec, False)
+
 
 def action_save_and_quit_exec(inter: Interactor):
     inter.set_state("final", True)
@@ -83,7 +86,7 @@ actions_always = [action_tag, action_save_and_quit, action_quit]
 
 def transition_check_EOF_not_reached(inter: Interactor) -> None:
     """If EOF is reached, go to final state."""
-    if not inter.document_has_chars():
+    if not inter.document.has_chars():
         inter.set_state("final", True)
 
 
@@ -94,19 +97,19 @@ def transition_check_knowledges(inter: Interactor) -> None:
     define it as a synonym, and add quotes."""
     if not inter.has_state("last char is space-ish"):
         return
-    if matches := inter.document_startswith(inter.get_register("kls")):
+    if matches := inter.document.startswith(inter.get_register("kls")):
         # Get the maximal match (any other match will be a prefix)
         maximal_match = matches[0]
         for match in matches[1:]:
             if len(match) > len(maximal_match):
                 maximal_match = match
 
-        def action_add_quotes_exec(inter: Interactor, inp: TextIO):
+        def action_add_quotes_exec(inter: Interactor):
             raise NotImplementedError
 
         action_add_quotes = Action("y", "Add quotes", action_add_quotes_exec, False)
 
-        def action_dont_add_quotes_exec(inter: Interactor, inp: TextIO):
+        def action_dont_add_quotes_exec(inter: Interactor):
             raise NotImplementedError
 
         action_dont_add_quotes = Action(
@@ -117,20 +120,21 @@ def transition_check_knowledges(inter: Interactor) -> None:
             [action_add_quotes, action_dont_add_quotes] + actions_always,
             f"Add quotes around '{maximal_match}'?",
             inter.get_input_stream(),
+            inter.get_output_stream(),
         )
-        while not actions.execute():
+        while not actions.execute(inter):
             ...
 
 
 def transition_update_state(inter: Interactor) -> None:
     """Defines the new state of the interactor."""
-    assert inter.document_has_chars()  # Handled by transition_check_EOF_not_reached
-    if inter.document_get_chars("%"):
-        inter.set_state("comment", "True")
-    if inter.has_state("comment") and inter.document_get_chars("\n"):
-        inter.set_state("comment", "False")
-    inter.set_state("last char is space-ish", not inter.document_get_chars().isalnum())
-    inter.increment_position(+1)
+    assert inter.document.has_chars()  # Handled by transition_check_EOF_not_reached
+    if inter.document.get_chars("%"):
+        inter.set_state("comment", True)
+    if inter.has_state("comment") and inter.document.get_chars("\n"):
+        inter.set_state("comment", False)
+    inter.set_state("last char is space-ish", not inter.document.get_chars().isalnum())
+    inter.document.increment_position(+1)
 
 
 def quote_maximal_substrings(
