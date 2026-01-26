@@ -28,6 +28,7 @@ To **install** `knowledge-clustering`, you need to have Python 3.9 (or a more re
 and then, in a new terminal, 
 
     pipx install knowledge
+	pipx install knowledge-clustering
     knowledge init
     
 To check if you have the latest version of `knowledge-clustering`, you can run
